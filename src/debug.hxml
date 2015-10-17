@@ -1,0 +1,5 @@
+-debug
+
+-lib sure
+
+-js ../bin/debug/js/game.js
