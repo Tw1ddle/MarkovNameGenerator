@@ -4,8 +4,6 @@ import haxe.ds.Vector;
 
 using lycan.util.IntExtensions;
 
-// TODO put these together as a big string similarity Haxelib?
-
 class EditDistanceMetrics {
 	// Returns the number of single-character edits (insertions, deletions and replacements) needed to transform the source into the target
 	// Fast iterative method that doesn't create a whole distance table up front
@@ -103,6 +101,7 @@ class EditDistanceMetrics {
 		return table[table.length - 1];
 	}
 	
+	/*
 	// Returns the Jaro similarity between the strings, 1 is perfect match, 0 is no match
 	public static function jaro(first:String, second:String):Float {
 		var f:Int = first.length;
@@ -234,6 +233,7 @@ class EditDistanceMetrics {
 	public static function jaccard(first:String, second:String):Float {
 		return 0;
 	}
+	*/
 	
 	//public static function soundex
 }

@@ -3,71 +3,127 @@
 	<head>
 		<meta charset="UTF-8"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0" />
-		<title>Markov Process Name Generation</title>
+		<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=1.0" />
+		<title>Name Generator</title>
 		<meta name="author" content="Sam Twidale" />
 		<link rel="icon" type="image/x-icon" href="icon/favicon.png"/>
 		<link rel="apple-touch-icon-precomposed" type="image/x-icon" href="icon/apple-touch-icon-precomposed.png">
 		<!--[if IE]><link rel="shortcut icon" type="image/x-icon" href="icon/favicon.ico"><![endif]-->
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/nouislider.css" />
+		<link rel="stylesheet" type="text/css" href="css/nouislider.pips.css" />
+		<link rel="stylesheet" type="text/css" href="css/fancybutton.css" />
+		<link rel="stylesheet" type="text/css" href="css/d3.css" />
 	</head>
 	
-    <body>		
-		<div id="background"></div>
+    <body>
+		<section id="header">
+			<div class="inner">
+				<!-- Icon -->
+				<h1>Random <strong>Name Generator</strong></h1>
+				<p>Generates original names using a <a href="https://en.wikipedia.org/wiki/Markov_process" target="_blank">Markov process</a>. Free and <a href="https://github.com/Tw1ddle/MarkovNameGenerator" target="_blank">open source</a>, written in <a href="http://haxe.org/" target="_blank">Haxe</a> by <a href="https://twitter.com/Sam_Twidale" target="_blank">Sam Twidale</a>.</p>
+			</div>
+		</section>
 		
-		<footer>
-			<div class="footer_top_holder">
-				<div class="footer_top">
-					<div class="container">
-						<div class="container_inner clearfix">
-							<div class="four_columns clearfix">
-								<div class="column1">
-									<div class="column_inner">
-										<div class="textwidget">
-											<a href="http://www.samcodes.co.uk/biography/" target="_blank"><img src="/www/assets/images/st_logo_dark.png" alt="logo"></a>
-										</div>
-									</div>
-								</div>
-								<div class="column2">
-									<div class="column_inner">
-										<ul id="menu-col1" class="menu">
-											<li class="menu-item"><a href="http://www.samcodes.co.uk/biography/" target="_blank">About Samuel</a></li>
-											<li class="menu-item"><a href="http://www.samcodes.co.uk/resume/" target="_blank">Resume</a></li>
-											<li class="menu-item"><a href="http://www.samcodes.co.uk/contact/" target="_blank">Contact</a></li>
-										</ul>
-									</div>
-								</div>
-								<div class="column3">
-									<div class="column_inner">
-										<ul id="menu-col2" class="menu">
-											<li class="menu-item"><a href="http://www.samcodes.co.uk/blog/" target="_blank">Blog</a></li>
-											<li class="menu-item"><a href="https://www.youtube.com/channel/UCQEp2clGi4EGZYkHEFHHrnQ/" target="_blank">YouTube</a></li>
-											<li class="menu-item"><a href="http://www.twitch.tv/samcodesit/" target="_blank">Twitch</a></li>
-										</ul>
-									</div>
-								</div>
-								<div class="column4">
-									<div class="column_inner">
-										<div class="textwidget">
-											<a href="https://github.com/Tw1ddle/" target="_blank"><img src="/www/assets/images/github.png" alt="github"></a>
-											<a href="https://twitter.com/Sam_Twidale/" target="_blank"><img src="/www/assets/images/twitter.png" alt="twitter"></a>
-											<a href="mailto:samcodesit@gmail.com" target="_blank"><img src="/www/assets/images/email.png" alt="email"></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="footer_bottom_holder">
-					<div class="footer_bottom">
-						<div class="textwidget"><p style="font-size:11px; color:#666;">&copy; 2015-2016 Samuel Twidale.</p></div>
-					</div>
+		<!-- Options and filters -->
+		<section id="one" class="main style1">			
+			<div class="settings">
+				<h2>Settings</h2>
+			
+				<h3>Process Parameters</h3>
+			
+				<label>
+					<span class="text">Training Dataset</span>
+				
+					<select id="trainingdatalist">
+					  <option value="tolkienesque_forenames">Tolkienesque Forenames</option>
+					  <option value="us_forenames">American Forenames</option>
+					  <option value="werewolf_forenames">Werewolf Forenames</option>
+					  <option value="romandeity_forenames">Roman Deity Forenames</option>
+					  <option value="norsedeity_forenames">Norse Deity Forenames</option>
+					  <option value="swedish_forenames">Swedish Forenames</option>
+					  <option value="english_towns">English Towns</option>
+					  <option value="english_towns">Theological Demons</option>
+					</select>
+				</label>
+				
+				<label>
+					<span class="text">Order</span> <div id="order" class="red"></div>
+				</label>
+				
+				<label>
+					<span class="text">Prior</span> <div id="prior" class="green"></div>
+				</label>
+				
+				<label>
+					<span class="text">Max Time</span> <div id="maxtime" class="blue"></div>
+				</label>
+				
+				<h3>Filters</h3>
+				
+				<span class="textarea">
+					<label>
+						<span class="text">Range</span> <div id="minmaxlength" class="black"></div>
+					</label>
+				</span>
+				<span class="textarea">
+					<label>
+						<span class="text">Starts With</span> <input type="text" id="startswith" class="control">
+					</label>
+				</span>
+				<span class="textarea">
+					<label>
+						<span class="text">Ends With</span> <input type="text" id="endswith" class="control">
+					</label>
+				</span>
+				<span class="textarea">
+					<label>
+						<span class="text">Include</span> <input type="text" id="includes" class="control">
+					</label>
+				</span>
+				<span class="textarea">
+					<label>
+						<span class="text">Exclude</span> <input type="text" id="excludes" class="control">
+					</label>					
+				</span>
+				
+				<h3>Sort</h3>
+				
+				<span class="textarea">
+					<label>
+						<span class="text">Similarity To</span> <input type="text" id="similar" class="control">
+					</label>					
+				</span>
+			</div>
+		</section>
+		
+		<a href="#" class="button" id="generate">
+			<span>Generate Now!</span>
+		</a>
+		
+		<div class="columnsContainer">
+			<div class="leftColumn">				
+				<!-- Data view -->
+				<section id="two" class="main style2">			
+					<div id="triegraph"></div>
+				</section>
+			</div>
+			
+			<div class="rightColumn">
+				<div class="container">
+					<h2>Generated Names</h2>
+				
+					<ul style="list-style: none;" id="currentnames">
+					</ul>
+					<ul style="list-style: none;" id="namessofar">
+					</ul>
 				</div>
 			</div>
-		</footer>
+		</div>
 		
 		<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js' charset='utf-8'></script>
+		<script type='text/javascript' src="js/wNumb.js"></script>
+		<script type='text/javascript' src="js/nouislider.js"></script>
 		<script type='text/javascript' src="js/dat.gui.js"></script>
 		<script type='text/javascript' src="js/game.js"></script>
     </body>

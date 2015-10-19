@@ -1,40 +1,41 @@
 package lycan.util.namegen;
 
-import lycan.util.namegen.Names.Name;
-
-using StringTools;
 using lycan.util.StringExtensions;
+using StringTools;
 
 class NameGenerator extends Generator {	
-	public function new(data:Array<Name>, order:Int, smoothing:Float) {
-		var names = new Array<String>();
-		for (name in data) {
-			names.push(name.name.toLowerCase());
-		}
-		super(names, order, smoothing);
+	public function new(data:Array<String>, order:Int, smoothing:Float) {
+		super(data, order, smoothing);
 	}
 	
-	// NOTE this can fail to generate a name within the constraints, if it fails it will return a generated name
-	public function generateName(minLength:Int, maxLength:Int, includes:String, excludes:String, maxAttempts:Int = 100):String {
+	// NOTE this will usually fail to generate a name within the constraints and return null
+	public function generateName(minLength:Int, maxLength:Int, startsWith:String, endsWith:String, includes:String, excludes:String):String {		
 		var name = "";
-		var attempts:Int = 0;
-		while (attempts < maxAttempts) {
-			name = generate();
-			name = name.replace("#", "");
-			if (name.length >= minLength && name.length <= maxLength && name.contains(includes) && name.contains(excludes)) {
-				return name;
-			}
-			attempts++;
+		
+		name = generate();
+		name = name.replace("#", "");
+		if (name.length >= minLength && name.length <= maxLength && name.startsWith(startsWith) && name.endsWith(endsWith) && (includes.length == 0 || name.contains(includes)) && (excludes.length == 0 || !name.contains(excludes))) {
+			return name;
 		}
 		
-		return name;
+		return null;
 	}
 	
-	public function generateNames(n:Int, minLength:Int, maxLength:Int, includes:String, excludes:String, maxAttempts:Int = 100):Array<String> {
+	public function generateNames(n:Int, minLength:Int, maxLength:Int, startsWith:String, endsWith:String, includes:String, excludes:String, maxTimePerName:Float = 0.02):Array<String> {
 		var names = new Array<String>();
-		for (i in 0...n) {
-			names.push(generateName(minLength, maxLength, includes, excludes, maxAttempts));
+		
+		var startTime = Date.now().getTime();
+		var currentTime = Date.now().getTime();
+		
+		while (names.length < n && currentTime > startTime + (maxTimePerName * n)) {
+			var name = generateName(minLength, maxLength, startsWith, endsWith, includes, excludes);
+			if (name != null) {
+				names.push(name);
+			}
+			
+			currentTime = Date.now().getTime();
 		}
+		
 		return names;
 	}
 }

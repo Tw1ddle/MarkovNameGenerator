@@ -33,6 +33,7 @@ class ArrayExtensions {
 	}
 	
 	public static function noNulls<T>(array:Array<T>):Bool {
+		Sure.sure(array != null);
 		for (e in array) {
 			if (e == null) {
 				return false;

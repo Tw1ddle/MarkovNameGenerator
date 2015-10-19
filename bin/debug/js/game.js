@@ -8,6 +8,15 @@ function $extend(from, fields) {
 }
 var HxOverrides = function() { };
 HxOverrides.__name__ = true;
+HxOverrides.substr = function(s,pos,len) {
+	if(pos != null && pos != 0 && len != null && len < 0) return "";
+	if(len == null) len = s.length;
+	if(pos < 0) {
+		pos = s.length + pos;
+		if(pos < 0) pos = 0;
+	} else if(len < 0) len = s.length + len - pos;
+	return s.substr(pos,len);
+};
 HxOverrides.indexOf = function(a,obj,i) {
 	var len = a.length;
 	if(i < 0) {
@@ -33,7 +42,51 @@ HxOverrides.iter = function(a) {
 		return this.arr[this.cur++];
 	}};
 };
+var List = function() {
+	this.length = 0;
+};
+List.__name__ = true;
+List.prototype = {
+	add: function(item) {
+		var x = [item];
+		if(this.h == null) this.h = x; else this.q[1] = x;
+		this.q = x;
+		this.length++;
+	}
+	,pop: function() {
+		if(this.h == null) return null;
+		var x = this.h[0];
+		this.h = this.h[1];
+		if(this.h == null) this.q = null;
+		this.length--;
+		return x;
+	}
+	,isEmpty: function() {
+		return this.h == null;
+	}
+};
 var Main = function() {
+	this.similar = "alina";
+	this.excludes = "z";
+	this.includes = "l";
+	this.endsWith = "";
+	this.startsWith = "a";
+	this.maxProcessingTime = 500;
+	this.prior = 0.01;
+	this.order = 3;
+	this.maxLength = 10;
+	this.minLength = 7;
+	this.numToGenerate = 100;
+	this.trainingDataKey = "tolkienesque_forenames";
+	this.trainingData = new haxe_ds_StringMap();
+	this.trainingData.set("us_forenames","james\r\njohn\r\nrobert\r\nmichael\r\nwilliam\r\ndavid\r\nrichard\r\ncharles\r\njoseph\r\nthomas\r\nchristopher\r\ndaniel\r\npaul\r\nmark\r\ndonald\r\ngeorge\r\nkenneth\r\nsteven\r\nedward\r\nbrian\r\nronald\r\nanthony\r\nkevin\r\njason\r\nmatthew\r\ngary\r\ntimothy\r\njose\r\nlarry\r\njeffrey\r\nfrank\r\nscott\r\neric\r\nstephen\r\nandrew\r\nraymond\r\ngregory\r\njoshua\r\njerry\r\ndennis\r\nwalter\r\npatrick\r\npeter\r\nharold\r\ndouglas\r\nhenry\r\ncarl\r\narthur\r\nryan\r\nroger\r\njoe\r\njuan\r\njack\r\nalbert\r\njonathan\r\njustin\r\nterry\r\ngerald\r\nkeith\r\nsamuel\r\nwillie\r\nralph\r\nlawrence\r\nnicholas\r\nroy\r\nbenjamin\r\nbruce\r\nbrandon\r\nadam\r\nharry\r\nfred\r\nwayne\r\nbilly\r\nsteve\r\nlouis\r\njeremy\r\naaron\r\nrandy\r\nhoward\r\neugene\r\ncarlos\r\nrussell\r\nbobby\r\nvictor\r\nmartin\r\nernest\r\nphillip\r\ntodd\r\njesse\r\ncraig\r\nalan\r\nshawn\r\nclarence\r\nsean\r\nphilip\r\nchris\r\njohnny\r\nearl\r\njimmy\r\nantonio\r\ndanny\r\nbryan\r\ntony\r\nluis\r\nmike\r\nstanley\r\nleonard\r\nnathan\r\ndale\r\nmanuel\r\nrodney\r\ncurtis\r\nnorman\r\nallen\r\nmarvin\r\nvincent\r\nglenn\r\njeffery\r\ntravis\r\njeff\r\nchad\r\njacob\r\nlee\r\nmelvin\r\nalfred\r\nkyle\r\nfrancis\r\nbradley\r\njesus\r\nherbert\r\nfrederick\r\nray\r\njoel\r\nedwin\r\ndon\r\neddie\r\nricky\r\ntroy\r\nrandall\r\nbarry\r\nalexander\r\nbernard\r\nmario\r\nleroy\r\nfrancisco\r\nmarcus\r\nmicheal\r\ntheodore\r\nclifford\r\nmiguel\r\noscar\r\njay\r\njim\r\ntom\r\ncalvin\r\nalex\r\njon\r\nronnie\r\nbill\r\nlloyd\r\ntommy\r\nleon\r\nderek\r\nwarren\r\ndarrell\r\njerome\r\nfloyd\r\nleo\r\nalvin\r\ntim\r\nwesley\r\ngordon\r\ndean\r\ngreg\r\njorge\r\ndustin\r\npedro\r\nderrick\r\ndan\r\nlewis\r\nzachary\r\ncorey\r\nherman\r\nmaurice\r\nvernon\r\nroberto\r\nclyde\r\nglen\r\nhector\r\nshane\r\nricardo\r\nsam\r\nrick\r\nlester\r\nbrent\r\nramon\r\ncharlie\r\ntyler\r\ngilbert\r\ngene\r\nmarc\r\nreginald\r\nruben\r\nbrett\r\nangel\r\nnathaniel\r\nrafael\r\nleslie\r\nedgar\r\nmilton\r\nraul\r\nben\r\nchester\r\ncecil\r\nduane\r\nfranklin\r\nandre\r\nelmer\r\nbrad\r\ngabriel\r\nron\r\nmitchell\r\nroland\r\narnold\r\nharvey\r\njared\r\nadrian\r\nkarl\r\ncory\r\nclaude\r\nerik\r\ndarryl\r\njamie\r\nneil\r\njessie\r\nchristian\r\njavier\r\nfernando\r\nclinton\r\nted\r\nmathew\r\ntyrone\r\ndarren\r\nlonnie\r\nlance\r\ncody\r\njulio\r\nkelly\r\nkurt\r\nallan\r\nnelson\r\nguy\r\nclayton\r\nhugh\r\nmax\r\ndwayne\r\ndwight\r\narmando\r\nfelix\r\njimmie\r\neverett\r\njordan\r\nian\r\nwallace\r\nken\r\nbob\r\njaime\r\ncasey\r\nalfredo\r\nalberto\r\ndave\r\nivan\r\njohnnie\r\nsidney\r\nbyron\r\njulian\r\nisaac\r\nmorris\r\nclifton\r\nwillard\r\ndaryl\r\nross\r\nvirgil\r\nandy\r\nmarshall\r\nsalvador\r\nperry\r\nkirk\r\nsergio\r\nmarion\r\ntracy\r\nseth\r\nkent\r\nterrance\r\nrene\r\neduardo\r\nterrence\r\nenrique\r\nfreddie\r\nwade\r\nmary\r\npatricia\r\nlinda\r\nbarbara\r\nelizabeth\r\njennifer\r\nmaria\r\nsusan\r\nmargaret\r\ndorothy\r\nlisa\r\nnancy\r\nkaren\r\nbetty\r\nhelen\r\nsandra\r\ndonna\r\ncarol\r\nruth\r\nsharon\r\nmichelle\r\nlaura\r\nsarah\r\nkimberly\r\ndeborah\r\njessica\r\nshirley\r\ncynthia\r\nangela\r\nmelissa\r\nbrenda\r\namy\r\nanna\r\nrebecca\r\nvirginia\r\nkathleen\r\npamela\r\nmartha\r\ndebra\r\namanda\r\nstephanie\r\ncarolyn\r\nchristine\r\nmarie\r\njanet\r\ncatherine\r\nfrances\r\nann\r\njoyce\r\ndiane\r\nalice\r\njulie\r\nheather\r\nteresa\r\ndoris\r\ngloria\r\nevelyn\r\njean\r\ncheryl\r\nmildred\r\nkatherine\r\njoan\r\nashley\r\njudith\r\nrose\r\njanice\r\nkelly\r\nnicole\r\njudy\r\nchristina\r\nkathy\r\ntheresa\r\nbeverly\r\ndenise\r\ntammy\r\nirene\r\njane\r\nlori\r\nrachel\r\nmarilyn\r\nandrea\r\nkathryn\r\nlouise\r\nsara\r\nanne\r\njacqueline\r\nwanda\r\nbonnie\r\njulia\r\nruby\r\nlois\r\ntina\r\nphyllis\r\nnorma\r\npaula\r\ndiana\r\nannie\r\nlillian\r\nemily\r\nrobin\r\npeggy\r\ncrystal\r\ngladys\r\nrita\r\ndawn\r\nconnie\r\nflorence\r\ntracy\r\nedna\r\ntiffany\r\ncarmen\r\nrosa\r\ncindy\r\ngrace\r\nwendy\r\nvictoria\r\nedith\r\nkim\r\nsherry\r\nsylvia\r\njosephine\r\nthelma\r\nshannon\r\nsheila\r\nethel\r\nellen\r\nelaine\r\nmarjorie\r\ncarrie\r\ncharlotte\r\nmonica\r\nesther\r\npauline\r\nemma\r\njuanita\r\nanita\r\nrhonda\r\nhazel\r\namber\r\neva\r\ndebbie\r\napril\r\nleslie\r\nclara\r\nlucille\r\njamie\r\njoanne\r\neleanor\r\nvalerie\r\ndanielle\r\nmegan\r\nalicia\r\nsuzanne\r\nmichele\r\ngail\r\nbertha\r\ndarlene\r\nveronica\r\njill\r\nerin\r\ngeraldine\r\nlauren\r\ncathy\r\njoann\r\nlorraine\r\nlynn\r\nsally\r\nregina\r\nerica\r\nbeatrice\r\ndolores\r\nbernice\r\naudrey\r\nyvonne\r\nannette\r\njune\r\nsamantha\r\nmarion\r\ndana\r\nstacy\r\nana\r\nrenee\r\nida\r\nvivian\r\nroberta\r\nholly\r\nbrittany\r\nmelanie\r\nloretta\r\nyolanda\r\njeanette\r\nlaurie\r\nkatie\r\nkristen\r\nvanessa\r\nalma\r\nsue\r\nelsie\r\nbeth\r\njeanne\r\nvicki\r\ncarla\r\ntara\r\nrosemary\r\neileen\r\nterri\r\ngertrude\r\nlucy\r\ntonya\r\nella\r\nstacey\r\nwilma\r\ngina\r\nkristin\r\njessie\r\nnatalie\r\nagnes\r\nvera\r\nwillie\r\ncharlene\r\nbessie\r\ndelores\r\nmelinda\r\npearl\r\narlene\r\nmaureen\r\ncolleen\r\nallison\r\ntamara\r\njoy\r\ngeorgia\r\nconstance\r\nlillie\r\nclaudia\r\njackie\r\nmarcia\r\ntanya\r\nnellie\r\nminnie\r\nmarlene\r\nheidi\r\nglenda\r\nlydia\r\nviola\r\ncourtney\r\nmarian\r\nstella\r\ncaroline\r\ndora\r\njo\r\nvickie\r\nmattie\r\nterry\r\nmaxine\r\nirma\r\nmabel\r\nmarsha\r\nmyrtle\r\nlena\r\nchristy\r\ndeanna\r\npatsy\r\nhilda\r\ngwendolyn\r\njennie\r\nnora\r\nmargie\r\nnina\r\ncassandra\r\nleah\r\npenny\r\nkay\r\npriscilla\r\nnaomi\r\ncarole\r\nbrandy\r\nolga\r\nbillie\r\ndianne\r\ntracey\r\nleona\r\njenny\r\nfelicia\r\nsonia\r\nmiriam\r\nvelma\r\nbecky\r\nbobbie\r\nviolet\r\nkristina\r\ntoni\r\nmisty\r\nmae\r\nshelly\r\ndaisy\r\nramona\r\nsherri\r\nerika\r\nkatrina\r\nclaire\r\nlindsey\r\nlindsay\r\ngeneva\r\nguadalupe\r\nbelinda\r\nmargarita\r\nsheryl\r\ncora\r\nfaye\r\nada\r\nnatasha\r\nsabrina\r\nisabel\r\nmarguerite\r\nhattie\r\nharriet\r\nmolly\r\ncecilia\r\nkristi\r\nbrandi\r\nblanche\r\nsandy\r\nrosie\r\njoanna\r\niris\r\neunice\r\nangie\r\ninez\r\nlynda\r\nmadeline\r\namelia\r\nalberta\r\ngenevieve\r\nmonique\r\njodi\r\njanie\r\nmaggie\r\nkayla\r\nsonya\r\njan\r\nlee\r\nkristine\r\ncandace\r\nfannie\r\nmaryann\r\nopal\r\nalison\r\nyvette\r\nmelody\r\nluz\r\nsusie\r\nolivia\r\nflora\r\nshelley\r\nkristy\r\nmamie\r\nlula\r\nlola\r\nverna\r\nbeulah\r\nantoinette\r\ncandice\r\njuana\r\njeannette\r\npam\r\nkelli\r\nhannah\r\nwhitney\r\nbridget\r\nkarla\r\ncelia\r\nlatoya\r\npatty\r\nshelia\r\ngayle\r\ndella\r\nvicky\r\nlynne\r\nsheri\r\nmarianne\r\nkara\r\njacquelyn\r\nerma\r\nblanca\r\nmyra\r\nleticia\r\npat\r\nkrista\r\nroxanne\r\nangelica\r\njohnnie\r\nrobyn\r\nfrancis\r\nadrienne\r\nrosalie\r\nalexandra\r\nbrooke\r\nbethany\r\nsadie\r\nbernadette\r\ntraci\r\njody\r\nkendra\r\njasmine\r\nnichole\r\nrachael\r\nchelsea\r\nmable\r\nernestine\r\nmuriel\r\nmarcella\r\nelena\r\nkrystal\r\nangelina\r\nnadine\r\nkari\r\nestelle\r\ndianna\r\npaulette\r\nlora\r\nmona\r\ndoreen\r\nrosemarie\r\nangel\r\ndesiree\r\nantonia\r\nhope\r\nginger\r\njanis\r\nbetsy\r\nchristie\r\nfreda\r\nmercedes\r\nmeredith\r\nlynette\r\nteri\r\ncristina\r\neula\r\nleigh\r\nmeghan\r\nsophia\r\neloise\r\nrochelle\r\ngretchen\r\ncecelia\r\nraquel\r\nhenrietta\r\nalyssa\r\njana\r\nkelley\r\ngwen\r\nkerry\r\njenna\r\ntricia\r\nlaverne\r\nolive\r\nalexis\r\ntasha\r\nsilvia\r\nelvira\r\ncasey\r\ndelia\r\nsophie\r\nkate\r\npatti\r\nlorena\r\nkellie\r\nsonja\r\nlila\r\nlana\r\ndarla\r\nmay\r\nmindy\r\nessie\r\nmandy\r\nlorene\r\nelsa\r\njosefina\r\njeannie\r\nmiranda\r\ndixie\r\nlucia\r\nmarta\r\nfaith\r\nlela\r\njohanna\r\nshari\r\ncamille\r\ntami\r\nshawna\r\nelisa\r\nebony\r\nmelba\r\nora\r\nnettie\r\ntabitha\r\nollie\r\njaime\r\nwinifred\r\nkristie".split("\n"));
+	this.trainingData.set("tolkienesque_forenames","alfwine\r\nabattârik\r\nadanedhel\r\nadanel\r\nadrahil\r\nadûnakhôr\r\naegnor\r\naerin\r\nagarwaen\r\naikanáro\r\naiwendil\r\nalatar\r\nalatáriel\r\nalcarin\r\naldamir\r\naldarion\r\naldaron\r\naldor\r\namandil\r\namdír\r\namlaith\r\namras\r\namrod\r\namroth\r\namrothos\r\nanairë\r\nanardil\r\nanárion\r\nanborn\r\nancalagon\r\nancalimë\r\nancalimon\r\nandrast\r\nanducal\r\nanfauglir\r\nandreth\r\nandróg\r\nangbor\r\nangrod\r\nannatar\r\narador\r\naraglas\r\naragorn\r\naragost\r\narahad\r\narahael\r\naranarth\r\narantar\r\naranuir\r\naraphant\r\naraphor\r\narassuil\r\naratan\r\naratar\r\narathorn\r\naraval\r\naravir\r\naravorn\r\naredhel\r\nargeleb\r\nargon\r\nargonui\r\narien\r\naros\r\narthedain\r\narvedui\r\narvegil\r\narveleg\r\narwen\r\nasfaloth\r\natanamir\r\natanatar\r\naulë\r\nausir\r\navranc\r\nazaghâl\r\nazog\r\nbaldor\r\nbalin\r\nbaragund\r\nbarahir\r\nbarahir\r\nbaran\r\nbard\r\nbauglir\r\nbelecthor\r\nbeleg\r\nbelegorn\r\nbelegund\r\nbelemir\r\nbëor\r\nbeorn\r\nbereg\r\nberegond\r\nberen\r\nbergil\r\nbert\r\nberúthiel\r\nbifur\r\nboldog\r\nberylla\r\nbofur\r\nbolg\r\nbolger\r\nbombadil\r\nbombur\r\nbór\r\nborin\r\nboromir\r\nboron\r\nborondir\r\nbrand\r\nbrandir\r\ngormadoc\r\nmeriadoc\r\nprimula\r\nbrego\r\nbregolas\r\nbregor\r\nbrodda\r\nbrytta\r\nbucca\r\nbarliman\r\ncalembel\r\ncalimehtar\r\ncalion\r\ncalmacil\r\ncalmacil\r\ncaranthir\r\ncarcharoth\r\ncastamir\r\ncemendur\r\nceleborn\r\ncelebrían\r\ncelebrimbor\r\ncelebrindor\r\ncelegorm\r\ncelepharn\r\nceorl\r\ncírdan\r\ncirion\r\nciryaher\r\nciryandil\r\nciryatan\r\nciryon\r\ncotton\r\ncurufin\r\ncurunír\r\ndaeron\r\ndáin\r\ndéagol\r\ndenethor\r\ndéor\r\ndeórwine\r\ndernhelm\r\ndior\r\ndís\r\ndori\r\ndorlas\r\ndraugluin\r\nduilin\r\ndurin\r\ndwalin\r\neärendil\r\neärendur\r\namandil\r\neärnil\r\neärnur\r\neärwen\r\necthelion\r\negalmoth\r\neilinel\r\nelanor\r\nelbereth\r\neldacar\r\neldarion\r\nelemmakil\r\nelendil\r\nelendor\r\nelendur\r\nelenna\r\nelenwë\r\nelessar\r\nelfhelm\r\nelfhild\r\nelfwine\r\nelladan\r\nelmo\r\nelrohir\r\nelrond\r\nelros\r\nelu\r\nelwë\r\nelwing\r\nelven\r\nking\r\nemeldir\r\nemerië\r\nenel\r\nenelyë\r\neöl\r\néomer\r\néomund\r\neönwë\r\neorl\r\néothain\r\néothéod\r\néowyn\r\neradan\r\nerendis\r\nerestor\r\nerkenbrand\r\nilúvatar\r\nestel\r\nestelmo\r\nestë\r\nfalassion\r\nfaniel\r\nfaramir\r\nfastred\r\nfëanor\r\nfelaróf\r\nfengel\r\nfíli\r\nfinarfin\r\nfindis\r\nfinduilas\r\nfinduilas\r\nfingolfin\r\nfingon\r\nfinrod\r\nfinvain\r\nfinwë\r\nfíriel\r\nfolcwine\r\nfréa\r\nfréaláf\r\nfréawine\r\nfreca\r\nfrerin\r\nfrór\r\nfuinur\r\nfundin\r\ngalador\r\ngaladriel\r\ngaldor\r\ngamil\r\ngamling\r\ngandalf\r\nghânburi\r\ngilgalad\r\ngildor\r\ngilrain\r\ngimilkhâd\r\ngimilzôr\r\ngimli\r\nginglith\r\ngirion\r\nglanhír\r\nglaurung\r\nglóin\r\nglóredhel\r\nglorfindel\r\ngoldberry\r\ngoldwine\r\ngolfimbul\r\ngollum\r\ngorbag\r\ngorlim\r\ngorthaur\r\ngothmog\r\ngram\r\ngríma\r\ngrimbold\r\ngrishnákh\r\ngrór\r\ngwaihir\r\ngwathir\r\ngwindor\r\nhador\r\nhalbarad\r\nhaldad\r\nhaldan\r\nhaldar\r\nhaldir\r\nhaleth\r\nhallas\r\nhalmir\r\nháma\r\nhandir\r\nhardang\r\nhareth\r\nhelm\r\nherion\r\nherucalmo\r\nherumor\r\nherunúmen\r\nhirgon\r\nhiril\r\nhostamir\r\nhuan\r\nhundar\r\nhuor\r\nhúrin\r\nhyarmendacil\r\nibûn\r\nidril\r\nilmarë\r\nilúvatar\r\nimbar\r\nimin\r\niminyë\r\nimrahil\r\nindis\r\ninglor\r\ningwë\r\ninziladûn\r\ninzilbêth\r\nírildë\r\nirimë\r\nirmo\r\nisildur\r\nisilmë\r\nisilmo\r\nivriniel\r\nkhamûl\r\nkhîm\r\nkíli\r\narthedain\r\nlagduf\r\nlalaith\r\nlegolas\r\nlenwë\r\nléod\r\nlindir\r\nlugdush\r\nlúthien\r\nlurtz\r\nmablung\r\nmaedhros\r\nmaeglin\r\nmaglor\r\nmagor\r\nmahtan\r\nmaiar\r\nmalach\r\nmallor\r\nmalvegil\r\nmanthor\r\nmanwë\r\nmarach\r\nvoronwë\r\nmauhúr\r\nmelian\r\nmeleth\r\nmeneldil\r\nmeneldur\r\nmîm\r\nminalcar\r\nminardil\r\nminastir\r\nminyatur\r\nmírielar\r\nzimraphel\r\nmírielserindë\r\nmithrandir\r\nmorgoth\r\nmorwen\r\nmorwen\r\nmuzgash\r\nnahar\r\nnáin\r\nnámo\r\nnarmacil\r\nnarvi\r\nnerdanel\r\nnessa\r\nnienna\r\nnienor\r\nnimloth\r\nnimrodel\r\nníniel\r\nnóm\r\nnori\r\nohtar\r\nóin\r\nolórin\r\nolwë\r\nondoher\r\nori\r\nornendil\r\norodreth\r\noromë\r\noropher\r\norophin\r\nossë\r\nostoher\r\npallando\r\npalantir\r\npelendur\r\npengolodh\r\npharazôn\r\nberúthiel\r\nradagast\r\nrían\r\nrómendacil\r\nrúmil\r\nlobelia\r\nlotho\r\nsador\r\nsaeros\r\nsakalthôr\r\nsalgant\r\nsalmar\r\nsaruman\r\nsauron\r\nscatha\r\nshadowfax\r\nshagrat\r\nshelob\r\nsilmariën\r\nsingollo\r\nsiriondil\r\nsmaug\r\nsméagol\r\nsnowmane\r\nsoronto\r\nstrider\r\nsúrion\r\nelmar\r\ntarcil\r\ntarondor\r\ntarannon\r\ntata\r\ntatië\r\ntelchar\r\ntelemmaitë\r\ntelemnar\r\ntelperiën\r\ntelumehtar\r\nthengel\r\nthéoden\r\nthéodred\r\nthéodwyn\r\nthingol\r\nthorin\r\nthorondir\r\nthorondor\r\nthráin\r\nthranduil\r\nthrór\r\ntilion\r\ntindomiel\r\ntinúviel\r\nadalgrim\r\nbelladonna\r\nferumbras\r\nfortinbras\r\ngerontius\r\nisumbras\r\npaladin\r\nperegrin\r\npervinca\r\ntulkas\r\ntuor\r\nturgon\r\nturambar\r\ntúrin\r\nufthak\r\nuglúk\r\nuinen\r\nuldor\r\nulfang\r\nulfast\r\nulwarth\r\nulmo\r\numbardacil\r\nundómiel\r\nungoliant\r\nuolë\r\nkúvion\r\nurwen\r\nvairë\r\nvalacar\r\nvalandil\r\nvalandur\r\nvána\r\nvanimeldë\r\nvarda\r\nvardamir\r\nnólimon\r\nvidugavia\r\nvidumavi\r\nvinyarion\r\nvorondil\r\nvoronwë\r\nwalda\r\nwormtongue\r\nyavanna\r\nyávien\r\nzimraphel\r\nzimrathôn".split("\n"));
+	this.trainingData.set("werewolf_forenames","accalia\r\nadalwolf\r\nadalwolfa\r\nadolpha\r\nadolphus\r\namaguk\r\namarog\r\namoux\r\namwolf\r\nardolf\r\nardwolf\r\naudolf\r\nbardalph\r\nbardolf\r\nbeowulf\r\nbiryuk\r\nbleddyn\r\nbledig\r\nbleidd\r\nbodolf\r\nbotewolf\r\nbotolf\r\nbotwolf\r\ncana\r\ncanagan\r\nchann\r\nchanteloup\r\nconall\r\nconan\r\ncuan\r\ndolph\r\ndolphus\r\nethelwulf\r\neyolf\r\nfaolan\r\nfarkas\r\nfelan\r\nfenris\r\nfreki\r\nfridolf\r\nfriduwulf\r\ngeirolf\r\nguadalupe\r\ngunnolf\r\nhoniahaka\r\nhrolf\r\nhrolleif\r\ningolf\r\nivaylo\r\nlandga\r\nleidolf\r\nleloo\r\nlobo\r\nloup\r\nlowell\r\nlupe\r\nluperca\r\nlupo\r\nlupu\r\nlupus\r\nlyall\r\nlykaios\r\nmaccon\r\nmaengun\r\nmaheegan\r\nmahigan\r\nmaicoh\r\nmaiyun\r\nmakoce\r\nmingan\r\nmohegan\r\nnashoba\r\nnuntis\r\nodolf\r\nodwolfe\r\nolcan\r\nonai\r\nphelan\r\nradolf\r\nraff\r\nralph\r\nrand\r\nrandale\r\nrandall\r\nrandi\r\nrandolph\r\nranulfo\r\nraoul\r\nraul\r\nrendall\r\nreule\r\nrezso\r\nrodolfo\r\nrolf\r\nrudi\r\nrudolph\r\nsandalio\r\nseff\r\nshunkaha\r\nsingarti\r\nsirhaan\r\nsköll\r\nsusi\r\ntala\r\ntasha\r\ntate\r\ntchono\r\ntoralu\r\nudolf\r\nudolph\r\nujku\r\nulf\r\nulfred\r\nulger\r\nullok\r\nulmar\r\nulmer\r\nulric\r\nulvelaik\r\nuwais\r\nvarg\r\nvelvel\r\nvilkas\r\nvilks\r\nvuk\r\nvukasin\r\nweylyn\r\nwolfgang\r\nwolfram\r\nwolfrik\r\nwoolsey\r\nwulfgar\r\nylva".split("\n"));
+	this.trainingData.set("romandeity_forenames","abeona\r\nabudantia\r\nadeona\r\naequitas\r\naera\r\naeternitas\r\nafricus\r\nalemonia\r\nangerona\r\nangita\r\nanna\r\nantevorte\r\naquilo\r\naurora\r\nauster\r\nbona\r\ncamenaees\r\ncandelifera\r\ncardea\r\ncarmenta\r\ncarnea\r\ncinxia\r\nclementia\r\ncloacina\r\ncoelus\r\nconcordia\r\nconditor\r\nconsus\r\nconvector\r\ncopia\r\ncorus\r\ncunina\r\ndea\r\ndea\r\ndecima\r\ndia\r\ndevera\r\ndeverra\r\ndisciplina\r\ndiscordia\r\ndius\r\negestes\r\nempanda\r\neventus\r\nfabulinus\r\nfama\r\nfauna\r\nfaunus\r\nfaustitas\r\nfavonius\r\nfebris\r\nfelicitas\r\nferonia\r\nfides\r\nflora\r\nfontus\r\nfornax\r\nfortuna\r\nfulgora\r\nfurina\r\nhonos\r\nindivia\r\njuturna\r\njuventas\r\nlactans\r\nlares\r\nlaverna\r\nliber\r\nlibera\r\nliberalitas\r\nlibertas\r\nlibitina\r\nlima\r\nlucifer\r\nlucina\r\nluna\r\nmaia\r\nmaiesta\r\nmania\r\nmanes\r\nmatuta\r\nmeditrina\r\nmefitas\r\nmellona\r\nmena\r\nmens\r\nmessor\r\nmoneta\r\nmors\r\nmorta\r\nmuta\r\nmutinus\r\nnaenia\r\nnecessitas\r\nnemestrinus\r\nnona\r\nnox\r\nnundina\r\nobarator\r\noccator\r\norbona\r\norcus\r\npales\r\nparcaes\r\npax\r\npenates\r\npicus\r\npietas\r\npoena\r\npomona\r\nportunes\r\nporus\r\npostverta\r\npotina\r\npriapus\r\nprorsa\r\nprovidentia\r\npudicitia\r\nputa\r\nquirinus\r\nquiritis\r\nrobigo\r\nrobigus\r\nroma\r\nrumina\r\nsancus\r\nsaritor\r\nsecuritas\r\nsemonia\r\nsors\r\nspes\r\nstata\r\nstimula\r\nstrenua\r\nsuadela\r\nsubrincinator\r\nsummanus\r\ntempestes\r\nterminus\r\nterra\r\ntrivia\r\nvacuna\r\nveritas\r\nvertumnus\r\nviduus\r\nviriplacaa\r\nvirtus\r\nvitumnus\r\nvolturnus\r\nvolumna\r\nvulturnus\r\napollo\r\ndemeter\r\ndiana\r\nartemis\r\njuno\r\nhera\r\njupiter\r\nzeus\r\nmars\r\nares\r\nmercury\r\nhermes\r\nminerva\r\nathena\r\nmenrva\r\nneptune\r\nposeidon\r\nvenus\r\naphrodite\r\nvesta\r\nhestia\r\nvulcan\r\nhephaestus\r\nasclepius\r\nattis\r\nbacchus\r\nbellona\r\nbubona\r\nceres\r\ncupid\r\ncybele\r\ndis\r\nendovelicus\r\nfaunus\r\nfuries\r\nhercules\r\nisis\r\njanus\r\nmithras\r\nops\r\nsalus\r\nserapis\r\nsaturn\r\nsilvanus\r\nsol\r\nsol\r\nsomnus\r\ntellus\r\nveiovis\r\nvictoria".split("\n"));
+	this.trainingData.set("norsedeity_forenames","brynhildr\r\neir\r\ngeirahöð\r\ngeiravör\r\ngeirdriful\r\ngeirönul\r\ngeirskögul\r\ngöll\r\ngöndul\r\nguðr\r\ngunnr\r\nherfjötur\r\nherja\r\nhlaðguðr\r\nhildr\r\nhjalmþrimul\r\nhervör\r\nhjörþrimul\r\nhlökk\r\nhrist\r\nhrund\r\nkára\r\nmist\r\nölrún\r\nrandgríðr\r\nráðgríðr\r\nreginleif\r\nróta\r\nsanngriðr\r\nsigrdrífa\r\nsigrún\r\nskalmöld\r\nskeggöld\r\nskögul\r\nskuld\r\nsveið\r\nsvipul\r\nþögn\r\nþrima\r\nþrúðr\r\nbaduhenna\r\nbil\r\nbeyla\r\neir\r\nēostre\r\nfreyja\r\nfrigg\r\nfulla\r\ngefjun\r\ngersemi\r\ngerðr\r\ngná\r\ngullveig\r\nhariasa\r\nhlín\r\nhretha\r\nhnoss\r\nilmr\r\niðunn\r\nirpa\r\nlofn\r\nnanna\r\nnerthus\r\nnjörun\r\nrán\r\nrindr\r\nsága\r\nsandraudiga\r\nsif\r\nsigyn\r\nsinthgunt\r\nsjöfn\r\nskaði\r\nsnotra\r\nsól\r\nsyn\r\ntanfana\r\nþrúðr\r\nþorgerðr\r\nvár\r\nvör\r\nzisa\r\nbaldr\r\nbragi\r\ndellingr\r\nforseti\r\nfreyr\r\nheimdallr\r\nhermóðr\r\nhöðr\r\nhœnir\r\nlóðurr\r\nloki\r\nmáni\r\nmeili\r\nnjörðr\r\nodin\r\nóðr\r\nsaxnōt\r\nthor\r\ntýr\r\nullr\r\nváli\r\nviðarr\r\nvé\r\nvili".split("\n"));
+	this.trainingData.set("swedish_forenames","elsa\r\nalice\r\nmaja\r\nagnes\r\nlilly\r\nolivia\r\njulia\r\nebba\r\nlinnea\r\nmolly\r\nella\r\nwilma\r\nklara\r\nstella\r\nfreja\r\nalicia\r\nalva\r\nalma\r\nisabelle\r\nellen\r\nsaga\r\nellie\r\nastrid\r\nemma\r\nnellie\r\nemilia\r\nvera\r\nsigne\r\nelvira\r\nnova\r\nselma\r\nester\r\nleah\r\nfelicia\r\nsara\r\nsofia\r\nelise\r\nines\r\ntyra\r\namanda\r\nelin\r\nida\r\nmoa\r\nmeja\r\nisabella\r\ntuva\r\nnora\r\nsiri\r\nmatilda\r\nsigrid\r\nedith\r\nlovisa\r\njuni\r\nliv\r\nlova\r\nhanna\r\ntilde\r\niris\r\nthea\r\nemelie\r\nmelissa\r\ncornelia\r\nleia\r\ningrid\r\nlivia\r\njasmine\r\nnathalie\r\ngreta\r\nstina\r\njoline\r\nfilippa\r\nemmy\r\nsvea\r\nmärta\r\ntilda\r\nhilda\r\nmajken\r\nceline\r\nellinor\r\nlykke\r\nnovalie\r\nlinn\r\ntindra\r\nmy\r\nmira\r\nrut\r\nronja\r\nhilma\r\nlisa\r\nmaria\r\nelina\r\nlovis\r\nminna\r\nhedda\r\namelia\r\nsally\r\nnicole\r\nvictoria\r\nluna\r\nanna\r\nelisa\r\nlucas\r\nwilliam\r\noscar\r\noliver\r\nliam\r\nelias\r\nhugo\r\nvincent\r\ncharlie\r\nalexander\r\naxel\r\nludvig\r\nelliot\r\nnoah\r\nleo\r\nviktor\r\nfilip\r\narvid\r\nalfred\r\nnils\r\nisak\r\nemil\r\ntheo\r\ntheodor\r\nedvin\r\nmelvin\r\ngustav\r\nsixten\r\nadam\r\nanton\r\nbenjamin\r\nolle\r\nvalter\r\nerik\r\nadrian\r\nalbin\r\nleon\r\nharry\r\nmax\r\ngabriel\r\nmalte\r\nmelker\r\njosef\r\nmohamed\r\nviggo\r\nebbe\r\nwilmer\r\nalvin\r\ncasper\r\nlove\r\njacob\r\njack\r\nkevin\r\nfelix\r\naugust\r\nloke\r\ncarl\r\nmilo\r\nsigge\r\nnoel\r\njonathan\r\nvidar\r\nsebastian\r\nville\r\ncolin\r\nmilton\r\nsimon\r\nsam\r\nfrank\r\nelton\r\nloui\r\nrasmus\r\ndavid\r\nsamuel\r\njoel\r\nhenry\r\nwilhelm\r\nlinus\r\ntage\r\nmatteo\r\nelis\r\nvilgot\r\nelvin\r\nivar\r\naron\r\nalex\r\notto\r\njohn\r\nmaximilian\r\neddie\r\nneo\r\ndaniel\r\njulian\r\nmio\r\nhjalmar\r\ndante\r\nali\r\nedward\r\nhampus\r\nsvante".split("\n"));
+	this.trainingData.set("english_towns","abingdon\r\naccrington\r\nacle\r\nacton\r\nadlington\r\nalcester\r\naldeburgh\r\naldershot\r\nalford\r\nalfreton\r\nalnwick\r\nalsager\r\nalston\r\nalton\r\naltrincham\r\namble\r\nambleside\r\namersham\r\namesbury\r\nampthill\r\nandover\r\nappleby\r\narlesey\r\narundel\r\nashbourne\r\nashburton\r\nashby\r\nashford\r\nashington\r\nashton\r\naskern\r\naspatria\r\natherstone\r\nattleborough\r\naxbridge\r\naxminster\r\naylesbury\r\naylsham\r\ntown\r\nbacup\r\nbakewell\r\nbampton\r\nbanbury\r\nbarking\r\nbarnard\r\nbarnes\r\nbarnet\r\nbarnoldswick\r\nbarnsley\r\nbarnstaple\r\nbarrow\r\nbarton\r\nbasingstoke\r\nbatley\r\nbattle\r\nbawtry\r\nbeaconsfield\r\nbeaminster\r\nbebington\r\nbeccles\r\nbeckenham\r\nbedale\r\nbedford\r\nbedworth\r\nbelper\r\nbentham\r\nberkeley\r\nberkhamsted\r\nberwick\r\nbeverley\r\nbewdley\r\nbexhill\r\nbexley\r\nbicester\r\nbiddulph\r\nbideford\r\nbiggleswade\r\nbillericay\r\nbillingham\r\nbilston\r\nbingham\r\nbingley\r\nbirchwood\r\nbirkenhead\r\nbishop\r\nblackburn\r\nblackpool\r\nblackrod\r\nblackwater\r\nblandford\r\nbletchley\r\nblyth\r\nbodmin\r\nbognor\r\nbollington\r\nbolsover\r\nbolton\r\nbootle\r\nbordon\r\nboroughbridge\r\nboston\r\nbottesford\r\nbourne\r\nbournemouth\r\nbovey\r\nbrackley\r\nbradford\r\nbrading\r\nbradley\r\nbradninch\r\nbraintree\r\nbrampton\r\nbrandon\r\nbraunstone\r\nbrentford\r\nbrentwood\r\nbridgnorth\r\nbridgwater\r\nbridlington\r\nbridport\r\nbrierfield\r\nbrierley\r\nbrigg\r\nbrighouse\r\nbrightlingsea\r\nbrixham\r\nbroadstairs\r\nbromborough\r\nbromley\r\nbromsgrove\r\nbromyard\r\nbroseley\r\nbrough\r\nbroughton\r\nbruton\r\nbuckfastleigh\r\nbuckingham\r\nbude\r\nbudleigh\r\nbulwell\r\nbungay\r\nbuntingford\r\nburford\r\nburgess\r\nburgh\r\nburnham\r\nburnley\r\nburntwood\r\nburslem\r\nburton\r\nburton\r\nbury\r\nbury\r\nbushey\r\nbuxton\r\ncaistor\r\ncallington\r\ncalne\r\ncamborne\r\ncamelford\r\ncannock\r\ncanvey\r\ncarnforth\r\ncarlton\r\ncarshalton\r\ncarterton\r\ncastle\r\ncastleford\r\nchagford\r\nchapel\r\nchard\r\ncharlbury\r\nchatham\r\nchatteris\r\ncheadle\r\ncheltenham\r\nchertsey\r\nchesham\r\ncheshunt\r\nchesterfield\r\nchester\r\nchickerell\r\nchilton\r\nchingford\r\nchippenham\r\nchipping\r\nchipping\r\nchipping\r\nchorley\r\nchorleywood\r\nchristchurch\r\nchudleigh\r\nchulmleigh\r\nchurch\r\ncinderford\r\ncirencester\r\nclare\r\nclay\r\ncleator\r\ncleethorpes\r\ncleobury\r\nclevedon\r\nclitheroe\r\nclun\r\ncockermouth\r\ncoggeshall\r\ncolburn\r\ncolchester\r\ncoleford\r\ncoleshill\r\ncolne\r\ncolyton\r\ncongleton\r\nconisbrough\r\ncorbridge\r\ncorby\r\ncorringham\r\ncorsham\r\ncotgrave\r\ncowes\r\ncoulsdon\r\ncramlington\r\ncranbrook\r\ncraven\r\ncrawley\r\ncrediton\r\ncrewe\r\ncrewkerne\r\ncricklade\r\ncromer\r\ncrook\r\ncrosby\r\ncrowborough\r\ncroydon\r\ncrowland\r\ncrowle\r\ncullompton\r\ndagenham\r\ndalton\r\ndarley\r\ndarlington\r\ndartford\r\ndartmouth\r\ndarwen\r\ndaventry\r\ndawley\r\ndawlish\r\ndeal\r\ndenholme\r\ndereham\r\ndesborough\r\ndevizes\r\ndewsbury\r\ndidcot\r\ndinnington\r\ndiss\r\ndoncaster\r\ndorchester\r\ndorking\r\ndover\r\ndovercourt\r\ndownham\r\ndriffield\r\ndroitwich\r\ndronfield\r\ndudley\r\ndukinfield\r\ndulverton\r\ndunstable\r\ndunwich\r\ndursley\r\nealing\r\nearby\r\nearl\r\nearley\r\neasingwold\r\neast\r\neast\r\neast\r\neastbourne\r\neastleigh\r\neast\r\neastwood\r\neccles\r\neccleshall\r\nedenbridge\r\nedgware\r\nedmonton\r\negremont\r\nelland\r\nellesmere\r\nellesmere\r\nelstree\r\nemsworth\r\nenfield\r\nepping\r\nepworth\r\nerith\r\neton\r\nevesham\r\nexmouth\r\neye\r\nfairford\r\nfakenham\r\nfalmouth\r\nfareham\r\nfaringdon\r\nfarnham\r\nfaversham\r\nfazeley\r\nfeatherstone\r\nfelixstowe\r\nferndown\r\nferryhill\r\nfiley\r\nfilton\r\nfinchley\r\nfleet\r\nfleetwood\r\nflitwick\r\nfolkestone\r\nfordbridge\r\nfordingbridge\r\nfordwich\r\nfowey\r\nframlingham\r\nfrinton\r\nfrodsham\r\nfrome\r\ngainsborough\r\ngarstang\r\ngateshead\r\ngillingham\r\ngillingham\r\nglastonbury\r\nglossop\r\ngodalming\r\ngodmanchester\r\ngoole\r\ngorleston\r\ngosport\r\ngrange\r\ngrantham\r\ngrassington\r\ngravesend\r\ngrays\r\ngreat\r\ngreat\r\ngreat\r\ngreater\r\ngrimsby\r\nguildford\r\nguisborough\r\nhadleigh\r\nhailsham\r\nhalesowen\r\nhalesworth\r\nhalewood\r\nhalifax\r\nhalstead\r\nhaltwhistle\r\nredenhall\r\nharlow\r\nharpenden\r\nharrogate\r\nharrow\r\nhartland\r\nhartlepool\r\nharwich\r\nharworth\r\nhaslemere\r\nhaslingden\r\nhastings\r\nhatfield\r\nhatfield\r\nhatherleigh\r\nhavant\r\nhaverhill\r\nhawkinge\r\nhaxby\r\nhawes\r\nhayle\r\nhaywards\r\nheanor\r\nheathfield\r\nhebden\r\nhedge\r\nhednesford\r\nhedon\r\nhelmsley\r\nhelston\r\nhemel\r\nhemsworth\r\nhendon\r\nhenley\r\nhertford\r\nhessle\r\nhetton\r\nhexham\r\nheywood\r\nhigham\r\nhighbridge\r\nhighworth\r\nhigh\r\nhinckley\r\nhingham\r\nhitchin\r\nhoddesdon\r\nholbeach\r\nholsworthy\r\nholt\r\nhoniton\r\nhorley\r\nhorncastle\r\nhornsea\r\nhornsey\r\nhorsforth\r\nhorsham\r\nhorwich\r\nhoughton\r\nhounslow\r\nhowden\r\nhuddersfield\r\nhungerford\r\nhunstanton\r\nhuntingdon\r\nhyde\r\nhythe\r\nilford\r\nilfracombe\r\nilkeston\r\nilkley\r\nilminster\r\nimmingham\r\ningleby\r\nipswich\r\nirthlingborough\r\nivybridge\r\njarrow\r\nkeighley\r\nkempston\r\nkendal\r\nkenilworth\r\nkesgrave\r\nkeswick\r\nkettering\r\nkeynsham\r\nkidderminster\r\nkidsgrove\r\nkimberley\r\nkingsbridge\r\nkingsteignton\r\nkingston\r\nkington\r\nkirkby\r\nkirkbymoorside\r\nkirkham\r\nkirton\r\nknaresborough\r\nknutsford\r\nlangport\r\nlaunceston\r\nleatherhead\r\nlechlade\r\nledbury\r\nleek\r\nleigh\r\nleighton\r\nleiston\r\nleominster\r\nletchworth\r\nlewes\r\nleyburn\r\nleyton\r\nliskeard\r\nlittlehampton\r\nloddon\r\nloftus\r\nlong\r\nlongridge\r\nlongtown\r\nlooe\r\nlostwithiel\r\nloughborough\r\nloughton\r\nlouth\r\nlowestoft\r\nludgershall\r\nludlow\r\nluton\r\nlutterworth\r\nlydd\r\nlydney\r\nlyme\r\nlymington\r\nlynton\r\nlytchett\r\nlytham\r\nmablethorpe\r\nmacclesfield\r\nmadeley\r\nmaghull\r\nmaidenhead\r\nmaidstone\r\nmaldon\r\nmalmesbury\r\nmaltby\r\nmalton\r\nmalvern\r\nmanningtree\r\nmansfield\r\nmarazion\r\nmarch\r\nmargate\r\nmarlborough\r\nmarlow\r\nmaryport\r\nmasham\r\nmatlock\r\nmedlar\r\nmelksham\r\nmeltham\r\nmelton\r\nmere\r\nmexborough\r\nmiddleham\r\nmiddlesbrough\r\nmiddleton\r\nmiddlewich\r\nmidhurst\r\nmidsomer\r\nmildenhall\r\nmillom\r\nminchinhampton\r\nminehead\r\nminster\r\nmirfield\r\nmitcham\r\nmitcheldean\r\nmodbury\r\nmorecambe\r\nmoretonhampstead\r\nmoreton\r\nmorley\r\nmorpeth\r\nmossley\r\nmuch\r\nnailsea\r\nnailsworth\r\nnantwich\r\nneedham\r\nnelson\r\nneston\r\nnewark\r\nnewbiggin\r\nnewbury\r\nnewcastle\r\nnewent\r\nnewhaven\r\nnewlyn\r\nnewmarket\r\nnewport\r\nnewquay\r\nnewton\r\nnormanton\r\nnorth\r\nnorthallerton\r\nnortham\r\nnorthampton\r\nnorthfleet\r\nnorthleach\r\nnorthwich\r\nnorton\r\nnuneaton\r\noakengates\r\noakham\r\nokehampton\r\noldbury\r\noldham\r\nollerton\r\nolney\r\nongar\r\norford\r\normskirk\r\nossett\r\noswestry\r\notley\r\nottery\r\noundle\r\npaddock\r\npadiham\r\npadstow\r\npaignton\r\npainswick\r\npartington\r\npatchway\r\npateley\r\npeacehaven\r\npenistone\r\npenkridge\r\npenrith\r\npenryn\r\npenwortham\r\npenzance\r\npershore\r\npeterlee\r\npetersfield\r\npetworth\r\npickering\r\nplympton\r\npocklington\r\npolegate\r\npontefract\r\nponteland\r\npoole\r\nporthleven\r\nportishead\r\nportland\r\npotton\r\npoynton\r\npreesall\r\nprescot\r\nprinces\r\nprudhoe\r\npudsey\r\nqueenborough\r\nradstock\r\nramsey\r\nramsgate\r\nraunds\r\nrawtenstall\r\nrayleigh\r\nreading\r\nredcar\r\nredruth\r\nreepham\r\nreigate\r\nrichmond\r\nrichmond\r\nringwood\r\nripley\r\nrochdale\r\nrochester\r\nrochford\r\nromford\r\nromsey\r\nross\r\nrothbury\r\nrotherham\r\nrothwell\r\nrowley\r\nroyal\r\nroyston\r\nrugby\r\nrugeley\r\nrushden\r\nryde\r\nrye\r\nsaffron\r\nsalcombe\r\nsale\r\nsaltash\r\nsandbach\r\nsandhurst\r\nsandiacre\r\nsandown\r\nsandwich\r\nsandy\r\nsawbridgeworth\r\nsaxmundham\r\nscarborough\r\nscunthorpe\r\nseaford\r\nseaham\r\nseaton\r\nsedbergh\r\nsedgefield\r\nselby\r\nselsey\r\nsettle\r\nsevenoaks\r\nshaftesbury\r\nshanklin\r\nshefford\r\nshepshed\r\nshepton\r\nsherborne\r\nsheringham\r\nshifnal\r\nshildon\r\nshipston\r\nshirebrook\r\nshoreham\r\nshrewsbury\r\nsidmouth\r\nsilloth\r\nsilsden\r\nsittingbourne\r\nskegness\r\nskelmersdale\r\nskelton\r\nskipton\r\nsleaford\r\nslough\r\nsmethwick\r\nsnaith\r\nsnodland\r\nsoham\r\nsolihull\r\nsomerton\r\nsoutham\r\nsouthall\r\nsouthborough\r\nsouthend\r\nsouthgate\r\nsouthminster\r\nsouthport\r\nsouthsea\r\nsouthwell\r\nsouthwick\r\nsouthwold\r\nspalding\r\nspennymoor\r\nspilsby\r\nsprowston\r\nstafford\r\nstaines\r\nstainforth\r\nstalbridge\r\nstalham\r\nstalybridge\r\nstamford\r\nstanley\r\nstanhope\r\nstapleford\r\nstaveley\r\nstevenage\r\nsteyning\r\nstockport\r\nstocksbridge\r\nstockton\r\nstone\r\nstonehouse\r\nstony\r\nstotfold\r\nstourbridge\r\nstourport\r\nstowmarket\r\nstow\r\nstratford\r\nstretford\r\nstrood\r\nstroud\r\nsturminster\r\nsudbury\r\nsurbiton\r\nsutton\r\nsutton\r\nswaffham\r\nswanage\r\nswanley\r\nswanscombe\r\nswindon\r\nsyston\r\ntadcaster\r\ntadley\r\ntamworth\r\ntaunton\r\ntavistock\r\nteignmouth\r\ntelscombe\r\ntenbury\r\ntenterden\r\ntetbury\r\ntewkesbury\r\nthame\r\nthatcham\r\nthaxted\r\nthetford\r\nthirsk\r\nthornaby\r\nthornbury\r\nthorne\r\nthorpe\r\nthrapston\r\ntickhill\r\ntidworth\r\ntipton\r\ntisbury\r\ntiverton\r\ntodmorden\r\ntonbridge\r\ntopsham\r\ntorpoint\r\ntorquay\r\ntotnes\r\ntottenham\r\ntotton\r\ntow\r\ntowcester\r\ntring\r\ntrowbridge\r\ntwickenham\r\ntynemouth\r\nuckfield\r\nulverston\r\nuppingham\r\nupton\r\nuttoxeter\r\nuxbridge\r\nventnor\r\nverwood\r\nwadebridge\r\nwadhurst\r\nwainfleet\r\nwallasey\r\nwallsend\r\nwallingford\r\nwalsall\r\nwaltham\r\nwaltham\r\nwalthamstow\r\nwalton\r\nwantage\r\nware\r\nwareham\r\nwarminster\r\nwarrington\r\nwarwick\r\nwatchet\r\nwatford\r\nwath\r\nwatlington\r\nwatton\r\nwellingborough\r\nwednesbury\r\nwellington\r\nwells\r\nwembley\r\nwendover\r\nwestbury\r\nwesterham\r\nwesthoughton\r\nweston\r\nwetherby\r\nweybridge\r\nweymouth\r\nwhaley\r\nwhitby\r\nwhitchurch\r\nwhitehaven\r\nwhitehill\r\nwhitnash\r\nwhittlesey\r\nwhitworth\r\nwickham\r\nwickwar\r\nwidnes\r\nwigan\r\nwigton\r\nwillenhall\r\nwillesden\r\nwilton\r\nwilmslow\r\nwimbledon\r\nwimborne\r\nwincanton\r\nwinchcombe\r\nwinchelsea\r\nwindermere\r\nwindsor\r\nwinsford\r\nwinslow\r\nwinterton\r\nwirksworth\r\nwisbech\r\nwitham\r\nwithernsea\r\nwitney\r\nwiveliscombe\r\nwivenhoe\r\nwoburn\r\nwoburn\r\nwoking\r\nwokingham\r\nwolsingham\r\nwolverton\r\nwood\r\nwoodbridge\r\nwoodley\r\nwoodstock\r\nwooler\r\nworkington\r\nworksop\r\nworthing\r\nwotton\r\nwragby\r\nwymondham\r\nyarm\r\nyarmouth\r\nyate\r\nyateley\r\nyeovil\r\nbasildon\r\nbracknell\r\nmilton\r\nredditch\r\ntelford\r\nwashington\r\nwelwyn".split("\n"));
+	this.trainingData.set("theological_demons","abaddon\r\napollyon\r\nabezethibou\r\nabraxas\r\nabyzou\r\nadramelech\r\naeshma\r\nagaliarept\r\nagrat\r\nagares\r\nagiel\r\nahriman\r\nangra\r\naim\r\nhaborym\r\naka\r\nala\r\nalal\r\nalastor\r\nalloces\r\nallocer\r\nallu\r\namaymon\r\namdusias\r\namy\r\nanamalech\r\nancitif\r\nandhaka\r\nandras\r\nandrealphus\r\nandromalius\r\nantichrist\r\nanzu\r\narmaros\r\narchon\r\narunasura\r\nasag\r\nasakku\r\nasbel\r\nasmodai\r\nasmodeus\r\nastaroth\r\nasura\r\nazazel\r\nazi\r\nbaal\r\nbael\r\nbabi\r\nbakasura\r\nbalam\r\nbalberith\r\nbali\r\nbanshee\r\nbaphomet\r\nbarbas\r\nbarbatos\r\nbarong\r\nbathin\r\nmathim\r\nbathym\r\nmarthim\r\nbeelzebub\r\nbehemoth\r\nbelial\r\nbeleth\r\nbelphegor\r\nberith\r\nbeherit\r\nbhūta\r\nbifrons\r\nboruta\r\nbotis\r\nbuer\r\nbukavac\r\nbune\r\nbushyasta\r\ncain\r\ncanio\r\ncharun\r\nchemosh\r\nchoronzon\r\ncimejes\r\nkimaris\r\ncimeies\r\ncorson\r\ncrocell\r\nprocell\r\nculsu\r\ndaeva\r\ndagon\r\ndajjal\r\ndantalion\r\ndanjal\r\ndavy\r\ndecarabia\r\ndemiurge\r\ndemogorgon\r\ndevil\r\ndrekavac\r\ndzoavits\r\neblis\r\neligos\r\neisheth\r\nfocalor\r\nforas\r\nforcas\r\nforneus\r\nfurcas\r\nforcas\r\nfurfur\r\ngaap\r\ngaderel\r\ngaki\r\ngamigin\r\nghoul\r\nglasya\r\ncaacrinolaas\r\ncaassimolar\r\nclassyalabolas\r\ngorgon\r\ngremory\r\ngomory\r\ngrigori\r\ngualichu\r\nguayota\r\ngusion\r\ngusoin\r\ngusoyn\r\nhaagenti\r\nhalphas\r\nmalthus\r\nhantu\r\nhaures\r\nflauros\r\nflavros\r\nhauras\r\nhavres\r\nifrit\r\nincubus\r\nipos\r\nipes\r\njinn\r\njikininki\r\nkabandha\r\nkabhanda\r\nkali\r\nkasadya\r\nkokabiel\r\nkroni\r\nkrampus\r\nkillakee\r\nkumbhakarna\r\nlegion\r\nlechies\r\nleyak\r\nlempo\r\nleraje\r\nleraie\r\nleviathan\r\nlili\r\nlilin\r\nlilim\r\nlilith\r\nlucifer\r\nlucifuge\r\nmalphas\r\nmammon\r\nmara\r\nmaricha\r\nmarax\r\nmorax\r\nforaii\r\nmarchosias\r\nmasih\r\nmastema\r\nmephistopheles\r\nmerihem\r\nmoloch\r\nmurmur\r\nmorpheus\r\nnaamah\r\nnaberius\r\ncerbere\r\nnaberus\r\nninurta\r\nnamtar\r\nonoskelis\r\norcus\r\norias\r\noriax\r\nornias\r\norobas\r\nose\r\nördög\r\npaimon\r\npazuzu\r\npelesit\r\nphenex\r\npenemue\r\npithius\r\npocong\r\npontianak\r\npruflas\r\npuloman\r\nrahab\r\nraum\r\nronove\r\nrusalka\r\nrakshasa\r\nrangda\r\nravan\r\nsabnock\r\nsaleos\r\nsamael\r\nsatan\r\nseir\r\nsemyaz\r\nshax\r\nchax\r\nshedim\r\nsitri\r\nsthenno\r\nstolas\r\nsolas\r\nsuanggi\r\nsuccubus\r\nsurgat\r\ntannin\r\ntoyol\r\ntuchulcha\r\nukobach\r\nvalac\r\nvalefar\r\nmalaphar\r\nmalephar\r\nvanth\r\nvapula\r\nvassago\r\nvepar\r\nvine\r\nwendigo\r\nxaphan\r\nxezbeth\r\nyeqon\r\nyeterel\r\nzagan\r\nzepar\r\nziminiar".split("\n"));
 	window.onload = $bind(this,this.onWindowLoaded);
 };
 Main.__name__ = true;
@@ -42,11 +95,147 @@ Main.main = function() {
 };
 Main.prototype = {
 	onWindowLoaded: function() {
-		window.document.addEventListener("resize",function(event) {
+		var _g = this;
+		this.trainingDataElement = window.document.getElementById("trainingdatalist");
+		this.orderElement = window.document.getElementById("order");
+		this.priorElement = window.document.getElementById("prior");
+		this.maxProcessingTimeElement = window.document.getElementById("maxtime");
+		var addSliderTooltips = function(slider) {
+			var handles = slider.getElementsByClassName("noUi-handle");
+			var tooltips = [];
+			var _g1 = 0;
+			var _g2 = handles.length;
+			while(_g1 < _g2) {
+				var i = _g1++;
+				var tooltip = window.document.createElement("div");
+				tooltip.className = "tooltip";
+				tooltip.innerHTML = "<strong>Value: </strong><span></span>";
+				tooltips.push(tooltip);
+				handles[i].appendChild(tooltip);
+			}
+		};
+		noUiSlider.create(this.orderElement,{ start : [3], connect : "lower", range : { 'min' : [1,1], 'max' : [9]}, pips : { mode : "range", density : 10}});
+		this.orderElement.noUiSlider.on("change",function(values,handle,rawValues) {
+			_g.order = values[handle] | 0;
+		});
+		noUiSlider.create(this.priorElement,{ start : [0.01], connect : "lower", range : { 'min' : 0.001, '50%' : 0.15, 'max' : 0.3}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 2})}});
+		this.priorElement.noUiSlider.on("change",function(values1,handle1,rawValues1) {
+			_g.prior = parseFloat(values1[handle1]);
+		});
+		noUiSlider.create(this.maxProcessingTimeElement,{ start : [500], connect : "lower", range : { 'min' : 50, 'max' : 5000}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 0})}});
+		this.maxProcessingTimeElement.noUiSlider.on("change",function(values2,handle2,rawValues2) {
+			_g.maxProcessingTime = parseFloat(values2[handle2]);
+		});
+		this.currentNamesElement = window.document.getElementById("currentnames");
+		this.generateElement = window.document.getElementById("generate");
+		this.lengthElement = window.document.getElementById("minmaxlength");
+		noUiSlider.create(this.lengthElement,{ start : [4,11], connect : true, range : { 'min' : [3,1], 'max' : 18}, pips : { mode : "range", density : 10}});
+		this.lengthElement.noUiSlider.on("change",function(values3,handle3,rawValues3) {
+			if(handle3 == 0) _g.minLength = values3[handle3]; else if(handle3 == 1) _g.maxLength = values3[handle3];
+		});
+		this.startsWithElement = window.document.getElementById("startswith");
+		this.endsWithElement = window.document.getElementById("endswith");
+		this.includesElement = window.document.getElementById("includes");
+		this.excludesElement = window.document.getElementById("excludes");
+		this.similarElement = window.document.getElementById("similar");
+		this.setDefaults();
+		this.trainingDataElement.addEventListener("change",function() {
+			if(_g.trainingDataElement.value != null) _g.trainingDataKey = _g.trainingDataElement.value;
+			console.log(_g.trainingData.get(_g.trainingDataKey));
 		},false);
-		window.document.addEventListener("contextmenu",function(event1) {
-			event1.preventDefault();
-		},true);
+		this.generateElement.addEventListener("click",function() {
+			var data = _g.trainingData.get(_g.trainingDataKey);
+			if(!(data != null)) throw new js__$Boot_HaxeError("FAIL: data != null");
+			_g.generate(data);
+		},false);
+		this.startsWithElement.addEventListener("change",function() {
+			if(_g.startsWithElement.value != null) _g.startsWith = _g.startsWithElement.value;
+		},false);
+		this.endsWithElement.addEventListener("change",function() {
+			if(_g.endsWithElement.value != null) _g.endsWith = _g.endsWithElement.value;
+		},false);
+		this.includesElement.addEventListener("change",function() {
+			if(_g.includesElement.value != null) _g.includes = _g.includesElement.value;
+		},false);
+		this.excludesElement.addEventListener("change",function() {
+			if(_g.excludesElement.value != null) _g.excludes = _g.excludesElement.value;
+		},false);
+		this.similarElement.addEventListener("change",function() {
+			if(_g.similarElement.value != null) _g.similar = _g.similarElement.value;
+		},false);
+		this.d3trie = new TrieForceGraph();
+		d3.select("#triegraph").append("svg:svg").text(function() {
+			return "d3 select thing seemed to work";
+		}).style("background-color","black");
+		window.setInterval(function() {
+			console.log("Updating");
+		},250);
+	}
+	,generate: function(data) {
+		this.duplicateTrie = new lycan_util_PrefixTrie();
+		var _g = 0;
+		while(_g < data.length) {
+			var name = data[_g];
+			++_g;
+			this.duplicateTrie.insert(name);
+		}
+		console.log(this.prior);
+		this.generator = new lycan_util_namegen_NameGenerator(data,this.order,this.prior);
+		var names = [];
+		var startTime = new Date().getTime();
+		var currentTime = new Date().getTime();
+		while(names.length < this.numToGenerate && currentTime < startTime + 2000) {
+			var name1 = this.generator.generateName(this.minLength,this.maxLength,this.startsWith,this.endsWith,this.includes,this.excludes);
+			if(name1 != null && !this.duplicateTrie.find(name1)) {
+				names.push(name1);
+				this.duplicateTrie.insert(name1);
+			}
+			currentTime = new Date().getTime();
+		}
+		this.appendNames(names);
+	}
+	,appendNames: function(names) {
+		var _g = this;
+		if(this.similar.length > 0) names.sort(function(x,y) {
+			var xSimilarity = lycan_util_EditDistanceMetrics.damerauLevenshtein(x,_g.similar,null);
+			var ySimilarity = lycan_util_EditDistanceMetrics.damerauLevenshtein(y,_g.similar,null);
+			if(xSimilarity > ySimilarity) return 1; else if(xSimilarity < ySimilarity) return -1; else return 0;
+		});
+		this.currentNamesElement.innerHTML = "";
+		if(names.length == 0) {
+			var li;
+			var _this = window.document;
+			li = _this.createElement("li");
+			li.textContent = "No names found, check your filters or try again.";
+			this.currentNamesElement.appendChild(li);
+		}
+		var _g1 = 0;
+		while(_g1 < names.length) {
+			var name = names[_g1];
+			++_g1;
+			var li1;
+			var _this1 = window.document;
+			li1 = _this1.createElement("li");
+			li1.textContent = name;
+			this.currentNamesElement.appendChild(li1);
+		}
+	}
+	,setDefaults: function() {
+		this.numToGenerate = 100;
+		this.minLength = 7;
+		this.maxLength = 10;
+		this.order = 3;
+		this.prior = 0.01;
+		this.startsWith = "a";
+		this.startsWithElement.value = this.startsWith;
+		this.endsWith = "";
+		this.endsWithElement.value = this.endsWith;
+		this.includes = "l";
+		this.includesElement.value = this.includes;
+		this.excludes = "z";
+		this.excludesElement.value = this.excludes;
+		this.similar = "alina";
+		this.similarElement.value = this.similar;
 	}
 };
 Math.__name__ = true;
@@ -57,8 +246,98 @@ Std.random = function(x) {
 };
 var StringTools = function() { };
 StringTools.__name__ = true;
+StringTools.startsWith = function(s,start) {
+	return s.length >= start.length && HxOverrides.substr(s,0,start.length) == start;
+};
+StringTools.endsWith = function(s,end) {
+	var elen = end.length;
+	var slen = s.length;
+	return slen >= elen && HxOverrides.substr(s,slen - elen,elen) == end;
+};
 StringTools.replace = function(s,sub,by) {
 	return s.split(sub).join(by);
+};
+var TrieForceGraph = function() {
+	this.height = 500;
+	this.width = 960;
+	this.force = d3.layout.force().size([this.width,this.height]).on("tick",$bind(this,this.tick));
+	this.svg = d3.select("body").append("svg").attr("width",this.width).attr("height",this.height);
+	this.link = this.svg.selectAll(".link");
+	this.node = this.svg.selectAll(".node");
+};
+TrieForceGraph.__name__ = true;
+TrieForceGraph.prototype = {
+	update: function() {
+		var nodes = this.flatten(this.root);
+		var links = d3.layout.tree().links(nodes);
+		this.force.nodes(nodes).links(links).start();
+		this.link = this.link.data(links,function(d) {
+			return d.target.id;
+		});
+		this.link.exit().remove();
+		this.link.enter().insert("line",".node").attr("class","link").attr("x1",function(d1) {
+			return d1.source.x;
+		}).attr("y1",function(d2) {
+			return d2.source.y;
+		}).attr("x2",function(d3) {
+			return d3.target.x;
+		}).attr("y2",function(d4) {
+			return d4.target.y;
+		});
+		this.node = this.node.data(nodes,function(d5) {
+			return d5.id;
+		}).style("fill",$bind(this,this.color));
+		this.node.exit().remove();
+		this.node.enter().append("circle").attr("class","node").attr("cx",function(d6) {
+			return d6.x;
+		}).attr("cy",function(d7) {
+			return d7.y;
+		}).attr("r",function(d8) {
+			return Math.sqrt(d8.size) / 10 || 4.5;
+		}).style("fill",$bind(this,this.color)).on("click",$bind(this,this.click)).call(($_=this.force,$bind($_,$_.drag)));
+	}
+	,flatten: function(root) {
+		var nodes = [];
+		var i = 0;
+		var recurse = function(node) {
+			if(node.children != null) {
+				var _g = 0;
+				var _g1 = node.children;
+				while(_g < _g1.length) {
+					var child = _g1[_g];
+					++_g;
+					recurse(child);
+				}
+			}
+			if(node.id != 0) {
+				node.id = ++i;
+				nodes.push(node);
+			}
+			return nodes;
+		};
+		return recurse(root);
+	}
+	,tick: function() {
+		this.link.attr("x1",function(d) {
+			return d.source.x;
+		}).attr("y1",function(d1) {
+			return d1.source.y;
+		}).attr("x2",function(d2) {
+			return d2.target.x;
+		}).attr("y2",function(d3) {
+			return d3.target.y;
+		});
+		this.node.attr("cx",function(d4) {
+			return d4.x;
+		}).attr("cy",function(d5) {
+			return d5.y;
+		});
+	}
+	,color: function(d) {
+		if(d._children) return "#3182bd"; else if(d.children) return "#c6dbef"; else return "#fd8d3c";
+	}
+	,click: function() {
+	}
 };
 var haxe_IMap = function() { };
 haxe_IMap.__name__ = true;
@@ -208,6 +487,7 @@ lycan_util_ArrayExtensions.randomElement = function(array) {
 	return array[Std.random(array.length)];
 };
 lycan_util_ArrayExtensions.noNulls = function(array) {
+	if(!(array != null)) throw new js__$Boot_HaxeError("FAIL: array != null");
 	var _g = 0;
 	while(_g < array.length) {
 		var e = array[_g];
@@ -407,107 +687,6 @@ lycan_util_EditDistanceMetrics.damerauLevenshtein = function(source,target,enabl
 	var table = lycan_util_EditDistanceMetrics.damerauLevenshteinMatrix(source,target,enableTransposition);
 	return table[table.length - 1];
 };
-lycan_util_EditDistanceMetrics.jaro = function(first,second) {
-	var f = first.length;
-	var s = second.length;
-	if(f == 0) if(s == 0) return 1.0; else return 0.0;
-	var fMatches;
-	var this1;
-	this1 = new Array(f);
-	fMatches = this1;
-	var _g = 0;
-	while(_g < f) {
-		var i = _g++;
-		fMatches[i] = false;
-	}
-	var sMatches;
-	var this2;
-	this2 = new Array(s);
-	sMatches = this2;
-	var _g1 = 0;
-	while(_g1 < s) {
-		var i1 = _g1++;
-		sMatches[i1] = false;
-	}
-	var matchDistance;
-	matchDistance = (f > s?f:s) / 2 - 1 | 0;
-	var matches = 0;
-	var transpositions = 0;
-	var _g2 = 0;
-	while(_g2 < f) {
-		var i2 = _g2++;
-		var start = lycan_util_IntExtensions.max(0,i2 - matchDistance);
-		var end = lycan_util_IntExtensions.min(i2 + matchDistance + 1,s);
-		var _g11 = start;
-		while(_g11 < end) {
-			var j = _g11++;
-			if(sMatches[j]) continue;
-			if(first.charAt(i2) != second.charAt(j)) continue;
-			fMatches[i2] = true;
-			sMatches[j] = true;
-			matches++;
-			break;
-		}
-	}
-	if(matches == 0) return 0.0;
-	var k = 0;
-	var _g3 = 0;
-	while(_g3 < f) {
-		var i3 = _g3++;
-		if(!fMatches[i3]) continue;
-		while(!sMatches[k]) k++;
-		if(first.charAt(i3) != second.charAt(k)) transpositions++;
-		k++;
-	}
-	transpositions *= 0.5;
-	var jaro = (matches / f + matches / s + (matches - transpositions) / matches) / 3.0;
-	return jaro;
-};
-lycan_util_EditDistanceMetrics.jaroWinkler = function(first,second,maxPrefixLength) {
-	if(maxPrefixLength == null) maxPrefixLength = 4;
-	var jaroSimilarity = lycan_util_EditDistanceMetrics.jaro(first,second);
-	var prefixLength = 0;
-	if(first.length != 0 && second.length != 0) {
-		var minLen = lycan_util_IntExtensions.min(first.length,second.length);
-		var _g = 0;
-		while(_g < minLen) {
-			var i = _g++;
-			if(first.charAt(i) == second.charAt(i)) {
-				prefixLength++;
-				if(prefixLength >= maxPrefixLength) break;
-			} else break;
-		}
-	}
-	return jaroSimilarity + prefixLength * 0.1 * (1 - jaroSimilarity);
-};
-lycan_util_EditDistanceMetrics.mongeElkan = function(first,second,similarityMeasure,delimiter) {
-	if(delimiter == null) delimiter = " ";
-	if(first.length == 0 && second.length == 0) return 1;
-	var fTokens = first.split(delimiter);
-	var sTokens = second.split(delimiter);
-	if(fTokens.length == 0 || sTokens.length == 0) return 0;
-	var sum = 0;
-	var _g = 0;
-	while(_g < fTokens.length) {
-		var f = fTokens[_g];
-		++_g;
-		var max = 0;
-		var _g1 = 0;
-		while(_g1 < sTokens.length) {
-			var s = sTokens[_g1];
-			++_g1;
-			max = Math.max(max,similarityMeasure(first,second));
-		}
-		sum += max;
-	}
-	return sum / fTokens.length;
-};
-lycan_util_EditDistanceMetrics.diceCoefficient = function(first,second) {
-	return 0;
-};
-lycan_util_EditDistanceMetrics.jaccard = function(first,second) {
-	return 0;
-};
 var lycan_util_FileReader = function() { };
 lycan_util_FileReader.__name__ = true;
 var lycan_util_IntExtensions = function() { };
@@ -547,6 +726,89 @@ lycan_util_IntExtensions.isPow2 = function(v) {
 lycan_util_IntExtensions.sign = function(x) {
 	if(x > 0) return 1; else if(x < 0) return -1; else return 0;
 };
+var lycan_util_PrefixTrie = function() {
+	this.root = new lycan_util_PrefixNode(" ",null);
+};
+lycan_util_PrefixTrie.__name__ = true;
+lycan_util_PrefixTrie.findChild = function(node,letter) {
+	var ret = null;
+	var _g = 0;
+	var _g1 = node.children;
+	while(_g < _g1.length) {
+		var child = _g1[_g];
+		++_g;
+		if(child.letter == letter) {
+			ret = child;
+			break;
+		}
+	}
+	return ret;
+};
+lycan_util_PrefixTrie.prototype = {
+	insert: function(word) {
+		var current = this.root;
+		var _g1 = 0;
+		var _g = word.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			var child = lycan_util_PrefixTrie.findChild(current,word.charAt(i));
+			if(child == null) {
+				child = new lycan_util_PrefixNode(word.charAt(i),current);
+				current.children.push(child);
+			} else child.frequency++;
+			current = child;
+		}
+		current.word = true;
+	}
+	,find: function(word) {
+		var current = this.root;
+		var _g1 = 0;
+		var _g = word.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			current = lycan_util_PrefixTrie.findChild(current,word.charAt(i));
+			if(current == null) return false;
+		}
+		if(!current.word) return false;
+		return true;
+	}
+	,getWords: function() {
+		var queue = new List();
+		queue.add(this.root);
+		var words = [];
+		while(!queue.isEmpty()) {
+			var node = queue.pop();
+			if(node.word) {
+				var word = node.letter;
+				var parent = node.parent;
+				while(parent != null) {
+					word += parent.letter;
+					parent = parent.parent;
+				}
+				words.push(lycan_util_StringExtensions.reverse(word));
+			}
+			var _g = 0;
+			var _g1 = node.children;
+			while(_g < _g1.length) {
+				var child = _g1[_g];
+				++_g;
+				queue.add(child);
+			}
+		}
+		return words;
+	}
+};
+var lycan_util_PrefixNode = function(letter,parent) {
+	var actual = letter.length;
+	var expected = 1;
+	if(actual != expected) throw new js__$Boot_HaxeError("FAIL: values are not equal (expected: " + expected + ", actual: " + actual + ")");
+	this.parent = parent;
+	this.children = [];
+	this.letter = letter;
+	this.frequency = 1;
+	this.word = false;
+};
+lycan_util_PrefixNode.__name__ = true;
 var lycan_util_StringExtensions = function() { };
 lycan_util_StringExtensions.__name__ = true;
 lycan_util_StringExtensions.reverse = function(s) {
@@ -721,102 +983,31 @@ lycan_util_namegen_Model.prototype = {
 	}
 };
 var lycan_util_namegen_NameGenerator = function(data,order,smoothing) {
-	var names = [];
-	var _g = 0;
-	while(_g < data.length) {
-		var name = data[_g];
-		++_g;
-		names.push(name.name.toLowerCase());
-	}
-	lycan_util_namegen_Generator.call(this,names,order,smoothing);
+	lycan_util_namegen_Generator.call(this,data,order,smoothing);
 };
 lycan_util_namegen_NameGenerator.__name__ = true;
 lycan_util_namegen_NameGenerator.__super__ = lycan_util_namegen_Generator;
 lycan_util_namegen_NameGenerator.prototype = $extend(lycan_util_namegen_Generator.prototype,{
-	generateName: function(minLength,maxLength,includes,excludes,maxAttempts) {
-		if(maxAttempts == null) maxAttempts = 100;
+	generateName: function(minLength,maxLength,startsWith,endsWith,includes,excludes) {
 		var name = "";
-		var attempts = 0;
-		while(attempts < maxAttempts) {
-			name = this.generate();
-			name = StringTools.replace(name,"#","");
-			if(name.length >= minLength && name.length <= maxLength && name.indexOf(includes) >= 0 && name.indexOf(excludes) >= 0) return name;
-			attempts++;
-		}
-		return name;
+		name = this.generate();
+		name = StringTools.replace(name,"#","");
+		if(name.length >= minLength && name.length <= maxLength && StringTools.startsWith(name,startsWith) && StringTools.endsWith(name,endsWith) && (includes.length == 0 || name.indexOf(includes) >= 0) && (excludes.length == 0 || !(name.indexOf(excludes) >= 0))) return name;
+		return null;
 	}
-	,generateNames: function(n,minLength,maxLength,includes,excludes,maxAttempts) {
-		if(maxAttempts == null) maxAttempts = 100;
+	,generateNames: function(n,minLength,maxLength,startsWith,endsWith,includes,excludes,maxTimePerName) {
+		if(maxTimePerName == null) maxTimePerName = 0.02;
 		var names = [];
-		var _g = 0;
-		while(_g < n) {
-			var i = _g++;
-			names.push(this.generateName(minLength,maxLength,includes,excludes,maxAttempts));
+		var startTime = new Date().getTime();
+		var currentTime = new Date().getTime();
+		while(names.length < n && currentTime > startTime + maxTimePerName * n) {
+			var name = this.generateName(minLength,maxLength,startsWith,endsWith,includes,excludes);
+			if(name != null) names.push(name);
+			currentTime = new Date().getTime();
 		}
 		return names;
 	}
 });
-var lycan_util_namegen_Tag = { __ename__ : true, __constructs__ : ["VAMPIRES","FUNNY","BRITISH","CHINESE","JAPANESE","INDIAN","AUSTRALIAN","RUSSIAN","ITALIAN","CHRISTMAS","EGYPTIAN","FRENCH","CHRISTIAN","RICH","POOR","MILITARY"] };
-lycan_util_namegen_Tag.VAMPIRES = ["VAMPIRES",0];
-lycan_util_namegen_Tag.VAMPIRES.toString = $estr;
-lycan_util_namegen_Tag.VAMPIRES.__enum__ = lycan_util_namegen_Tag;
-lycan_util_namegen_Tag.FUNNY = ["FUNNY",1];
-lycan_util_namegen_Tag.FUNNY.toString = $estr;
-lycan_util_namegen_Tag.FUNNY.__enum__ = lycan_util_namegen_Tag;
-lycan_util_namegen_Tag.BRITISH = ["BRITISH",2];
-lycan_util_namegen_Tag.BRITISH.toString = $estr;
-lycan_util_namegen_Tag.BRITISH.__enum__ = lycan_util_namegen_Tag;
-lycan_util_namegen_Tag.CHINESE = ["CHINESE",3];
-lycan_util_namegen_Tag.CHINESE.toString = $estr;
-lycan_util_namegen_Tag.CHINESE.__enum__ = lycan_util_namegen_Tag;
-lycan_util_namegen_Tag.JAPANESE = ["JAPANESE",4];
-lycan_util_namegen_Tag.JAPANESE.toString = $estr;
-lycan_util_namegen_Tag.JAPANESE.__enum__ = lycan_util_namegen_Tag;
-lycan_util_namegen_Tag.INDIAN = ["INDIAN",5];
-lycan_util_namegen_Tag.INDIAN.toString = $estr;
-lycan_util_namegen_Tag.INDIAN.__enum__ = lycan_util_namegen_Tag;
-lycan_util_namegen_Tag.AUSTRALIAN = ["AUSTRALIAN",6];
-lycan_util_namegen_Tag.AUSTRALIAN.toString = $estr;
-lycan_util_namegen_Tag.AUSTRALIAN.__enum__ = lycan_util_namegen_Tag;
-lycan_util_namegen_Tag.RUSSIAN = ["RUSSIAN",7];
-lycan_util_namegen_Tag.RUSSIAN.toString = $estr;
-lycan_util_namegen_Tag.RUSSIAN.__enum__ = lycan_util_namegen_Tag;
-lycan_util_namegen_Tag.ITALIAN = ["ITALIAN",8];
-lycan_util_namegen_Tag.ITALIAN.toString = $estr;
-lycan_util_namegen_Tag.ITALIAN.__enum__ = lycan_util_namegen_Tag;
-lycan_util_namegen_Tag.CHRISTMAS = ["CHRISTMAS",9];
-lycan_util_namegen_Tag.CHRISTMAS.toString = $estr;
-lycan_util_namegen_Tag.CHRISTMAS.__enum__ = lycan_util_namegen_Tag;
-lycan_util_namegen_Tag.EGYPTIAN = ["EGYPTIAN",10];
-lycan_util_namegen_Tag.EGYPTIAN.toString = $estr;
-lycan_util_namegen_Tag.EGYPTIAN.__enum__ = lycan_util_namegen_Tag;
-lycan_util_namegen_Tag.FRENCH = ["FRENCH",11];
-lycan_util_namegen_Tag.FRENCH.toString = $estr;
-lycan_util_namegen_Tag.FRENCH.__enum__ = lycan_util_namegen_Tag;
-lycan_util_namegen_Tag.CHRISTIAN = ["CHRISTIAN",12];
-lycan_util_namegen_Tag.CHRISTIAN.toString = $estr;
-lycan_util_namegen_Tag.CHRISTIAN.__enum__ = lycan_util_namegen_Tag;
-lycan_util_namegen_Tag.RICH = ["RICH",13];
-lycan_util_namegen_Tag.RICH.toString = $estr;
-lycan_util_namegen_Tag.RICH.__enum__ = lycan_util_namegen_Tag;
-lycan_util_namegen_Tag.POOR = ["POOR",14];
-lycan_util_namegen_Tag.POOR.toString = $estr;
-lycan_util_namegen_Tag.POOR.__enum__ = lycan_util_namegen_Tag;
-lycan_util_namegen_Tag.MILITARY = ["MILITARY",15];
-lycan_util_namegen_Tag.MILITARY.toString = $estr;
-lycan_util_namegen_Tag.MILITARY.__enum__ = lycan_util_namegen_Tag;
-var lycan_util_namegen_Gender = { __ename__ : true, __constructs__ : ["MASCULINE","FEMININE","NEUTER"] };
-lycan_util_namegen_Gender.MASCULINE = ["MASCULINE",0];
-lycan_util_namegen_Gender.MASCULINE.toString = $estr;
-lycan_util_namegen_Gender.MASCULINE.__enum__ = lycan_util_namegen_Gender;
-lycan_util_namegen_Gender.FEMININE = ["FEMININE",1];
-lycan_util_namegen_Gender.FEMININE.toString = $estr;
-lycan_util_namegen_Gender.FEMININE.__enum__ = lycan_util_namegen_Gender;
-lycan_util_namegen_Gender.NEUTER = ["NEUTER",2];
-lycan_util_namegen_Gender.NEUTER.toString = $estr;
-lycan_util_namegen_Gender.NEUTER.__enum__ = lycan_util_namegen_Gender;
-var lycan_util_namegen_Names = function() { };
-lycan_util_namegen_Names.__name__ = true;
 var $_, $fid = 0;
 function $bind(o,m) { if( m == null ) return null; if( m.__id__ == null ) m.__id__ = $fid++; var f; if( o.hx__closures__ == null ) o.hx__closures__ = {}; else f = o.hx__closures__[m.__id__]; if( f == null ) { f = function(){ return f.method.apply(f.scope, arguments); }; f.scope = o; f.method = m; o.hx__closures__[m.__id__] = f; } return f; }
 if(Array.prototype.indexOf) HxOverrides.indexOf = function(a,o,i) {
@@ -824,25 +1015,9 @@ if(Array.prototype.indexOf) HxOverrides.indexOf = function(a,o,i) {
 };
 String.__name__ = true;
 Array.__name__ = true;
+Date.__name__ = ["Date"];
 var __map_reserved = {}
-Main.REPO_URL = "https://github.com/Tw1ddle/MarkovNameGenerator";
-Main.TWITTER_URL = "https://twitter.com/Sam_Twidale";
-Main.WEBSITE_URL = "http://samcodes.co.uk/";
-Main.HAXE_URL = "http://haxe.org/";
 js_d3__$D3_InitPriority.important = "important";
-lycan_util_namegen_Names.titles = [{ name : "Mr", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Mrs", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Miss", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Archpriest", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Bishop", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Vicar", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Baron", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Baroness", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Count", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Corporal", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Private", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Field Marshal", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Governor", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Lady", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Lord", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Professor", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Reverend", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Sergeant", gender : lycan_util_namegen_Gender.NEUTER}];
-lycan_util_namegen_Names.vampireForenames = [{ name : "Bella", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Edward", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Jacob", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Carlisle", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Emmett", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Nessie", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Armand", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Claudia", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Louis", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Lestat", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Mina", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Akasha", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Angel", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Dusk", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Eli", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Eric", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Irina", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Lilith", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Mekare", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Priscilla", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Remilia", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Santiago", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Thistle", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Vladimir", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Yaksha", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Alucard", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "D", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Eli", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Ivan", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Judas", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Karin", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Magister", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Mina", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Arcueid", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Carmilla", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Harkon", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Sion", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Nora", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Rakshasa", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Alessandro", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Ambrogio", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Selene", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Celeste", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Vincent", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Winter", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Blade", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Spike", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Caine", gender : lycan_util_namegen_Gender.MASCULINE}];
-lycan_util_namegen_Names.vampireSurnames = [{ name : "Swan", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Cullen", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Northman", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Scarlet", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Blackbourne", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Waldorf", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Barlow", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Salem", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Blake", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Night", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Fitzroy", gender : lycan_util_namegen_Gender.NEUTER},{ name : "deLioncourt", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Blackthorn", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Souen", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Tod", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Lafitte", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Damaskinos", gender : lycan_util_namegen_Gender.NEUTER},{ name : "LaCroix", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Valentine", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Bathory", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Sanguina", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Giovanni", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Brunestud", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Lecarde", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Bernhard", gender : lycan_util_namegen_Gender.NEUTER}];
-lycan_util_namegen_Names.armyForenames = [{ name : "Ace", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Bravo", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Gunnar", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Lance", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Mace", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Stryker", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Victor", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Lightning Joe", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Little Mac", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Chick", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Birdy", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Blondie", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Fuzzy", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Armee", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Delta", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Grace", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Justice", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Knox", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Cannon", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Garrison", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Gunther", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Abrams", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Claymore", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Barrett", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Cadence", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Vittoria", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Bradley", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Sloane", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Cadette", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Navy", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Harlow", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Wolfgang", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Wyatt", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Balder", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Lionheart", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Marshall", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Scout", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Ryder", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Gatlen", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Miles", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Hunter", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Chase", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Maverick", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Jett", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Beretta", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Blaze", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Danger", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Steele", gender : lycan_util_namegen_Gender.FEMININE}];
-lycan_util_namegen_Names.armySurnames = [{ name : "Sargent", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Knight", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Hartman", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Brandt", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Ritter", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Wehrman", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Stal", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Krieger", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Major", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Hauptmann", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Brannigan", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Armstrong", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Anderson", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Hoffman", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Roediger", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Warner", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Wesse", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Custer", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Sharpe", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Pratt", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Havelock", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Richthofen", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Petraeus", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Nelson", gender : lycan_util_namegen_Gender.NEUTER},{ name : "MacArthur", gender : lycan_util_namegen_Gender.NEUTER}];
-lycan_util_namegen_Names.journoForenames = [{ name : "Jake", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Charles", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Glenn", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Megyn", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Walter", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Bill", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Sean", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Andrew", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Nick", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Ann", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Rachel", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Mary", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Evan", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Laura", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Jon", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Evan", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Anderson", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Ezra", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Chuck", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Arianna", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Chris", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Paul", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Wolf", gender : lycan_util_namegen_Gender.MASCULINE}];
-lycan_util_namegen_Names.journoSurnames = [{ name : "Cronkite", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Blitzer", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Cooper", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Huffington", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Theroux", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Woolf", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Hannity", gender : lycan_util_namegen_Gender.NEUTER},{ name : "OReilly", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Limbaugh", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Beck", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Robinson", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Marr", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Davis", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Neil", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Snow", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Maddow", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Stephanopoulos", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Hayes", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Kelly", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Todd", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Klein", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Tapper", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Woodward", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Malcolm", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Napolitano", gender : lycan_util_namegen_Gender.NEUTER}];
-lycan_util_namegen_Names.alienForenames = [{ name : "Spock", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Mork", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Alf", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Worf", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Clark", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Seven", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Kryton", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Elim", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Kang", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Kodos", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Zim", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Zaphod", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Zeebo", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "JeanLuc", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Beldar", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Q", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Diana", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Klaatu", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Chiana", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Gorn", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Rygel", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Oola", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Xev", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Gaila", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Leeloo", gender : lycan_util_namegen_Gender.FEMININE}];
-lycan_util_namegen_Names.alienSurnames = [{ name : "Beeblebrox", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Kaypax", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Catbug", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Grey", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Green", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Auton", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Vogan", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Adric", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Kent", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Oddworld", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Roswell", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Gravemind", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Vortigaunt", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Qwark", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Gwoth", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Ranzz", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Celes", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Borg", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Sarlacc", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Vulcan", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Zerg", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Protoss", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Dokachin", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Frobisher", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Zoidberg", gender : lycan_util_namegen_Gender.NEUTER}];
-lycan_util_namegen_Names.richForenames = [{ name : "Verity", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Octavia", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Araminta", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Concetta", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Genevieve", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Ulysses", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Alexandra", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Vivienne", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Victoria", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Olivia", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Franchesca", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Isabelle", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Eleanor", gender : lycan_util_namegen_Gender.FEMININE},{ name : "JeanLuc", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Penelope", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Phoebe", gender : lycan_util_namegen_Gender.FEMININE},{ name : "Abraham", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Franklin", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Herbert", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Carson", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Sterling", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Montahue", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Sebastian", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Demitrius", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Lawrence", gender : lycan_util_namegen_Gender.MASCULINE}];
-lycan_util_namegen_Names.richSurnames = [{ name : "Gates", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Slim", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Buffett", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Ortega", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Ellison", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Koch", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Walton", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Bettencourt", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Bezos", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Zuckerberg", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Kamprad", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Page", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Bloomberg", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Ballmer", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Paulson", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Baldwin", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Goldberg", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Archibald", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Livingston", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Montgomery", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Trump", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Richmond", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Billings", gender : lycan_util_namegen_Gender.NEUTER},{ name : "Hillaire", gender : lycan_util_namegen_Gender.NEUTER},{ name : "DuPont", gender : lycan_util_namegen_Gender.NEUTER}];
-lycan_util_namegen_Names.elfForenames = [{ name : "Amras", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Celebrian", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Curufin", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Eol", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Ecthelion", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Indis", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Llewelyn", gender : lycan_util_namegen_Gender.MASCULINE},{ name : "Methild", gender : lycan_util_namegen_Gender.MASCULINE}];
-lycan_util_namegen_Names.elfSurnames = [];
 Main.main();
 })(typeof console != "undefined" ? console : {log:function(){}});
 
