@@ -1,11 +1,8 @@
-![Logo](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/markovnamegen_logo.png?raw=true "Logo")
-
-Haxe Markov Name Generator Demo
-==============
+![Logo](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/markovnamegen_logo.png?raw=true "Logo")(http://samcodes.co.uk/web/)
 
 WORK IN PROGRESS
 
-Markov process name generator demo.
+Markov process name generator webpage and demo for my Haxe markovnamegen [haxelib](http://lib.haxe.org/p/markovnamegen).
 
 ## Features ##
 * Interactively configure the training dataset, order and prior parameters.
@@ -23,14 +20,14 @@ Order: 5
 Prior: 0.01
 Max Processing Time: 500ms
 Length: 8-11
-Starts with: "b"
-Ends with: ""
-Include: "ham"
-Exclude: ""
+Starts with: b
+Ends with:
+Include: ham
+Exclude:
 Similarity To: "birmingham"
 ```
 
-This results in the top 10 results and ~80 others:
+A list of up to 100 results will be returned. Here are the top 10 from my attempt:
 ```
 Barkingham
 Basingham
@@ -46,9 +43,14 @@ Bradnincham
 
 ## Install ##
 
-Get the code here or on haxelib. Add it to your ```Project.xml```:
+Get the Haxe library code here or on haxelib. Add it to your ```Project.xml```:
 ```
 <haxelib name="markovnamegen" />
+```
+
+Or include it as a library in your ```hxml```
+```
+-lib markovnamegen
 ```
 
 ## Screenshots ##
@@ -57,6 +59,6 @@ Here is the demo in action:
 ![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot1.png?raw=true "Screenshot 1")
 
 ## Notes ##
-Ideas in this project were influenced by [this article](http://www.roguebasin.com/index.php?title=Markov_chains-based_name_generation) by [Dominik Marczuk](http://www.roguebasin.com/index.php?title=User:Dominikmarczuk).
-The internal state of the generator is visualized using [d3.js](http://d3js.org/).
-Whilst the Markov process library should work on every Haxe target, it has not been tested or optimized for performance, especially on native platforms.
+* Ideas in this project were influenced by [this article](http://www.roguebasin.com/index.php?title=Markov_chains-based_name_generation) by [Dominik Marczuk](http://www.roguebasin.com/index.php?title=User:Dominikmarczuk).
+* The internal state of the generator is visualized using [d3.js](http://d3js.org/).
+* The haxelib should function on every Haxe target, but it has not been tested or optimized for performance, especially on native platforms.
