@@ -1,9 +1,9 @@
 {
-	"name": "samcodes-namegen",
+	"name": "markov-namegen",
 	"url": "http://samcodes.co.uk/code/",
 	"license": "MIT",
 	"tags": ["cross","haxe","utility","game","tool"],
-	"description": "Random name generation utility using a Markov process",
+	"description": "Procedural name generation utility using a Markov process",
 	"version": "1.0.0",
 	"releasenote": "Initial release",
 	"contributors": ["samcodes"],

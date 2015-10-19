@@ -2,7 +2,7 @@
 
 WORK IN PROGRESS
 
-Markov process name generator demo. Webpage that showcases the Haxe [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
+Procedural name generation demo. Showcases procedural name generation by the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
 
 ## Features ##
 * Configurable training dataset, order and prior model parameters.
@@ -12,7 +12,7 @@ Markov process name generator demo. Webpage that showcases the Haxe [markov-name
 
 ## Usage ##
 
-Open the [demo](http://www.samcodes.co.uk/web/markov-name-generator/) in your browser to see what the library is capable of. Example settings:
+Try the [demo](http://www.samcodes.co.uk/web/markov-name-generator/) in your browser to see what the library is capable of. Example settings:
 
 ```
 Training Dataset: English Towns
@@ -47,12 +47,12 @@ Get the Haxe library code here or on haxelib.
 
 Include it in your ```.hxml```
 ```
--lib markovnamegen
+-lib markov-namegen
 ```
 
 Or add it to your ```Project.xml```:
 ```
-<haxelib name="markovnamegen" />
+<haxelib name="markov-namegen" />
 ```
 
 ## Screenshots ##
@@ -63,4 +63,5 @@ Here is the demo in action:
 ## Notes ##
 * Most of the concepts used for the generator were suggested in [this article](http://www.roguebasin.com/index.php?title=Names_from_a_high_order_Markov_Process_and_a_simplified_Katz_back-off_scheme) by [Jeffrey Lund](https://github.com/jlund3).
 * The internal state of the generator is visualized using [d3.js](http://d3js.org/).
-* The haxelib supports every Haxe target, but it has not been thoroughly tested or optimized for performance yet, especially on native platforms. If there are any problems or questions, then please get in touch.
+* The haxelib supports every Haxe target, but it has not been thoroughly tested or optimized for performance yet, especially on native platforms.
+* If you have any suggestions or questions then get in touch.
