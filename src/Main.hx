@@ -7,11 +7,11 @@ import js.html.Element;
 import js.html.InputElement;
 import js.html.SelectElement;
 import js.nouislider.NoUiSlider;
+import js.wNumb.WNumb;
 import lycan.util.EditDistanceMetrics;
 import lycan.util.FileReader;
 import lycan.util.namegen.NameGenerator;
 import lycan.util.PrefixTrie;
-import js.wNumb.WNumb;
 
 class Main {
 	private var generator:NameGenerator;

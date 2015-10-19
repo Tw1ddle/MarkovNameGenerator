@@ -24,7 +24,7 @@ class Model {
 		
 		observations = new StringMap<Array<String>>();		
 		train(data);
-		rebuildChains();
+		buildChains();
 		
 		//trace(observations.toString());
 		//trace(chains.toString());
@@ -33,7 +33,7 @@ class Model {
 	public function retrain(data:Array<String>):Void {
 		Sure.sure(data != null);
 		train(data);
-		rebuildChains();
+		buildChains();
 	}
 	
 	private function train(data:Array<String>):Void {
@@ -54,7 +54,7 @@ class Model {
 		}
 	}
 	
-	private function rebuildChains():Void {
+	private function buildChains():Void {
 		chains = new StringMap<Array<Float>>();
 		
 		for (context in observations.keys()) {
