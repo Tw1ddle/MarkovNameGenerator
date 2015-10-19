@@ -2,12 +2,12 @@
 
 WORK IN PROGRESS
 
-Markov process name generator webpage and demo for my Haxe markovnamegen [haxelib](http://lib.haxe.org/p/markovnamegen).
+Markov process name generator. Demonstrates usage of the Haxe [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
 
 ## Features ##
 * Interactively configure the training dataset, order and prior parameters.
 * Filter results by length, start, end and content.
-* Sort results by their Damarau-Levenstein similarity to your preferred result.
+* Sort results by their Damarau-Levenshtein similarity to your preferred result.
 * Smart trie visualization of the training dataset and generated names.
 
 ## Usage ##
@@ -45,7 +45,7 @@ Bradnincham
 
 Get the Haxe library code here or on haxelib. 
 
-Include it in your ```hxml```
+Include it in your ```.hxml```
 ```
 -lib markovnamegen
 ```
@@ -61,6 +61,6 @@ Here is the demo in action:
 ![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot1.png?raw=true "Screenshot 1")
 
 ## Notes ##
-* Ideas in this project were influenced by [this article](http://www.roguebasin.com/index.php?title=Markov_chains-based_name_generation) by [Dominik Marczuk](http://www.roguebasin.com/index.php?title=User:Dominikmarczuk).
+* Most of the concepts used for the generator were suggested in [this article](http://www.roguebasin.com/index.php?title=Names_from_a_high_order_Markov_Process_and_a_simplified_Katz_back-off_scheme) by [Jeffrey Lund](https://github.com/jlund3).
 * The internal state of the generator is visualized using [d3.js](http://d3js.org/).
 * The haxelib should function on every Haxe target, but it has not been tested or optimized for performance, especially on native platforms.
