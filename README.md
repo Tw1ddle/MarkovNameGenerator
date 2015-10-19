@@ -2,13 +2,13 @@
 
 WORK IN PROGRESS
 
-Markov process name generator. Demonstrates usage of the Haxe [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
+Markov process name generator demo. Webpage that showcases the Haxe [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
 
 ## Features ##
-* Interactively configure the training dataset, order and prior parameters.
+* Configurable training dataset, order and prior model parameters.
 * Filter results by length, start, end and content.
-* Sort results by their Damarau-Levenshtein similarity to your preferred result.
-* Smart trie visualization of the training dataset and generated names.
+* Sort results by Damarau-Levenshtein distance to your preferred result.
+* Visualization of the training dataset and generated names in a trie.
 
 ## Usage ##
 
@@ -24,7 +24,7 @@ Starts with: b
 Ends with:
 Include: ham
 Exclude:
-Similarity To: "birmingham"
+Similarity To: birmingham
 ```
 
 A list of up to 100 results will be returned. Here are the top 10 from my attempt:
@@ -63,4 +63,4 @@ Here is the demo in action:
 ## Notes ##
 * Most of the concepts used for the generator were suggested in [this article](http://www.roguebasin.com/index.php?title=Names_from_a_high_order_Markov_Process_and_a_simplified_Katz_back-off_scheme) by [Jeffrey Lund](https://github.com/jlund3).
 * The internal state of the generator is visualized using [d3.js](http://d3js.org/).
-* The haxelib should function on every Haxe target, but it has not been tested or optimized for performance, especially on native platforms.
+* The haxelib supports every Haxe target, but it has not been thoroughly tested or optimized for performance yet, especially on native platforms. If there are any problems or questions, then please get in touch.
