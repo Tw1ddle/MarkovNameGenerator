@@ -7,7 +7,7 @@ class PrefixTrie {
 	public var root:PrefixNode;
 	
 	public function new() {
-		root = new PrefixNode(" ", null);
+		root = new PrefixNode("", null);
 	}
 	
 	public function insert(word:String):Void {
@@ -94,7 +94,7 @@ class PrefixNode {
 	public var word:Bool;
 	
 	public inline function new(letter:String, parent:PrefixNode) {
-		Sure.sure(letter.length == 1);
+		//Sure.sure(letter.length == 1);
 		this.parent = parent;
 		children = new Array<PrefixNode>();
 		this.letter = letter;

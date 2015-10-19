@@ -2,11 +2,11 @@
 
 WORK IN PROGRESS
 
-Procedural name generator. Demos procedural name generation by the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
+Procedural name generator demo written in Haxe. Demonstrates the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
 
 ## Features ##
-* Dozens of preset datasets and a custom option.
-* Order and prior model parameters.
+* Dozens of preset training datasets.
+* Configurable training dataset, order and prior model parameter options.
 * Filter results by length, start, end and content.
 * Sort results by Damarau-Levenshtein distance to your preferred result.
 * Visualization of the training dataset and generated names in a trie.

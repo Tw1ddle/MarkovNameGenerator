@@ -10,7 +10,7 @@ import js.nouislider.NoUiSlider;
 import js.wNumb.WNumb;
 import lycan.util.EditDistanceMetrics;
 import lycan.util.FileReader;
-import lycan.util.namegen.NameGenerator;
+import lycan.namegen.NameGenerator;
 import lycan.util.PrefixTrie;
 
 class Main {
@@ -64,6 +64,9 @@ class Main {
 		trainingData.set("swedish_forenames", FileReader.readFile("embed/swedishforenames.txt").split("\n"));
 		trainingData.set("english_towns", FileReader.readFile("embed/englishtowns.txt").split("\n"));
 		trainingData.set("theological_demons", FileReader.readFile("embed/theologicaldemons.txt").split("\n"));
+		trainingData.set("scottish_surnames", FileReader.readFile("embed/scottishsurnames.txt").split("\n"));
+		trainingData.set("irish_forenames", FileReader.readFile("embed/irishforenames.txt").split("\n"));
+		trainingData.set("icelandic_forenames", FileReader.readFile("embed/icelandicforenames.txt").split("\n"));
 		
 		Browser.window.onload = onWindowLoaded;
 	}
@@ -260,6 +263,8 @@ class Main {
 			}
 			currentTime = Date.now().getTime();
 		}
+		
+		trace(duplicateTrie.getWords());
 		
 		appendNames(names);
 	}

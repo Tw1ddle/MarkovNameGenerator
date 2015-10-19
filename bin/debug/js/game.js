@@ -87,6 +87,9 @@ var Main = function() {
 	this.trainingData.set("swedish_forenames","elsa\r\nalice\r\nmaja\r\nagnes\r\nlilly\r\nolivia\r\njulia\r\nebba\r\nlinnea\r\nmolly\r\nella\r\nwilma\r\nklara\r\nstella\r\nfreja\r\nalicia\r\nalva\r\nalma\r\nisabelle\r\nellen\r\nsaga\r\nellie\r\nastrid\r\nemma\r\nnellie\r\nemilia\r\nvera\r\nsigne\r\nelvira\r\nnova\r\nselma\r\nester\r\nleah\r\nfelicia\r\nsara\r\nsofia\r\nelise\r\nines\r\ntyra\r\namanda\r\nelin\r\nida\r\nmoa\r\nmeja\r\nisabella\r\ntuva\r\nnora\r\nsiri\r\nmatilda\r\nsigrid\r\nedith\r\nlovisa\r\njuni\r\nliv\r\nlova\r\nhanna\r\ntilde\r\niris\r\nthea\r\nemelie\r\nmelissa\r\ncornelia\r\nleia\r\ningrid\r\nlivia\r\njasmine\r\nnathalie\r\ngreta\r\nstina\r\njoline\r\nfilippa\r\nemmy\r\nsvea\r\nmärta\r\ntilda\r\nhilda\r\nmajken\r\nceline\r\nellinor\r\nlykke\r\nnovalie\r\nlinn\r\ntindra\r\nmy\r\nmira\r\nrut\r\nronja\r\nhilma\r\nlisa\r\nmaria\r\nelina\r\nlovis\r\nminna\r\nhedda\r\namelia\r\nsally\r\nnicole\r\nvictoria\r\nluna\r\nanna\r\nelisa\r\nlucas\r\nwilliam\r\noscar\r\noliver\r\nliam\r\nelias\r\nhugo\r\nvincent\r\ncharlie\r\nalexander\r\naxel\r\nludvig\r\nelliot\r\nnoah\r\nleo\r\nviktor\r\nfilip\r\narvid\r\nalfred\r\nnils\r\nisak\r\nemil\r\ntheo\r\ntheodor\r\nedvin\r\nmelvin\r\ngustav\r\nsixten\r\nadam\r\nanton\r\nbenjamin\r\nolle\r\nvalter\r\nerik\r\nadrian\r\nalbin\r\nleon\r\nharry\r\nmax\r\ngabriel\r\nmalte\r\nmelker\r\njosef\r\nmohamed\r\nviggo\r\nebbe\r\nwilmer\r\nalvin\r\ncasper\r\nlove\r\njacob\r\njack\r\nkevin\r\nfelix\r\naugust\r\nloke\r\ncarl\r\nmilo\r\nsigge\r\nnoel\r\njonathan\r\nvidar\r\nsebastian\r\nville\r\ncolin\r\nmilton\r\nsimon\r\nsam\r\nfrank\r\nelton\r\nloui\r\nrasmus\r\ndavid\r\nsamuel\r\njoel\r\nhenry\r\nwilhelm\r\nlinus\r\ntage\r\nmatteo\r\nelis\r\nvilgot\r\nelvin\r\nivar\r\naron\r\nalex\r\notto\r\njohn\r\nmaximilian\r\neddie\r\nneo\r\ndaniel\r\njulian\r\nmio\r\nhjalmar\r\ndante\r\nali\r\nedward\r\nhampus\r\nsvante".split("\n"));
 	this.trainingData.set("english_towns","abingdon\r\naccrington\r\nacle\r\nacton\r\nadlington\r\nalcester\r\naldeburgh\r\naldershot\r\nalford\r\nalfreton\r\nalnwick\r\nalsager\r\nalston\r\nalton\r\naltrincham\r\namble\r\nambleside\r\namersham\r\namesbury\r\nampthill\r\nandover\r\nappleby\r\narlesey\r\narundel\r\nashbourne\r\nashburton\r\nashby\r\nashford\r\nashington\r\nashton\r\naskern\r\naspatria\r\natherstone\r\nattleborough\r\naxbridge\r\naxminster\r\naylesbury\r\naylsham\r\ntown\r\nbacup\r\nbakewell\r\nbampton\r\nbanbury\r\nbarking\r\nbarnard\r\nbarnes\r\nbarnet\r\nbarnoldswick\r\nbarnsley\r\nbarnstaple\r\nbarrow\r\nbarton\r\nbasingstoke\r\nbatley\r\nbattle\r\nbawtry\r\nbeaconsfield\r\nbeaminster\r\nbebington\r\nbeccles\r\nbeckenham\r\nbedale\r\nbedford\r\nbedworth\r\nbelper\r\nbentham\r\nberkeley\r\nberkhamsted\r\nberwick\r\nbeverley\r\nbewdley\r\nbexhill\r\nbexley\r\nbicester\r\nbiddulph\r\nbideford\r\nbiggleswade\r\nbillericay\r\nbillingham\r\nbilston\r\nbingham\r\nbingley\r\nbirchwood\r\nbirkenhead\r\nbishop\r\nblackburn\r\nblackpool\r\nblackrod\r\nblackwater\r\nblandford\r\nbletchley\r\nblyth\r\nbodmin\r\nbognor\r\nbollington\r\nbolsover\r\nbolton\r\nbootle\r\nbordon\r\nboroughbridge\r\nboston\r\nbottesford\r\nbourne\r\nbournemouth\r\nbovey\r\nbrackley\r\nbradford\r\nbrading\r\nbradley\r\nbradninch\r\nbraintree\r\nbrampton\r\nbrandon\r\nbraunstone\r\nbrentford\r\nbrentwood\r\nbridgnorth\r\nbridgwater\r\nbridlington\r\nbridport\r\nbrierfield\r\nbrierley\r\nbrigg\r\nbrighouse\r\nbrightlingsea\r\nbrixham\r\nbroadstairs\r\nbromborough\r\nbromley\r\nbromsgrove\r\nbromyard\r\nbroseley\r\nbrough\r\nbroughton\r\nbruton\r\nbuckfastleigh\r\nbuckingham\r\nbude\r\nbudleigh\r\nbulwell\r\nbungay\r\nbuntingford\r\nburford\r\nburgess\r\nburgh\r\nburnham\r\nburnley\r\nburntwood\r\nburslem\r\nburton\r\nburton\r\nbury\r\nbury\r\nbushey\r\nbuxton\r\ncaistor\r\ncallington\r\ncalne\r\ncamborne\r\ncamelford\r\ncannock\r\ncanvey\r\ncarnforth\r\ncarlton\r\ncarshalton\r\ncarterton\r\ncastle\r\ncastleford\r\nchagford\r\nchapel\r\nchard\r\ncharlbury\r\nchatham\r\nchatteris\r\ncheadle\r\ncheltenham\r\nchertsey\r\nchesham\r\ncheshunt\r\nchesterfield\r\nchester\r\nchickerell\r\nchilton\r\nchingford\r\nchippenham\r\nchipping\r\nchipping\r\nchipping\r\nchorley\r\nchorleywood\r\nchristchurch\r\nchudleigh\r\nchulmleigh\r\nchurch\r\ncinderford\r\ncirencester\r\nclare\r\nclay\r\ncleator\r\ncleethorpes\r\ncleobury\r\nclevedon\r\nclitheroe\r\nclun\r\ncockermouth\r\ncoggeshall\r\ncolburn\r\ncolchester\r\ncoleford\r\ncoleshill\r\ncolne\r\ncolyton\r\ncongleton\r\nconisbrough\r\ncorbridge\r\ncorby\r\ncorringham\r\ncorsham\r\ncotgrave\r\ncowes\r\ncoulsdon\r\ncramlington\r\ncranbrook\r\ncraven\r\ncrawley\r\ncrediton\r\ncrewe\r\ncrewkerne\r\ncricklade\r\ncromer\r\ncrook\r\ncrosby\r\ncrowborough\r\ncroydon\r\ncrowland\r\ncrowle\r\ncullompton\r\ndagenham\r\ndalton\r\ndarley\r\ndarlington\r\ndartford\r\ndartmouth\r\ndarwen\r\ndaventry\r\ndawley\r\ndawlish\r\ndeal\r\ndenholme\r\ndereham\r\ndesborough\r\ndevizes\r\ndewsbury\r\ndidcot\r\ndinnington\r\ndiss\r\ndoncaster\r\ndorchester\r\ndorking\r\ndover\r\ndovercourt\r\ndownham\r\ndriffield\r\ndroitwich\r\ndronfield\r\ndudley\r\ndukinfield\r\ndulverton\r\ndunstable\r\ndunwich\r\ndursley\r\nealing\r\nearby\r\nearl\r\nearley\r\neasingwold\r\neast\r\neast\r\neast\r\neastbourne\r\neastleigh\r\neast\r\neastwood\r\neccles\r\neccleshall\r\nedenbridge\r\nedgware\r\nedmonton\r\negremont\r\nelland\r\nellesmere\r\nellesmere\r\nelstree\r\nemsworth\r\nenfield\r\nepping\r\nepworth\r\nerith\r\neton\r\nevesham\r\nexmouth\r\neye\r\nfairford\r\nfakenham\r\nfalmouth\r\nfareham\r\nfaringdon\r\nfarnham\r\nfaversham\r\nfazeley\r\nfeatherstone\r\nfelixstowe\r\nferndown\r\nferryhill\r\nfiley\r\nfilton\r\nfinchley\r\nfleet\r\nfleetwood\r\nflitwick\r\nfolkestone\r\nfordbridge\r\nfordingbridge\r\nfordwich\r\nfowey\r\nframlingham\r\nfrinton\r\nfrodsham\r\nfrome\r\ngainsborough\r\ngarstang\r\ngateshead\r\ngillingham\r\ngillingham\r\nglastonbury\r\nglossop\r\ngodalming\r\ngodmanchester\r\ngoole\r\ngorleston\r\ngosport\r\ngrange\r\ngrantham\r\ngrassington\r\ngravesend\r\ngrays\r\ngreat\r\ngreat\r\ngreat\r\ngreater\r\ngrimsby\r\nguildford\r\nguisborough\r\nhadleigh\r\nhailsham\r\nhalesowen\r\nhalesworth\r\nhalewood\r\nhalifax\r\nhalstead\r\nhaltwhistle\r\nredenhall\r\nharlow\r\nharpenden\r\nharrogate\r\nharrow\r\nhartland\r\nhartlepool\r\nharwich\r\nharworth\r\nhaslemere\r\nhaslingden\r\nhastings\r\nhatfield\r\nhatfield\r\nhatherleigh\r\nhavant\r\nhaverhill\r\nhawkinge\r\nhaxby\r\nhawes\r\nhayle\r\nhaywards\r\nheanor\r\nheathfield\r\nhebden\r\nhedge\r\nhednesford\r\nhedon\r\nhelmsley\r\nhelston\r\nhemel\r\nhemsworth\r\nhendon\r\nhenley\r\nhertford\r\nhessle\r\nhetton\r\nhexham\r\nheywood\r\nhigham\r\nhighbridge\r\nhighworth\r\nhigh\r\nhinckley\r\nhingham\r\nhitchin\r\nhoddesdon\r\nholbeach\r\nholsworthy\r\nholt\r\nhoniton\r\nhorley\r\nhorncastle\r\nhornsea\r\nhornsey\r\nhorsforth\r\nhorsham\r\nhorwich\r\nhoughton\r\nhounslow\r\nhowden\r\nhuddersfield\r\nhungerford\r\nhunstanton\r\nhuntingdon\r\nhyde\r\nhythe\r\nilford\r\nilfracombe\r\nilkeston\r\nilkley\r\nilminster\r\nimmingham\r\ningleby\r\nipswich\r\nirthlingborough\r\nivybridge\r\njarrow\r\nkeighley\r\nkempston\r\nkendal\r\nkenilworth\r\nkesgrave\r\nkeswick\r\nkettering\r\nkeynsham\r\nkidderminster\r\nkidsgrove\r\nkimberley\r\nkingsbridge\r\nkingsteignton\r\nkingston\r\nkington\r\nkirkby\r\nkirkbymoorside\r\nkirkham\r\nkirton\r\nknaresborough\r\nknutsford\r\nlangport\r\nlaunceston\r\nleatherhead\r\nlechlade\r\nledbury\r\nleek\r\nleigh\r\nleighton\r\nleiston\r\nleominster\r\nletchworth\r\nlewes\r\nleyburn\r\nleyton\r\nliskeard\r\nlittlehampton\r\nloddon\r\nloftus\r\nlong\r\nlongridge\r\nlongtown\r\nlooe\r\nlostwithiel\r\nloughborough\r\nloughton\r\nlouth\r\nlowestoft\r\nludgershall\r\nludlow\r\nluton\r\nlutterworth\r\nlydd\r\nlydney\r\nlyme\r\nlymington\r\nlynton\r\nlytchett\r\nlytham\r\nmablethorpe\r\nmacclesfield\r\nmadeley\r\nmaghull\r\nmaidenhead\r\nmaidstone\r\nmaldon\r\nmalmesbury\r\nmaltby\r\nmalton\r\nmalvern\r\nmanningtree\r\nmansfield\r\nmarazion\r\nmarch\r\nmargate\r\nmarlborough\r\nmarlow\r\nmaryport\r\nmasham\r\nmatlock\r\nmedlar\r\nmelksham\r\nmeltham\r\nmelton\r\nmere\r\nmexborough\r\nmiddleham\r\nmiddlesbrough\r\nmiddleton\r\nmiddlewich\r\nmidhurst\r\nmidsomer\r\nmildenhall\r\nmillom\r\nminchinhampton\r\nminehead\r\nminster\r\nmirfield\r\nmitcham\r\nmitcheldean\r\nmodbury\r\nmorecambe\r\nmoretonhampstead\r\nmoreton\r\nmorley\r\nmorpeth\r\nmossley\r\nmuch\r\nnailsea\r\nnailsworth\r\nnantwich\r\nneedham\r\nnelson\r\nneston\r\nnewark\r\nnewbiggin\r\nnewbury\r\nnewcastle\r\nnewent\r\nnewhaven\r\nnewlyn\r\nnewmarket\r\nnewport\r\nnewquay\r\nnewton\r\nnormanton\r\nnorth\r\nnorthallerton\r\nnortham\r\nnorthampton\r\nnorthfleet\r\nnorthleach\r\nnorthwich\r\nnorton\r\nnuneaton\r\noakengates\r\noakham\r\nokehampton\r\noldbury\r\noldham\r\nollerton\r\nolney\r\nongar\r\norford\r\normskirk\r\nossett\r\noswestry\r\notley\r\nottery\r\noundle\r\npaddock\r\npadiham\r\npadstow\r\npaignton\r\npainswick\r\npartington\r\npatchway\r\npateley\r\npeacehaven\r\npenistone\r\npenkridge\r\npenrith\r\npenryn\r\npenwortham\r\npenzance\r\npershore\r\npeterlee\r\npetersfield\r\npetworth\r\npickering\r\nplympton\r\npocklington\r\npolegate\r\npontefract\r\nponteland\r\npoole\r\nporthleven\r\nportishead\r\nportland\r\npotton\r\npoynton\r\npreesall\r\nprescot\r\nprinces\r\nprudhoe\r\npudsey\r\nqueenborough\r\nradstock\r\nramsey\r\nramsgate\r\nraunds\r\nrawtenstall\r\nrayleigh\r\nreading\r\nredcar\r\nredruth\r\nreepham\r\nreigate\r\nrichmond\r\nrichmond\r\nringwood\r\nripley\r\nrochdale\r\nrochester\r\nrochford\r\nromford\r\nromsey\r\nross\r\nrothbury\r\nrotherham\r\nrothwell\r\nrowley\r\nroyal\r\nroyston\r\nrugby\r\nrugeley\r\nrushden\r\nryde\r\nrye\r\nsaffron\r\nsalcombe\r\nsale\r\nsaltash\r\nsandbach\r\nsandhurst\r\nsandiacre\r\nsandown\r\nsandwich\r\nsandy\r\nsawbridgeworth\r\nsaxmundham\r\nscarborough\r\nscunthorpe\r\nseaford\r\nseaham\r\nseaton\r\nsedbergh\r\nsedgefield\r\nselby\r\nselsey\r\nsettle\r\nsevenoaks\r\nshaftesbury\r\nshanklin\r\nshefford\r\nshepshed\r\nshepton\r\nsherborne\r\nsheringham\r\nshifnal\r\nshildon\r\nshipston\r\nshirebrook\r\nshoreham\r\nshrewsbury\r\nsidmouth\r\nsilloth\r\nsilsden\r\nsittingbourne\r\nskegness\r\nskelmersdale\r\nskelton\r\nskipton\r\nsleaford\r\nslough\r\nsmethwick\r\nsnaith\r\nsnodland\r\nsoham\r\nsolihull\r\nsomerton\r\nsoutham\r\nsouthall\r\nsouthborough\r\nsouthend\r\nsouthgate\r\nsouthminster\r\nsouthport\r\nsouthsea\r\nsouthwell\r\nsouthwick\r\nsouthwold\r\nspalding\r\nspennymoor\r\nspilsby\r\nsprowston\r\nstafford\r\nstaines\r\nstainforth\r\nstalbridge\r\nstalham\r\nstalybridge\r\nstamford\r\nstanley\r\nstanhope\r\nstapleford\r\nstaveley\r\nstevenage\r\nsteyning\r\nstockport\r\nstocksbridge\r\nstockton\r\nstone\r\nstonehouse\r\nstony\r\nstotfold\r\nstourbridge\r\nstourport\r\nstowmarket\r\nstow\r\nstratford\r\nstretford\r\nstrood\r\nstroud\r\nsturminster\r\nsudbury\r\nsurbiton\r\nsutton\r\nsutton\r\nswaffham\r\nswanage\r\nswanley\r\nswanscombe\r\nswindon\r\nsyston\r\ntadcaster\r\ntadley\r\ntamworth\r\ntaunton\r\ntavistock\r\nteignmouth\r\ntelscombe\r\ntenbury\r\ntenterden\r\ntetbury\r\ntewkesbury\r\nthame\r\nthatcham\r\nthaxted\r\nthetford\r\nthirsk\r\nthornaby\r\nthornbury\r\nthorne\r\nthorpe\r\nthrapston\r\ntickhill\r\ntidworth\r\ntipton\r\ntisbury\r\ntiverton\r\ntodmorden\r\ntonbridge\r\ntopsham\r\ntorpoint\r\ntorquay\r\ntotnes\r\ntottenham\r\ntotton\r\ntow\r\ntowcester\r\ntring\r\ntrowbridge\r\ntwickenham\r\ntynemouth\r\nuckfield\r\nulverston\r\nuppingham\r\nupton\r\nuttoxeter\r\nuxbridge\r\nventnor\r\nverwood\r\nwadebridge\r\nwadhurst\r\nwainfleet\r\nwallasey\r\nwallsend\r\nwallingford\r\nwalsall\r\nwaltham\r\nwaltham\r\nwalthamstow\r\nwalton\r\nwantage\r\nware\r\nwareham\r\nwarminster\r\nwarrington\r\nwarwick\r\nwatchet\r\nwatford\r\nwath\r\nwatlington\r\nwatton\r\nwellingborough\r\nwednesbury\r\nwellington\r\nwells\r\nwembley\r\nwendover\r\nwestbury\r\nwesterham\r\nwesthoughton\r\nweston\r\nwetherby\r\nweybridge\r\nweymouth\r\nwhaley\r\nwhitby\r\nwhitchurch\r\nwhitehaven\r\nwhitehill\r\nwhitnash\r\nwhittlesey\r\nwhitworth\r\nwickham\r\nwickwar\r\nwidnes\r\nwigan\r\nwigton\r\nwillenhall\r\nwillesden\r\nwilton\r\nwilmslow\r\nwimbledon\r\nwimborne\r\nwincanton\r\nwinchcombe\r\nwinchelsea\r\nwindermere\r\nwindsor\r\nwinsford\r\nwinslow\r\nwinterton\r\nwirksworth\r\nwisbech\r\nwitham\r\nwithernsea\r\nwitney\r\nwiveliscombe\r\nwivenhoe\r\nwoburn\r\nwoburn\r\nwoking\r\nwokingham\r\nwolsingham\r\nwolverton\r\nwood\r\nwoodbridge\r\nwoodley\r\nwoodstock\r\nwooler\r\nworkington\r\nworksop\r\nworthing\r\nwotton\r\nwragby\r\nwymondham\r\nyarm\r\nyarmouth\r\nyate\r\nyateley\r\nyeovil\r\nbasildon\r\nbracknell\r\nmilton\r\nredditch\r\ntelford\r\nwashington\r\nwelwyn".split("\n"));
 	this.trainingData.set("theological_demons","abaddon\r\napollyon\r\nabezethibou\r\nabraxas\r\nabyzou\r\nadramelech\r\naeshma\r\nagaliarept\r\nagrat\r\nagares\r\nagiel\r\nahriman\r\nangra\r\naim\r\nhaborym\r\naka\r\nala\r\nalal\r\nalastor\r\nalloces\r\nallocer\r\nallu\r\namaymon\r\namdusias\r\namy\r\nanamalech\r\nancitif\r\nandhaka\r\nandras\r\nandrealphus\r\nandromalius\r\nantichrist\r\nanzu\r\narmaros\r\narchon\r\narunasura\r\nasag\r\nasakku\r\nasbel\r\nasmodai\r\nasmodeus\r\nastaroth\r\nasura\r\nazazel\r\nazi\r\nbaal\r\nbael\r\nbabi\r\nbakasura\r\nbalam\r\nbalberith\r\nbali\r\nbanshee\r\nbaphomet\r\nbarbas\r\nbarbatos\r\nbarong\r\nbathin\r\nmathim\r\nbathym\r\nmarthim\r\nbeelzebub\r\nbehemoth\r\nbelial\r\nbeleth\r\nbelphegor\r\nberith\r\nbeherit\r\nbhūta\r\nbifrons\r\nboruta\r\nbotis\r\nbuer\r\nbukavac\r\nbune\r\nbushyasta\r\ncain\r\ncanio\r\ncharun\r\nchemosh\r\nchoronzon\r\ncimejes\r\nkimaris\r\ncimeies\r\ncorson\r\ncrocell\r\nprocell\r\nculsu\r\ndaeva\r\ndagon\r\ndajjal\r\ndantalion\r\ndanjal\r\ndavy\r\ndecarabia\r\ndemiurge\r\ndemogorgon\r\ndevil\r\ndrekavac\r\ndzoavits\r\neblis\r\neligos\r\neisheth\r\nfocalor\r\nforas\r\nforcas\r\nforneus\r\nfurcas\r\nforcas\r\nfurfur\r\ngaap\r\ngaderel\r\ngaki\r\ngamigin\r\nghoul\r\nglasya\r\ncaacrinolaas\r\ncaassimolar\r\nclassyalabolas\r\ngorgon\r\ngremory\r\ngomory\r\ngrigori\r\ngualichu\r\nguayota\r\ngusion\r\ngusoin\r\ngusoyn\r\nhaagenti\r\nhalphas\r\nmalthus\r\nhantu\r\nhaures\r\nflauros\r\nflavros\r\nhauras\r\nhavres\r\nifrit\r\nincubus\r\nipos\r\nipes\r\njinn\r\njikininki\r\nkabandha\r\nkabhanda\r\nkali\r\nkasadya\r\nkokabiel\r\nkroni\r\nkrampus\r\nkillakee\r\nkumbhakarna\r\nlegion\r\nlechies\r\nleyak\r\nlempo\r\nleraje\r\nleraie\r\nleviathan\r\nlili\r\nlilin\r\nlilim\r\nlilith\r\nlucifer\r\nlucifuge\r\nmalphas\r\nmammon\r\nmara\r\nmaricha\r\nmarax\r\nmorax\r\nforaii\r\nmarchosias\r\nmasih\r\nmastema\r\nmephistopheles\r\nmerihem\r\nmoloch\r\nmurmur\r\nmorpheus\r\nnaamah\r\nnaberius\r\ncerbere\r\nnaberus\r\nninurta\r\nnamtar\r\nonoskelis\r\norcus\r\norias\r\noriax\r\nornias\r\norobas\r\nose\r\nördög\r\npaimon\r\npazuzu\r\npelesit\r\nphenex\r\npenemue\r\npithius\r\npocong\r\npontianak\r\npruflas\r\npuloman\r\nrahab\r\nraum\r\nronove\r\nrusalka\r\nrakshasa\r\nrangda\r\nravan\r\nsabnock\r\nsaleos\r\nsamael\r\nsatan\r\nseir\r\nsemyaz\r\nshax\r\nchax\r\nshedim\r\nsitri\r\nsthenno\r\nstolas\r\nsolas\r\nsuanggi\r\nsuccubus\r\nsurgat\r\ntannin\r\ntoyol\r\ntuchulcha\r\nukobach\r\nvalac\r\nvalefar\r\nmalaphar\r\nmalephar\r\nvanth\r\nvapula\r\nvassago\r\nvepar\r\nvine\r\nwendigo\r\nxaphan\r\nxezbeth\r\nyeqon\r\nyeterel\r\nzagan\r\nzepar\r\nziminiar".split("\n"));
+	this.trainingData.set("scottish_surnames","aileanach\r\nailpeanach\r\nallanach\r\nambarsan\r\nandarsan\r\nanndrasdan\r\narasgain\r\nbànach\r\nbaran\r\nbarrach\r\nbeitean\r\nbhàsa\r\nbhodhsa\r\nblacach\r\nblàr\r\nblàrach\r\nbochanan\r\nboid\r\nbòideach\r\nbràigheach\r\nbreac\r\nbreathnach\r\nbrothaigh\r\nbruis\r\nbrùn\r\nbrus\r\nbuideach\r\nbuidheach\r\nbuids\r\nbuiseid\r\ncailbhin\r\ncaileanach\r\ncaimbeul\r\ncaimbeulach\r\ncamran\r\ncamshron\r\ncamshronach\r\ncananach\r\ncanonach\r\ncaoidheach\r\ncaolaisdean\r\ncatach\r\ncatan\r\ncatanach\r\nceallach\r\nceanadach\r\nceannaideach\r\ncearrach\r\nceiteach\r\nciar\r\nciarach\r\nciogach\r\ncoineagan\r\ncrannach\r\ncriatharach\r\ncuimeanach\r\ncuimein\r\ncuimeineach\r\ncàidh\r\ncèamp\r\ncèampach\r\ncòmhan\r\ncreag\r\ndalais\r\ndeòir\r\ndeòireach\r\ndòmhnallach\r\ndruimeanach\r\ndruimein\r\ndruimeineach\r\ndruiminn\r\ndubh\r\ndubhach\r\ndùbhghlas\r\ndùghallach\r\ndùghlas\r\ndùghlasach\r\ndunaid\r\ndunaidh\r\neabarcrombaigh\r\nfearghasdan\r\nfionnlasdan\r\nflimean\r\nfoirbeis\r\nfoirbeiseach\r\nforsàidh\r\nfòlais\r\nfriseal\r\nfrisealach\r\ngall\r\ngallach\r\ngeadais\r\ngeadasach\r\ngearailteach\r\ngilios\r\ngillandrais\r\ngilleasbaig\r\ngilleasbuig\r\ngillechriosd\r\ngillechrìost\r\ngiobsan\r\nglas\r\ngobha\r\ngrannd\r\ngrannda\r\ngranndach\r\ngreum\r\ngreumach\r\ngriogal\r\ngriogalach\r\ngriogarach\r\nguaire\r\nguinne\r\ngunnach\r\ngutraidh\r\ngòrdan\r\ngòrdanach\r\nìomharach\r\nlatharnach\r\nlathurna\r\nleamhanach\r\nleamhnach\r\nleòideach\r\nlobhdain\r\nloganach\r\nloudain\r\nlìos\r\nlìosach\r\nlùtair\r\nscottish\r\nmacillanndrais\r\nmacillebhreac\r\nmacilleathainn\r\nmacillfhinnein\r\nmacillfhinntain\r\nmacillfhionndaig\r\nmacilliosa\r\nmacilloig\r\nmacille\r\nmacillebhàin\r\nmacillebhuidh\r\nmacillechiar\r\nmacilledhuibh\r\nmacillemhìcheil\r\nmacillemhòire\r\nmacillenaoimh\r\nmacilleriabhaich\r\nmacilleruaidh\r\nmacuirigh\r\nmacabhra\r\nmacabhsalain\r\nmacadaidh\r\nmacadhaimh\r\nmacàidh\r\nmacaididh\r\nmacailein\r\nmacailpein\r\nmacalasdair\r\nmacambrais\r\nmacamhalghaidh\r\nmacamhlaidh\r\nmacamhlaigh\r\nmacanndaidh\r\nmacanndra\r\nmacanndrais\r\nmacaodhagain\r\nmacaoidh\r\nmacaoidhein\r\nmacaomalain\r\nmacaonghais\r\nmacara\r\nmacartain\r\nmacartair\r\nmacasgaidh\r\nmacasgaill\r\nmacasgain\r\nmacbeatha\r\nmacbeathag\r\nmacbhàididh\r\nmacbharrais\r\nmacbhàtair\r\nmacbheatha\r\nmacbheathaig\r\nmacbheathain\r\nmacbhigein\r\nmacbhiocair\r\nmacbhlàthain\r\nmacbhradain\r\nmacbhraonaigh\r\nmacbhrìghdeinn\r\nmaccàba\r\nmaccaibe\r\nmaccailein\r\nmaccain\r\nmaccaisgein\r\nmaccalmain\r\nmaccaluim\r\nmaccaog\r\nmaccaoig\r\nmaccardaidh\r\nmaccarmaig\r\nmaccathachaidh\r\nmaccathail\r\nmaccathbhaidh\r\nmaccathain\r\nmaccathasaigh\r\nmaccathbharra\r\nmacceallaig\r\nmacceallaigh\r\nmacceallair\r\nmaccearnaigh\r\nmaccearraich\r\nmacceasain\r\nmacchoinnich\r\nmaccianain\r\nmacciarain\r\nmacciomalain\r\nmaccionadha\r\nmaccinidh\r\nmacclambroch\r\nmaccnaimhin\r\nmaccnusachainn\r\nmaccodrum\r\nmaccoinnich\r\nmaccoinnigh\r\nmaccolla\r\nmaccomhainn\r\nmacconaill\r\nmacconnain\r\nmaccosgraigh\r\nmaccorcadail\r\nmaccormaig\r\nmaccrain\r\nmaccreamhain\r\nmaccriomain\r\nmaccrithein\r\nmaccrosain\r\nmaccruimein\r\nmaccrìsdein\r\nmaccròin\r\nmaccuaig\r\nmaccuidhein\r\nmaccuilcein\r\nmaccuinn\r\nmaccuinnleis\r\nmaccuirc\r\nmaccuithein\r\nmaccullach\r\nmaccullaich\r\nmaccumasgaigh\r\nmaccumhais\r\nmaccuthais\r\nmaccòiseam\r\nmaccòmhain\r\nmaccòmhghan\r\nmaccùga\r\nmacdheòrsa\r\nmacdhiarmaid\r\nmacdhonnchaidh\r\nmacdhrostain\r\nmacdhubhaich\r\nmacdhubhaig\r\nmacdhubhshìth\r\nmacdhubhthaich\r\nmacdhuibh\r\nmacdhunlèibhe\r\nmacdiarmaid\r\nmacdhàibhidh\r\nmacdhòmhnaill\r\nmacdhùghaill\r\nmacdhùnshléibhe\r\nmaceachaidh\r\nmaceachainn\r\nmaceachairn\r\nmaceacharna\r\nmacealair\r\nmacealar\r\nmaceamailinn\r\nmaceanain\r\nmaceanraig\r\nmaceòghainn\r\nmacfhearchair\r\nmacfhearghail\r\nmacfhearghais\r\nmacfhilib\r\nmacfhiongain\r\nmacfhionghain\r\nmacfhionnlaigh\r\nmacfhitheachain\r\nmacfhlaithbheartaich\r\nmacfhraing\r\nmacfhraingein\r\nmacfigeinn\r\nmacfrìdeinn\r\nmacfuirigh\r\nmacgairbheith\r\nmacgaradh\r\nmacghearailt\r\nmacgilleain\r\nmacghille\r\nmacgillearnain\r\nmacgilleasbaig\r\nmacgilleòin\r\nmacgillfhaolagain\r\nmacgillfhiontag\r\nmacgilloig\r\nmacgillonaidh\r\nmacgille\r\nmacgillebhàin\r\nmacgillebhràth\r\nmacgillebhreac\r\nmacgillebhrìghde\r\nmacgillechaluim\r\nmacgillechrìosd\r\nmacgilledhonaghart\r\nmacgilleathain\r\nmacgilledhuibh\r\nmacgillefhialain\r\nmacgilleghlais\r\nmacgilliosa\r\nmacgillemhartainn\r\nmacgilleriabhaich\r\nmacgilleseathanaich\r\nmacgiobain\r\nmacglaisein\r\nmacgoraidh\r\nmacgobhainn\r\nmacgoraidh\r\nmacgriogair\r\nmacguaire\r\nmacgumaraid\r\nmaciain\r\nmacillanndrais\r\nmacillaodhagain\r\nmacilldheòra\r\nmacillearnain\r\nmacilleasbaig\r\nmacilleathain\r\nmacillebhàin\r\nmacillebheathain\r\nmacillebhlàthain\r\nmacillebhràth\r\nmacillebhrìghde\r\nmacillebhris\r\nmacillebhuidhe\r\nmacillechaluim\r\nmacillechatain\r\nmacillechathbhaidh\r\nmacillechiar\r\nmacillechiarain\r\nmacillechomhghain\r\nmacillechonaill\r\nmacillechrìosd\r\nmacillechruim\r\nmacilledhòmhnaich\r\nmacilledhonaghart\r\nmacilledhubhthaich\r\nmacilledhuibh\r\nmacilledhuinn\r\nmacilleghlais\r\nmacilleghuinnein\r\nmacilleghuirm\r\nmacilléidich\r\nmacilleòin\r\nmacillemhaoil\r\nmacillemhàrtainn\r\nmacillemhearnaig\r\nmacillemhìcheil\r\nmacillemhoire\r\nmacillenaoimh\r\nmacillephàdraig\r\nmacillepheadair\r\nmacilleriabhaich\r\nmacilleruaidh\r\nmacillesheathain\r\nmacillesheathanaich\r\nmacillesheathnaich\r\nmacillethòmhais\r\nmacillfhaolagain\r\nmacillfhaolain\r\nmacillfheargain\r\nmacillfhialain\r\nmacillfhinnein\r\nmacillfhionndaig\r\nmacillfhionndain\r\nmacillianain\r\nmacillìmheir\r\nmacilliomchadha\r\nmacillìosa\r\nmacillonchon\r\nmacillonfhaidh\r\nmacillosa\r\nmacilluidhir\r\nmaciomhair\r\nmacionmhainn\r\nmaciosaig\r\nmaclabhrainn\r\nmaclabhruinn\r\nmaclachlainn\r\nmaclagain\r\nmaclamraich\r\nmaclaomainn\r\nmaclathagain\r\nmacleòid\r\nmacleòir\r\nmaclianain\r\nmaclothaidh\r\nmacliuthar\r\nmaclughaidh\r\nmacluinge\r\nmacluirg\r\nmaclulaich\r\nmaclùcaidh\r\nmaclùcais\r\nmacmhaighstir\r\nmacmhanachain\r\nmacmhannain\r\nmacmhaoilein\r\nmacmhaoirn\r\nmacmhaolagain\r\nmacmhaolain\r\nmacmhaolbheatha\r\nmacmhaolchaluim\r\nmacmhaoldòmhnaich\r\nmacmhaolìosa\r\nmacmharais\r\nmacmharcais\r\nmacmhata\r\nmacmhatha\r\nmacmhathain\r\nmacmhàrtainn\r\nmacmhànais\r\nmacmhèinn\r\nmacmhiadhchain\r\nmacmhìcheil\r\nmacmhoirein\r\nmacmhòrdha\r\nmacmhorgain\r\nmacmhuircheartaich\r\nmacmhuirich\r\nmacmhunna\r\nmacmhurardaich\r\nmacmhurchaidh\r\nmacnaois\r\nmacnaomhain\r\nmacneacail\r\nmacneachdain\r\nmacneis\r\nmacnèill\r\nmacnia\r\nmacniallghais\r\nmacniallghuis\r\nmacnìll\r\nmacniocail\r\nmacnobaill\r\nmacphaid\r\nmacphaidein\r\nmacphail\r\nmacphairce\r\nmacphàdraig\r\nmacphàic\r\nmacphàidein\r\nmacphàil\r\nmacphàrlain\r\nmacpheadair\r\nmacpheadarain\r\nmacpheadrais\r\nmacpheidearain\r\nmacphilip\r\nmacphòil\r\nmacrabaidh\r\nmacraghnaill\r\nmacraibeirt\r\nmacraoimhin\r\nmacraoiridh\r\nmacraonaill\r\nmacrath\r\nmacràild\r\nmacriada\r\nmacriocaird\r\nmacrisnidh\r\nmacrìdeinn\r\nmacrìgh\r\nmacrob\r\nmacrobaidh\r\nmacroibeirt\r\nmacroithridh\r\nmacruairidh\r\nmacrusachainn\r\nmacshanndaidh\r\nmacshealbhaigh\r\nmacsheòrais\r\nmacsheòrsa\r\nmacshimidh\r\nmacshithich\r\nmacshitrig\r\nmacshìm\r\nmacshomhairle\r\nmacshuibhne\r\nmacsiridh\r\nmacsporain\r\nmacsuain\r\nmacsual\r\nmacthaidhg\r\nmactheàrlaich\r\nmacthom\r\nmacthomaidh\r\nmacthorcadail\r\nmacthorcaill\r\nmacthàmhais\r\nmacthòmais\r\nmactiridh\r\nmactuirc\r\nmacualraig\r\nmacuaraig\r\nmacuchtraigh\r\nmacuilleim\r\nmacuirigh\r\nmacuisdein\r\nmacurardaidh\r\nmacurardaigh\r\nmacurchadain\r\nmacurchaidh\r\nmacusbaig\r\nmacùisdein\r\nscottish\r\nmaoileanach\r\nmaoliosa\r\nmatasan\r\nmathanach\r\nmatharnach\r\nmawr\r\nmoireach\r\nmoireasdan\r\nmoireasdanach\r\nmorgan\r\nmorganach\r\nmunna\r\nmàrnach\r\nmàrr\r\nmàrtainn\r\nmèinn\r\nmèinnearach\r\nniocalsan\r\npadarsan\r\npaorach\r\npeadarsan\r\npeucag\r\npeutan\r\npreas\r\npuidreach\r\nrathais\r\nrobasan\r\nrobasdan\r\nroid\r\nroideach\r\nros\r\nròs\r\nrosach\r\nròsach\r\nrothach\r\nruadh\r\nruiseal\r\nsailcirc\r\nsalmond\r\nseadh\r\nseadhg\r\nseagha\r\nseaghach\r\nseathanach\r\nsgèin\r\nsginnearach\r\nsgot\r\nsingleir\r\nsiosal\r\nsiosalach\r\nsmios\r\nstiùbhart\r\nstiùbhartach\r\nsùdrach\r\nsutharlainn\r\nsutharlan\r\nsuthurlanach\r\ntod\r\ntodt\r\ntalmhach\r\ntolmach\r\ntuairnear\r\ntàileach\r\ntàillear\r\ntulach\r\nualas\r\numphraidh\r\nurchadainn\r\nurchardan".split("\n"));
+	this.trainingData.set("irish_forenames","ainm\r\naibhilín\r\neibhlín\r\naffraic\r\naifric\r\naíbhinn\r\naoibhin\r\nailbhe\r\náine\r\nanne\r\naisling\r\naislin\r\naislinn\r\naithche\r\naodhamair\r\naodhnait\r\naoibheann\r\naoibhinn\r\naoibhe\r\naoife\r\nathracht\r\nbarrdhubh\r\nbébhinn\r\nvivian\r\nbláth\r\nbláthnaid\r\nflora\r\nblinne\r\nblanche\r\nbríd\r\nbrighid\r\nbrídín\r\nbrighdín\r\nbrónach\r\nbuadhnait\r\ncacht\r\ncaoimhe\r\ncaoilfhionn\r\nciamhnait\r\nciannait\r\nciara\r\nclíona\r\ncliodhna\r\nclodagh\r\ncobhlaith\r\ncobhfhlaith\r\ndamhnait\r\ndymphna\r\ndearbháil\r\ndervilia\r\ndearbhfhorgaill\r\ndearbhfhorghaill\r\ndearbhla\r\ndeirdre\r\ndianaimh\r\ndoireann\r\ndorothy\r\ndubhchobhlaigh\r\ndubhóg\r\nearnait\r\neasnadh\r\neithne\r\néimhear\r\neimhear\r\neimear\r\neimer\r\némer\r\néadaoin\r\nétaín\r\nedwina\r\nfaoiltighearna\r\nfeidhelm\r\nféthnaid\r\nféthnat\r\nfiadhnait\r\nfíona\r\nfionnuala\r\nfionnghuala\r\nflann\r\nflannait\r\nfodhla\r\nforbhlaith\r\nfíneamhain\r\ngeiléis\r\ngobnait\r\ngormlaith\r\ngormfhlaith\r\ngráinne\r\ngranya\r\ngrace\r\niodhnait\r\níde\r\nlann\r\nlasairfhíona\r\nmeabh\r\nmeadhbh\r\nmeibhín\r\nmeidhbhín\r\nmeaveen\r\nmealla\r\nmíde\r\nmór\r\nsarah\r\nmóirín\r\nmiodhnait\r\nmuadhnait\r\nmuireann\r\nmuirinn\r\nmarion\r\nmuirgheal\r\nmuirne\r\nniamh\r\nnuala\r\nnóra\r\nnóirín\r\nodharnait\r\nonóra\r\nhonora\r\nórla\r\nórlaith\r\nórfhlaith\r\npeig\r\npeigi\r\npeigín\r\nrathnait\r\nríona\r\nríonach\r\nríoghnach\r\nsadhbh\r\nsaev\r\nsaoirse\r\nsaorla\r\nsaorlaith\r\nsaorfhlaith\r\nsíthmaith\r\nsláine\r\nsorcha\r\ntuathflaith\r\nuallach\r\nuasal\r\núna\r\nabbán\r\naibhne\r\nailín\r\nainníleas\r\namhalgaidh\r\nanluan\r\nanmchadh\r\naodh\r\naodhán\r\naogán\r\naodhagán\r\naonghus\r\nárdghal\r\nardghal\r\nardghar\r\nart\r\nbarra\r\nbairre\r\nbearach\r\nbaothghalach\r\nbeacán\r\nbearchán\r\nbran\r\nbreasal\r\nbasil\r\nbreandán\r\nbreanndán\r\nbréanainn\r\nbrian\r\nbrochadh\r\nbuadhach\r\ncailean\r\ncoilean\r\ncoileán\r\ncoilín\r\ncuileán\r\ncairbre\r\ncalbhach\r\ncaoimhín\r\ncaoimhghín\r\ncaolán\r\nkyle\r\ncaomhán\r\ncarraig\r\ncárthach\r\ncathal\r\ncharles\r\ncathaoir\r\ncharles\r\ncathbharr\r\nceallach\r\nceallachán\r\ncearbhall\r\ncharles\r\ncian\r\ncianán\r\nciarán\r\ncinnéididh\r\ncinnéidigh\r\ncionaodh\r\nciothruadh\r\ncillian\r\ncoinneach\r\ncainneach\r\ncanice\r\ncoireall\r\ncyril\r\ncolla\r\ncolm\r\ncolum\r\ncolmán\r\ncomán\r\ncomhghall\r\ncomhghan\r\nconall\r\nconán\r\nconaire\r\nconchúr\r\nconchobhar\r\nconchubhar\r\nconghalach\r\nconmhac\r\nconn\r\nconnla\r\nconnlaodh\r\ncormac\r\ncosnamhach\r\ncriomthann\r\ncróchán\r\ncrónán\r\ncuan\r\ncúchonnacht\r\ncuimín\r\ncúmhaighe\r\ncúmheadha\r\ndabhag\r\ndabhóg\r\ndáithí\r\ndavid\r\ndamháin\r\ndara\r\ndaire\r\ndéaglán\r\ndeaglán\r\ndeclan\r\ndeasmhumhnach\r\ndiarmaid\r\ndiarmait\r\njeremiah\r\ndónall\r\ndomhnall\r\ndaniel\r\ndonn\r\ndonnán\r\ndonnchadh\r\ndonnchadha\r\ndenis\r\ndubhaltach\r\ndubhán\r\ndubhghall\r\ndubhghlas\r\ndúnlang\r\neachaidh\r\neachann\r\neachdhonn\r\neachthighearn\r\néanán\r\néanna\r\néinde\r\nearcán\r\nearnán\r\neirnín\r\néibhear\r\néignach\r\neignach\r\néigneachán\r\neigneachán\r\néimhín\r\néireamhón\r\neireamhón\r\neireamhán\r\neochaidh\r\neoghan\r\neoghainín\r\nfachtna\r\nfáilbhe\r\nfaolán\r\nfearadhach\r\nfearchar\r\nfearganainm\r\nfearghal\r\nfeichín\r\nféilim\r\nfeidhlim\r\nfelix\r\nfergus\r\nfeargus\r\nfearghus\r\nfiach\r\nfiacha\r\nfiachra\r\nfeary\r\nfinghin\r\nfionghuine\r\nfionn\r\nfionntán\r\nfinnian\r\nfintan\r\nfinian\r\nfionnbharr\r\nfitheal\r\nflann\r\nflannán\r\ngarbhán\r\nglaisne\r\niarlaith\r\niarfhlaith\r\nirial\r\nlachtna\r\nlaoiseach\r\nlaoighseach\r\nlewis\r\nlasairian\r\nlochlann\r\nlochlainn\r\nlomán\r\nlonán\r\nlorcán\r\nlaurence\r\nlughaidh\r\nlewis\r\nmaeleachlainn\r\nmaelsheachlainn\r\nmalachy\r\nmaelíosa\r\nmainchín\r\nmaodhóg\r\nmaoilín\r\nmaoilir\r\nmaolcholm\r\nmaolcholuim\r\nmaolmórdha\r\nmaolmhuire\r\nmaolruadháin\r\nmathghamhain\r\nmuircheartach\r\nmortimer\r\nmuireadhach\r\nmuireach\r\nmuirgheas\r\nmuiris\r\nmurchadh\r\nnaomhán\r\nnaos\r\nneachtan\r\nneasán\r\nniall\r\nniallán\r\nodhrán\r\noireachtach\r\noisín\r\noscar\r\nriain\r\nroibhilín\r\nraibhilín\r\nruibhilín\r\nrónán\r\nros\r\nruadhán\r\nruairi\r\nruari\r\nruairí\r\nruarí\r\nruaidhri\r\nruaridh\r\nroger\r\nsaerbhreathach\r\nseachnasach\r\nséadna\r\nsenán\r\nsiadhal\r\nsiaghal\r\nsioda\r\nsuibhne\r\ntadhg\r\ntimothy\r\ntaichleach\r\ntighernach\r\ntighearnán\r\ntiarnach\r\ntiarnán\r\ntiernan\r\ntoirdhealbhach\r\ntoirleach\r\nterry\r\ntorna\r\ntreabhair\r\ntuathal\r\nuaitéar\r\nuaithne\r\nualgharg\r\nultán\r\ncaitlín\r\ncatraoine\r\ncaitríona\r\ncaitrín\r\néabha\r\neibhlín\r\neilín\r\neilís\r\náilís\r\nmáire\r\nmairéad\r\nmairghréad\r\nmáirín\r\nráichéal\r\nraghnailt\r\nrós\r\nróis\r\nróisín\r\nsíle\r\nsinéad\r\nsiobhán\r\nambrós\r\namhlaoibh\r\nárón\r\nailin\r\naindriú\r\naindréas\r\nartúr\r\nagaistín\r\nágastas\r\nantóin\r\nbearnárd\r\nbeinidict\r\ncríostóir\r\ndainéal\r\néadbhárd\r\neamon\r\néamon\r\neoin\r\neóin\r\njohn\r\ngearóid\r\ngréagóir\r\ngreagoir\r\niúdás\r\nlabhrás\r\nlubhrás\r\nliam\r\nuilliam\r\nmáirtín\r\nmaitiú\r\nmícheál\r\nnioclás\r\noilibhéar\r\npádraig\r\npeadar\r\npilib\r\nproinsias\r\nfroinsias\r\npól\r\npóil\r\nristeárd\r\nristéard\r\nréamann\r\nréamonn\r\nroibéard\r\nroibeárd\r\nroibeard\r\nseán\r\nséan\r\nseathan\r\nséaonin\r\nséafra\r\nséamus\r\nséamas\r\nseárlas\r\nseoirse\r\nseosamh\r\niósaf\r\nióseph\r\nsíomón\r\nstíofán\r\ntéodóir\r\ntiobóid\r\ntomás\r\nuinseann".split("\n"));
+	this.trainingData.set("icelandic_forenames","aagot\nabela\nabigael\nada\nadda\naddú\naddý\nadela\nadelía\nadríana\naðalbjörg\naðalbjört\naðalborg\naðaldís\naðalfríður\naðalheiður\naðalrós\naðalsteina\naðalsteinunn\naðalveig\nagata\nagatha\nagða\nagla\nagnea\nagnes\nagneta\nágústa\nágústína\nakira\nalanta\nalba\nalberta\nalbína\nalda\naldís\naldný\nalena\naleta\naletta\nalexa\nalexandra\nalexandría\nalexis\nalexía\nalexstrasa\nalfa\nálfdís\nálfey\nálfgerður\nálfheiður\nálfhildur\nalfífa\nálfrós\nálfrún\nálfsól\nalice\nalida\nalída\nalína\nalís\nalísa\nalla\nallý\nalma\nalrún\nalva\nalvilda\namadea\namal\namalía\namanda\namelía\namilía\namíra\namy\namý\nanalía\nanastasía\nandra\nandrá\nandrea\nandríana\nanetta\nangela\nangelía\nangelíka\nanika\naníka\nanína\nanita\naníta\nanja\nann\nanna\nannabella\nannalísa\nanne\nannelí\nannetta\nanney\nannika\nannía\nanný\nantonía\napríl\nara\nárbjörg\nárbjört\nardís\nárdís\nárelía\narey\naría\naríaðna\naríana\naríanna\naríela\naríella\narín\narína\narinbjörg\naris\narís\narisa\narja\nárlaug\narmenía\nármey\narna\nárna\narnbjörg\narnborg\narndís\nárndís\narney\nárney\narnfinna\narnfríður\narngerður\narngunnur\narnheiður\nárnheiður\narnhildur\narnika\nárnína\narnkatla\narnlaug\narnleif\narnlín\narnljót\narnóra\narnrós\narnrún\nárný\narnþóra\narnþrúður\náróra\nársól\nársæl\nárún\nárveig\nárvök\nárþóra\nása\násbjörg\násborg\násdís\násfríður\násgerður\náshildur\nasía\nasírí\náskatla\naskja\násla\náslaug\násleif\násný\násrós\násrún\nassa\nást\násta\nástbjörg\nástbjört\nástdís\nástfríður\nástgerður\nástheiður\násthildur\nastrid\nástríður\nástrós\nástrún\nástveig\nástþóra\nástþrúður\násvör\natalía\natena\nathena\natla\natlanta\nauðbjörg\nauðbjört\nauðdís\nauðlín\nauðna\nauðný\nauðrún\nauður\naurora\naxelía\naxelma\naþena\r\nbaldey\nbaldrún\nbaldvina\nbarbara\nbarbára\nbassí\nbára\nbebba\nbegga\nbelinda\nbella\nbenedikta\nbengta\nbenidikta\nbenía\nbeníta\nbenna\nbenney\nbenný\nbenta\nbentey\nbentína\nbera\nbergdís\nbergey\nbergfríður\nbergheiður\nberghildur\nberglaug\nberglind\nberglín\nbergljót\nbergmannía\nbergný\nbergrán\nbergrín\nbergrós\nbergrún\nbergsveina\nbergþóra\nberit\nbernódía\nberta\nbertha\nbessí\nbestla\nbeta\nbetanía\nbetsý\nbettý\nbíbí\nbil\nbína\nbirgit\nbirgitta\nbirna\nbirta\nbirtna\nbjargdís\nbjargey\nbjargheiður\nbjarghildur\nbjarglind\nbjarkey\nbjarklind\nbjarma\nbjarndís\nbjarney\nbjarnfríður\nbjarngerður\nbjarnheiður\nbjarnhildur\nbjarnlaug\nbjarnrún\nbjarnveig\nbjarný\nbjarnþóra\nbjarnþrúður\nbjartey\nbjartmey\nbjörg\nbjörgey\nbjörgheiður\nbjörghildur\nbjörk\nbjörney\nbjörnfríður\nbjört\nbláey\nbláklukka\nblíða\nblín\nblómey\nblædís\nblær\nbobba\nbóel\nboga\nbogdís\nbogey\nbogga\nboghildur\nborg\nborgdís\nborghildur\nborgný\nborgrún\nborgþóra\nbót\nbóthildur\nbotnía\nbrá\nbraga\nbraghildur\nbrák\nbranddís\nbrandís\nbríana\nbríanna\nbriet\nbríet\nbrigitta\nbrimdís\nbrimhildur\nbrimrún\nbrit\nbritt\nbritta\nbryndís\nbrynfríður\nbryngerður\nbrynheiður\nbrynhildur\nbrynja\nbrynný\nburkney\nbylgja\r\ncamilla\ncaritas\ncarla\ncarmen\ncathinca\ncecilia\ncecilía\ncharlotta\ncharlotte\nchrista\nchristel\nchristina\nchristine\nclara\r\ndaðey\ndaðína\ndagbjörg\ndagbjört\ndagfríður\ndaggrós\ndagheiður\ndagmar\ndagmey\ndagný\ndagrún\ndaldís\ndaley\ndalía\ndalla\ndallilja\ndalrós\ndana\ndaney\ndanfríður\ndanheiður\ndanhildur\ndanía\ndaníela\ndaníella\ndara\ndaría\ndebora\ndebóra\ndendý\ndía\ndíana\ndíanna\ndidda\ndilja\ndiljá\ndíma\ndimma\ndimmblá\ndimmey\ndís\ndísa\ndísella\ndóa\ndómhildur\ndonna\ndóra\ndórey\ndoris\ndóris\ndórótea\ndorothea\ndórothea\ndóróthea\ndrauma\ndraumey\ndrífa\ndroplaug\ndrótt\ndröfn\ndúa\ndúfa\ndúna\ndúnna\ndýrborg\ndýrfinna\ndýrleif\ndýrley\ndýrunn\ndæja\ndögg\ndögun\r\nebba\nebonney\nedda\nedel\nedil\nedit\nedith\neðna\nefemía\negedía\neggrún\negla\neiðný\neiðunn\neik\neileiþía\neinbjörg\neindís\neiney\neinfríður\neinhildur\neinína\neinrún\neir\neirdís\neirfinna\neiríka\neirný\neirún\neivör\nelba\neldbjörg\neldey\neldlilja\neldrún\neldþóra\neleina\nelektra\nelena\nelenborg\nelfa\nelfur\nelía\nelíana\nelín\nelina\nelína\nelíná\nelínbet\nelínbjörg\nelínbjört\nelinborg\nelínborg\nelíndís\nelíngunnur\nelínheiður\nelínrós\nelírós\nelísa\nelísabet\nelisabeth\nelísabeth\nelíza\nelka\nella\nellen\nelley\nellisif\nellín\nelly\nellý\nelma\nelna\nelsa\nelsabet\nelsie\nelsí\nelsý\nelva\nelvi\nelvira\nelvíra\nelvý\nembla\nemelía\nemelíana\nemelína\nemeralda\nemilía\nemilíana\nemilíanna\nemilý\nemma\nemmý\nemý\nenea\neneka\nengilbjört\nengilráð\nengilrós\nengla\nenika\neníta\nenja\nenóla\neres\nerika\nerin\nerla\nerlen\nerlín\nerna\nesja\neskja\nesmeralda\nester\nesther\nestiva\nethel\netna\neufemía\neva\nevelyn\nevey\nevfemía\nevgenía\nevíta\nevlalía\ney\neybjörg\neybjört\neyborg\neydís\neyfríður\neygerður\neygló\neyhildur\neyja\neyjalín\neyleif\neylín\neyrós\neyrún\neyveig\neyvör\neyþóra\neyþrúður\r\nfanndís\nfanney\nfannlaug\nfanny\nfanný\nfebrún\nfema\nfía\nfídes\nfífa\nfilipía\nfilippa\nfilippía\nfinna\nfinnbjörg\nfinnbjörk\nfinnboga\nfinnborg\nfinndís\nfinney\nfinnfríður\nfinnlaug\nfinnrós\nfjalldís\nfjóla\nflóra\nfolda\nfrán\nfransiska\nfranziska\nfregn\nfreydís\nfreygerður\nfreyja\nfreylaug\nfreyleif\nfríða\nfriðbjörg\nfriðbjört\nfriðborg\nfriðdís\nfriðdóra\nfriðey\nfriðfinna\nfriðgerður\nfriðjóna\nfriðlaug\nfriðleif\nfriðlín\nfriðmey\nfriðný\nfriðrika\nfriðrikka\nfriðrós\nfriðrún\nfriðsemd\nfríður\nfriðveig\nfriðþóra\nfrigg\nfróðný\nfrostrós\nfura\nfönn\r\ngabríela\ngabríella\ngauja\ngauthildur\ngefjun\ngefn\ngeira\ngeirbjörg\ngeirdís\ngeirfinna\ngeirfríður\ngeirhildur\ngeirlaug\ngeirlöð\ngeirný\ngeirríður\ngeirrún\ngeirþrúður\ngeorgía\ngerða\ngerður\ngestheiður\ngestný\ngestrún\ngía\ngígja\ngillý\ngilslaug\ngísela\ngísla\ngísley\ngíslína\ngíslný\ngíslrún\ngíslunn\ngissunn\ngíta\ngjaflaug\ngló\nglóa\nglóbjört\nglóð\nglódís\nglóey\ngloría\ngná\ngóa\ngógó\ngrein\ngrélöð\ngret\ngrét\ngreta\ngréta\ngrethe\ngríma\ngrímey\ngrímheiður\ngrímhildur\ngróa\ngúa\nguðbjörg\nguðbjört\nguðborg\nguðdís\nguðfinna\nguðfríður\nguðjóna\nguðlaug\nguðleif\nguðlín\nguðmey\nguðmunda\nguðmundína\nguðný\nguðríður\nguðrún\nguðsteina\nguðveig\ngullbrá\ngullveig\ngullý\ngumma\ngunnbjörg\ngunnbjört\ngunnborg\ngunndís\ngunndóra\ngunnella\ngunnfinna\ngunnfríður\ngunnharða\ngunnheiður\ngunnhildur\ngunnjóna\ngunnlaug\ngunnleif\ngunnlöð\ngunnrún\ngunnur\ngunnveig\ngunnvör\ngunný\ngunnþóra\ngunnþórunn\ngurrý\ngyða\ngyðja\ngyðríður\ngytta\ngæfa\ngæflaug\r\nhadda\nhaddý\nhafbjörg\nhafborg\nhafdís\nhafey\nhafliða\nhaflína\nhafný\nhafrós\nhafrún\nhafsteina\nhafþóra\nhákonía\nhalla\nhallbera\nhallbjörg\nhallborg\nhalldís\nhalldóra\nhalley\nhallfríður\nhallgerður\nhallgunnur\nhallkatla\nhallný\nhallrún\nhallveig\nhallvör\nhanna\nhanney\nhansa\nhansína\nharpa\nhauður\nheba\nhebba\nhedda\nhedí\nheida\nheiða\nheiðbjörg\nheiðbjörk\nheiðbjört\nheiðbrá\nheiðdís\nheiðlaug\nheiðlóa\nheiðný\nheiðrós\nheiðrún\nheiður\nheiðveig\nhekla\nhelen\nhelena\nhelga\nhella\nhelma\nhendrikka\nhenný\nhenrietta\nhenrika\nhenríetta\nhera\nherbjörg\nherbjört\nherborg\nherdís\nherfríður\nhergerður\nherlaug\nhermína\nhersilía\nherta\nhertha\nhervör\nherþrúður\nhilda\nhildegard\nhildibjörg\nhildigerður\nhildigunnur\nhildiríður\nhildisif\nhildur\nhilma\nhiminbjörg\nhind\nhinrika\nhinrikka\nhjalta\nhjaltey\nhjálmdís\nhjálmey\nhjálmfríður\nhjálmgerður\nhjálmrós\nhjálmrún\nhjálmveig\nhjördís\nhjörfríður\nhjörleif\nhjörný\nhjörtfríður\nhlaðgerður\nhlédís\nhleiður\nhlíf\nhlín\nhlökk\nhólmbjörg\nhólmdís\nhólmfríður\nhrafna\nhrafnborg\nhrafndís\nhrafney\nhrafnfífa\nhrafngerður\nhrafnheiður\nhrafnhildur\nhrafnkatla\nhrafnlaug\nhrafntinna\nhraundís\nhrefna\nhreindís\nhróðný\nhrólfdís\nhrund\nhrönn\nhugbjörg\nhugbjört\nhugborg\nhugdís\nhugljúf\nhugrún\nhuld\nhulda\nhuldís\nhuldrún\nhúna\nhúnbjörg\nhúndís\nhúngerður\nhvönn\nhödd\nhögna\nhörn\r\nida\nída\nidda\niða\niðunn\nilmur\nilse\níma\nimmý\nina\nína\ninda\nindí\nindia\nindía\nindiana\nindíana\nindíra\nindra\ninga\ningdís\ningeborg\ninger\ningey\ningheiður\ninghildur\ningibjörg\ningibjört\ningiborg\ningifinna\ningifríður\ningigerður\ningilaug\ningileif\ningilín\ningimaría\ningimunda\ningiríður\ningirós\ningisól\ningiveig\ningrid\ningrún\ningunn\ningveldur\ninna\nír\níren\nirena\nírena\nirene\níris\nirja\nirma\nirmelín\nirmý\nirpa\nírunn\nisabel\nísabel\nisabella\nísabella\nísadóra\nísafold\nísalind\nísbjörg\nísdís\nísey\nísfold\nísgerður\níshildur\nísidóra\nísis\níslaug\nísleif\níslilja\nísmey\nísold\nísól\nísrún\níssól\nísveig\níunn\níva\r\njakobína\njana\njane\njanetta\njannika\njara\njarla\njárnbrá\njárngerður\njarún\njarþrúður\njasmín\njenetta\njenna\njenny\njenný\njensína\njessý\njóa\njóanna\njódís\njófríður\njóhanna\njólín\njóna\njónanna\njónasína\njónbjörg\njónbjört\njóndís\njóndóra\njóney\njónfríður\njóngerð\njónheiður\njónhildur\njónída\njónína\njóninna\njónný\njóný\njóra\njóríður\njórlaug\njórunn\njósebína\njósefín\njósefína\njovina\njúdea\njúdit\njudith\njúlía\njúlíana\njúlíanna\njúlíetta\njúlíhuld\njúlína\njúlírós\njúní\njúnía\njúníana\njökla\njökulrós\njörgína\r\nkaðlín\nkaja\nkala\nkalla\nkamí\nkamilla\nkamma\nkapitola\nkapítóla\nkara\nkára\nkaren\nkarí\nkarin\nkarín\nkarína\nkaritas\nkarítas\nkarla\nkarlína\nkarlinna\nkarlotta\nkarmen\nkaró\nkarol\nkarólín\nkarolína\nkarólína\nkarún\nkassandra\nkata\nkatarína\nkaterína\nkatharina\nkathinka\nkatinka\nkatla\nkatrín\nkatrína\nkatý\nkellý\nkendra\nketilbjörg\nketilfríður\nketilríður\nkiddý\nkira\nkirsten\nkirstín\nkittý\nkjalvör\nkládía\nklara\nklementína\nkleópatra\nkókó\nkolbjörg\nkolbrá\nkolbrún\nkoldís\nkolfinna\nkolfreyja\nkolgríma\nkolka\nkonkordía\nkonný\nkorka\nkormlöð\nkornelía\nkría\nkrista\nkristbjörg\nkristborg\nkristel\nkristensa\nkristey\nkristfríður\nkristgerður\nkristíana\nkristíanna\nkristin\nkristín\nkristína\nkristine\nkristjana\nkristjóna\nkristlaug\nkristlín\nkristlind\nkristný\nkristólína\nkristrós\nkristrún\nkristveig\nkristvina\nkristý\nkristþóra\nkrumma\nkæja\r\nlaila\nlaíla\nlana\nlara\nlára\nlárensína\nláretta\nlárey\nlaufey\nlaufheiður\nlaufhildur\nlauga\nlaugey\nlaugheiður\nlea\nleikný\nleila\nlena\nleóna\nleonóra\nleónóra\nlexí\nleyla\nlíba\nlíf\nlífdís\nlilja\nliljá\nliljurós\nlill\nlilla\nlillian\nlilly\nlillý\nlily\nlilý\nlílý\nlín\nlína\nlínbjörg\nlind\nlinda\nlinddís\nlíndís\nlíneik\nlíney\nlingný\nlínhildur\nlísa\nlísabet\nlísandra\nlísbet\nlisbeth\nlísebet\nlistalín\nliv\nlív\nljósbjörg\nljósbrá\nljótunn\nlóa\nlofn\nloftveig\nlogey\nlokbrá\nlóreley\nlotta\nlouisa\nlouise\nlovísa\nlúcía\nlúðvíka\nlúísa\nlukka\nlúna\nlúsinda\nlúsía\nlúvísa\nlydia\nlýdía\nlydía\nlyngheiður\nlýra\nlæla\r\nmábil\nmaddý\nmagda\nmagdalena\nmagðalena\nmagga\nmaggey\nmaggý\nmagna\nmagndís\nmagnea\nmagnes\nmagney\nmagnfríður\nmagnheiður\nmagnhildur\nmagnúsína\nmagný\nmagnþóra\nmaía\nmaídís\nmaísól\nmaj\nmaja\nmalen\nmalena\nmálfríður\nmálhildur\nmalía\nmalika\nmalín\nmalína\nmalla\nmálmfríður\nmánadís\nmanda\nmáney\nmanúela\nmanúella\nmara\nmára\nmardís\nmarela\nmarella\nmaren\nmarey\nmarfríður\nmargit\nmargot\nmargret\nmargrét\nmargrjet\nmargunnur\nmarheiður\nmarí\nmaria\nmaría\nmaríam\nmarían\nmaríana\nmaríanna\nmarie\nmarikó\nmarín\nmarína\nmarinella\nmarínella\nmaríon\nmarísa\nmarísól\nmarit\nmarít\nmaríuerla\nmarja\nmarkrún\nmarlaug\nmarlena\nmarlín\nmarlís\nmarólína\nmarsa\nmarselía\nmarselína\nmarsibil\nmarsilía\nmarsý\nmarzibil\nmarta\nmartha\nmartína\nmary\nmarý\nmathilda\nmatta\nmattea\nmatthea\nmatthía\nmattíana\nmatthilda\nmatthildur\nmattína\nmattý\nmaxima\nmeda\nmekkin\nmekkín\nmelinda\nmelissa\nmelkorka\nmelrós\nmessíana\nmetta\nmey\nmía\nmikaela\nmikaelína\nmikkalína\nmíla\nmilda\nmildríður\nmilla\nmillý\nmímósa\nminerva\nmínerva\nminna\nminney\nminný\nmíra\nmíranda\nmiriam\nmíríel\nmirja\nmirjam\nmirra\nmist\nmítra\nmjaðveig\nmjalldís\nmjallhvít\nmjöll\nmóa\nmódís\nmóeiður\nmóey\nmóheiður\nmona\nmóna\nmonika\nmónika\nmóníka\nmorgunsól\nmunda\nmundheiður\nmundhildur\nmundína\nmyrra\nmýr\nmýra\nmyrk\nmýrún\nmörk\r\nnáð\nnadia\nnadía\nnadja\nnana\nnanna\nnanný\nnansý\nnaomí\nnaómí\nnatalía\nnatalie\nnáttsól\nnella\nnellý\nnenna\nnicole\nniðbjörg\nnikíta\nnikoletta\nnikólína\nnína\nníní\nninja\nninna\nnjála\nnjóla\nnóa\nnóra\nnorma\nnótt\nnýbjörg\r\nobba\nóda\nodda\noddbjörg\noddfreyja\noddfríður\noddgerður\noddhildur\noddlaug\noddleif\noddný\noddrún\noddveig\noddvör\nóðný\nófelía\noktavía\noktóvía\nóla\nólafía\nólafína\nólavía\nolga\nólína\nolivia\nólivía\nollý\nólöf\nora\norka\normheiður\normhildur\nósa\nósk\nósklín\notkatla\notta\nótta\r\npála\npáldís\npáley\npálfríður\npálhanna\npálheiður\npálhildur\npálín\npálína\npálmey\npálmfríður\npálrún\npamela\nparís\npatricia\npatrisía\nperla\npeta\npetra\npetrea\npetrína\npétrína\npetronella\npetrónella\npetrós\npetrún\npétrún\npetrúnella\npía\npolly\npollý\npría\r\nráðhildur\nrafney\nrafnhildur\nragna\nragnbjörg\nragney\nragnfríður\nragnheiður\nragnhildur\nrakel\nramóna\nrán\nrandalín\nrandíður\nrandý\nranka\nrannva\nrannveig\nrea\nrebekka\nreginbjörg\nregína\nrein\nrenata\nreyn\nreyndís\nreynheiður\nreynhildur\nríkey\nrikka\nrín\nripley\nrita\nríta\nróberta\nróbjörg\nronja\nrorí\nrós\nrósa\nrósalía\nrósalind\nrósanna\nrósbjörg\nrósborg\nróselía\nrósey\nrósfríður\nróshildur\nrósinkara\nrósinkransa\nróska\nróslaug\nróslind\nróslinda\nróslín\nrósmary\nrósmarý\nrósmunda\nrósný\nroxanna\nrúbý\nrún\nrúna\nrúndís\nrúnhildur\nrunný\nrúrí\nrut\nruth\nröfn\nrögn\nröskva\r\nsabína\nsabrína\nsaga\nsalbjörg\nsaldís\nsalgerður\nsalín\nsalína\nsalka\nsalma\nsalný\nsalome\nsalóme\nsalvör\nsandra\nsanna\nsantía\nsara\nsarína\nsefanía\nselena\nselja\nselka\nselma\nsenía\nseptíma\nsera\nserena\nseselía\nsesilía\nsesselía\nsesselja\nsessilía\nsía\nsif\nsigdís\nsigdóra\nsigfríð\nsigfríður\nsigga\nsiggerður\nsigmunda\nsigna\nsignhildur\nsigný\nsigrid\nsigríður\nsigrún\nsigurást\nsigurásta\nsigurbára\nsigurbirna\nsigurbjörg\nsigurbjört\nsigurborg\nsigurdís\nsigurdóra\nsigurdríf\nsigurdrífa\nsigurða\nsigurey\nsigurfinna\nsigurfljóð\nsigurgeira\nsigurhanna\nsigurhelga\nsigurhildur\nsigurjóna\nsigurlaug\nsigurleif\nsigurlilja\nsigurlinn\nsigurlín\nsigurlína\nsigurmunda\nsigurnanna\nsigurósk\nsigurrós\nsigursteina\nsigurunn\nsigurveig\nsigurvina\nsigurþóra\nsigvalda\nsigyn\nsigþóra\nsigþrúður\nsilfa\nsilfá\nsilfrún\nsilja\nsilka\nsilla\nsilva\nsilvana\nsilvía\nsímona\nsímonía\nsirra\nsirrí\nsirrý\nsísí\nsíta\nsiv\nsivía\nsjana\nsjöfn\nskarpheiður\nskugga\nskúla\nskuld\nskúlína\nsnjáfríður\nsnjáka\nsnjófríður\nsnjólaug\nsnorra\nsnót\nsnæbjörg\nsnæbjört\nsnæborg\nsnæbrá\nsnædís\nsnæfríður\nsnælaug\nsnærós\nsnærún\nsoffía\nsofía\nsofie\nsól\nsóla\nsólbjörg\nsólbjört\nsólborg\nsólbrá\nsólbrún\nsóldís\nsóldögg\nsóley\nsólfríður\nsólgerður\nsólhildur\nsólín\nsólkatla\nsóllilja\nsólný\nsólrós\nsólrún\nsolveig\nsólveig\nsólvör\nsónata\nsonja\nsonný\nsophia\nsophie\nstasía\nstefana\nstefanía\nstefánný\nsteina\nsteinbjörg\nsteinborg\nsteindís\nsteindóra\nsteiney\nsteinfríður\nsteingerður\nsteinhildur\nsteinlaug\nsteinrós\nsteinrún\nsteinunn\nsteinvör\nsteinþóra\nstella\nstígheiður\nstígrún\nstína\nstjarna\nstjarney\nstyrgerður\nsúla\nsúlamít\nsumarlína\nsumarrós\nsunna\nsunnefa\nsunneva\nsunniva\nsunníva\nsusan\nsúsan\nsúsanna\nsvafa\nsvala\nsvalrún\nsvana\nsvanbjörg\nsvanbjört\nsvanborg\nsvandís\nsvaney\nsvanfríður\nsvanheiður\nsvanhildur\nsvanhvít\nsvanlaug\nsvanrós\nsvanþrúður\nsvava\nsvea\nsveina\nsveinbjörg\nsveinborg\nsveindís\nsveiney\nsveinfríður\nsveingerður\nsveinhildur\nsveinlaug\nsveinrós\nsveinrún\nsveinsína\nsveinveig\nsylgja\nsylva\nsylvia\nsylvía\nsæbjörg\nsæbjört\nsæborg\nsæbrá\nsædís\nsæfinna\nsæfríður\nsæhildur\nsæla\nsælaug\nsæmunda\nsæný\nsærós\nsærún\nsæsól\nsæunn\nsævör\nsölva\nsölvey\nsölvína\r\ntala\ntalía\ntamar\ntamara\ntanía\ntanja\ntanya\ntanya\ntara\ntea\nteitný\ntekla\ntelma\ntera\nteresa\nteresía\nthea\nthelma\ntheodóra\ntheódóra\ntheresa\ntía\ntíalilja\ntíbrá\ntína\ntindra\ntinna\ntirsa\ntóbý\ntodda\ntóka\ntorbjörg\ntorfey\ntorfheiður\ntorfhildur\ntóta\ntristana\ntrú\ntryggva\ntryggvína\ntýra\r\núa\nugla\núlfa\núlfdís\núlfey\núlfheiður\núlfhildur\núlfrún\núlla\nuna\núna\nundína\núndína\nunna\nunnbjörg\nunndís\nunnur\núranía\nurður\núrsúla\r\nvagna\nvagnbjörg\nvagnfríður\nvaka\nvala\nvalbjörg\nvalbjörk\nvalbjört\nvalborg\nvaldheiður\nvaldís\nvalentína\nvalería\nvaley\nvalfríður\nvalgerða\nvalgerður\nvalgý\nvalhildur\nvalka\nvalkyrja\nvallý\nvalný\nvalrós\nvalrún\nvalva\nvalý\nvalþrúður\nvanda\nvár\nvarða\nvébjörg\nvédís\nvégerður\nveig\nveiga\nvélaug\nvenný\nvenus\nvéný\nvera\nveronika\nverónika\nveróníka\nvetrarrós\nvibeka\nvíbekka\nvictoría\nviðja\nvíf\nvigdís\nvígdögg\nvíggunnur\nviglín\nvigný\nviktoria\nviktoría\nvilborg\nvildís\nvilfríður\nvilgerður\nvilhelmína\nvilla\nvillimey\nvilma\nvilný\nvinbjörg\nvinný\nvinsý\nvíóla\nvíóletta\nvirginía\nvísa\nvon\nvoney\nvordís\r\nýja\nylfa\nylfur\nylja\nylva\nýma\nynja\nýr\nyrja\nýrr\nyrsa\r\nþalía\nþeba\nþeódís\nþeódóra\nþingey\nþjóðbjörg\nþjóðhildur\nþoka\nþollý\nþóra\nþóranna\nþórarna\nþorbjörg\nþórbjörg\nþórða\nþórdís\nþórelfa\nþórelfur\nþórey\nþorfinna\nþórfríður\nþorgerður\nþorgríma\nþórgunna\nþórgunnur\nþórhalla\nþórhanna\nþórheiður\nþórhildur\nþorkatla\nþórkatla\nþorlaug\nþórlaug\nþorleif\nþórleif\nþórný\nþórodda\nþorsteina\nþórsteina\nþórsteinunn\nþorstína\nþórstína\nþórunn\nþórveig\nþórvör\nþrá\nþrúða\nþrúður\nþúfa\nþula\nþura\nþurí\nþuríður\nþurý\nþyri\nþyrí\nþyrnirós\nþöll\r\nægileif\næsa\næsgerður\nævör\r\nögmunda\nögn\nölrún\nölveig\nörbrún\nörk\nösp\r\naage\naaron\nabel\nabraham\naðalberg\naðalbergur\naðalbert\naðalbjörn\naðalborgar\naðalgeir\naðalmundur\naðalráður\naðalsteinn\naðalvíkingur\nadam\naddi\nadel\nadíel\nadólf\naðólf\nadrían\nadríel\nagnar\nagni\nágúst\náki\nalbert\naldar\nalex\nalexander\nalexíus\nálfar\nálfgeir\nálfgrímur\nalfons\nalfred\nalfreð\nálfur\nálfþór\nali\nallan\nalli\nalmar\nalrekur\nalvar\nalvin\namil\namír\namos\námundi\nanders\nandreas\nandré\nandrés\nandri\nanes\nanfinn\nangantýr\nangi\nannar\nannarr\nannas\nannel\nannes\nanthony\nanton\nantoníus\nantóníus\naran\nárbjartur\nárbjörn\nárelíus\narent\nares\nárgeir\nárgils\nari\narilíus\narinbjörn\naríel\naríus\nármann\narnald\narnaldur\narnar\narnberg\narnbergur\narnbjörn\narndór\narnes\narnfinnur\narnfreyr\narngarður\narngeir\narngils\narngrímur\nárni\narnkell\narnlaugur\narnleifur\narnljótur\narnmóður\narnmundur\narnoddur\narnold\narnór\narnsteinn\narnúlfur\narnviður\narnþór\naron\nársæll\narthur\narthúr\nartúr\nás\nasael\násberg\násbergur\násbjörn\násdór\násgautur\násgeir\násgils\násgrímur\nási\náskell\naskur\náslaugur\náslákur\násmar\násmundur\násólfur\naspar\násröður\nástbjörn\nástgeir\nástmar\nástmundur\nástráður\nástríkur\nástvald\nástvaldur\nástvar\nástvin\nástþór\násvaldur\násvarður\násþór\natlas\natli\nauðberg\nauðbergur\nauðbert\nauðbjörn\nauðgeir\nauðkell\nauðmundur\nauðólfur\nauðun\nauðunn\nauður\naustar\naustmann\naustmar\naustri\naxel\r\nbaldur\nbaldvin\nbaldwin\nbaltasar\nbambi\nbarði\nbarri\nbassi\nbastían\nbaugur\nbárður\nbeinir\nbeinteinn\nbeitir\nbekan\nbenedikt\nbenidikt\nbenjamín\nbenoný\nbenóní\nbenóný\nbent\nbenvý\nberent\nberg\nbergfinnur\nberghreinn\nbergjón\nbergmann\nbergmar\nbergmundur\nbergsteinn\nbergsveinn\nbergur\nbergvin\nbergþór\nbernhard\nbernharð\nbernharður\nberni\nbernódus\nbersi\nbertel\nbertram\nbessi\nbetúel\nbill\nbirgir\nbirkir\nbirnir\nbirtingur\nbirtir\nbjargar\nbjargmundur\nbjargþór\nbjarkan\nbjarkar\nbjarki\nbjarmar\nbjarmi\nbjarnar\nbjarnfinnur\nbjarnfreður\nbjarnharður\nbjarnhéðinn\nbjarni\nbjarnlaugur\nbjarnleifur\nbjarnólfur\nbjarnsteinn\nbjarnþór\nbjartmann\nbjartmar\nbjartur\nbjartþór\nbjólan\nbjólfur\nbjörgmundur\nbjörgólfur\nbjörgúlfur\nbjörgvin\nbjörn\nbjörnólfur\nblængur\nblær\nblævar\nboði\nbogi\nbolli\nborgar\nborgúlfur\nborgþór\nbóas\nbói\nbótólfur\nbragi\nbrandur\nbreki\nbresi\nbrestir\nbrimar\nbrimi\nbrími\nbrimir\nbrímir\nbrjánn\nbroddi\nbruno\nbryngeir\nbrynjar\nbrynjólfur\nbrynjúlfur\nbrynleifur\nbrynmar\nbrynsteinn\nbryntýr\nbrynþór\nburkni\nbúi\nbúri\nbæring\nbæringur\nbæron\nböðvar\nbörkur\r\ncarl\ncecil\ncesar\nchristian\nchristopher\ncýrus\ncæsar\r\ndaði\ndagbjartur\ndagfari\ndagfinnur\ndaggeir\ndagmann\ndagnýr\ndagur\ndagþór\ndalbert\ndalli\ndalmann\ndalmar\ndalvin\ndamjan\ndamon\ndan\ndanelíus\ndaniel\ndaníel\ndanival\ndaníval\ndante\ndaríus\ndarri\ndavíð\ndemus\ndeníel\ndennis\ndiðrik\ndíómedes\ndofri\ndolli\ndómald\ndómaldi\ndómaldur\ndominik\ndónald\ndónaldur\ndór\ndóri\ndósóþeus\ndraupnir\ndreki\ndrengur\ndufgus\ndufþakur\ndugfús\ndúi\ndúnn\ndvalinn\ndynþór\ndýri\ndýrmundur\r\nebbi\nebeneser\nebenezer\neberg\neddi\nedgar\nedilon\nedílon\nedvard\nedvin\nedward\neðvald\neðvar\neðvarð\nefraím\neggert\neggþór\negill\neiðar\neiður\neikar\neilífur\neinar\neinir\neinvarður\neinþór\neiríkur\neivin\nelberg\nelbert\neldar\neldgrímur\neldjárn\neldmar\neldon\neldór\neldur\nelentínus\nelfar\nelfráður\nelí\nelía\nelías\nelíeser\nelimar\nelímar\nelínbergur\nelínmundur\nelinór\nelínór\nelis\nelís\nellert\nelli\nelliði\nellís\nelmar\nelvar\nelvin\nelvis\nemanúel\nembrek\nemerald\nemil\nemmanúel\nengilbert\nengilbjartur\nengiljón\nengill\nenok\neric\nerik\nerlar\nerlendur\nerling\nerlingur\nermenrekur\nernestó\nernir\nernst\neron\nerpur\nesekíel\nesjar\nesra\nestefan\nevald\nevan\nevert\nevían\neyberg\neyjólfur\neylaugur\neyleifur\neymar\neymundur\neyríkur\neysteinn\neyvar\neyvindur\neyþór\r\nfabrisíus\nfáfnir\nfalgeir\nfálki\nfalur\nfannar\nfannberg\nfanngeir\nfelix\nfengur\nfenrir\nferdinand\nferdínand\nfertram\nfeykir\nfífill\nfilip\nfilippus\nfinn\nfinnbjörn\nfinnbogi\nfinngeir\nfinnjón\nfinnlaugur\nfinnur\nfinnvarður\nfjalar\nfjarki\nfjólar\nfjólmundur\nfjölnir\nfjölvar\nfjörnir\nflemming\nflóki\nflórent\nflosi\nflóvent\nfólki\nforni\nfossmar\nfrancis\nfrank\nfranklín\nfránn\nfrans\nfranz\nfrár\nfreybjörn\nfreygarður\nfreymar\nfreymóður\nfreymundur\nfreyr\nfreysteinn\nfreyviður\nfreyþór\nfriðberg\nfriðbergur\nfriðbert\nfriðbjörn\nfriðfinnur\nfriðgeir\nfriðjón\nfriðlaugur\nfriðleifur\nfriðmann\nfriðmar\nfriðmundur\nfriðrik\nfriðsteinn\nfríðsteinn\nfriður\nfriðvin\nfriðþjófur\nfriðþór\nfriedrich\nfrímann\nfritz\nfróði\nfróðmar\nfrosti\nfuni\nfúsi\nfylkir\r\ngabriel\ngabríel\ngael\ngaldur\ngamalíel\ngarðar\ngaribaldi\ngarpur\ngarri\ngaui\ngaukur\ngauti\ngautrekur\ngautur\ngautviður\ngeir\ngeirarður\ngeirfinnur\ngeirharður\ngeirhjörtur\ngeirhvatur\ngeiri\ngeirlaugur\ngeirleifur\ngeirmundur\ngeirólfur\ngeirröður\ngeirtryggur\ngeirvaldur\ngeirþjófur\ngeisli\ngellir\ngeorg\ngerald\ngerðar\ngeri\ngestur\ngígur\ngilbert\ngill\ngilmar\ngils\ngissur\ngizur\ngídeon\ngígjar\ngísli\ngjúki\nglói\nglúmur\ngneisti\ngnúpur\ngnýr\ngoði\ngóði\ngoðmundur\ngói\ngottskálk\ngottsveinn\ngrani\ngrankell\ngregor\ngreipur\ngreppur\ngretar\ngrettir\ngrétar\ngrímar\ngrímkell\ngrímlaugur\ngrímnir\ngrímólfur\ngrímur\ngrímúlfur\nguðberg\nguðbergur\nguðbjarni\nguðbjartur\nguðbjörn\nguðbrandur\nguðfinnur\nguðfreður\nguðgeir\nguðjón\nguðlaugur\nguðleifur\nguðleikur\nguðmann\nguðmar\nguðmon\nguðmundur\nguðni\nguðráður\nguðröður\nguðsteinn\nguðvarður\nguðveigur\nguðvin\nguðþór\ngulli\ngumi\ngunnar\ngunnberg\ngunnbjörn\ngunndór\ngunngeir\ngunnhallur\ngunnlaugur\ngunnleifur\ngunnólfur\ngunnóli\ngunnröður\ngunnsteinn\ngunnvaldur\ngunnþór\ngustav\ngutti\nguttormur\ngústaf\ngústav\ngýgjar\ngylfi\ngýmir\ngyrðir\r\nhaddi\nhaddur\nhafberg\nhafgrímur\nhafliði\nhafnar\nhafni\nhafsteinn\nhafþór\nhagalín\nhagbarður\nhagbert\nhaki\nhallberg\nhallbjörn\nhalldór\nhallfreður\nhallgarður\nhallgeir\nhallgils\nhallgrímur\nhallkell\nhallmann\nhallmar\nhallmundur\nhallsteinn\nhallur\nhallvarður\nhallþór\nhamar\nhannes\nhannibal\nhans\nharald\nharaldur\nharri\nharry\nharrý\nhartmann\nhartvig\nhauksteinn\nhaukur\nhaukvaldur\nhákon\nháleygur\nhálfdan\nhálfdán\nhámundur\nhárekur\nhárlaugur\nhásteinn\nhávar\nhávarður\nhávarr\nheiðar\nheiðarr\nheiðberg\nheiðbert\nheiðlindur\nheiðmann\nheiðmar\nheiðmundur\nheiðrekur\nheikir\nheilmóður\nheimir\nheinrekur\nheisi\nhektor\nhelgi\nhelmút\nhemmert\nhendrik\nhenning\nhenrik\nhenry\nhenrý\nherbert\nherbjörn\nherfinnur\nhergeir\nhergill\nhergils\nherjólfur\nherlaugur\nherleifur\nherluf\nhermann\nhermóður\nhermundur\nhersir\nhersteinn\nhersveinn\nhervar\nhervarður\nhervin\nhéðinn\nhilaríus\nhilbert\nhildar\nhildibergur\nhildibrandur\nhildigeir\nhildiglúmur\nhildimar\nhildimundur\nhildingur\nhildir\nhildiþór\nhilmar\nhilmir\nhimri\nhinrik\nhíram\nhjallkár\nhjalti\nhjarnar\nhjálmar\nhjálmgeir\nhjálmtýr\nhjálmur\nhjálmþór\nhjaltalín\nhjörleifur\nhjörtur\nhjörtþór\nhjörvar\nhleiðar\nhlégestur\nhlér\nhlini\nhlíðar\nhlíðberg\nhlífar\nhljómur\nhlynur\nhlöðmundur\nhlöður\nhlöðvarður\nhlöðver\nhnefill\nhnikar\nhnikarr\nholgeir\nholger\nholti\nhólm\nhólmar\nhólmbert\nhólmfastur\nhólmgeir\nhólmgrímur\nhólmkell\nhólmsteinn\nhólmþór\nhóseas\nhrafn\nhrafnar\nhrafnbergur\nhrafnkell\nhrafntýr\nhrannar\nhrappur\nhraunar\nhreggviður\nhreiðar\nhreiðmar\nhreimur\nhreinn\nhringur\nhrímnir\nhrollaugur\nhrolleifur\nhróaldur\nhróar\nhróbjartur\nhróðgeir\nhróðmar\nhróðólfur\nhróðvar\nhrói\nhrólfur\nhrómundur\nhrútur\nhrærekur\nhúbert\nhugberg\nhugi\nhuginn\nhugleikur\nhugo\nhugó\nhúgó\nhuldar\nhúmi\nhúnbogi\nhúni\nhúnn\nhúnröður\nhuxley\nhvannar\nhyltir\nhylur\nhængur\nhænir\nhöður\nhögni\nhörður\nhöskuldur\r\nían\nígor\nilías\nillugi\ními\nimmanúel\nindriði\ningberg\ningi\ningiberg\ningibergur\ningibert\ningibjartur\ningibjörn\ningileifur\ningimagn\ningimar\ningimundur\ningivaldur\ningiþór\ningjaldur\ningmar\ningólfur\ningvaldur\ningvar\ningvi\ningþór\nísak\nísar\nísarr\nísbjörn\níseldur\nísgeir\nísidór\nísleifur\nismael\nísmael\nísmar\nísólfur\nísrael\nissi\nívan\nívar\r\njack\njafet\njagger\njaki\njakob\njakop\njamil\njan\njanus\njarfi\njarl\njárngrímur\njason\njátgeir\njátmundur\njátvarður\njenni\njens\njeremías\njes\njesper\njóakim\njóann\njochum\njóel\njohan\njóhann\njóhannes\njohn\njói\njómar\njómundur\njón\njónar\njónas\njónatan\njónbjörn\njóndór\njóngeir\njónmundur\njónsteinn\njónþór\njósafat\njósavin\njósef\njoshua\njósep\njósteinn\njósúa\njóvin\njúlí\njulian\njúlían\njúlíus\njúní\njúníus\njúrek\njökull\njörfi\njörgen\njörmundur\njörri\njörundur\njörvar\njörvi\r\nkai\nkaj\nkakali\nkaktus\nkaldi\nkaleb\nkali\nkalman\nkalmann\nkalmar\nkamal\nkaprasíus\nkarel\nkarim\nkarkur\nkarl\nkarles\nkarli\nkarvel\nkaspar\nkasper\nkastíel\nkatarínus\nkató\nkár\nkári\nkeran\nketilbjörn\nketill\nkilían\nkiljan\nkjalar\nkjallakur\nkjaran\nkjartan\nkjarval\nkjárr\nkjói\nklemens\nklemenz\nklængur\nknútur\nknörr\nkoðrán\nkoggi\nkolbeinn\nkolbjörn\nkolfinnur\nkolgrímur\nkolmar\nkolskeggur\nkolur\nkolviður\nkonráð\nkonstantínus\nkópur\nkórekur\nkormákur\nkornelíus\nkort\nkraki\nkris\nkristall\nkristberg\nkristbergur\nkristbjörn\nkristdór\nkristens\nkrister\nkristfinnur\nkristgeir\nkristian\nkristinn\nkristján\nkristjón\nkristlaugur\nkristleifur\nkristmann\nkristmar\nkristmundur\nkristofer\nkristófer\nkristvaldur\nkristvarður\nkristvin\nkristþór\nkrummi\nkvasir\nkveldúlfur\r\nlambert\nlár\nlárent\nlárentíus\nlars\nlárus\nlaufar\nlaugi\nlauritz\nleiðólfur\nleif\nleifur\nleiknir\nleo\nleó\nleon\nleonard\nleonhard\nleópold\nlér\nleví\nlíam\nliljar\nlínberg\nlindar\nlindberg\nlíni\nljósálfur\nljótur\nljúfur\nloðmundur\nloftur\nlogi\nloki\nlórens\nlórenz\nlótus\nludvig\nlúðvíg\nlúðvík\nlúkas\nlundi\nlúter\nlúther\nlýður\nlyngar\nlýtingur\r\nmaggi\nmagngeir\nmagni\nmagnús\nmagnþór\nmakan\nmanfred\nmanfreð\nmáni\nmanúel\nmar\nmár\nmarbjörn\nmarel\nmargeir\nmargrímur\nmari\nmarijón\nmarinó\nmarías\nmarínó\nmarís\nmaríus\nmarjón\nmark\nmarkó\nmarkús\nmarkþór\nmaron\nmarri\nmars\nmarsellíus\nmarteinn\nmarten\nmarthen\nmartin\nmárus\nmarvin\nmarzilíus\nmathías\nmatthías\nmatti\nmattías\nmax\nmaximus\nmekkinó\nmelkíor\nmelkólmur\nmelrakki\nmensalder\nmerkúr\nmethúsalem\nmetúsalem\nmeyvant\nmías\nmichael\nmikael\nmikjáll\nmikkael\nmikkel\nmildinberg\nmímir\nmíó\nmír\nmjöllnir\nmjölnir\nmóði\nmói\nmoli\nmorgan\nmóri\nmórits\nmoritz\nmóses\nmosi\nmuggur\nmúli\nmuni\nmuninn\nmýrkjartan\nmyrkvi\nmörður\r\nnarfi\nnatan\nnatanael\nnataníel\nnathan\nnáttmörður\nnáttúlfur\nneisti\nnenni\nneptúnus\nnicolas\nníels\nnikanor\nnikolai\nnikolas\nnikulás\nnils\nníls\nnjáll\nnjörður\nnóam\nnóel\nnói\nnóni\nnonni\nnorbert\nnorðmann\nnóri\nnormann\nnóvember\nnúmi\nnývarð\nnökkvi\r\noddbergur\noddbjörn\noddfreyr\noddgeir\noddi\noddkell\noddleifur\noddmar\noddsteinn\noddur\noddvar\noddþór\nóðinn\nófeigur\noktavíus\noktó\noktóvíus\nolaf\nólaf\nólafur\nolav\nolgeir\nóli\noliver\nóliver\nólíver\nolivert\nómar\nómi\norfeus\normar\normur\norri\norvar\nóskar\nósvald\nósvaldur\nósvífur\notkell\notri\nóttar\nóttarr\notti\nottó\notur\r\nparmes\npatrek\npatrekur\npatrick\npatrik\npáll\npálmar\npálmi\npedró\nper\npeter\npétur\npjetur\npríor\r\nrafael\nrafn\nrafnar\nrafnkell\nragnar\nragúel\nrandver\nrannver\nrasmus\nráðgeir\nráðvarður\nrefur\nreginbaldur\nreginn\nreidar\nreifnir\nreimar\nreinar\nreinhart\nreinhold\nremek\nrex\nreykdal\nreynald\nreynar\nreynir\nreyr\nrichard\nríkarður\nrikharð\nríkharð\nrikharður\nríkharður\nríó\nrobert\nróbert\nrólant\nrolf\nróman\nrómeó\nronald\nrósant\nrósar\nrósberg\nrósenberg\nrósi\nrósinberg\nrósinkar\nrósinkrans\nrósmann\nrósmundur\nrúbar\nrúben\nrudolf\nrúdólf\nrúnar\nruni\nrunólfur\nrúrik\nrútur\nröðull\nrögnvald\nrögnvaldur\nrögnvar\nrökkvi\r\nsafír\nsakarías\nsalmann\nsalmar\nsalómon\nsalvar\nsamson\nsamúel\nsandel\nsandri\nsandur\nsaxi\nsebastian\nsebastían\nseifur\nseimur\nsesar\nsesil\nsigbergur\nsigbert\nsigbjartur\nsigbjörn\nsigdór\nsigfastur\nsigfinnur\nsigfreður\nsigfús\nsiggeir\nsighvatur\nsigjón\nsiglaugur\nsigmann\nsigmar\nsigmundur\nsignar\nsigri\nsigríkur\nsigsteinn\nsigtryggur\nsigtýr\nsigur\nsigurbaldur\nsigurberg\nsigurbergur\nsigurbjarni\nsigurbjartur\nsigurbjörn\nsigurbrandur\nsigurdór\nsigurður\nsigurfinnur\nsigurgeir\nsigurgestur\nsigurgísli\nsigurgrímur\nsigurhans\nsigurhjörtur\nsigurjón\nsigurkarl\nsigurlaugur\nsigurlás\nsigurleifur\nsigurliði\nsigurlinni\nsigurlogi\nsigurmann\nsigurmar\nsigurmon\nsigurmundur\nsigurnýas\nsigurnýjas\nsiguroddur\nsiguróli\nsigurpáll\nsigursteinn\nsigursveinn\nsigurvaldi\nsigurvin\nsigurþór\nsigurörn\nsigvaldi\nsigvarður\nsigþór\nsilli\nsímon\nsindri\nsírnir\nsírus\nsívar\nsjafnar\nskafti\nskapti\nskarphéðinn\nskefill\nskeggi\nskellir\nskíði\nskírnir\nskjöldur\nskorri\nskröggur\nskuggi\nskúli\nskúta\nskær\nskæringur\nsmári\nsmiður\nsmyrill\nsnjóki\nsnjólaugur\nsnjólfur\nsnorri\nsnæbjartur\nsnæbjörn\nsnæhólm\nsnælaugur\nsnær\nsnæringur\nsnævar\nsnævarr\nsnæþór\nsoffanías\nsophanías\nsophus\nsófónías\nsófus\nsókrates\nsólberg\nsólbergur\nsólbjartur\nsólbjörn\nsólimann\nsólmar\nsólmundur\nsólon\nsólver\nsólvin\nspartakus\nspói\nsporði\nstanley\nstapi\nstarkaður\nstarri\nstefan\nstefán\nstefnir\nsteinar\nsteinarr\nsteinberg\nsteinbergur\nsteinbjörn\nsteindór\nsteinfinnur\nsteingrímur\nsteini\nsteinkell\nsteinmann\nsteinmar\nsteinmóður\nsteinn\nsteinólfur\nsteinröður\nsteinvarður\nsteinþór\nstirnir\nstígur\nstormur\nstórólfur\nsturla\nsturlaugur\nsturri\nstyr\nstyrbjörn\nstyrkár\nstyrmir\nstyrr\nsumarliði\nsvafar\nsvali\nsvan\nsvanberg\nsvanbergur\nsvanbjörn\nsvangeir\nsvanhólm\nsvani\nsvanlaugur\nsvanmundur\nsvanur\nsvanþór\nsvavar\nsváfnir\nsveinar\nsveinberg\nsveinbjartur\nsveinbjörn\nsveinjón\nsveinlaugur\nsveinmar\nsveinn\nsveinungi\nsveinþór\nsvend\nsverre\nsverrir\nsvölnir\nsvörfuður\nsýrus\nsæberg\nsæbergur\nsæbjartur\nsæbjörn\nsæi\nsælaugur\nsæmann\nsæmi\nsæmundur\nsær\nsævald\nsævaldur\nsævar\nsævarr\nsævin\nsæþór\nsölmundur\nsölvar\nsölvi\nsören\nsörli\r\ntandri\ntarfur\nteitur\ntheodór\ntheódór\nthomas\nthor\nthorberg\nthór\ntíbor\ntindar\ntindri\ntindur\ntinni\ntími\ntímon\ntímoteus\ntímóteus\ntístran\ntjaldur\ntjörfi\ntjörvi\ntobías\ntóbías\ntói\ntóki\ntolli\ntómas\ntonni\ntór\ntorfi\ntrausti\ntristan\ntrostan\ntrúmann\ntryggvi\ntumas\ntumi\ntýr\ntyrfingur\r\nubbi\núddi\nuggi\núlfar\núlfgeir\núlfhéðinn\núlfkell\núlfljótur\núlftýr\núlfur\nulrich\núlrik\nuni\nunnar\nunnbjörn\nunndór\nunnsteinn\nunnþór\núranus\nurðar\nuxi\r\nvagn\nvakur\nvalberg\nvalbergur\nvalbjörn\nvalbrandur\nvaldemar\nvaldi\nvaldimar\nvaldór\nvalentín\nvalentínus\nvalgarð\nvalgarður\nvalgeir\nváli\nvalíant\nvallaður\nvalmar\nvalmundur\nvalsteinn\nvalter\nwalter\nvaltýr\nvalur\nvalves\nvalþór\nvápni\nvarmar\nvatnar\nvébjörn\nvégeir\nveigar\nveigur\nvékell\nvélaugur\nvémundur\nver\nvermundur\nwerner\nvernharð\nvernharður\nvestar\nvésteinn\nvestmar\nveturliði\nvictor\nviðar\nvíðar\nvíðir\nviðjar\nvífill\nvígberg\nvigfús\nviggó\nvíglundur\nvígmar\nvígmundur\nvignir\nvigri\nvígsteinn\nvigtýr\nvigur\nvígþór\nvikar\nvíkingur\nviktor\nvilberg\nvilbergur\nvilbert\nvilbjörn\nvilbogi\nvilbrandur\nvilgeir\nvilhelm\nwilhelm\nvilhjálmur\nvili\nviljar\nvilji\nwillard\nvilli\nwilliam\nwillum\nwilly\nvilmar\nvilmundur\nvincent\nvindar\nvinjar\nvirgill\nvopni\nvorm\nvöggur\nvölundur\nvörður\nvöttur\r\nylur\nymir\nýmir\nyngvar\nyngvi\nýrar\nyrkill\r\nzakaría\nzakarías\nzophanías\nzóphanías\nzophonías\nzóphonías\r\nþangbrandur\nþengill\nþeyr\nþiðrandi\nþiðrik\nþinur\nþjálfi\nþjóðann\nþjóðar\nþjóðbjörn\nþjóðgeir\nþjóðleifur\nþjóðmar\nþjóðólfur\nþjóðrekur\nþjóðvarður\nþjóstar\nþjóstólfur\nþór\nþórar\nþórarinn\nþorberg\nþorbergur\nþórbergur\nþórbjarni\nþorbjörn\nþórbjörn\nþorbrandur\nþórður\nþorfinnur\nþorgarður\nþorgautur\nþorgeir\nþorgestur\nþorgils\nþorgísl\nþorgnýr\nþórgnýr\nþorgrímur\nþórgrímur\nþórhaddur\nþórhalli\nþórhallur\nþóri\nþórinn\nþórir\nþorkell\nþorlákur\nþorlaugur\nþórlaugur\nþorleifur\nþórleifur\nþorleikur\nþórlindur\nþormar\nþórmar\nþormóður\nþormundur\nþórmundur\nþóroddur\nþórormur\nþórólfur\nþorri\nþorsteinn\nþórsteinn\nþorvaldur\nþorvar\nþorvarður\nþórörn\nþráinn\nþrándur\nþrastar\nþróttur\nþrúðmar\nþrymur\nþröstur\nþyrill\nþyrnir\r\nægir\næsir\nævar\nævarr\r\nögmundur\nögri\nölnir\nölver\nölvir\nöndólfur\nönundur\nörlaugur\nörlygur\nörn\nörnólfur\nörvar\nössur\nöxar".split("\n"));
 	window.onload = $bind(this,this.onWindowLoaded);
 };
 Main.__name__ = true;
@@ -180,7 +183,7 @@ Main.prototype = {
 			this.duplicateTrie.insert(name);
 		}
 		console.log(this.prior);
-		this.generator = new lycan_util_namegen_NameGenerator(data,this.order,this.prior);
+		this.generator = new lycan_namegen_NameGenerator(data,this.order,this.prior);
 		var names = [];
 		var startTime = new Date().getTime();
 		var currentTime = new Date().getTime();
@@ -192,6 +195,7 @@ Main.prototype = {
 			}
 			currentTime = new Date().getTime();
 		}
+		console.log(this.duplicateTrie.getWords());
 		this.appendNames(names);
 	}
 	,appendNames: function(names) {
@@ -460,6 +464,183 @@ js_Boot.__string_rec = function(o,s) {
 };
 var js_d3__$D3_InitPriority = function() { };
 js_d3__$D3_InitPriority.__name__ = true;
+var lycan_namegen_Generator = function(data,order,smoothing) {
+	if(!(data != null)) throw new js__$Boot_HaxeError("FAIL: data != null");
+	if(!(order >= 1)) throw new js__$Boot_HaxeError("FAIL: order >= 1");
+	this.order = order;
+	this.smoothing = smoothing;
+	this.models = [];
+	var letters = lycan_util__$ArraySet_ArraySet_$Impl_$.create();
+	var _g = 0;
+	while(_g < data.length) {
+		var d = data[_g];
+		++_g;
+		var _g2 = 0;
+		var _g1 = d.length;
+		while(_g2 < _g1) {
+			var i = _g2++;
+			lycan_util__$ArraySet_ArraySet_$Impl_$.add(letters,d.charAt(i));
+		}
+	}
+	letters.sort(function(a,b) {
+		if(a < b) return -1;
+		if(a > b) return 1;
+		return 0;
+	});
+	var domain = lycan_util__$ArraySet_ArraySet_$Impl_$.toArray(letters);
+	domain.splice(0,0,"#");
+	var _g3 = 0;
+	while(_g3 < order) {
+		var i1 = _g3++;
+		this.models.push(new lycan_namegen_Model(data.slice(),order - i1,smoothing,domain));
+	}
+};
+lycan_namegen_Generator.__name__ = true;
+lycan_namegen_Generator.prototype = {
+	generate: function() {
+		var name = lycan_util_StringExtensions.repeat("#",this.order);
+		var letter = this.getLetter(name);
+		while(letter != "#") {
+			if(letter != null) name += letter;
+			letter = this.getLetter(name);
+		}
+		return name;
+	}
+	,getLetter: function(name) {
+		var letter = null;
+		var context = name.substring(name.length - this.order,name.length);
+		var _g = 0;
+		var _g1 = this.models;
+		while(_g < _g1.length) {
+			var model = _g1[_g];
+			++_g;
+			letter = model.generate(context);
+			if(letter == null) context = context.substring(1); else break;
+		}
+		return letter;
+	}
+};
+var lycan_namegen_Model = function(data,order,smoothing,domain) {
+	if(!(domain != null && data != null)) throw new js__$Boot_HaxeError("FAIL: domain != null && data != null");
+	if(!(domain.length > 0 && data.length > 0)) throw new js__$Boot_HaxeError("FAIL: domain.length > 0 && data.length > 0");
+	if(!(smoothing >= 0 && smoothing <= 1)) throw new js__$Boot_HaxeError("FAIL: smoothing >= 0 && smoothing <= 1");
+	if(!(order > 0)) throw new js__$Boot_HaxeError("FAIL: order > 0");
+	this.order = order;
+	this.smoothing = smoothing;
+	this.domain = domain;
+	this.observations = new haxe_ds_StringMap();
+	this.train(data);
+	this.buildChains();
+};
+lycan_namegen_Model.__name__ = true;
+lycan_namegen_Model.prototype = {
+	retrain: function(data) {
+		if(!(data != null)) throw new js__$Boot_HaxeError("FAIL: data != null");
+		this.train(data);
+		this.buildChains();
+	}
+	,train: function(data) {
+		while(data.length != 0) {
+			var d = data.pop();
+			d = lycan_util_StringExtensions.repeat("#",this.order) + d + "#";
+			var _g1 = 0;
+			var _g = d.length - this.order;
+			while(_g1 < _g) {
+				var i = _g1++;
+				var key = d.substring(i,i + this.order);
+				var value = this.observations.get(key);
+				if(value == null) {
+					value = [];
+					this.observations.set(key,value);
+				}
+				value.push(d.charAt(i + this.order));
+			}
+		}
+	}
+	,buildChains: function() {
+		this.chains = new haxe_ds_StringMap();
+		var $it0 = this.observations.keys();
+		while( $it0.hasNext() ) {
+			var context = $it0.next();
+			var _g = 0;
+			var _g1 = this.domain;
+			while(_g < _g1.length) {
+				var prediction = _g1[_g];
+				++_g;
+				var value = this.chains.get(context);
+				if(value == null) {
+					value = [];
+					this.chains.set(context,value);
+				}
+				value.push(this.smoothing + this.countMatches(this.observations.get(context),prediction));
+			}
+		}
+	}
+	,generate: function(context) {
+		if(!(context != null)) throw new js__$Boot_HaxeError("FAIL: context != null");
+		var chain = this.chains.get(context);
+		if(chain == null) return null; else {
+			if(!(chain.length > 0)) throw new js__$Boot_HaxeError("FAIL: chain.length > 0");
+			return this.domain[this.selectIndex(chain)];
+		}
+	}
+	,countMatches: function(arr,v) {
+		if(arr == null) return 0;
+		var i = 0;
+		var _g = 0;
+		while(_g < arr.length) {
+			var s = arr[_g];
+			++_g;
+			if(s == v) i++;
+		}
+		return i;
+	}
+	,selectIndex: function(chain) {
+		var totals = [];
+		var accumulator = 0;
+		var _g = 0;
+		while(_g < chain.length) {
+			var weight = chain[_g];
+			++_g;
+			accumulator += weight;
+			totals.push(accumulator);
+		}
+		var rand = Math.random() * accumulator;
+		var _g1 = 0;
+		var _g2 = totals.length;
+		while(_g1 < _g2) {
+			var i = _g1++;
+			if(rand < totals[i]) return i;
+		}
+		return 0;
+	}
+};
+var lycan_namegen_NameGenerator = function(data,order,smoothing) {
+	lycan_namegen_Generator.call(this,data,order,smoothing);
+};
+lycan_namegen_NameGenerator.__name__ = true;
+lycan_namegen_NameGenerator.__super__ = lycan_namegen_Generator;
+lycan_namegen_NameGenerator.prototype = $extend(lycan_namegen_Generator.prototype,{
+	generateName: function(minLength,maxLength,startsWith,endsWith,includes,excludes) {
+		var name = "";
+		name = this.generate();
+		name = StringTools.replace(name,"#","");
+		if(name.length >= minLength && name.length <= maxLength && StringTools.startsWith(name,startsWith) && StringTools.endsWith(name,endsWith) && (includes.length == 0 || name.indexOf(includes) >= 0) && (excludes.length == 0 || !(name.indexOf(excludes) >= 0))) return name;
+		return null;
+	}
+	,generateNames: function(n,minLength,maxLength,startsWith,endsWith,includes,excludes,maxTimePerName) {
+		if(maxTimePerName == null) maxTimePerName = 0.02;
+		var names = [];
+		var startTime = new Date().getTime();
+		var currentTime = new Date().getTime();
+		while(names.length < n && currentTime > startTime + maxTimePerName * n) {
+			var name = this.generateName(minLength,maxLength,startsWith,endsWith,includes,excludes);
+			if(name != null) names.push(name);
+			currentTime = new Date().getTime();
+		}
+		return names;
+	}
+});
 var lycan_util_ArrayExtensions = function() { };
 lycan_util_ArrayExtensions.__name__ = true;
 lycan_util_ArrayExtensions.randomElementFromArrays = function(arrays) {
@@ -727,7 +908,7 @@ lycan_util_IntExtensions.sign = function(x) {
 	if(x > 0) return 1; else if(x < 0) return -1; else return 0;
 };
 var lycan_util_PrefixTrie = function() {
-	this.root = new lycan_util_PrefixNode(" ",null);
+	this.root = new lycan_util_PrefixNode("",null);
 };
 lycan_util_PrefixTrie.__name__ = true;
 lycan_util_PrefixTrie.findChild = function(node,letter) {
@@ -799,9 +980,6 @@ lycan_util_PrefixTrie.prototype = {
 	}
 };
 var lycan_util_PrefixNode = function(letter,parent) {
-	var actual = letter.length;
-	var expected = 1;
-	if(actual != expected) throw new js__$Boot_HaxeError("FAIL: values are not equal (expected: " + expected + ", actual: " + actual + ")");
 	this.parent = parent;
 	this.children = [];
 	this.letter = letter;
@@ -831,183 +1009,6 @@ lycan_util_StringExtensions.repeat = function(s,times) {
 lycan_util_StringExtensions.contains = function(s,substr) {
 	return s.indexOf(substr) >= 0;
 };
-var lycan_util_namegen_Generator = function(data,order,smoothing) {
-	if(!(data != null)) throw new js__$Boot_HaxeError("FAIL: data != null");
-	if(!(order >= 1)) throw new js__$Boot_HaxeError("FAIL: order >= 1");
-	this.order = order;
-	this.smoothing = smoothing;
-	this.models = [];
-	var letters = lycan_util__$ArraySet_ArraySet_$Impl_$.create();
-	var _g = 0;
-	while(_g < data.length) {
-		var d = data[_g];
-		++_g;
-		var _g2 = 0;
-		var _g1 = d.length;
-		while(_g2 < _g1) {
-			var i = _g2++;
-			lycan_util__$ArraySet_ArraySet_$Impl_$.add(letters,d.charAt(i));
-		}
-	}
-	letters.sort(function(a,b) {
-		if(a < b) return -1;
-		if(a > b) return 1;
-		return 0;
-	});
-	var domain = lycan_util__$ArraySet_ArraySet_$Impl_$.toArray(letters);
-	domain.splice(0,0,"#");
-	var _g3 = 0;
-	while(_g3 < order) {
-		var i1 = _g3++;
-		this.models.push(new lycan_util_namegen_Model(data.slice(),order - i1,smoothing,domain));
-	}
-};
-lycan_util_namegen_Generator.__name__ = true;
-lycan_util_namegen_Generator.prototype = {
-	generate: function() {
-		var name = lycan_util_StringExtensions.repeat("#",this.order);
-		var letter = this.getLetter(name);
-		while(letter != "#") {
-			if(letter != null) name += letter;
-			letter = this.getLetter(name);
-		}
-		return name;
-	}
-	,getLetter: function(name) {
-		var letter = null;
-		var context = name.substring(name.length - this.order,name.length);
-		var _g = 0;
-		var _g1 = this.models;
-		while(_g < _g1.length) {
-			var model = _g1[_g];
-			++_g;
-			letter = model.generate(context);
-			if(letter == null) context = context.substring(1); else break;
-		}
-		return letter;
-	}
-};
-var lycan_util_namegen_Model = function(data,order,smoothing,domain) {
-	if(!(domain != null && data != null)) throw new js__$Boot_HaxeError("FAIL: domain != null && data != null");
-	if(!(domain.length > 0 && data.length > 0)) throw new js__$Boot_HaxeError("FAIL: domain.length > 0 && data.length > 0");
-	if(!(smoothing >= 0 && smoothing <= 1)) throw new js__$Boot_HaxeError("FAIL: smoothing >= 0 && smoothing <= 1");
-	if(!(order > 0)) throw new js__$Boot_HaxeError("FAIL: order > 0");
-	this.order = order;
-	this.smoothing = smoothing;
-	this.domain = domain;
-	this.observations = new haxe_ds_StringMap();
-	this.train(data);
-	this.rebuildChains();
-};
-lycan_util_namegen_Model.__name__ = true;
-lycan_util_namegen_Model.prototype = {
-	retrain: function(data) {
-		if(!(data != null)) throw new js__$Boot_HaxeError("FAIL: data != null");
-		this.train(data);
-		this.rebuildChains();
-	}
-	,train: function(data) {
-		while(data.length != 0) {
-			var d = data.pop();
-			d = lycan_util_StringExtensions.repeat("#",this.order) + d + "#";
-			var _g1 = 0;
-			var _g = d.length - this.order;
-			while(_g1 < _g) {
-				var i = _g1++;
-				var key = d.substring(i,i + this.order);
-				var value = this.observations.get(key);
-				if(value == null) {
-					value = [];
-					this.observations.set(key,value);
-				}
-				value.push(d.charAt(i + this.order));
-			}
-		}
-	}
-	,rebuildChains: function() {
-		this.chains = new haxe_ds_StringMap();
-		var $it0 = this.observations.keys();
-		while( $it0.hasNext() ) {
-			var context = $it0.next();
-			var _g = 0;
-			var _g1 = this.domain;
-			while(_g < _g1.length) {
-				var prediction = _g1[_g];
-				++_g;
-				var value = this.chains.get(context);
-				if(value == null) {
-					value = [];
-					this.chains.set(context,value);
-				}
-				value.push(this.smoothing + this.countMatches(this.observations.get(context),prediction));
-			}
-		}
-	}
-	,generate: function(context) {
-		if(!(context != null)) throw new js__$Boot_HaxeError("FAIL: context != null");
-		var chain = this.chains.get(context);
-		if(chain == null) return null; else {
-			if(!(chain.length > 0)) throw new js__$Boot_HaxeError("FAIL: chain.length > 0");
-			return this.domain[this.selectIndex(chain)];
-		}
-	}
-	,countMatches: function(arr,v) {
-		if(arr == null) return 0;
-		var i = 0;
-		var _g = 0;
-		while(_g < arr.length) {
-			var s = arr[_g];
-			++_g;
-			if(s == v) i++;
-		}
-		return i;
-	}
-	,selectIndex: function(chain) {
-		var totals = [];
-		var accumulator = 0;
-		var _g = 0;
-		while(_g < chain.length) {
-			var weight = chain[_g];
-			++_g;
-			accumulator += weight;
-			totals.push(accumulator);
-		}
-		var rand = Math.random() * accumulator;
-		var _g1 = 0;
-		var _g2 = totals.length;
-		while(_g1 < _g2) {
-			var i = _g1++;
-			if(rand < totals[i]) return i;
-		}
-		return 0;
-	}
-};
-var lycan_util_namegen_NameGenerator = function(data,order,smoothing) {
-	lycan_util_namegen_Generator.call(this,data,order,smoothing);
-};
-lycan_util_namegen_NameGenerator.__name__ = true;
-lycan_util_namegen_NameGenerator.__super__ = lycan_util_namegen_Generator;
-lycan_util_namegen_NameGenerator.prototype = $extend(lycan_util_namegen_Generator.prototype,{
-	generateName: function(minLength,maxLength,startsWith,endsWith,includes,excludes) {
-		var name = "";
-		name = this.generate();
-		name = StringTools.replace(name,"#","");
-		if(name.length >= minLength && name.length <= maxLength && StringTools.startsWith(name,startsWith) && StringTools.endsWith(name,endsWith) && (includes.length == 0 || name.indexOf(includes) >= 0) && (excludes.length == 0 || !(name.indexOf(excludes) >= 0))) return name;
-		return null;
-	}
-	,generateNames: function(n,minLength,maxLength,startsWith,endsWith,includes,excludes,maxTimePerName) {
-		if(maxTimePerName == null) maxTimePerName = 0.02;
-		var names = [];
-		var startTime = new Date().getTime();
-		var currentTime = new Date().getTime();
-		while(names.length < n && currentTime > startTime + maxTimePerName * n) {
-			var name = this.generateName(minLength,maxLength,startsWith,endsWith,includes,excludes);
-			if(name != null) names.push(name);
-			currentTime = new Date().getTime();
-		}
-		return names;
-	}
-});
 var $_, $fid = 0;
 function $bind(o,m) { if( m == null ) return null; if( m.__id__ == null ) m.__id__ = $fid++; var f; if( o.hx__closures__ == null ) o.hx__closures__ = {}; else f = o.hx__closures__[m.__id__]; if( f == null ) { f = function(){ return f.method.apply(f.scope, arguments); }; f.scope = o; f.method = m; o.hx__closures__[m.__id__] = f; } return f; }
 if(Array.prototype.indexOf) HxOverrides.indexOf = function(a,o,i) {

@@ -1,4 +1,4 @@
-package lycan.util.namegen;
+package lycan.namegen;
 
 using lycan.util.StringExtensions;
 using StringTools;
