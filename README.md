@@ -1,4 +1,4 @@
-![Logo](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/logo.png?raw=true "Logo")
+![Logo](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/markovnamegen_logo.png?raw=true "Logo")
 
 Haxe Markov Name Generator Demo
 ==============
