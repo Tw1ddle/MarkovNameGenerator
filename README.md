@@ -2,10 +2,11 @@
 
 WORK IN PROGRESS
 
-Procedural name generation demo. Showcases procedural name generation by the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
+Procedural name generator. Demos procedural name generation by the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
 
 ## Features ##
-* Configurable training dataset, order and prior model parameters.
+* Dozens of preset datasets and a custom option.
+* Order and prior model parameters.
 * Filter results by length, start, end and content.
 * Sort results by Damarau-Levenshtein distance to your preferred result.
 * Visualization of the training dataset and generated names in a trie.
@@ -19,7 +20,7 @@ Training Dataset: English Towns
 Order: 5
 Prior: 0.01
 Max Processing Time: 500ms
-Length: 8-11
+Length: 8-12
 Starts with: b
 Ends with:
 Include: ham
@@ -27,7 +28,7 @@ Exclude:
 Similarity To: birmingham
 ```
 
-A list of up to 100 results will be returned. Here are the top 10 from my attempt:
+A list of up to 100 results will be displayed. Here are the first 10 results from my run:
 ```
 Barkingham
 Basingham
