@@ -1,4 +1,4 @@
-![Logo](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/markovnamegen_logo.png?raw=true "Logo")(http://samcodes.co.uk/web/)
+![Project logo](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/markovnamegen_logo.png?raw=true "Project logo")
 
 WORK IN PROGRESS
 
@@ -43,14 +43,16 @@ Bradnincham
 
 ## Install ##
 
-Get the Haxe library code here or on haxelib. Add it to your ```Project.xml```:
-```
-<haxelib name="markovnamegen" />
-```
+Get the Haxe library code here or on haxelib. 
 
-Or include it as a library in your ```hxml```
+Include it in your ```hxml```
 ```
 -lib markovnamegen
+```
+
+Or add it to your ```Project.xml```:
+```
+<haxelib name="markovnamegen" />
 ```
 
 ## Screenshots ##
