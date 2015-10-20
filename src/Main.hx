@@ -100,7 +100,7 @@ class Main {
 		untyped orderElement.noUiSlider.on(UiSliderEvent.CHANGE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
 			order = Std.int(values[handle]);
 		});
-		untyped orderElement.noUiSlider.on(UiSliderEvent.SLIDE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
+		untyped orderElement.noUiSlider.on(UiSliderEvent.UPDATE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
 			updateTooltips(orderElement, handle, Std.int(values[handle]));
 		});
 		
@@ -124,7 +124,7 @@ class Main {
 		untyped priorElement.noUiSlider.on(UiSliderEvent.CHANGE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {			
 			prior = Std.parseFloat(untyped values[handle]);
 		});
-		untyped priorElement.noUiSlider.on(UiSliderEvent.SLIDE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
+		untyped priorElement.noUiSlider.on(UiSliderEvent.UPDATE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
 			updateTooltips(priorElement, handle, values[handle]);
 		});
 		
@@ -147,7 +147,7 @@ class Main {
 		untyped maxProcessingTimeElement.noUiSlider.on(UiSliderEvent.CHANGE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
 			maxProcessingTime = Std.parseFloat(untyped values[handle]);
 		});
-		untyped maxProcessingTimeElement.noUiSlider.on(UiSliderEvent.SLIDE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
+		untyped maxProcessingTimeElement.noUiSlider.on(UiSliderEvent.UPDATE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
 			updateTooltips(maxProcessingTimeElement, handle, Std.int(values[handle]));
 		});
 		
@@ -175,7 +175,7 @@ class Main {
 				maxLength = Std.int(values[handle]);
 			}
 		});
-		untyped lengthElement.noUiSlider.on(UiSliderEvent.SLIDE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
+		untyped lengthElement.noUiSlider.on(UiSliderEvent.UPDATE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
 			updateTooltips(lengthElement, handle, Std.int(values[handle]));
 		});
 		
@@ -250,6 +250,7 @@ class Main {
 			var div = js.Browser.document.createElement('div');
 			div.className += "tooltip";
 			tipHandles[i].appendChild(div);
+			updateTooltips(slider, i, 0);
 		}
 	}
 	

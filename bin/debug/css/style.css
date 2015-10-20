@@ -15,7 +15,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 h1 {
 	font: 600 50px "Open Sans", sans-serif;
 	letter-spacing: -3px;
-	margin-bottom: 30px;
+	margin-bottom: 0px;
 }
 h2 {
 	font: 400 30px "Open Sans";
@@ -27,12 +27,12 @@ h3 {
 }
 p {
 	font-family: "Open Sans", sans-serif;
-	font-size: 13px;
+	font-size: 15px;
 	line-height: 22px;
 	color: #888888;
 	margin: 10px 0;
 }
-a{
+a {
 	color: #000000;
 	font-weight: 600;
 	text-decoration: none;
@@ -42,13 +42,41 @@ p a {
 	text-decoration: none;
 }
 
-.columnsContainer { position: relative; }
-.leftColumn, .rightColumn { border: 1px solid  #ccc; }
-.leftColumn { margin-bottom: .5em; }
+html{ 
+    -o-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none; 
+}
+li {
+    -o-user-select: text;
+    -moz-user-select: text;
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+.columnsContainer { 
+	position: relative;
+}
+.rightColumn {
+}
+.leftColumn {
+	margin-bottom: .5em; 
+}
 
 @media screen and (min-width: 47.5em ) {
-  .leftColumn { margin-right: 19.5em; }
-  .rightColumn { position: absolute; top: 0; right: 0; width: 18.75em; }   
+	.leftColumn { 
+		margin-right: 19.5em; 
+	}
+	.rightColumn { 
+		position: absolute; top: 0; right: 0; width: 18.75em;
+	}
+}
+
+.red, .green, .blue, .black {
+	margin: 20px;
+	width: 200px;
+	display: inline-block;
 }
 
 .red {
@@ -67,15 +95,9 @@ p a {
 	background: #000000;
 }
 
-.red, .green, .blue, .black {
-	margin: 20px;
-	width: 200px;
-	display: inline-block;
-}
-
 .stitched {
-	padding: 40px;
-	margin: 20px;
+	padding: 20px;
+	margin: 10px;
 	background: #ffffff;
 	color: #000000;
 	font-size: 21px;
@@ -89,38 +111,28 @@ p a {
 }
 
 input, textarea {
-    padding: 9px;
+	padding: 9px;
 	margin: 10px;
-    border: solid 1px #E5E5E5;
-    outline: 0;
-    font: normal 13px/100% Verdana, Tahoma, sans-serif;
-    width: 200px; 
-    background: #FFFFFF url('bg_form.png') left top repeat-x; 
-    background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF)); 
-    background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px); 
-    box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px; 
-    -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px; 
-    -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
-} 
+	border: solid 1px #E5E5E5;
+	outline: 0;
+	width: 150px; 
+	background: #FFFFFF url('bg_form.png') left top repeat-x; 
+	background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF)); 
+	background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px); 
+	box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px; 
+	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px; 
+	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+}
    
-textarea { 
-    width: 400px; 
-    max-width: 400px; 
-    height: 150px; 
-    line-height: 150%; 
-    } 
-   
-input:hover, textarea:hover, 
-input:focus, textarea:focus { 
-    border-color: #C9C9C9; 
-    -webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 8px; 
-    } 
+input:hover, textarea:hover, input:focus, textarea:focus { 
+	border-color: #C9C9C9; 
+	-webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 8px; 
+}
    
 label { 
-    margin-left: 10px; 
-    color: #999999; 
-    } 
-	
+	margin-left: 10px; 
+	color: #999999; 
+}
 body {
     text-align: center;
 }
@@ -130,8 +142,7 @@ select {
 	margin: 10px;
     border: solid 1px #E5E5E5;
     outline: 0;
-    font: normal 13px/100% Verdana, Tahoma, sans-serif;
-    width: 200px; 
+    width: 240px; 
     background: #FFFFFF url('bg_form.png') left top repeat-x; 
     background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF)); 
     background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px); 
@@ -160,7 +171,6 @@ select {
 	display:inline-block;
 	cursor:pointer;
 	color:#666666;
-	font-family:Arial;
 	font-size:15px;
 	font-weight:bold;
 	padding:6px 24px;
@@ -210,7 +220,6 @@ select {
 	background: #ffffff;
 	border-bottom-right-radius: 0;
 	border-bottom-left-radius: 0;
-	color: white;
 	margin-bottom: 0;
 }
 #accordion .settings {
@@ -294,4 +303,8 @@ select {
 .tooltip strong {
 	display: block;
 	padding: 2px;
+}
+
+.logo {
+	margin: 20px;
 }

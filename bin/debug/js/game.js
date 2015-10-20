@@ -112,7 +112,7 @@ Main.prototype = {
 		this.orderElement.noUiSlider.on("change",function(values,handle,rawValues) {
 			_g.order = values[handle] | 0;
 		});
-		this.orderElement.noUiSlider.on("slide",function(values1,handle1,rawValues1) {
+		this.orderElement.noUiSlider.on("update",function(values1,handle1,rawValues1) {
 			_g.updateTooltips(_g.orderElement,handle1,values1[handle1] | 0);
 		});
 		noUiSlider.create(this.priorElement,{ start : [0.01], connect : "lower", range : { 'min' : 0.001, '50%' : 0.15, 'max' : 0.3}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 2})}});
@@ -120,7 +120,7 @@ Main.prototype = {
 		this.priorElement.noUiSlider.on("change",function(values2,handle2,rawValues2) {
 			_g.prior = parseFloat(values2[handle2]);
 		});
-		this.priorElement.noUiSlider.on("slide",function(values3,handle3,rawValues3) {
+		this.priorElement.noUiSlider.on("update",function(values3,handle3,rawValues3) {
 			_g.updateTooltips(_g.priorElement,handle3,values3[handle3]);
 		});
 		noUiSlider.create(this.maxProcessingTimeElement,{ start : [500], connect : "lower", range : { 'min' : 50, 'max' : 5000}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 0})}});
@@ -128,7 +128,7 @@ Main.prototype = {
 		this.maxProcessingTimeElement.noUiSlider.on("change",function(values4,handle4,rawValues4) {
 			_g.maxProcessingTime = parseFloat(values4[handle4]);
 		});
-		this.maxProcessingTimeElement.noUiSlider.on("slide",function(values5,handle5,rawValues5) {
+		this.maxProcessingTimeElement.noUiSlider.on("update",function(values5,handle5,rawValues5) {
 			_g.updateTooltips(_g.maxProcessingTimeElement,handle5,values5[handle5] | 0);
 		});
 		this.currentNamesElement = window.document.getElementById("currentnames");
@@ -139,7 +139,7 @@ Main.prototype = {
 		this.lengthElement.noUiSlider.on("change",function(values6,handle6,rawValues6) {
 			if(handle6 == 0) _g.minLength = values6[handle6] | 0; else if(handle6 == 1) _g.maxLength = values6[handle6] | 0;
 		});
-		this.lengthElement.noUiSlider.on("slide",function(values7,handle7,rawValues7) {
+		this.lengthElement.noUiSlider.on("update",function(values7,handle7,rawValues7) {
 			_g.updateTooltips(_g.lengthElement,handle7,values7[handle7] | 0);
 		});
 		this.startsWithElement = window.document.getElementById("startswith");
@@ -189,6 +189,7 @@ Main.prototype = {
 			var div = window.document.createElement("div");
 			div.className += "tooltip";
 			tipHandles[i].appendChild(div);
+			this.updateTooltips(slider,i,0);
 		}
 	}
 	,updateTooltips: function(slider,handleIdx,value) {

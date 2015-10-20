@@ -22,71 +22,75 @@
 				<!-- Icon -->
 				<h1>Procedural <strong>Name Generator</strong></h1>
 				<h2>Generate original names with Markov chains</h2>
+				
+				<a href="https://github.com/Tw1ddle/MarkovNameGenerator" target="_blank">
+					<img class="logo" src="assets/images/markovnamegen_logo.png" alt="haxelib logo">
+				</a>
+				
 				<p>Procedurally generates names using a high order <a href="https://en.wikipedia.org/wiki/Markov_process" target="_blank">Markov process</a>. Free and <a href="https://github.com/Tw1ddle/MarkovNameGenerator" target="_blank">open source</a>, written in <a href="http://haxe.org/" target="_blank">Haxe</a> by <a href="https://twitter.com/Sam_Twidale" target="_blank">Sam Twidale</a>.</p>
 			</div>
 		</section>
 		
-		<!-- Options and filters -->
-		<section class="main style1">
-		
+		<!-- Options and filters -->		
 		<section id="accordion">
 			<div>
 				<input type="checkbox" id="check-1" />
-				<label for="check-1">Settings</label>
-			
-			
+				<h2><label for="check-1">Settings</label></h2>
+
 				<div class="settings">
-					<div class="stitched">
-						<h3>Dataset</h3>
-					
-						<select id="trainingdatalist">
-						  <option value="tolkienesque_forenames">Tolkienesque Forenames</option>
-						  <option value="us_forenames">American Forenames</option>
-						  <option value="werewolf_forenames">Werewolf Forenames</option>
-						  <option value="romandeity_forenames">Roman Deity Forenames</option>
-						  <option value="norsedeity_forenames">Norse Deity Forenames</option>
-						  <option value="swedish_forenames">Swedish Forenames</option>
-						  <option value="english_towns">English Towns</option>
-						  <option value="theological_demons">Theological Demons</option>
-						  <option value="irish_forenames">Irish Forenames</option>
-						  <option value="scottish_surnames">Scottish Surnames</option>
-						  <option value="icelandic_forenames">Icelandic Forenames</option>
-						  <option value="theological_angels">Theological Angels</option>
-						  <option value="japanese_forenames">Japanese Forenames</option>
-						  <option value="french_forenames">French Forenames</option>
-						  <option value="german_towns">German Towns</option>
-						</select>
-					</div>
-					
-					<div class="sliders">
+					<!-- <div class="stitched"> -->
 						<div class="stitched">
-							<div class="container">
-								<h3>Length Range</h3>
-								<div id="minmaxlength" class="black"></div>
-							</div>
-							<div class="container">
-								<h3>Order</h3>
-								<div id="order" class="red"></div>
-							</div>
-							
-							<div class="container">
-								<h3>Prior</h3>
-								<div id="prior" class="green"></div>
-							</div>
-							<div class="container">
-								<h3>Max Processing Time</h3>
-								<div id="maxtime" class="blue"></div>
+							<h3>Dataset</h3>
+						
+							<select id="trainingdatalist">
+							  <option value="tolkienesque_forenames">Tolkienesque Forenames</option>
+							  <option value="us_forenames">American Forenames</option>
+							  <option value="werewolf_forenames">Werewolf Forenames</option>
+							  <option value="romandeity_forenames">Roman Deity Forenames</option>
+							  <option value="norsedeity_forenames">Norse Deity Forenames</option>
+							  <option value="swedish_forenames">Swedish Forenames</option>
+							  <option value="english_towns">English Towns</option>
+							  <option value="theological_demons">Theological Demons</option>
+							  <option value="irish_forenames">Irish Forenames</option>
+							  <option value="scottish_surnames">Scottish Surnames</option>
+							  <option value="icelandic_forenames">Icelandic Forenames</option>
+							  <option value="theological_angels">Theological Angels</option>
+							  <option value="japanese_forenames">Japanese Forenames</option>
+							  <option value="french_forenames">French Forenames</option>
+							  <option value="german_towns">German Towns</option>
+							</select>
+						</div>
+						
+						<div class="sliders">
+							<div class="stitched">
+								<div class="container">
+									<h3>Length Range</h3>
+									<div id="minmaxlength" class="black"></div>
+								</div>
+								<div class="container">
+									<h3>Order</h3>
+									<div id="order" class="red"></div>
+								</div>
+								
+								<div class="container">
+									<h3>Prior</h3>
+									<div id="prior" class="green"></div>
+								</div>
+								<div class="container">
+									<h3>Max Processing Time</h3>
+									<div id="maxtime" class="blue"></div>
+								</div>
 							</div>
 						</div>
-					</div>
-					
-					<div class="textboxes stitched">
-						<div class="container"> <h3>Starts With</h3> <input type="text" id="startswith" class="control"> </div>
-						<div class="container"> <h3>Ends With</h3> <input type="text" id="endswith" class="control"> </div>
-						<div class="container"> <h3>Includes</h3> <input type="text" id="includes" class="control"> </div>
-						<div class="container"> <h3>Excludes</h3> <input type="text" id="excludes" class="control"> </div>
-						<div class="container"> <h3>Similar To</h3> <input type="text" id="similar" class="control"> </div>
-					</div>
+						
+						<div class="textboxes stitched">
+							<div class="container"> <h3>Starts With</h3> <input type="text" id="startswith" class="control"> </div>
+							<div class="container"> <h3>Ends With</h3> <input type="text" id="endswith" class="control"> </div>
+							<div class="container"> <h3>Includes</h3> <input type="text" id="includes" class="control"> </div>
+							<div class="container"> <h3>Excludes</h3> <input type="text" id="excludes" class="control"> </div>
+							<div class="container"> <h3>Similar To</h3> <input type="text" id="similar" class="control"> </div>
+						</div>
+					<!--  </div> -->
 				</div>
 			</div>
 		</section>
@@ -96,15 +100,16 @@
 		</a>
 		
 		<div class="columnsContainer">
-			<div class="leftColumn">				
+			<div class="leftColumn stitched">				
 				<!-- Data view -->	
 				<div id="triegraph"></div>
 			</div>
 			
 			<div class="rightColumn">
 				<section id="two" class="main style2">
-					<div class="container">
+					<div class="container stitched">
 						<h2>Generated Names</h2>
+						<br>
 					
 						<ul style="list-style: none;" id="currentnames">
 						</ul>
