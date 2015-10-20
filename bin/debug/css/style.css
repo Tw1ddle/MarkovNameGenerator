@@ -68,40 +68,40 @@ p a {
 }
 
 .red, .green, .blue, .black {
-	margin: 10px;
+	margin: 20px;
 	width: 200px;
 	display: inline-block;
 }
 
 .stitched {
-	padding: 20px;
-	margin: 10px;
+	padding: 40px;
+	margin: 20px;
 	background: #ffffff;
-	color: #ffffff;
+	color: #000000;
 	font-size: 21px;
 	font-weight: bold;
 	line-height: 1.3em;
 	border: 2px dashed #aaa;
 	border-radius: 10px;
-	box-shadow: 0 0 0 4px #ffffaa, 2px 1px 6px 4px rgba(10, 10, 0, 0.5);
-	text-shadow: -1px -1px #aa3030;
+	box-shadow: 0 0 0 4px #ffffff, 2px 1px 6px 4px rgba(10, 10, 0, 0.5);
 	font-weight: normal;
 	display: inline-block;
 }
 
-input, textarea { 
-    padding: 9px; 
-    border: solid 1px #E5E5E5; 
-    outline: 0; 
-    font: normal 13px/100% Verdana, Tahoma, sans-serif; 
+input, textarea {
+    padding: 9px;
+	margin: 10px;
+    border: solid 1px #E5E5E5;
+    outline: 0;
+    font: normal 13px/100% Verdana, Tahoma, sans-serif;
     width: 200px; 
     background: #FFFFFF url('bg_form.png') left top repeat-x; 
     background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF)); 
     background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px); 
     box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px; 
     -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px; 
-    -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px; 
-    } 
+    -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+} 
    
 textarea { 
     width: 400px; 
@@ -123,6 +123,21 @@ label {
 	
 body {
     text-align: center;
+}
+
+select {
+    padding: 9px;
+	margin: 10px;
+    border: solid 1px #E5E5E5;
+    outline: 0;
+    font: normal 13px/100% Verdana, Tahoma, sans-serif;
+    width: 200px; 
+    background: #FFFFFF url('bg_form.png') left top repeat-x; 
+    background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF)); 
+    background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px); 
+    box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px; 
+    -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px; 
+    -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
 }
 
 .button {
@@ -215,4 +230,68 @@ body {
 
 .container {
 	display: inline-block;
+	margin: 10px;
+}
+
+.spacer {
+    margin-top:100px;
+    margin-left:100px;
+    width:400px;
+    position:relative;
+}
+.spacer .mask {
+    overflow:hidden;
+    height:20px;
+}
+.spacer .mask:after {
+    content:'';
+    display:block;
+    margin:-25px auto 0;
+    width:100%;
+    height:25px;
+    border-radius:125px / 12px;
+    box-shadow:0 0 8px black;
+}
+.spacer span {
+    width:50px;
+    height:50px;
+    position:absolute;
+    bottom:100%;
+    margin-bottom:-25px;
+    left:50%;
+    margin-left:-25px;
+    border-radius:100%;
+    box-shadow:0 2px 4px #999;
+    background:white;
+}
+.spacer span i {
+    position:absolute;
+    top:4px;
+    bottom:4px;
+    left:4px;
+    right:4px;
+    border-radius:100%;
+    border:1px dashed #aaa;
+    text-align:center;
+    line-height:40px;
+    font-style:normal;
+    color:#999; 
+}
+
+.tooltip {
+	display: block;
+	position: absolute;
+	border: 1px solid #D9D9D9;
+	font: 400 12px/12px Arial;
+	border-radius: 3px;
+	background: #fff;
+	top: 43px;
+	padding: 5px;
+	left: -9px;
+	text-align: center;
+	width: 50px;
+}
+.tooltip strong {
+	display: block;
+	padding: 2px;
 }

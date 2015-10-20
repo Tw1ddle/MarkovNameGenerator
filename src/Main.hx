@@ -8,9 +8,9 @@ import js.html.InputElement;
 import js.html.SelectElement;
 import js.nouislider.NoUiSlider;
 import js.wNumb.WNumb;
+import lycan.namegen.NameGenerator;
 import lycan.util.EditDistanceMetrics;
 import lycan.util.FileReader;
-import lycan.namegen.NameGenerator;
 import lycan.util.PrefixTrie;
 
 class Main {
@@ -67,32 +67,22 @@ class Main {
 		trainingData.set("scottish_surnames", FileReader.readFile("embed/scottishsurnames.txt").split("\n"));
 		trainingData.set("irish_forenames", FileReader.readFile("embed/irishforenames.txt").split("\n"));
 		trainingData.set("icelandic_forenames", FileReader.readFile("embed/icelandicforenames.txt").split("\n"));
+		trainingData.set("theological_angels", FileReader.readFile("embed/theologicalangels.txt").split("\n"));
+		trainingData.set("japanese_forenames", FileReader.readFile("embed/japaneseforenames.txt").split("\n"));
+		trainingData.set("french_forenames", FileReader.readFile("embed/frenchforenames.txt").split("\n"));
+		trainingData.set("german_towns", FileReader.readFile("embed/germantowns.txt").split("\n"));
+		
+		//trainingData.set("profanity_filter", FileReader.readFile("embed/profanityfilter.txt").split("\n")); // For reasons
 		
 		Browser.window.onload = onWindowLoaded;
 	}
 	
 	private inline function onWindowLoaded():Void {
-		//var numToGenerateSlider:NoUiSlider = NoUiSlider.create(getElementById("numToGenerateSlider"));
-		//var lengthSlider:NoUiSlider = NoUiSlider.create(Browser.document.getElementById("lengthSlider"));
-		
 		trainingDataElement = cast Browser.document.getElementById("trainingdatalist");
 		
 		orderElement = cast Browser.document.getElementById("order");		
 		priorElement = cast Browser.document.getElementById("prior");
 		maxProcessingTimeElement = cast Browser.document.getElementById("maxtime");
-		
-		var addSliderTooltips = function(slider:Element):Void {
-			var handles = slider.getElementsByClassName('noUi-handle');
-			var tooltips = [];
-			
-			for (i in 0...handles.length) {
-				var tooltip = Browser.document.createElement('div');
-				tooltip.className = "tooltip";
-				tooltip.innerHTML = "<strong>Value: </strong><span></span>";
-				tooltips.push(tooltip);
-				handles[i].appendChild(tooltip);
-			}
-		}
 		
 		NoUiSlider.create(orderElement, {
 			start: [ 3 ],
@@ -106,9 +96,12 @@ class Main {
 				density: 10,
 			}
 		});
-		//addSliderTooltips(orderElement);
+		createTooltips(orderElement);
 		untyped orderElement.noUiSlider.on(UiSliderEvent.CHANGE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
 			order = Std.int(values[handle]);
+		});
+		untyped orderElement.noUiSlider.on(UiSliderEvent.SLIDE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
+			updateTooltips(orderElement, handle, Std.int(values[handle]));
 		});
 		
 		NoUiSlider.create(priorElement, {
@@ -127,9 +120,12 @@ class Main {
 				})
 			}
 		});
-		//addSliderTooltips(priorElement);
+		createTooltips(priorElement);
 		untyped priorElement.noUiSlider.on(UiSliderEvent.CHANGE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {			
 			prior = Std.parseFloat(untyped values[handle]);
+		});
+		untyped priorElement.noUiSlider.on(UiSliderEvent.SLIDE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
+			updateTooltips(priorElement, handle, values[handle]);
 		});
 		
 		NoUiSlider.create(maxProcessingTimeElement, {
@@ -147,9 +143,12 @@ class Main {
 				})
 			}
 		});
-		//addSliderTooltips(maxProcessingTimeElement);
+		createTooltips(maxProcessingTimeElement);
 		untyped maxProcessingTimeElement.noUiSlider.on(UiSliderEvent.CHANGE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
 			maxProcessingTime = Std.parseFloat(untyped values[handle]);
+		});
+		untyped maxProcessingTimeElement.noUiSlider.on(UiSliderEvent.SLIDE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
+			updateTooltips(maxProcessingTimeElement, handle, Std.int(values[handle]));
 		});
 		
 		currentNamesElement = cast Browser.document.getElementById("currentnames");
@@ -168,13 +167,16 @@ class Main {
 				density: 10,
 			}
 		});
-		//addSliderTooltips(lengthElement);
+		createTooltips(lengthElement);
 		untyped lengthElement.noUiSlider.on(UiSliderEvent.CHANGE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
 			if (handle == 0) {
-				minLength = values[handle];
+				minLength = Std.int(values[handle]);
 			} else if (handle == 1) {
-				maxLength = values[handle];
+				maxLength = Std.int(values[handle]);
 			}
+		});
+		untyped lengthElement.noUiSlider.on(UiSliderEvent.SLIDE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
+			updateTooltips(lengthElement, handle, Std.int(values[handle]));
 		});
 		
 		startsWithElement = cast Browser.document.getElementById("startswith");
@@ -242,6 +244,20 @@ class Main {
 		}, 250);
 	}
 	
+	private function createTooltips(slider:Element):Void {
+		var tipHandles = slider.getElementsByClassName("noUi-handle");
+		for (i in 0...tipHandles.length) {
+			var div = js.Browser.document.createElement('div');
+			div.className += "tooltip";
+			tipHandles[i].appendChild(div);
+		}
+	}
+	
+	private function updateTooltips(slider:Element, handleIdx:Int, value:Float):Void {
+		var tipHandles = slider.getElementsByClassName("noUi-handle");
+		tipHandles[handleIdx].innerHTML = "<span class='tooltip'>" + Std.string(value) + "</span>";
+	}
+	
 	private function generate(data:Array<String>):Void {
 		duplicateTrie = new PrefixTrie();
 		for (name in data) {
@@ -255,7 +271,7 @@ class Main {
 		var startTime = Date.now().getTime();
 		var currentTime = Date.now().getTime();
 		
-		while (names.length < numToGenerate && currentTime < startTime + 2000) {
+		while (names.length < numToGenerate && currentTime < startTime + maxProcessingTime) {
 			var name = generator.generateName(minLength, maxLength, startsWith, endsWith, includes, excludes);
 			if (name != null && !duplicateTrie.find(name)) {
 				names.push(name);
@@ -264,7 +280,7 @@ class Main {
 			currentTime = Date.now().getTime();
 		}
 		
-		trace(duplicateTrie.getWords());
+		//trace(duplicateTrie.getWords());
 		
 		appendNames(names);
 	}
