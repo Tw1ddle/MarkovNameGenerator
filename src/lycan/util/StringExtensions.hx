@@ -1,5 +1,7 @@
 package lycan.util;
 
+import haxe.Utf8;
+
 using StringTools;
 
 class StringExtensions {	
@@ -27,5 +29,9 @@ class StringExtensions {
 		#else
 		return s.indexOf(substr) >= 0;
 		#end
+	}
+	
+	public static inline function capitalize(s:String) {
+		return Utf8.sub(s, 0, 1).toUpperCase() + Utf8.sub(s, 1, Utf8.length(s) - 1);
 	}
 }

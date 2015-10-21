@@ -7,7 +7,7 @@ class PrefixTrie {
 	public var root:PrefixNode;
 	
 	public function new() {
-		root = new PrefixNode("", null);
+		root = new PrefixNode("", null, 0);
 	}
 	
 	public function insert(word:String):Void {
@@ -17,7 +17,7 @@ class PrefixTrie {
 			var child = findChild(current, word.charAt(i));
 			
 			if (child == null) {
-				child = new PrefixNode(word.charAt(i), current);
+				child = new PrefixNode(word.charAt(i), current, i);
 				current.children.push(child);
 			} else {
 				child.frequency++;
@@ -93,12 +93,21 @@ class PrefixNode {
 	public var frequency:Int;
 	public var word:Bool;
 	
-	public inline function new(letter:String, parent:PrefixNode) {
+	// Just for drawing using d3.js
+	public var x:Float;
+	public var y:Float;
+	public var depth:Int;
+	
+	public inline function new(letter:String, parent:PrefixNode, depth:Int) {
 		//Sure.sure(letter.length == 1);
 		this.parent = parent;
 		children = new Array<PrefixNode>();
 		this.letter = letter;
 		frequency = 1;
 		word = false;
+		
+		x = 0;
+		y = 0;
+		this.depth = depth;
 	}
 }

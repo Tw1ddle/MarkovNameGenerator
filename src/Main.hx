@@ -2,7 +2,6 @@ package;
 
 import haxe.ds.StringMap;
 import js.Browser;
-import js.d3.D3;
 import js.html.Element;
 import js.html.InputElement;
 import js.html.SelectElement;
@@ -12,6 +11,8 @@ import lycan.namegen.NameGenerator;
 import lycan.util.EditDistanceMetrics;
 import lycan.util.FileReader;
 import lycan.util.PrefixTrie;
+
+using lycan.util.StringExtensions;
 
 class Main {
 	private var generator:NameGenerator;
@@ -29,11 +30,17 @@ class Main {
 	private var includes:String = "l";
 	private var excludes:String = "z";
 	private var similar:String = "alina";
+	private var generateTrieVisualization:Bool = false;
+	private var generateMarkovVisualization:Bool = false;
+	private var markovVisualizationMinP:Float = 0.01;
 	
 	private var trainingDataElement:SelectElement;
 	private var orderElement:Element;
 	private var priorElement:Element;
 	private var maxProcessingTimeElement:Element;
+	private var generateTrieVisualizationElement:Element;
+	private var generateMarkovVisualizationElement:Element;
+	private var markovVisualizationPElement:Element;
 	
 	private var currentNamesElement:Element;
 	private var generateElement:Element;
@@ -47,7 +54,8 @@ class Main {
 	
 	private var trainingData:StringMap<Array<String>>;
 	
-	private var d3trie:TrieForceGraph;
+	private var trieGraph:TrieForceGraph;
+	private var markovGraph:MarkovGraph;
 	
     private static function main():Void {
 		var main = new Main();
@@ -71,6 +79,8 @@ class Main {
 		trainingData.set("japanese_forenames", FileReader.readFile("embed/japaneseforenames.txt").split("\n"));
 		trainingData.set("french_forenames", FileReader.readFile("embed/frenchforenames.txt").split("\n"));
 		trainingData.set("german_towns", FileReader.readFile("embed/germantowns.txt").split("\n"));
+		trainingData.set("animals", FileReader.readFile("embed/animals.txt").split("\n"));
+		trainingData.set("pokemon", FileReader.readFile("embed/pokemon.txt").split("\n"));
 		
 		//trainingData.set("profanity_filter", FileReader.readFile("embed/profanityfilter.txt").split("\n")); // For reasons
 		
@@ -154,6 +164,9 @@ class Main {
 		currentNamesElement = cast Browser.document.getElementById("currentnames");
 		generateElement = cast Browser.document.getElementById("generate");
 		lengthElement = cast Browser.document.getElementById("minmaxlength");
+		generateTrieVisualizationElement = cast Browser.document.getElementById("generatetriegraph");
+		generateMarkovVisualizationElement = cast Browser.document.getElementById("generatemarkovgraph");
+		markovVisualizationPElement = cast Browser.document.getElementById("markovp");
 		
 		NoUiSlider.create(lengthElement, {
 			start: [ 4, 11 ],
@@ -179,6 +192,64 @@ class Main {
 			updateTooltips(lengthElement, handle, Std.int(values[handle]));
 		});
 		
+		/*
+		NoUiSlider.create(generateTrieVisualizationElement, {
+			orientation: "vertical",
+			connect: 'lower',
+			start: generateTrieVisualization ? 1 : 0,
+			range: {
+				'min': [0, 1],
+				'max': 1
+			},
+			format: new WNumb( {
+				decimals: 0
+			})
+		});
+		untyped generateTrieVisualizationElement.noUiSlider.on(UiSliderEvent.CHANGE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
+			generateTrieVisualization = Std.int(values[handle]) == 1 ? true : false;
+		});
+		
+		
+		NoUiSlider.create(generateMarkovVisualizationElement, {
+			orientation: "vertical",
+			connect: 'lower',
+			start: 1,
+			range: {
+				'min': [0, 1],
+				'max': 1
+			},
+			format: new WNumb( {
+				decimals: 0
+			})
+		});
+		untyped generateMarkovVisualizationElement.noUiSlider.on(UiSliderEvent.CHANGE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
+			generateMarkovVisualization = Std.int(values[handle]) == 1 ? true : false;
+		});
+		
+		NoUiSlider.create(markovVisualizationPElement, {
+			connect: 'lower',
+			start: 0.01,
+			range: {
+				'min': [0.001, 0.001],
+				'max': 1
+			},
+			format: new WNumb( {
+				decimals: 4
+			}),
+			pips: {
+				mode: 'range',
+				density: 10,
+			}
+		});
+		createTooltips(markovVisualizationPElement);
+		untyped markovVisualizationPElement.noUiSlider.on(UiSliderEvent.CHANGE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
+			markovVisualizationMinP = values[handle];
+		});
+		untyped markovVisualizationPElement.noUiSlider.on(UiSliderEvent.UPDATE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
+			updateTooltips(markovVisualizationPElement, handle, values[handle]);
+		});
+		*/
+		
 		startsWithElement = cast Browser.document.getElementById("startswith");
 		endsWithElement = cast Browser.document.getElementById("endswith");
 		includesElement = cast Browser.document.getElementById("includes");
@@ -191,8 +262,6 @@ class Main {
 			if (trainingDataElement.value != null) {
 				trainingDataKey = trainingDataElement.value;
 			}
-			
-			trace(trainingData.get(trainingDataKey));
 		}, false);
 		
 		generateElement.addEventListener("click", function() {
@@ -232,16 +301,9 @@ class Main {
 			}
 		}, false);
 		
-		d3trie = new TrieForceGraph();
-		D3.select("#triegraph").append("svg:svg").text(function() {
-			return "d3 select thing seemed to work";
-		}).style("background-color", "black");
-		
-		js.Browser.window.setInterval(function() {
-			// Update d3 trie
-			
-			trace("Updating");
-		}, 250);
+		//js.Browser.window.setInterval(function() {
+		//	d3trie.update();
+		//}, 250);
 	}
 	
 	private function createTooltips(slider:Element):Void {
@@ -265,8 +327,6 @@ class Main {
 			duplicateTrie.insert(name);
 		}
 		
-		trace(prior);
-		
 		generator = new NameGenerator(data, order, prior);
 		var names = new Array<String>();
 		var startTime = Date.now().getTime();
@@ -281,9 +341,21 @@ class Main {
 			currentTime = Date.now().getTime();
 		}
 		
-		//trace(duplicateTrie.getWords());
-		
 		appendNames(names);
+		
+		/*
+		if(generateTrieVisualization) {
+			trieGraph = new TrieForceGraph(duplicateTrie, "#triegraph", 400, 500);
+		} else {
+			D3.select("svg").remove();
+		}
+		
+		if (generateMarkovVisualization) {
+			markovGraph = new MarkovGraph(generator, 1, "#markovgraph", 400, 500, markovVisualizationMinP);
+		} else {
+			D3.select("svg").remove();
+		}
+		*/
 	}
 	
 	private function appendNames(names:Array<String>):Void {
@@ -305,13 +377,13 @@ class Main {
 		currentNamesElement.innerHTML = "";
 		if (names.length == 0) {
 			var li = Browser.document.createLIElement();
-			li.textContent = "No names found, check your filters or try again.";
+			li.textContent = "No names found";
 			currentNamesElement.appendChild(li);
 		}
 		
 		for (name in names) {
 			var li = Browser.document.createLIElement();
-			li.textContent = name;
+			li.textContent = name.capitalize();
 			currentNamesElement.appendChild(li);
 		}
 	}
@@ -324,6 +396,8 @@ class Main {
 		
 		order = 3;
 		prior = 0.01;
+		
+		markovVisualizationMinP = 0.01;
 		
 		startsWith = "a";
 		startsWithElement.value = startsWith;
@@ -339,5 +413,8 @@ class Main {
 		
 		similar = "alina";
 		similarElement.value = similar;
+		
+		generateTrieVisualization = false;
+		generateMarkovVisualization = false;
 	}
 }
