@@ -76,3 +76,6 @@ Loads of words are generated, and are filtered and sorted according to several t
 * Many of the concepts used for the generator were suggested by [this article](http://www.roguebasin.com/index.php?title=Names_from_a_high_order_Markov_Process_and_a_simplified_Katz_back-off_scheme) by [Jeffrey Lund](https://github.com/jlund3).
 * The haxelib supports every Haxe target, but it has not been thoroughly tested or optimized for performance yet, especially on native platforms.
 * If you have any suggestions or questions then get in touch.
+
+## License ##
+The website and demo code are licensed under CC BY-NC. The haxelib is MIT licensed. Most of the word lists are compiled from sites like Wikipedia and census data sources.
