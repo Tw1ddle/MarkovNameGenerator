@@ -10,6 +10,10 @@ class PrefixTrie {
 		root = new PrefixNode("", null, 0);
 	}
 	
+	/*
+	 * Inserts a word. For nodes that already exist, it increments a frequency count.
+	 * Marks the end of word node with the "word" flag.
+	 */
 	public function insert(word:String):Void {
 		var current = root;
 		
@@ -28,6 +32,10 @@ class PrefixTrie {
 		current.word = true;
 	}
 	
+	/*
+	 * Attempts to find a word in the trie.
+	 * NOTE the "word" flag must be set on the terminal node, or it returns false.
+	 */
 	public function find(word:String):Bool {
 		var current = root;
 		
@@ -45,7 +53,10 @@ class PrefixTrie {
 		return true;
 	}
 	
-	// Note does linear lookup through unsorted children, it's simple and uses little memory but is really slow
+	/*
+	 * Attempts to find an immediate child node with the given letter
+	 * NOTE does linear lookup through unsorted children, it's simple and uses little memory but is really slow
+	 */
 	private static function findChild(node:PrefixNode, letter:String):PrefixNode {		
 		var ret:PrefixNode = null;
 		for (child in node.children) {
@@ -57,8 +68,10 @@ class PrefixTrie {
 		return ret;
 	}
 	
-	// Gets all the words that have been inserted into the trie
-	// NOTE use this for debugging only, it does really slow BFS that returns up to the root every time to build the words
+	/*
+	 * Gets an array of all the words that have been inserted into the trie
+	 * NOTE suitable for debugging only, it does really slow BFS that has to work back up to the root every time to build a word
+	 */
 	public function getWords():Array<String> {
 		var queue = new List<PrefixNode>();
 		queue.add(root);
@@ -86,6 +99,7 @@ class PrefixTrie {
 	}
 }
 
+// Represents a node in the prefix trie
 class PrefixNode {
 	public var parent:PrefixNode;
 	public var children:Array<PrefixNode>;
