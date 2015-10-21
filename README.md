@@ -12,7 +12,7 @@ Check out the live demo [in the browser](http://www.samcodes.co.uk/project/marko
 
 ## Usage ##
 
-Try the [demo](http://www.samcodes.co.uk/web/markov-name-generator/) in your browser and generate your own words. Example settings:
+Try the [demo](http://www.samcodes.co.uk/project/markov-namegen/) in your browser and generate your own words. Example settings:
 
 ```
 Training Dataset: English Towns
