@@ -31,106 +31,99 @@
 		
 		<!-- Options and filters -->		
 		<section id="accordion">
-			<div>
-				<input type="checkbox" id="check-1" />
-				<h2><label for="check-1">Settings</label></h2>
+			<input type="checkbox" id="check-1" />
+			<h2><label for="check-1">Settings</label></h2>
 
-				<div class="settings">
-					<div class="stitched">
-						<h3>Dataset</h3>
-					
-						<select id="trainingdatalist">
-						  <option value="tolkienesque_forenames">Tolkienesque Forenames</option>
-						  <option value="us_forenames">American Forenames</option>
-						  <option value="werewolf_forenames">Werewolf Forenames</option>
-						  <option value="romandeity_forenames">Roman Deity Forenames</option>
-						  <option value="norsedeity_forenames">Norse Deity Forenames</option>
-						  <option value="swedish_forenames">Swedish Forenames</option>
-						  <option value="english_towns">English Towns</option>
-						  <option value="theological_demons">Theological Demons</option>
-						  <option value="irish_forenames">Irish Forenames</option>
-						  <option value="scottish_surnames">Scottish Surnames</option>
-						  <option value="icelandic_forenames">Icelandic Forenames</option>
-						  <option value="theological_angels">Theological Angels</option>
-						  <option value="japanese_forenames">Japanese Forenames</option>
-						  <option value="french_forenames">French Forenames</option>
-						  <option value="german_towns">German Towns</option>
-						  <option value="animals">Animals</option>
-						  <option value="fish">Fish</option>
-						  <option value="plantscommon">Plants (Common Names)</option>
-						  <option value="pokemon">Pokémon</option>
-						</select>
-					</div>
-					
-					<div class="sliders">
-						<div class="stitched">
-							<div class="container">
-								<h3>Length Range</h3>
-								<div id="minmaxlength" class="black"></div>
-							</div>
-							<div class="container">
-								<h3>Order</h3>
-								<div id="order" class="red"></div>
-							</div>
-							
-							<div class="container">
-								<h3>Prior</h3>
-								<div id="prior" class="green"></div>
-							</div>
-							<div class="container">
-								<h3>Max Processing Time</h3>
-								<div id="maxtime" class="blue"></div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="textboxes stitched">
-						<div class="container"> <h3>Starts With</h3> <input type="text" id="startswith" class="control"> </div>
-						<div class="container"> <h3>Ends With</h3> <input type="text" id="endswith" class="control"> </div>
-						<div class="container"> <h3>Includes</h3> <input type="text" id="includes" class="control"> </div>
-						<div class="container"> <h3>Excludes</h3> <input type="text" id="excludes" class="control"> </div>
-						<div class="container"> <h3>Similar To</h3> <input type="text" id="similar" class="control"> </div>
-					</div>
-					
-					<!--
-					<div class="triegraphsettings stitched">
-						<div class="container">
-							<h3>Draw Trie</h3>
-							<div id="generatetriegraph" class="orange verticalslider"></div>
-						</div>
-					</div>
-					-->
-					
-					<!--
-					<div class="markovgraphsettings stitched">
-						<div class="container">
-							<h3>Draw Markov</h3>
-							<div id="generatemarkovgraph" class="orange verticalslider"></div>
-						</div>
-						<div class="container">
-							<h3>Min P</h3>
-							<div id="markovp" class="orange"></div>
-						</div>
-					</div>
-					-->
-					
+			<div class="settings">
+				<div class="stitched">
+					<h3>Dataset</h3>
+				
+					<select id="trainingdatalist">
+					  <option value="tolkienesque_forenames">Tolkienesque Forenames</option>
+					  <option value="us_forenames">American Forenames</option>
+					  <option value="werewolf_forenames">Werewolf Forenames</option>
+					  <option value="romandeity_forenames">Roman Deity Forenames</option>
+					  <option value="norsedeity_forenames">Norse Deity Forenames</option>
+					  <option value="swedish_forenames">Swedish Forenames</option>
+					  <option value="english_towns">English Towns</option>
+					  <option value="theological_demons">Theological Demons</option>
+					  <option value="irish_forenames">Irish Forenames</option>
+					  <option value="scottish_surnames">Scottish Surnames</option>
+					  <option value="icelandic_forenames">Icelandic Forenames</option>
+					  <option value="theological_angels">Theological Angels</option>
+					  <option value="japanese_forenames">Japanese Forenames</option>
+					  <option value="french_forenames">French Forenames</option>
+					  <option value="german_towns">German Towns</option>
+					  <option value="animals">Animals</option>
+					  <option value="fish">Fish</option>
+					  <option value="plantscommon">Plants (Common Names)</option>
+					  <option value="pokemon">Pokémon</option>
+					</select>
 				</div>
+				
+				<div class="sliders">
+					<div class="stitched">
+						<div class="container">
+							<h3>Length Range</h3>
+							<div id="minmaxlength" class="black"></div>
+						</div>
+						<div class="container">
+							<h3>Order</h3>
+							<div id="order" class="red"></div>
+						</div>
+						
+						<div class="container">
+							<h3>Prior</h3>
+							<div id="prior" class="green"></div>
+						</div>
+						<div class="container">
+							<h3>Max Processing Time</h3>
+							<div id="maxtime" class="blue"></div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="textboxes stitched">
+					<div class="container"> <h3>Starts With</h3> <input type="text" id="startswith" class="control"> </div>
+					<div class="container"> <h3>Ends With</h3> <input type="text" id="endswith" class="control"> </div>
+					<div class="container"> <h3>Includes</h3> <input type="text" id="includes" class="control"> </div>
+					<div class="container"> <h3>Excludes</h3> <input type="text" id="excludes" class="control"> </div>
+					<div class="container"> <h3>Similar To</h3> <input type="text" id="similar" class="control"> </div>
+				</div>
+				
+				<!--
+				<div class="triegraphsettings stitched">
+					<div class="container">
+						<h3>Draw Trie</h3>
+						<div id="generatetriegraph" class="orange verticalslider"></div>
+					</div>
+				</div>
+				-->
+				
+				<!--
+				<div class="markovgraphsettings stitched">
+					<div class="container">
+						<h3>Draw Markov</h3>
+						<div id="generatemarkovgraph" class="orange verticalslider"></div>
+					</div>
+					<div class="container">
+						<h3>Min P</h3>
+						<div id="markovp" class="orange"></div>
+					</div>
+				</div>
+				-->
+				
 			</div>
 		</section>
 		
+		<!-- Generate button -->
 		<a class="button" id="generate">
 			<h2>Generate</h2>
 		</a>
 		
 		<br>
 		
-		<!--
-		<div class="stitched">
-			<div id="markovgraph"></div>
-			<div id="triegraph"></div>
-		</div>
-		-->
-		
+		<!-- Lists of names -->
 		<section id="two" class="main style2">
 			<div class="container stitched">
 				<h2>Names</h2>
@@ -142,11 +135,17 @@
 			</div>
 		</section>
 		
+		<!-- Graphs -->
+		<!--
+		<div class="stitched">
+			<div id="markovgraph"></div>
+			<div id="triegraph"></div>
+		</div>
+		-->
+		
 		<!-- <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js' charset='utf-8'></script> -->
 		<script type='text/javascript' src="js/wNumb.js"></script>
 		<script type='text/javascript' src="js/nouislider.js"></script>
-		<script type='text/javascript' src="js/dat.gui.js"></script>
 		<script type='text/javascript' src="js/game.js"></script>
     </body>
-	
 </html>
