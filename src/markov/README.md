@@ -6,7 +6,7 @@ Manually invoke build using the .hxml files for other platforms.
 
 See the demo for example usage and tips: https://github.com/Tw1ddle/MarkovNameGenerator
 	
-Also see the live example: http://samcodes.co.uk/web/markov-name-generator/
+Also see the live example: http://www.samcodes.co.uk/project/markov-namegen/
 	
 #### Usage Suggestions
 
