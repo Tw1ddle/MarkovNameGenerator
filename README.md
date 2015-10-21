@@ -60,6 +60,8 @@ Here is the demo in action:
 
 ![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot1.png?raw=true "Screenshot 1")
 
+![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot2.png?raw=true "Screenshot 2")
+
 ## How It Works ##
 
 The library uses [Markov chains](https://en.wikipedia.org/wiki/Markov_chain) to generate random words. 
