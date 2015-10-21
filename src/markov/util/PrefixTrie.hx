@@ -2,7 +2,7 @@ package markov.util;
 
 using markov.util.StringExtensions;
 
-// Unoptimized prefix trie
+// Unoptimized prefix trie, see https://en.wikipedia.org/wiki/Trie
 class PrefixTrie {
 	public var root:PrefixNode;
 	

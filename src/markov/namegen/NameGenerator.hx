@@ -1,14 +1,19 @@
 package markov.namegen;
 
 using markov.util.StringExtensions;
+
 using StringTools;
 
+// Helper class that builds on the basic word generating Generator class
 class NameGenerator extends Generator {	
 	public function new(data:Array<String>, order:Int, smoothing:Float) {
 		super(data, order, smoothing);
 	}
 	
-	// NOTE this will usually fail to generate a name within the constraints and return null
+	/*
+	 * Generates a name within the given constraints
+	 * Notes that this may often fail to generate a name within the constraints and return null
+	 */
 	public function generateName(minLength:Int, maxLength:Int, startsWith:String, endsWith:String, includes:String, excludes:String):String {		
 		var name = "";
 		
@@ -21,6 +26,9 @@ class NameGenerator extends Generator {
 		return null;
 	}
 	
+	/*
+	 * Helper function that attempts to generate n names with the given constraints within an alotted time
+	 */
 	public function generateNames(n:Int, minLength:Int, maxLength:Int, startsWith:String, endsWith:String, includes:String, excludes:String, maxTimePerName:Float = 0.02):Array<String> {
 		var names = new Array<String>();
 		

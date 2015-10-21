@@ -4,6 +4,7 @@ import haxe.ds.Vector;
 
 using markov.util.IntExtensions;
 
+// Algorithms for calculating the edit distances between strings
 class EditDistanceMetrics {
 	// Returns the number of single-character edits (insertions, deletions and replacements) needed to transform the source into the target
 	// Fast iterative method that doesn't create a whole distance table up front

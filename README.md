@@ -2,6 +2,8 @@
 
 Procedural name generator demo written in Haxe. Demonstrates the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
 
+Check out the live demo [in the browser](http://www.samcodes.co.uk/web/markov-name-generator/).
+
 ## Features ##
 * Dozens of preset training datasets.
 * Configurable training dataset, order and prior model parameter options.
@@ -10,7 +12,7 @@ Procedural name generator demo written in Haxe. Demonstrates the [markov-namegen
 
 ## Usage ##
 
-Try the [demo](http://www.samcodes.co.uk/web/markov-name-generator/) in your browser to see what the library is capable of. Example settings:
+Try the [demo](http://www.samcodes.co.uk/web/markov-name-generator/) in your browser and generate your own words. Example settings:
 
 ```
 Training Dataset: English Towns

@@ -1,1 +1,0 @@
-zip -0r markov-namegen.zip namegen haxelib.json include.xml README.md CHANGELOG.md LICENSE

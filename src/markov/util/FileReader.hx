@@ -5,6 +5,7 @@ import haxe.macro.Context;
 using StringTools;
 using Lambda;
 
+// Helper macro for embedding text files at compile time
 class FileReader {
     macro public static function readFile(path:String):ExprOf<String> {
         var content = loadFileAsString(path);

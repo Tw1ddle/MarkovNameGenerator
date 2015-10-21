@@ -4,6 +4,7 @@ import haxe.Utf8;
 
 using StringTools;
 
+// Extension methods for Strings
 class StringExtensions {	
 	// NOTE this will be slow
 	public static inline function reverse(s:String):String {
