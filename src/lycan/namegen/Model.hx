@@ -8,7 +8,7 @@ using lycan.util.StringExtensions;
 class Model {
 	private var order:Int; // The order of the model i.e. how many steps it looks back
 	private var smoothing:Float; // Dirichlet prior, increases the probability of all items being picked which "smoothes" out the distribution of items picked
-	private var domain:Array<String>; // The alphabet (domain of the data)
+	private var alphabet:Array<String>; // The alphabet (domain of the data)
 	private var observations:StringMap<Array<String>>;
 	private var chains:StringMap<Array<Float>>;
 	
@@ -20,7 +20,7 @@ class Model {
 		
 		this.order = order;
 		this.smoothing = smoothing;
-		this.domain = domain;
+		this.alphabet = domain;
 		
 		observations = new StringMap<Array<String>>();		
 		train(data);
@@ -58,7 +58,7 @@ class Model {
 		chains = new StringMap<Array<Float>>();
 		
 		for (context in observations.keys()) {
-			for (prediction in domain) {
+			for (prediction in alphabet) {
 				var value = chains.get(context);
 				if (value == null) {
 					value = new Array<Float>();
@@ -77,7 +77,7 @@ class Model {
 			return null;
 		} else {
 			Sure.sure(chain.length > 0);
-			return domain[selectIndex(chain)];
+			return alphabet[selectIndex(chain)];
 		}
 	}
 	

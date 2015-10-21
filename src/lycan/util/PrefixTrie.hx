@@ -93,9 +93,11 @@ class PrefixNode {
 	public var frequency:Int;
 	public var word:Bool;
 	
+	/*
 	// Just for drawing using d3.js
 	public var x:Float;
 	public var y:Float;
+	*/
 	public var depth:Int;
 	
 	public inline function new(letter:String, parent:PrefixNode, depth:Int) {
@@ -106,8 +108,10 @@ class PrefixNode {
 		frequency = 1;
 		word = false;
 		
+		/*
 		x = 0;
 		y = 0;
+		*/
 		this.depth = depth;
 	}
 }

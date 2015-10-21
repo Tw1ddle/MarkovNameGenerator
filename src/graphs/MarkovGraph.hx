@@ -1,5 +1,6 @@
-package;
+package graphs;
 
+/*
 import js.d3.D3;
 import js.d3.layout.Layout.Force;
 import js.d3.layout.Layout.LayoutLink;
@@ -102,3 +103,4 @@ class MarkovGraph {
 		force.start();
 	}
 }
+*/

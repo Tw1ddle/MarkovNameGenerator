@@ -17,45 +17,95 @@ using lycan.util.StringExtensions;
 class Main {
 	private var generator:NameGenerator;
 	private var duplicateTrie:PrefixTrie;
+	private var trainingData:StringMap<Array<String>>;
+	/*
+	private var trieGraph:TrieForceGraph;
+	private var markovGraph:MarkovGraph;
+	*/
 	
-	private var trainingDataKey:String = "tolkienesque_forenames";
-	private var numToGenerate:Int = 100;
-	private var minLength:Int = 7;
-	private var maxLength:Int = 10;
-	private var order:Int = 3;
-	private var prior:Float = 0.01;
-	private var maxProcessingTime:Float = 500;
-	private var startsWith:String = "a";
+	private var trainingDataKey:String;
+	private var numToGenerate:Int;
+	private var minLength:Int;
+	private var maxLength:Int;
+	private var order:Int;
+	private var prior:Float;
+	private var maxProcessingTime:Float;
+	private var startsWith:String = "";
 	private var endsWith:String = "";
-	private var includes:String = "l";
-	private var excludes:String = "z";
-	private var similar:String = "alina";
+	private var includes:String = "";
+	private var excludes:String = "";
+	private var similar:String = "";
+	/*
 	private var generateTrieVisualization:Bool = false;
 	private var generateMarkovVisualization:Bool = false;
 	private var markovVisualizationMinP:Float = 0.01;
+	*/
+	
+	private inline function setDefaults():Void {
+		trainingDataKey = "tolkienesque_forenames";
+		numToGenerate = 100;	
+		minLength = 7;
+		maxLength = 10;
+		order = 3;
+		prior = 0.01;
+		maxProcessingTime = 500;
+		startsWith = "a";
+		startsWithElement.value = startsWith;
+		endsWith = "";
+		endsWithElement.value = endsWith;
+		includes = "l";
+		includesElement.value = includes;
+		excludes = "z";
+		excludesElement.value = excludes;
+		similar = "alina";
+		similarElement.value = similar;
+		
+		/*
+		markovVisualizationMinP = 0.01;
+		generateTrieVisualization = false;
+		generateMarkovVisualization = false;
+		*/
+	}
 	
 	private var trainingDataElement:SelectElement;
 	private var orderElement:Element;
 	private var priorElement:Element;
 	private var maxProcessingTimeElement:Element;
-	private var generateTrieVisualizationElement:Element;
-	private var generateMarkovVisualizationElement:Element;
-	private var markovVisualizationPElement:Element;
-	
+	private var noNamesFoundElement:Element;
 	private var currentNamesElement:Element;
 	private var generateElement:Element;
-	
 	private var lengthElement:InputElement;
 	private var startsWithElement:InputElement;
 	private var endsWithElement:InputElement;
 	private var includesElement:InputElement;
 	private var excludesElement:InputElement;
 	private var similarElement:InputElement;
+	/*
+	private var generateTrieVisualizationElement:Element;
+	private var generateMarkovVisualizationElement:Element;
+	private var markovVisualizationPElement:Element;
+	*/
 	
-	private var trainingData:StringMap<Array<String>>;
-	
-	private var trieGraph:TrieForceGraph;
-	private var markovGraph:MarkovGraph;
+	private inline function createElements():Void {
+		trainingDataElement = cast Browser.document.getElementById("trainingdatalist");
+		orderElement = cast Browser.document.getElementById("order");		
+		priorElement = cast Browser.document.getElementById("prior");
+		maxProcessingTimeElement = cast Browser.document.getElementById("maxtime");
+		noNamesFoundElement = cast Browser.document.getElementById("nonamesfound");
+		currentNamesElement = cast Browser.document.getElementById("currentnames");
+		generateElement = cast Browser.document.getElementById("generate");
+		lengthElement = cast Browser.document.getElementById("minmaxlength");
+		startsWithElement = cast Browser.document.getElementById("startswith");
+		endsWithElement = cast Browser.document.getElementById("endswith");
+		includesElement = cast Browser.document.getElementById("includes");
+		excludesElement = cast Browser.document.getElementById("excludes");
+		similarElement = cast Browser.document.getElementById("similar");
+		/*
+		generateTrieVisualizationElement = cast Browser.document.getElementById("generatetriegraph");
+		generateMarkovVisualizationElement = cast Browser.document.getElementById("generatemarkovgraph");
+		markovVisualizationPElement = cast Browser.document.getElementById("markovp");
+		*/
+	}
 	
     private static function main():Void {
 		var main = new Main();
@@ -88,12 +138,13 @@ class Main {
 	}
 	
 	private inline function onWindowLoaded():Void {
-		trainingDataElement = cast Browser.document.getElementById("trainingdatalist");
-		
-		orderElement = cast Browser.document.getElementById("order");		
-		priorElement = cast Browser.document.getElementById("prior");
-		maxProcessingTimeElement = cast Browser.document.getElementById("maxtime");
-		
+		createElements();
+		setDefaults();
+		createSliders();
+		addEventListeners();
+	}
+	
+	private inline function createSliders():Void {
 		NoUiSlider.create(orderElement, {
 			start: [ 3 ],
 			connect: 'lower',
@@ -161,13 +212,6 @@ class Main {
 			updateTooltips(maxProcessingTimeElement, handle, Std.int(values[handle]));
 		});
 		
-		currentNamesElement = cast Browser.document.getElementById("currentnames");
-		generateElement = cast Browser.document.getElementById("generate");
-		lengthElement = cast Browser.document.getElementById("minmaxlength");
-		generateTrieVisualizationElement = cast Browser.document.getElementById("generatetriegraph");
-		generateMarkovVisualizationElement = cast Browser.document.getElementById("generatemarkovgraph");
-		markovVisualizationPElement = cast Browser.document.getElementById("markovp");
-		
 		NoUiSlider.create(lengthElement, {
 			start: [ 4, 11 ],
 			connect: true,
@@ -209,7 +253,6 @@ class Main {
 			generateTrieVisualization = Std.int(values[handle]) == 1 ? true : false;
 		});
 		
-		
 		NoUiSlider.create(generateMarkovVisualizationElement, {
 			orientation: "vertical",
 			connect: 'lower',
@@ -249,15 +292,9 @@ class Main {
 			updateTooltips(markovVisualizationPElement, handle, values[handle]);
 		});
 		*/
-		
-		startsWithElement = cast Browser.document.getElementById("startswith");
-		endsWithElement = cast Browser.document.getElementById("endswith");
-		includesElement = cast Browser.document.getElementById("includes");
-		excludesElement = cast Browser.document.getElementById("excludes");
-		similarElement = cast Browser.document.getElementById("similar");
-		
-		setDefaults();
-		
+	}
+	
+	private inline function addEventListeners():Void {
 		trainingDataElement.addEventListener("change", function() {
 			if (trainingDataElement.value != null) {
 				trainingDataKey = trainingDataElement.value;
@@ -300,10 +337,6 @@ class Main {
 				similar = similarElement.value;
 			}
 		}, false);
-		
-		//js.Browser.window.setInterval(function() {
-		//	d3trie.update();
-		//}, 250);
 	}
 	
 	private function createTooltips(slider:Element):Void {
@@ -341,7 +374,7 @@ class Main {
 			currentTime = Date.now().getTime();
 		}
 		
-		appendNames(names);
+		setNames(names);
 		
 		/*
 		if(generateTrieVisualization) {
@@ -358,7 +391,7 @@ class Main {
 		*/
 	}
 	
-	private function appendNames(names:Array<String>):Void {
+	private inline function setNames(names:Array<String>):Void {
 		if(similar.length > 0) {
 			names.sort(function(x:String, y:String):Int {
 				var xSimilarity:Float = EditDistanceMetrics.damerauLevenshtein(x, similar);
@@ -374,11 +407,10 @@ class Main {
 			});
 		}
 		
+		noNamesFoundElement.innerHTML = "";
 		currentNamesElement.innerHTML = "";
 		if (names.length == 0) {
-			var li = Browser.document.createLIElement();
-			li.textContent = "No names found";
-			currentNamesElement.appendChild(li);
+			noNamesFoundElement.textContent = "No names found, try again or change the settings.";
 		}
 		
 		for (name in names) {
@@ -386,35 +418,5 @@ class Main {
 			li.textContent = name.capitalize();
 			currentNamesElement.appendChild(li);
 		}
-	}
-	
-	private function setDefaults():Void {
-		numToGenerate = 100;	
-		
-		minLength = 7;
-		maxLength = 10;
-		
-		order = 3;
-		prior = 0.01;
-		
-		markovVisualizationMinP = 0.01;
-		
-		startsWith = "a";
-		startsWithElement.value = startsWith;
-		
-		endsWith = "";
-		endsWithElement.value = endsWith;
-		
-		includes = "l";
-		includesElement.value = includes;
-		
-		excludes = "z";
-		excludesElement.value = excludes;
-		
-		similar = "alina";
-		similarElement.value = similar;
-		
-		generateTrieVisualization = false;
-		generateMarkovVisualization = false;
 	}
 }

@@ -63,7 +63,6 @@ class Generator {
 		var context:String = name.substring(name.length - order, name.length);
 		for (model in models) {
 			letter = model.generate(context);
-			//trace("made " + letter + " for context " + context + " where name is " + name);
 			if (letter == null) {
 				context = context.substring(1);
 			} else {

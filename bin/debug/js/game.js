@@ -1,5 +1,4 @@
 (function (console) { "use strict";
-var $estr = function() { return js_Boot.__string_rec(this,''); };
 function $extend(from, fields) {
 	function Inherit() {} Inherit.prototype = from; var proto = new Inherit();
 	for (var name in fields) proto[name] = fields[name];
@@ -7,7 +6,6 @@ function $extend(from, fields) {
 	return proto;
 }
 var HxOverrides = function() { };
-HxOverrides.__name__ = true;
 HxOverrides.substr = function(s,pos,len) {
 	if(pos != null && pos != 0 && len != null && len < 0) return "";
 	if(len == null) len = s.length;
@@ -45,7 +43,6 @@ HxOverrides.iter = function(a) {
 var List = function() {
 	this.length = 0;
 };
-List.__name__ = true;
 List.prototype = {
 	add: function(item) {
 		var x = [item];
@@ -66,21 +63,11 @@ List.prototype = {
 	}
 };
 var Main = function() {
-	this.markovVisualizationMinP = 0.01;
-	this.generateMarkovVisualization = false;
-	this.generateTrieVisualization = false;
-	this.similar = "alina";
-	this.excludes = "z";
-	this.includes = "l";
+	this.similar = "";
+	this.excludes = "";
+	this.includes = "";
 	this.endsWith = "";
-	this.startsWith = "a";
-	this.maxProcessingTime = 500;
-	this.prior = 0.01;
-	this.order = 3;
-	this.maxLength = 10;
-	this.minLength = 7;
-	this.numToGenerate = 100;
-	this.trainingDataKey = "tolkienesque_forenames";
+	this.startsWith = "";
 	this.trainingData = new haxe_ds_StringMap();
 	this.trainingData.set("us_forenames","james\njohn\nrobert\nmichael\nwilliam\ndavid\nrichard\ncharles\njoseph\nthomas\nchristopher\ndaniel\npaul\nmark\ndonald\ngeorge\nkenneth\nsteven\nedward\nbrian\nronald\nanthony\nkevin\njason\nmatthew\ngary\ntimothy\njose\nlarry\njeffrey\nfrank\nscott\neric\nstephen\nandrew\nraymond\ngregory\njoshua\njerry\ndennis\nwalter\npatrick\npeter\nharold\ndouglas\nhenry\ncarl\narthur\nryan\nroger\njoe\njuan\njack\nalbert\njonathan\njustin\nterry\ngerald\nkeith\nsamuel\nwillie\nralph\nlawrence\nnicholas\nroy\nbenjamin\nbruce\nbrandon\nadam\nharry\nfred\nwayne\nbilly\nsteve\nlouis\njeremy\naaron\nrandy\nhoward\neugene\ncarlos\nrussell\nbobby\nvictor\nmartin\nernest\nphillip\ntodd\njesse\ncraig\nalan\nshawn\nclarence\nsean\nphilip\nchris\njohnny\nearl\njimmy\nantonio\ndanny\nbryan\ntony\nluis\nmike\nstanley\nleonard\nnathan\ndale\nmanuel\nrodney\ncurtis\nnorman\nallen\nmarvin\nvincent\nglenn\njeffery\ntravis\njeff\nchad\njacob\nlee\nmelvin\nalfred\nkyle\nfrancis\nbradley\njesus\nherbert\nfrederick\nray\njoel\nedwin\ndon\neddie\nricky\ntroy\nrandall\nbarry\nalexander\nbernard\nmario\nleroy\nfrancisco\nmarcus\nmicheal\ntheodore\nclifford\nmiguel\noscar\njay\njim\ntom\ncalvin\nalex\njon\nronnie\nbill\nlloyd\ntommy\nleon\nderek\nwarren\ndarrell\njerome\nfloyd\nleo\nalvin\ntim\nwesley\ngordon\ndean\ngreg\njorge\ndustin\npedro\nderrick\ndan\nlewis\nzachary\ncorey\nherman\nmaurice\nvernon\nroberto\nclyde\nglen\nhector\nshane\nricardo\nsam\nrick\nlester\nbrent\nramon\ncharlie\ntyler\ngilbert\ngene\nmarc\nreginald\nruben\nbrett\nangel\nnathaniel\nrafael\nleslie\nedgar\nmilton\nraul\nben\nchester\ncecil\nduane\nfranklin\nandre\nelmer\nbrad\ngabriel\nron\nmitchell\nroland\narnold\nharvey\njared\nadrian\nkarl\ncory\nclaude\nerik\ndarryl\njamie\nneil\njessie\nchristian\njavier\nfernando\nclinton\nted\nmathew\ntyrone\ndarren\nlonnie\nlance\ncody\njulio\nkelly\nkurt\nallan\nnelson\nguy\nclayton\nhugh\nmax\ndwayne\ndwight\narmando\nfelix\njimmie\neverett\njordan\nian\nwallace\nken\nbob\njaime\ncasey\nalfredo\nalberto\ndave\nivan\njohnnie\nsidney\nbyron\njulian\nisaac\nmorris\nclifton\nwillard\ndaryl\nross\nvirgil\nandy\nmarshall\nsalvador\nperry\nkirk\nsergio\nmarion\ntracy\nseth\nkent\nterrance\nrene\neduardo\nterrence\nenrique\nfreddie\nwade\nmary\npatricia\nlinda\nbarbara\nelizabeth\njennifer\nmaria\nsusan\nmargaret\ndorothy\nlisa\nnancy\nkaren\nbetty\nhelen\nsandra\ndonna\ncarol\nruth\nsharon\nmichelle\nlaura\nsarah\nkimberly\ndeborah\njessica\nshirley\ncynthia\nangela\nmelissa\nbrenda\namy\nanna\nrebecca\nvirginia\nkathleen\npamela\nmartha\ndebra\namanda\nstephanie\ncarolyn\nchristine\nmarie\njanet\ncatherine\nfrances\nann\njoyce\ndiane\nalice\njulie\nheather\nteresa\ndoris\ngloria\nevelyn\njean\ncheryl\nmildred\nkatherine\njoan\nashley\njudith\nrose\njanice\nkelly\nnicole\njudy\nchristina\nkathy\ntheresa\nbeverly\ndenise\ntammy\nirene\njane\nlori\nrachel\nmarilyn\nandrea\nkathryn\nlouise\nsara\nanne\njacqueline\nwanda\nbonnie\njulia\nruby\nlois\ntina\nphyllis\nnorma\npaula\ndiana\nannie\nlillian\nemily\nrobin\npeggy\ncrystal\ngladys\nrita\ndawn\nconnie\nflorence\ntracy\nedna\ntiffany\ncarmen\nrosa\ncindy\ngrace\nwendy\nvictoria\nedith\nkim\nsherry\nsylvia\njosephine\nthelma\nshannon\nsheila\nethel\nellen\nelaine\nmarjorie\ncarrie\ncharlotte\nmonica\nesther\npauline\nemma\njuanita\nanita\nrhonda\nhazel\namber\neva\ndebbie\napril\nleslie\nclara\nlucille\njamie\njoanne\neleanor\nvalerie\ndanielle\nmegan\nalicia\nsuzanne\nmichele\ngail\nbertha\ndarlene\nveronica\njill\nerin\ngeraldine\nlauren\ncathy\njoann\nlorraine\nlynn\nsally\nregina\nerica\nbeatrice\ndolores\nbernice\naudrey\nyvonne\nannette\njune\nsamantha\nmarion\ndana\nstacy\nana\nrenee\nida\nvivian\nroberta\nholly\nbrittany\nmelanie\nloretta\nyolanda\njeanette\nlaurie\nkatie\nkristen\nvanessa\nalma\nsue\nelsie\nbeth\njeanne\nvicki\ncarla\ntara\nrosemary\neileen\nterri\ngertrude\nlucy\ntonya\nella\nstacey\nwilma\ngina\nkristin\njessie\nnatalie\nagnes\nvera\nwillie\ncharlene\nbessie\ndelores\nmelinda\npearl\narlene\nmaureen\ncolleen\nallison\ntamara\njoy\ngeorgia\nconstance\nlillie\nclaudia\njackie\nmarcia\ntanya\nnellie\nminnie\nmarlene\nheidi\nglenda\nlydia\nviola\ncourtney\nmarian\nstella\ncaroline\ndora\njo\nvickie\nmattie\nterry\nmaxine\nirma\nmabel\nmarsha\nmyrtle\nlena\nchristy\ndeanna\npatsy\nhilda\ngwendolyn\njennie\nnora\nmargie\nnina\ncassandra\nleah\npenny\nkay\npriscilla\nnaomi\ncarole\nbrandy\nolga\nbillie\ndianne\ntracey\nleona\njenny\nfelicia\nsonia\nmiriam\nvelma\nbecky\nbobbie\nviolet\nkristina\ntoni\nmisty\nmae\nshelly\ndaisy\nramona\nsherri\nerika\nkatrina\nclaire\nlindsey\nlindsay\ngeneva\nguadalupe\nbelinda\nmargarita\nsheryl\ncora\nfaye\nada\nnatasha\nsabrina\nisabel\nmarguerite\nhattie\nharriet\nmolly\ncecilia\nkristi\nbrandi\nblanche\nsandy\nrosie\njoanna\niris\neunice\nangie\ninez\nlynda\nmadeline\namelia\nalberta\ngenevieve\nmonique\njodi\njanie\nmaggie\nkayla\nsonya\njan\nlee\nkristine\ncandace\nfannie\nmaryann\nopal\nalison\nyvette\nmelody\nluz\nsusie\nolivia\nflora\nshelley\nkristy\nmamie\nlula\nlola\nverna\nbeulah\nantoinette\ncandice\njuana\njeannette\npam\nkelli\nhannah\nwhitney\nbridget\nkarla\ncelia\nlatoya\npatty\nshelia\ngayle\ndella\nvicky\nlynne\nsheri\nmarianne\nkara\njacquelyn\nerma\nblanca\nmyra\nleticia\npat\nkrista\nroxanne\nangelica\njohnnie\nrobyn\nfrancis\nadrienne\nrosalie\nalexandra\nbrooke\nbethany\nsadie\nbernadette\ntraci\njody\nkendra\njasmine\nnichole\nrachael\nchelsea\nmable\nernestine\nmuriel\nmarcella\nelena\nkrystal\nangelina\nnadine\nkari\nestelle\ndianna\npaulette\nlora\nmona\ndoreen\nrosemarie\nangel\ndesiree\nantonia\nhope\nginger\njanis\nbetsy\nchristie\nfreda\nmercedes\nmeredith\nlynette\nteri\ncristina\neula\nleigh\nmeghan\nsophia\neloise\nrochelle\ngretchen\ncecelia\nraquel\nhenrietta\nalyssa\njana\nkelley\ngwen\nkerry\njenna\ntricia\nlaverne\nolive\nalexis\ntasha\nsilvia\nelvira\ncasey\ndelia\nsophie\nkate\npatti\nlorena\nkellie\nsonja\nlila\nlana\ndarla\nmay\nmindy\nessie\nmandy\nlorene\nelsa\njosefina\njeannie\nmiranda\ndixie\nlucia\nmarta\nfaith\nlela\njohanna\nshari\ncamille\ntami\nshawna\nelisa\nebony\nmelba\nora\nnettie\ntabitha\nollie\njaime\nwinifred\nkristie".split("\n"));
 	this.trainingData.set("tolkienesque_forenames","alfwine\nabattârik\nadanedhel\nadanel\nadrahil\nadûnakhôr\naegnor\naerin\nagarwaen\naikanáro\naiwendil\nalatar\nalatáriel\nalcarin\naldamir\naldarion\naldaron\naldor\namandil\namdír\namlaith\namras\namrod\namroth\namrothos\nanairë\nanardil\nanárion\nanborn\nancalagon\nancalimë\nancalimon\nandrast\nanducal\nanfauglir\nandreth\nandróg\nangbor\nangrod\nannatar\narador\naraglas\naragorn\naragost\narahad\narahael\naranarth\narantar\naranuir\naraphant\naraphor\narassuil\naratan\naratar\narathorn\naraval\naravir\naravorn\naredhel\nargeleb\nargon\nargonui\narien\naros\narthedain\narvedui\narvegil\narveleg\narwen\nasfaloth\natanamir\natanatar\naulë\nausir\navranc\nazaghâl\nazog\nbaldor\nbalin\nbaragund\nbarahir\nbarahir\nbaran\nbard\nbauglir\nbelecthor\nbeleg\nbelegorn\nbelegund\nbelemir\nbëor\nbeorn\nbereg\nberegond\nberen\nbergil\nbert\nberúthiel\nbifur\nboldog\nberylla\nbofur\nbolg\nbolger\nbombadil\nbombur\nbór\nborin\nboromir\nboron\nborondir\nbrand\nbrandir\ngormadoc\nmeriadoc\nprimula\nbrego\nbregolas\nbregor\nbrodda\nbrytta\nbucca\nbarliman\ncalembel\ncalimehtar\ncalion\ncalmacil\ncalmacil\ncaranthir\ncarcharoth\ncastamir\ncemendur\nceleborn\ncelebrían\ncelebrimbor\ncelebrindor\ncelegorm\ncelepharn\nceorl\ncírdan\ncirion\nciryaher\nciryandil\nciryatan\nciryon\ncotton\ncurufin\ncurunír\ndaeron\ndáin\ndéagol\ndenethor\ndéor\ndeórwine\ndernhelm\ndior\ndís\ndori\ndorlas\ndraugluin\nduilin\ndurin\ndwalin\neärendil\neärendur\namandil\neärnil\neärnur\neärwen\necthelion\negalmoth\neilinel\nelanor\nelbereth\neldacar\neldarion\nelemmakil\nelendil\nelendor\nelendur\nelenna\nelenwë\nelessar\nelfhelm\nelfhild\nelfwine\nelladan\nelmo\nelrohir\nelrond\nelros\nelu\nelwë\nelwing\nelven\nking\nemeldir\nemerië\nenel\nenelyë\neöl\néomer\néomund\neönwë\neorl\néothain\néothéod\néowyn\neradan\nerendis\nerestor\nerkenbrand\nilúvatar\nestel\nestelmo\nestë\nfalassion\nfaniel\nfaramir\nfastred\nfëanor\nfelaróf\nfengel\nfíli\nfinarfin\nfindis\nfinduilas\nfinduilas\nfingolfin\nfingon\nfinrod\nfinvain\nfinwë\nfíriel\nfolcwine\nfréa\nfréaláf\nfréawine\nfreca\nfrerin\nfrór\nfuinur\nfundin\ngalador\ngaladriel\ngaldor\ngamil\ngamling\ngandalf\nghânburi\ngilgalad\ngildor\ngilrain\ngimilkhâd\ngimilzôr\ngimli\nginglith\ngirion\nglanhír\nglaurung\nglóin\nglóredhel\nglorfindel\ngoldberry\ngoldwine\ngolfimbul\ngollum\ngorbag\ngorlim\ngorthaur\ngothmog\ngram\ngríma\ngrimbold\ngrishnákh\ngrór\ngwaihir\ngwathir\ngwindor\nhador\nhalbarad\nhaldad\nhaldan\nhaldar\nhaldir\nhaleth\nhallas\nhalmir\nháma\nhandir\nhardang\nhareth\nhelm\nherion\nherucalmo\nherumor\nherunúmen\nhirgon\nhiril\nhostamir\nhuan\nhundar\nhuor\nhúrin\nhyarmendacil\nibûn\nidril\nilmarë\nilúvatar\nimbar\nimin\niminyë\nimrahil\nindis\ninglor\ningwë\ninziladûn\ninzilbêth\nírildë\nirimë\nirmo\nisildur\nisilmë\nisilmo\nivriniel\nkhamûl\nkhîm\nkíli\narthedain\nlagduf\nlalaith\nlegolas\nlenwë\nléod\nlindir\nlugdush\nlúthien\nlurtz\nmablung\nmaedhros\nmaeglin\nmaglor\nmagor\nmahtan\nmaiar\nmalach\nmallor\nmalvegil\nmanthor\nmanwë\nmarach\nvoronwë\nmauhúr\nmelian\nmeleth\nmeneldil\nmeneldur\nmîm\nminalcar\nminardil\nminastir\nminyatur\nmírielar\nzimraphel\nmírielserindë\nmithrandir\nmorgoth\nmorwen\nmorwen\nmuzgash\nnahar\nnáin\nnámo\nnarmacil\nnarvi\nnerdanel\nnessa\nnienna\nnienor\nnimloth\nnimrodel\nníniel\nnóm\nnori\nohtar\nóin\nolórin\nolwë\nondoher\nori\nornendil\norodreth\noromë\noropher\norophin\nossë\nostoher\npallando\npalantir\npelendur\npengolodh\npharazôn\nberúthiel\nradagast\nrían\nrómendacil\nrúmil\nlobelia\nlotho\nsador\nsaeros\nsakalthôr\nsalgant\nsalmar\nsaruman\nsauron\nscatha\nshadowfax\nshagrat\nshelob\nsilmariën\nsingollo\nsiriondil\nsmaug\nsméagol\nsnowmane\nsoronto\nstrider\nsúrion\nelmar\ntarcil\ntarondor\ntarannon\ntata\ntatië\ntelchar\ntelemmaitë\ntelemnar\ntelperiën\ntelumehtar\nthengel\nthéoden\nthéodred\nthéodwyn\nthingol\nthorin\nthorondir\nthorondor\nthráin\nthranduil\nthrór\ntilion\ntindomiel\ntinúviel\nadalgrim\nbelladonna\nferumbras\nfortinbras\ngerontius\nisumbras\npaladin\nperegrin\npervinca\ntulkas\ntuor\nturgon\nturambar\ntúrin\nufthak\nuglúk\nuinen\nuldor\nulfang\nulfast\nulwarth\nulmo\numbardacil\nundómiel\nungoliant\nuolë\nkúvion\nurwen\nvairë\nvalacar\nvalandil\nvalandur\nvána\nvanimeldë\nvarda\nvardamir\nnólimon\nvidugavia\nvidumavi\nvinyarion\nvorondil\nvoronwë\nwalda\nwormtongue\nyavanna\nyávien\nzimraphel\nzimrathôn".split("\n"));
@@ -101,17 +88,80 @@ var Main = function() {
 	this.trainingData.set("pokemon","bulbasaur\nivysaur\nvenusaur\ncharmander\ncharmeleon\ncharizard\nsquirtle\nwartortle\nblastoise\ncaterpie\nmetapod\nbutterfree\nweedle\nkakuna\nbeedrill\npidgey\npidgeotto\npidgeot\nrattata\nraticate\nspearow\nfearow\nekans\narbok\npikachu\nraichu\nsandshrew\nsandslash\nnidoran\nnidorina\nnidoqueen\nnidoran\nnidorino\nnidoking\nclefairy\nclefable\nvulpix\nninetales\njigglypuff\nwigglytuff\nzubat\ngolbat\noddish\ngloom\nvileplume\nparas\nparasect\nvenonat\nvenomoth\ndiglett\ndugtrio\nmeowth\npersian\npsyduck\ngolduck\nmankey\nprimeape\ngrowlithe\narcanine\npoliwag\npoliwhirl\npoliwrath\nabra\nkadabra\nalakazam\nmachop\nmachoke\nmachamp\nbellsprout\nweepinbell\nvictreebel\ntentacool\ntentacruel\ngeodude\ngraveler\ngolem\nponyta\nrapidash\nslowpoke\nslowbro\nmagnemite\nmagneton\nfarfetchd\ndoduo\ndodrio\nseel\ndewgong\ngrimer\nmuk\nshellder\ncloyster\ngastly\nhaunter\ngengar\nonix\ndrowzee\nhypno\nkrabby\nkingler\nvoltorb\nelectrode\nexeggcute\nexeggutor\ncubone\nmarowak\nhitmonlee\nhitmonchan\nlickitung\nkoffing\nweezing\nrhyhorn\nrhydon\nchansey\ntangela\nkangaskhan\nhorsea\nseadra\ngoldeen\nseaking\nstaryu\nstarmie\nmime\nscyther\njynx\nelectabuzz\nmagmar\npinsir\ntauros\nmagikarp\ngyarados\nlapras\nditto\neevee\nvaporeon\njolteon\nflareon\nporygon\nomanyte\nomastar\nkabuto\nkabutops\naerodactyl\nsnorlax\narticuno\nzapdos\nmoltres\ndratini\ndragonair\ndragonite\nmewtwo\nmew".split("\n"));
 	window.onload = $bind(this,this.onWindowLoaded);
 };
-Main.__name__ = true;
 Main.main = function() {
 	var main = new Main();
 };
 Main.prototype = {
-	onWindowLoaded: function() {
-		var _g = this;
+	setDefaults: function() {
+		this.trainingDataKey = "tolkienesque_forenames";
+		this.numToGenerate = 100;
+		this.minLength = 7;
+		this.maxLength = 10;
+		this.order = 3;
+		this.prior = 0.01;
+		this.maxProcessingTime = 500;
+		this.startsWith = "a";
+		this.startsWithElement.value = this.startsWith;
+		this.endsWith = "";
+		this.endsWithElement.value = this.endsWith;
+		this.includes = "l";
+		this.includesElement.value = this.includes;
+		this.excludes = "z";
+		this.excludesElement.value = this.excludes;
+		this.similar = "alina";
+		this.similarElement.value = this.similar;
+	}
+	,createElements: function() {
 		this.trainingDataElement = window.document.getElementById("trainingdatalist");
 		this.orderElement = window.document.getElementById("order");
 		this.priorElement = window.document.getElementById("prior");
 		this.maxProcessingTimeElement = window.document.getElementById("maxtime");
+		this.noNamesFoundElement = window.document.getElementById("nonamesfound");
+		this.currentNamesElement = window.document.getElementById("currentnames");
+		this.generateElement = window.document.getElementById("generate");
+		this.lengthElement = window.document.getElementById("minmaxlength");
+		this.startsWithElement = window.document.getElementById("startswith");
+		this.endsWithElement = window.document.getElementById("endswith");
+		this.includesElement = window.document.getElementById("includes");
+		this.excludesElement = window.document.getElementById("excludes");
+		this.similarElement = window.document.getElementById("similar");
+	}
+	,onWindowLoaded: function() {
+		this.trainingDataElement = window.document.getElementById("trainingdatalist");
+		this.orderElement = window.document.getElementById("order");
+		this.priorElement = window.document.getElementById("prior");
+		this.maxProcessingTimeElement = window.document.getElementById("maxtime");
+		this.noNamesFoundElement = window.document.getElementById("nonamesfound");
+		this.currentNamesElement = window.document.getElementById("currentnames");
+		this.generateElement = window.document.getElementById("generate");
+		this.lengthElement = window.document.getElementById("minmaxlength");
+		this.startsWithElement = window.document.getElementById("startswith");
+		this.endsWithElement = window.document.getElementById("endswith");
+		this.includesElement = window.document.getElementById("includes");
+		this.excludesElement = window.document.getElementById("excludes");
+		this.similarElement = window.document.getElementById("similar");
+		this.trainingDataKey = "tolkienesque_forenames";
+		this.numToGenerate = 100;
+		this.minLength = 7;
+		this.maxLength = 10;
+		this.order = 3;
+		this.prior = 0.01;
+		this.maxProcessingTime = 500;
+		this.startsWith = "a";
+		this.startsWithElement.value = this.startsWith;
+		this.endsWith = "";
+		this.endsWithElement.value = this.endsWith;
+		this.includes = "l";
+		this.includesElement.value = this.includes;
+		this.excludes = "z";
+		this.excludesElement.value = this.excludes;
+		this.similar = "alina";
+		this.similarElement.value = this.similar;
+		this.createSliders();
+		this.addEventListeners();
+	}
+	,createSliders: function() {
+		var _g = this;
 		noUiSlider.create(this.orderElement,{ start : [3], connect : "lower", range : { 'min' : [1,1], 'max' : [9]}, pips : { mode : "range", density : 10}});
 		this.createTooltips(this.orderElement);
 		this.orderElement.noUiSlider.on("change",function(values,handle,rawValues) {
@@ -136,12 +186,6 @@ Main.prototype = {
 		this.maxProcessingTimeElement.noUiSlider.on("update",function(values5,handle5,rawValues5) {
 			_g.updateTooltips(_g.maxProcessingTimeElement,handle5,values5[handle5] | 0);
 		});
-		this.currentNamesElement = window.document.getElementById("currentnames");
-		this.generateElement = window.document.getElementById("generate");
-		this.lengthElement = window.document.getElementById("minmaxlength");
-		this.generateTrieVisualizationElement = window.document.getElementById("generatetriegraph");
-		this.generateMarkovVisualizationElement = window.document.getElementById("generatemarkovgraph");
-		this.markovVisualizationPElement = window.document.getElementById("markovp");
 		noUiSlider.create(this.lengthElement,{ start : [4,11], connect : true, range : { 'min' : [3,1], 'max' : 18}, pips : { mode : "range", density : 10}});
 		this.createTooltips(this.lengthElement);
 		this.lengthElement.noUiSlider.on("change",function(values6,handle6,rawValues6) {
@@ -150,12 +194,9 @@ Main.prototype = {
 		this.lengthElement.noUiSlider.on("update",function(values7,handle7,rawValues7) {
 			_g.updateTooltips(_g.lengthElement,handle7,values7[handle7] | 0);
 		});
-		this.startsWithElement = window.document.getElementById("startswith");
-		this.endsWithElement = window.document.getElementById("endswith");
-		this.includesElement = window.document.getElementById("includes");
-		this.excludesElement = window.document.getElementById("excludes");
-		this.similarElement = window.document.getElementById("similar");
-		this.setDefaults();
+	}
+	,addEventListeners: function() {
+		var _g = this;
 		this.trainingDataElement.addEventListener("change",function() {
 			if(_g.trainingDataElement.value != null) _g.trainingDataKey = _g.trainingDataElement.value;
 		},false);
@@ -216,138 +257,35 @@ Main.prototype = {
 			}
 			currentTime = new Date().getTime();
 		}
-		this.appendNames(names);
+		this.setNames(names);
 	}
-	,appendNames: function(names) {
+	,setNames: function(names) {
 		var _g = this;
 		if(this.similar.length > 0) names.sort(function(x,y) {
 			var xSimilarity = lycan_util_EditDistanceMetrics.damerauLevenshtein(x,_g.similar,null);
 			var ySimilarity = lycan_util_EditDistanceMetrics.damerauLevenshtein(y,_g.similar,null);
 			if(xSimilarity > ySimilarity) return 1; else if(xSimilarity < ySimilarity) return -1; else return 0;
 		});
+		this.noNamesFoundElement.innerHTML = "";
 		this.currentNamesElement.innerHTML = "";
-		if(names.length == 0) {
-			var li;
-			var _this = window.document;
-			li = _this.createElement("li");
-			li.textContent = "No names found";
-			this.currentNamesElement.appendChild(li);
-		}
+		if(names.length == 0) this.noNamesFoundElement.textContent = "No names found, try again or change the settings.";
 		var _g1 = 0;
 		while(_g1 < names.length) {
 			var name = names[_g1];
 			++_g1;
-			var li1;
-			var _this1 = window.document;
-			li1 = _this1.createElement("li");
-			li1.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
-			this.currentNamesElement.appendChild(li1);
+			var li;
+			var _this = window.document;
+			li = _this.createElement("li");
+			li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+			this.currentNamesElement.appendChild(li);
 		}
-	}
-	,setDefaults: function() {
-		this.numToGenerate = 100;
-		this.minLength = 7;
-		this.maxLength = 10;
-		this.order = 3;
-		this.prior = 0.01;
-		this.markovVisualizationMinP = 0.01;
-		this.startsWith = "a";
-		this.startsWithElement.value = this.startsWith;
-		this.endsWith = "";
-		this.endsWithElement.value = this.endsWith;
-		this.includes = "l";
-		this.includesElement.value = this.includes;
-		this.excludes = "z";
-		this.excludesElement.value = this.excludes;
-		this.similar = "alina";
-		this.similarElement.value = this.similar;
-		this.generateTrieVisualization = false;
-		this.generateMarkovVisualization = false;
 	}
 };
-var MarkovGraph = function(generator,order,element,width,height,minP) {
-	var model = null;
-	var _g = 0;
-	var _g1 = generator.models;
-	while(_g < _g1.length) {
-		var m = _g1[_g];
-		++_g;
-		if(m.order == order) {
-			model = m;
-			break;
-		}
-	}
-	if(model == null) throw new js__$Boot_HaxeError("Bad model order");
-	this.width = width;
-	this.height = height;
-	this.fill = d3.scale.category20();
-	d3.select("svg").remove();
-	this.visual = d3.select(element).append("svg:svg").attr("width",width).attr("height",height);
-	var nodes = [];
-	var links = [];
-	var _g2 = 0;
-	var _g11 = model.domain;
-	while(_g2 < _g11.length) {
-		var symbol = _g11[_g2];
-		++_g2;
-		nodes.push({ x : 0, y : 0, symbol : symbol});
-	}
-	var _g3 = 0;
-	while(_g3 < nodes.length) {
-		var node1 = nodes[_g3];
-		++_g3;
-		var chain = model.chains.get(node1.symbol);
-		if(chain != null) {
-			var actual = chain.length;
-			var expected = model.domain.length;
-			if(actual != expected) throw new js__$Boot_HaxeError("FAIL: values are not equal (expected: " + expected + ", actual: " + actual + ")");
-			var _g21 = 0;
-			var _g12 = model.domain.length;
-			while(_g21 < _g12) {
-				var i = _g21++;
-				var p = chain[i];
-				if(p >= minP) links.push({ source : node1, target : nodes[i], p : p});
-			}
-		}
-	}
-	var link = this.visual.selectAll(".link").data(links).enter().append("svg:line").style("stroke","rgb(6, 120, 155)");
-	var node = this.visual.selectAll("circle.node").data(nodes).enter().append("g").attr("cx",function(d) {
-		return d.x;
-	}).attr("cy",function(d1) {
-		return d1.y;
-	});
-	node.append("text").attr("dx",12).attr("dy",".35em").text(function(d2) {
-		return StringTools.replace(d2.symbol,"#","");
-	});
-	this.force = d3.layout.force().nodes(nodes).links(links).charge(-100).linkDistance(400).size([width,height]);
-	this.force.on("tick",function(e) {
-		node.attr("transform",function(d3) {
-			return "translate(" + Std.string(d3.x) + "," + Std.string(d3.y) + ")";
-		});
-		link.attr("x1",function(d4) {
-			return d4.source.x;
-		}).attr("y1",function(d5) {
-			return d5.source.y;
-		}).attr("x2",function(d6) {
-			return d6.target.x;
-		}).attr("y2",function(d7) {
-			return d7.target.y;
-		});
-	});
-	this.force.start();
-};
-MarkovGraph.__name__ = true;
-Math.__name__ = true;
 var Std = function() { };
-Std.__name__ = true;
-Std.string = function(s) {
-	return js_Boot.__string_rec(s,"");
-};
 Std.random = function(x) {
 	if(x <= 0) return 0; else return Math.floor(Math.random() * x);
 };
 var StringTools = function() { };
-StringTools.__name__ = true;
 StringTools.startsWith = function(s,start) {
 	return s.length >= start.length && HxOverrides.substr(s,0,start.length) == start;
 };
@@ -359,114 +297,10 @@ StringTools.endsWith = function(s,end) {
 StringTools.replace = function(s,sub,by) {
 	return s.split(sub).join(by);
 };
-var TrieForceGraph = function(graph,element,width,height) {
-	var _g = this;
-	this.width = width;
-	this.height = height;
-	this.fill = d3.scale.category20();
-	this.visual = d3.select(element).append("svg:svg").attr("width",width).attr("height",height);
-	var flattenedTrie = TrieForceGraph.flattenTrie(graph);
-	var nodes = flattenedTrie.nodes;
-	var links = flattenedTrie.links;
-	var link = this.visual.selectAll(".link").data(links).enter().append("svg:line").style("stroke","rgb(6, 120, 155)").style("marker-end","url(#suit)");
-	var node = this.visual.selectAll("circle.node").data(nodes).enter().append("g").attr("cx",function(d) {
-		return d.x;
-	}).attr("cy",function(d1) {
-		return d1.y;
-	}).attr("r",function(d2) {
-		return d2.frequency;
-	});
-	node.append("text").attr("dx",12).attr("dy",".35em").text(function(d3) {
-		return d3.letter;
-	}).style("fill",function(d4) {
-		return _g.getColor(d4);
-	}).on("click",function(d5) {
-	});
-	this.force = d3.layout.force().nodes(nodes).links(links).charge(function(node1) {
-		if(node1.children != null) return -100; else return -30;
-	}).linkDistance(30).size([width,height]);
-	this.force.on("tick",function(e) {
-		var ry = 50;
-		var ly = 120;
-		var _g1 = 0;
-		while(_g1 < nodes.length) {
-			var node2 = nodes[_g1];
-			++_g1;
-			if(node2.parent != null) node2.y = node2.depth * ly + ry; else node2.y = ry;
-		}
-		var k = 60 * e.alpha;
-		var _g2 = 0;
-		while(_g2 < links.length) {
-			var link1 = links[_g2];
-			++_g2;
-			link1.source.y -= k;
-			link1.target.y += k;
-		}
-		node.attr("transform",function(d6) {
-			return "translate(" + Std.string(d6.x) + "," + Std.string(d6.y) + ")";
-		});
-		link.attr("x1",function(d7) {
-			return d7.source.x;
-		}).attr("y1",function(d8) {
-			return d8.source.y;
-		}).attr("x2",function(d9) {
-			return d9.target.x;
-		}).attr("y2",function(d10) {
-			return d10.target.y;
-		});
-	});
-	this.force.start();
-};
-TrieForceGraph.__name__ = true;
-TrieForceGraph.flattenTrie = function(trie) {
-	var nodes = [];
-	var links = [];
-	var queue = new List();
-	queue.add(trie.root);
-	while(!queue.isEmpty()) {
-		var node = queue.pop();
-		nodes.push(node);
-		var _g = 0;
-		var _g1 = node.children;
-		while(_g < _g1.length) {
-			var child = _g1[_g];
-			++_g;
-			if(!(child != null)) throw new js__$Boot_HaxeError("FAIL: child != null");
-			queue.add(child);
-			if(child.letter != null && child.letter.length != 0) links.push({ source : node, target : child});
-		}
-	}
-	return { nodes : nodes, links : links};
-};
-TrieForceGraph.prototype = {
-	getColor: function(node) {
-		var _g = node.depth;
-		switch(_g) {
-		case 0:
-			return "black";
-		case 1:
-			return "#111111";
-		case 2:
-			return "#222222";
-		case 3:
-			return "#333333";
-		case 4:
-			return "#444444";
-		case 5:
-			return "#555555";
-		case 6:
-			return "#666666";
-		default:
-			return "#777777";
-		}
-	}
-};
 var haxe_IMap = function() { };
-haxe_IMap.__name__ = true;
 var haxe_ds_StringMap = function() {
 	this.h = { };
 };
-haxe_ds_StringMap.__name__ = true;
 haxe_ds_StringMap.__interfaces__ = [haxe_IMap];
 haxe_ds_StringMap.prototype = {
 	set: function(key,value) {
@@ -506,82 +340,9 @@ var js__$Boot_HaxeError = function(val) {
 	this.message = String(val);
 	if(Error.captureStackTrace) Error.captureStackTrace(this,js__$Boot_HaxeError);
 };
-js__$Boot_HaxeError.__name__ = true;
 js__$Boot_HaxeError.__super__ = Error;
 js__$Boot_HaxeError.prototype = $extend(Error.prototype,{
 });
-var js_Boot = function() { };
-js_Boot.__name__ = true;
-js_Boot.__string_rec = function(o,s) {
-	if(o == null) return "null";
-	if(s.length >= 5) return "<...>";
-	var t = typeof(o);
-	if(t == "function" && (o.__name__ || o.__ename__)) t = "object";
-	switch(t) {
-	case "object":
-		if(o instanceof Array) {
-			if(o.__enum__) {
-				if(o.length == 2) return o[0];
-				var str2 = o[0] + "(";
-				s += "\t";
-				var _g1 = 2;
-				var _g = o.length;
-				while(_g1 < _g) {
-					var i1 = _g1++;
-					if(i1 != 2) str2 += "," + js_Boot.__string_rec(o[i1],s); else str2 += js_Boot.__string_rec(o[i1],s);
-				}
-				return str2 + ")";
-			}
-			var l = o.length;
-			var i;
-			var str1 = "[";
-			s += "\t";
-			var _g2 = 0;
-			while(_g2 < l) {
-				var i2 = _g2++;
-				str1 += (i2 > 0?",":"") + js_Boot.__string_rec(o[i2],s);
-			}
-			str1 += "]";
-			return str1;
-		}
-		var tostr;
-		try {
-			tostr = o.toString;
-		} catch( e ) {
-			if (e instanceof js__$Boot_HaxeError) e = e.val;
-			return "???";
-		}
-		if(tostr != null && tostr != Object.toString && typeof(tostr) == "function") {
-			var s2 = o.toString();
-			if(s2 != "[object Object]") return s2;
-		}
-		var k = null;
-		var str = "{\n";
-		s += "\t";
-		var hasp = o.hasOwnProperty != null;
-		for( var k in o ) {
-		if(hasp && !o.hasOwnProperty(k)) {
-			continue;
-		}
-		if(k == "prototype" || k == "__class__" || k == "__super__" || k == "__interfaces__" || k == "__properties__") {
-			continue;
-		}
-		if(str.length != 2) str += ", \n";
-		str += s + k + " : " + js_Boot.__string_rec(o[k],s);
-		}
-		s = s.substring(1);
-		str += "\n" + s + "}";
-		return str;
-	case "function":
-		return "<function>";
-	case "string":
-		return o;
-	default:
-		return String(o);
-	}
-};
-var js_d3__$D3_InitPriority = function() { };
-js_d3__$D3_InitPriority.__name__ = true;
 var lycan_namegen_Generator = function(data,order,smoothing) {
 	if(!(data != null)) throw new js__$Boot_HaxeError("FAIL: data != null");
 	if(!(order >= 1)) throw new js__$Boot_HaxeError("FAIL: order >= 1");
@@ -613,7 +374,6 @@ var lycan_namegen_Generator = function(data,order,smoothing) {
 		this.models.push(new lycan_namegen_Model(data.slice(),order - i1,smoothing,domain));
 	}
 };
-lycan_namegen_Generator.__name__ = true;
 lycan_namegen_Generator.prototype = {
 	generate: function() {
 		var name = lycan_util_StringExtensions.repeat("#",this.order);
@@ -645,12 +405,11 @@ var lycan_namegen_Model = function(data,order,smoothing,domain) {
 	if(!(order > 0)) throw new js__$Boot_HaxeError("FAIL: order > 0");
 	this.order = order;
 	this.smoothing = smoothing;
-	this.domain = domain;
+	this.alphabet = domain;
 	this.observations = new haxe_ds_StringMap();
 	this.train(data);
 	this.buildChains();
 };
-lycan_namegen_Model.__name__ = true;
 lycan_namegen_Model.prototype = {
 	retrain: function(data) {
 		if(!(data != null)) throw new js__$Boot_HaxeError("FAIL: data != null");
@@ -681,7 +440,7 @@ lycan_namegen_Model.prototype = {
 		while( $it0.hasNext() ) {
 			var context = $it0.next();
 			var _g = 0;
-			var _g1 = this.domain;
+			var _g1 = this.alphabet;
 			while(_g < _g1.length) {
 				var prediction = _g1[_g];
 				++_g;
@@ -699,7 +458,7 @@ lycan_namegen_Model.prototype = {
 		var chain = this.chains.get(context);
 		if(chain == null) return null; else {
 			if(!(chain.length > 0)) throw new js__$Boot_HaxeError("FAIL: chain.length > 0");
-			return this.domain[this.selectIndex(chain)];
+			return this.alphabet[this.selectIndex(chain)];
 		}
 	}
 	,countMatches: function(arr,v) {
@@ -736,7 +495,6 @@ lycan_namegen_Model.prototype = {
 var lycan_namegen_NameGenerator = function(data,order,smoothing) {
 	lycan_namegen_Generator.call(this,data,order,smoothing);
 };
-lycan_namegen_NameGenerator.__name__ = true;
 lycan_namegen_NameGenerator.__super__ = lycan_namegen_Generator;
 lycan_namegen_NameGenerator.prototype = $extend(lycan_namegen_Generator.prototype,{
 	generateName: function(minLength,maxLength,startsWith,endsWith,includes,excludes) {
@@ -760,7 +518,6 @@ lycan_namegen_NameGenerator.prototype = $extend(lycan_namegen_Generator.prototyp
 	}
 });
 var lycan_util_ArrayExtensions = function() { };
-lycan_util_ArrayExtensions.__name__ = true;
 lycan_util_ArrayExtensions.randomElementFromArrays = function(arrays) {
 	if(!(arrays != null && arrays.length != 0)) throw new js__$Boot_HaxeError("FAIL: arrays != null && arrays.length != 0");
 	var totalLength = 0;
@@ -823,7 +580,6 @@ lycan_util_ArrayExtensions.binarySearch = function(a,x,min,max) {
 	if(low <= max && a[low] == x) return low; else return ~low;
 };
 var lycan_util__$ArraySet_ArraySet_$Impl_$ = {};
-lycan_util__$ArraySet_ArraySet_$Impl_$.__name__ = true;
 lycan_util__$ArraySet_ArraySet_$Impl_$._new = function(array) {
 	return array;
 };
@@ -899,7 +655,6 @@ lycan_util__$ArraySet_ArraySet_$Impl_$.toSet = function(array) {
 	return set;
 };
 var lycan_util_EditDistanceMetrics = function() { };
-lycan_util_EditDistanceMetrics.__name__ = true;
 lycan_util_EditDistanceMetrics.levenshtein = function(source,target) {
 	if(!(source != null && target != null)) throw new js__$Boot_HaxeError("FAIL: source != null && target != null");
 	var slen = source.length;
@@ -987,9 +742,7 @@ lycan_util_EditDistanceMetrics.damerauLevenshtein = function(source,target,enabl
 	return table[table.length - 1];
 };
 var lycan_util_FileReader = function() { };
-lycan_util_FileReader.__name__ = true;
 var lycan_util_IntExtensions = function() { };
-lycan_util_IntExtensions.__name__ = true;
 lycan_util_IntExtensions.abs = function(v) {
 	if(v < 0) return -v;
 	return v;
@@ -1028,7 +781,6 @@ lycan_util_IntExtensions.sign = function(x) {
 var lycan_util_PrefixTrie = function() {
 	this.root = new lycan_util_PrefixNode("",null,0);
 };
-lycan_util_PrefixTrie.__name__ = true;
 lycan_util_PrefixTrie.findChild = function(node,letter) {
 	var ret = null;
 	var _g = 0;
@@ -1103,13 +855,9 @@ var lycan_util_PrefixNode = function(letter,parent,depth) {
 	this.letter = letter;
 	this.frequency = 1;
 	this.word = false;
-	this.x = 0;
-	this.y = 0;
 	this.depth = depth;
 };
-lycan_util_PrefixNode.__name__ = true;
 var lycan_util_StringExtensions = function() { };
-lycan_util_StringExtensions.__name__ = true;
 lycan_util_StringExtensions.reverse = function(s) {
 	if(!(s != null)) throw new js__$Boot_HaxeError("FAIL: s != null");
 	var arr = s.split("");
@@ -1138,11 +886,7 @@ function $bind(o,m) { if( m == null ) return null; if( m.__id__ == null ) m.__id
 if(Array.prototype.indexOf) HxOverrides.indexOf = function(a,o,i) {
 	return Array.prototype.indexOf.call(a,o,i);
 };
-String.__name__ = true;
-Array.__name__ = true;
-Date.__name__ = ["Date"];
 var __map_reserved = {}
-js_d3__$D3_InitPriority.important = "important";
 Main.main();
 })(typeof console != "undefined" ? console : {log:function(){}});
 

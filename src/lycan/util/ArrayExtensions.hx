@@ -1,7 +1,6 @@
 package lycan.util;
 
 // Extension methods for Arrays
-
 class ArrayExtensions {
 	public static function randomElementFromArrays<T>(arrays:Array<Array<T>>):Null<T> {
 		Sure.sure(arrays != null && arrays.length != 0);
