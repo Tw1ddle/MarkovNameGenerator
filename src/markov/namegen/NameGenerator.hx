@@ -1,6 +1,6 @@
-package lycan.namegen;
+package markov.namegen;
 
-using lycan.util.StringExtensions;
+using markov.util.StringExtensions;
 using StringTools;
 
 class NameGenerator extends Generator {	

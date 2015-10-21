@@ -86,6 +86,8 @@ var Main = function() {
 	this.trainingData.set("german_towns","aach\naachen\naalen\nabenberg\nabensberg\nachern\nachim\nadelsheim\nadenau\nadorf\nahaus\nahlen\nahrensburg\naichach\naichtal\naken\nalbstadt\nalfeld\nallendorf\nallstedt\nalpirsbach\nalsdorf\nalsfeld\nalsleben\naltdorf\naltena\naltenberg\naltenburg\naltenkirchen\naltensteig\naltentreptow\naltlandsberg\naltötting\nalzenau\nalzey\namberg\namöneburg\namorbach\nandernach\nangermünde\nanklam\nannaberg\nannaburg\nannweiler\nansbach\napolda\narendsee\narneburg\narnis\narnsberg\narnstadt\narnstein\narnstein\nartern\narzberg\naschaffenburg\naschersleben\nasperg\naßlar\nattendorn\naub\naue\nauerbach\nauerbach\naugsburg\naugustusburg\naulendorf\nauma\naurich\nbabenhausen\nbacharach\nbacknang\nbaden\nbaesweiler\nbaiersdorf\nbalingen\nballenstedt\nbalve\nbamberg\nbarby\nbargteheide\nbarmstedt\nbärnau\nbarntrup\nbarsinghausen\nbarth\nbaruth\nbassum\nbattenberg\nbaumholder\nbaunach\nbaunatal\nbautzen\nbayreuth\nbebra\nbeckum\nbedburg\nbeelitz\nbeerfelden\nbeeskow\nbeilngries\nbeilstein\nbelgern\nbendorf\nbensheim\nberching\nberga\nbergen\nbergen\nbergheim\nbergisch\nbergkamen\nbergneustadt\nberka\nberlin\nbernau\nbernburg\nbernkastel\nbernsdorf\nbernstadt\nbersenbrück\nbesigheim\nbetzdorf\nbetzenstein\nbeverungen\nbexbach\nbiberach\nbiedenkopf\nbielefeld\nbiesenthal\nbietigheim\nbillerbeck\nbingen\nbirkenfeld\nbischofsheim\nbischofswerda\nbismark\nbitburg\nbitterfeld\nblankenburg\nblankenhain\nblaubeuren\nblaustein\nbleckede\nbleicherode\nblieskastel\nblomberg\nblumberg\nbobingen\nböblingen\nbocholt\nbochum\nbockenem\nbodenwerder\nbogen\nböhlen\nboizenburg\nbonn\nbonndorf\nbönnigheim\nbopfingen\nboppard\nborgentreich\nborgholzhausen\nborken\nborken\nborkum\nborna\nbornheim\nbottrop\nboxberg\nbrackenheim\nbrake\nbrakel\nbramsche\nbrandenburg\nbrand\nbrandis\nbraubach\nbraunfels\nbraunlage\nbräunlingen\nbraunsbedra\nbraunschweig\nbreckerfeld\nbredstedt\nbreisach\nbremen\nbremerhaven\nbremervörde\nbretten\nbreuberg\nbrilon\nbrotterode\nbruchköbel\nbruchsal\nbrück\nbrüel\nbrühl\nbrunsbüttel\nbrüssow\nbuchen\nbuchholz\nbuchloe\nbückeburg\nbuckow\nbüdelsdorf\nbüdingen\nbühl\nbünde\nbüren\nburg\nburgau\nburgbernheim\nburgdorf\nbürgel\nburghausen\nburgkunstadt\nburglengenfeld\nburgstädt\nburg\nburgwedel\nburladingen\nburscheid\nbürstadt\nbuttelstedt\nbuttstädt\nbutzbach\nbützow\nbuxtehude\ncalau\ncalbe\ncalw\ncastrop\ncelle\ncham\nchemnitz\nclausthal\nclingen\ncloppenburg\ncoburg\ncochem\ncoesfeld\ncolditz\ncologne\ncoswig\ncoswig\ncottbus\ncrailsheim\ncreglingen\ncreußen\ncreuzburg\ncrimmitschau\ncrivitz\ncuxhaven\ndachau\ndahlen\ndahme\ndahn\ndamme\ndannenberg\ndargun\ndarmstadt\ndassel\ndassow\ndatteln\ndaun\ndeggendorf\ndeidesheim\ndelbrück\ndelitzsch\ndelmenhorst\ndemmin\ndessau\ndetmold\ndettelbach\ndieburg\ndiemelstadt\ndiepholz\ndierdorf\ndietenheim\ndietfurt\ndietzenbach\ndiez\ndillenburg\ndillingen\ndillingen\ndingelstädt\ndingolfing\ndinkelsbühl\ndinklage\ndinslaken\ndippoldiswalde\ndissen\nditzingen\ndöbeln\ndoberlug\ndöbern\ndohna\ndömitz\ndommitzsch\ndonaueschingen\ndonauwörth\ndonzdorf\ndorfen\ndormagen\ndornburg\ndornhan\ndornstetten\ndorsten\ndortmund\ndransfeld\ndrebkau\ndreieich\ndrensteinfurt\ndresden\ndrolshagen\nduderstadt\nduisburg\ndülmen\ndüren\ndüsseldorf\nebeleben\neberbach\nebermannstadt\nebern\nebersbach\nebersbach\nebersberg\neberswalde\neckartsberga\neckernförde\nedenkoben\negeln\neggenfelden\neggesin\nehingen\nehrenfriedersdorf\neibelstadt\neibenstock\neichstätt\neilenburg\neinbeck\neisenach\neisenberg\neisenberg\neisenhüttenstadt\neisfeld\neisleben\neislingen\nellingen\nellrich\nellwangen\nelmshorn\nelsdorf\nelsfleth\nelsterberg\nelsterwerda\nelstra\nelterlein\neltmann\neltville\nelzach\nelze\nemden\nemmelshausen\nemmendingen\nemmerich\nemsdetten\nendingen\nengen\nenger\nennepetal\nennigerloh\neppelheim\neppingen\neppstein\nerbach\nerbach\nerbendorf\nerding\nerftstadt\nerfurt\nerkelenz\nerkner\nerkrath\nerlangen\nerlenbach\nerlensee\nerwitte\neschborn\neschenbach\neschershausen\neschwege\neschweiler\nesens\nespelkamp\nessen\nesslingen\nettenheim\nettlingen\neuskirchen\neutin\nfalkenberg\nfalkensee\nfalkenstein\nfalkenstein\nfehmarn\nfellbach\nfelsberg\nfeuchtwangen\nfilderstadt\nfinsterwalde\nfladungen\nflensburg\nflöha\nflörsheim\nflorstadt\nforchheim\nforchtenberg\nforst\nfrankenau\nfrankenberg\nfrankenberg\nfrankenthal\nfrankfurt\nfrankfurt\nfranzburg\nfrauenstein\nfrechen\nfreiberg\nfreiberg\nfreiburg\nfreilassing\nfreinsheim\nfreising\nfreital\nfreren\nfreudenberg\nfreudenberg\nfreudenstadt\nfreyburg\nfreystadt\nfreyung\nfridingen\nfriedberg\nfriedberg\nfriedland\nfriedland\nfriedrichroda\nfriedrichsdorf\nfriedrichshafen\nfriedrichstadt\nfriedrichsthal\nfriesack\nfriesoythe\nfritzlar\nfrohburg\nfröndenberg\nfulda\nfürstenau\nfürstenberg\nfürstenfeldbruck\nfürstenwalde\nfürth\nfurth\nfurtwangen\nfüssen\ngadebusch\ngaggenau\ngaildorf\ngammertingen\ngarbsen\ngarching\ngardelegen\ngarding\ngartz\ngarz\ngau\ngebesee\ngedern\ngeesthacht\ngeestland\ngefell\ngefrees\ngehrden\ngehren\ngeilenkirchen\ngeisa\ngeiselhöring\ngeisenfeld\ngeisenheim\ngeisingen\ngeislingen\ngeislingen\ngeithain\ngeldern\ngelnhausen\ngelsenkirchen\ngemünden\ngemünden\ngengenbach\ngenthin\ngeorgsmarienhütte\ngera\ngerabronn\ngerbstedt\ngeretsried\ngeringswalde\ngerlingen\ngermering\ngermersheim\ngernsbach\ngernsheim\ngerolstein\ngerolzhofen\ngersfeld\ngersthofen\ngescher\ngeseke\ngevelsberg\ngeyer\ngiengen\ngießen\ngifhorn\nginsheim\ngladbeck\ngladenbach\nglashütte\nglauchau\nglinde\nglücksburg\nglückstadt\ngnoien\ngoch\ngoldberg\ngoldkronach\ngolßen\ngommern\ngöppingen\ngörlitz\ngoslar\ngößnitz\ngotha\ngöttingen\ngrabow\ngrafenau\ngräfenberg\ngräfenhainichen\ngräfenthal\ngrafenwöhr\ngrafing\ngransee\ngrebenau\ngrebenstein\ngreding\ngreifswald\ngreiz\ngreußen\ngreven\ngrevenbroich\ngrevesmühlen\ngriesheim\ngrimma\ngrimmen\ngröditz\ngroitzsch\ngronau\ngronau\ngröningen\ngroßalmerode\ngroß\ngroßbottwar\ngroßbreitenbach\ngroßenehrich\ngroßenhain\ngroß\ngroßräschen\ngroßröhrsdorf\ngroßschirma\ngroß\ngrünberg\ngrünhain\ngrünsfeld\ngrünstadt\nguben\ngudensberg\ngüglingen\ngummersbach\ngundelfingen\ngundelsheim\ngünzburg\ngunzenhausen\ngüsten\ngüstrow\ngütersloh\ngützkow\nhaan\nhachenburg\nhadamar\nhagen\nhagenbach\nhagenow\nhaiger\nhaigerloch\nhainichen\nhaiterbach\nhalberstadt\nhaldensleben\nhalle\nhalle\nhallenberg\nhallstadt\nhaltern\nhalver\nhamburg\nhameln\nhamm\nhammelburg\nhamminkeln\nhanau\nhanover\nharburg\nhardegsen\nharen\nharsewinkel\nhartenstein\nhartha\nharzgerode\nhaselünne\nhaslach\nhaßfurt\nhattersheim\nhattingen\nhatzfeld\nhausach\nhauzenberg\nhavelberg\nhavelsee\nhayingen\nhechingen\nhecklingen\nheide\nheideck\nheidelberg\nheidenau\nheidenheim\nheilbad\nheilbronn\nheiligenhafen\nheiligenhaus\nheilsbronn\nheimbach\nheimsheim\nheinsberg\nheitersheim\nheldrungen\nhelmbrechts\nhelmstedt\nhemau\nhemer\nhemmingen\nhemmoor\nhemsbach\nhennef\nhennigsdorf\nheppenheim\nherbolzheim\nherborn\nherbrechtingen\nherbstein\nherdecke\nherdorf\nherford\nheringen\nheringen\nhermeskeil\nhermsdorf\nherne\nherrenberg\nherrieden\nherrnhut\nhersbruck\nherten\nherzberg\nherzberg\nherzogenaurach\nherzogenrath\nhessisch\nhessisch\nhettingen\nhettstedt\nheubach\nheusenstamm\nhilchenbach\nhildburghausen\nhilden\nhildesheim\nhillesheim\nhilpoltstein\nhirschau\nhirschberg\nhirschhorn\nhitzacker\nhochheim\nhöchstadt\nhöchstädt\nhockenheim\nhof\nhofgeismar\nhofheim\nhofheim\nhohenberg\nhohenleuben\nhohenmölsen\nhohen\nhohenstein\nhohnstein\nhöhr\nhollfeld\nholzgerlingen\nholzminden\nhomberg\nhomberg\nhomburg\nhorb\nhornbach\nhorn\nhornberg\nhörstel\nhorstmar\nhöxter\nhoya\nhoyerswerda\nhückelhoven\nhückeswagen\nhüfingen\nhünfeld\nhungen\nhürth\nhusum\nibbenbüren\nichenhausen\nidar\nidstein\nillertissen\nilmenau\nilsenburg\nilshofen\nimmenhausen\nimmenstadt\ningelfingen\ningelheim\ningolstadt\niphofen\niserlohn\nisny\nisselburg\nitzehoe\njarmen\njena\njerichow\njessen\njever\njoachimsthal\njohanngeorgenstadt\njöhstadt\njülich\njüterbog\nkaarst\nkahla\nkaisersesch\nkaiserslautern\nkalbe\nkalkar\nkaltenkirchen\nkaltennordheim\nkamen\nkamenz\nkamp\nkandel\nkandern\nkappeln\nkarben\nkarlsruhe\nkarlstadt\nkassel\nkastellaun\nkatzenelnbogen\nkaub\nkaufbeuren\nkehl\nkelbra\nkelheim\nkelkheim\nkellinghusen\nkelsterbach\nkemberg\nkemnath\nkempen\nkempten\nkenzingen\nkerpen\nketzin\nkevelaer\nkiel\nkierspe\nkindelbrück\nkirchberg\nkirchberg\nkirchberg\nkirchen\nkirchenlamitz\nkirchhain\nkirchheimbolanden\nkirchheim\nkirn\nkirtorf\nkitzingen\nkitzscher\nkleve\nklingenberg\nklingenthal\nklötze\nklütz\nknittlingen\nkoblenz\nkohren\nkolbermoor\nkölleda\nkönigsberg\nkönigsbrück\nkönigsbrunn\nkönigsee\nkönigslutter\nkönigstein\nkönigstein\nkönigswinter\nkönigs\nkönnern\nkonstanz\nkonz\nkorbach\nkorntal\nkornwestheim\nkorschenbroich\nköthen\nkraichtal\nkrakow\nkranichfeld\nkrautheim\nkrefeld\nkremmen\nkrempe\nkreuztal\nkronach\nkronberg\nkröpelin\nkroppenstedt\nkrumbach\nkühlungsborn\nkulmbach\nkülsheim\nkünzelsau\nkupferberg\nkuppenheim\nkusel\nkyllburg\nkyritz\nlaage\nlaatzen\nladenburg\nlage\nlahnstein\nlahr\nlaichingen\nlambrecht\nlampertheim\nlandau\nlandau\nlandsberg\nlandsberg\nlandshut\nlandstuhl\nlangelsheim\nlangen\nlangenau\nlangenburg\nlangenfeld\nlangenhagen\nlangenselbold\nlangenzenn\nlangewiesen\nlassan\nlaubach\nlaucha\nlauchhammer\nlauchheim\nlauda\nlauenburg\nlauf\nlaufen\nlaufenburg\nlauffen\nlauingen\nlaupheim\nlauscha\nlauta\nlauter\nlauterbach\nlauterecken\nlauterstein\nlebach\nlebus\nleer\nlehesten\nlehrte\nleichlingen\nleimen\nleinefelde\nleinfelden\nleipheim\nleipzig\nleisnig\nlemgo\nlengenfeld\nlengerich\nlennestadt\nlenzen\nleonberg\nleun\nleuna\nleutenberg\nleutershausen\nleutkirch\nleverkusen\nlich\nlichtenau\nlichtenau\nlichtenberg\nlichtenfels\nlichtenfels\nlichtenstein\nliebenau\nliebenwalde\nlieberose\nliebstadt\nlimbach\nlimburg\nlindau\nlinden\nlindenberg\nlindenfels\nlindow\nlingen\nlinnich\nlinz\nlippstadt\nlöbau\nlöffingen\nlohmar\nlohne\nlöhne\nlohr\nloitz\nlollar\nlommatzsch\nlöningen\nlorch\nlorch\nlörrach\nlorsch\nlößnitz\nlöwenstein\nlübbecke\nlübben\nlübbenau\nlübeck\nlübtheen\nlübz\nlüchow\nlucka\nluckau\nluckenwalde\nlüdenscheid\nlüdinghausen\nludwigsburg\nludwigsfelde\nludwigshafen\nludwigslust\nludwigsstadt\nlugau\nlügde\nlüneburg\nlünen\nlunzenau\nlütjenburg\nlützen\nlychen\nmagdala\nmagdeburg\nmahlberg\nmainbernheim\nmainburg\nmaintal\nmainz\nmalchin\nmalchow\nmannheim\nmanderscheid\nmansfeld\nmarbach\nmarburg\nmarienberg\nmarienmünster\nmarkdorf\nmarkgröningen\nmärkisch\nmarkkleeberg\nmarkneukirchen\nmarkranstädt\nmarktbreit\nmarktheidenfeld\nmarktleuthen\nmarktoberdorf\nmarktredwitz\nmarktsteft\nmarl\nmarlow\nmarne\nmarsberg\nmaulbronn\nmaxhütte\nmayen\nmechernich\nmeckenheim\nmedebach\nmeerane\nmeerbusch\nmeersburg\nmeinerzhagen\nmeiningen\nmeisenheim\nmeißen\nmeldorf\nmelle\nmellrichstadt\nmelsungen\nmemmingen\nmenden\nmendig\nmengen\nmeppen\nmerkendorf\nmerseburg\nmerzig\nmeschede\nmeßkirch\nmeßstetten\nmettmann\nmetzingen\nmeuselwitz\nmeyenburg\nmichelstadt\nmiesbach\nmiltenberg\nmindelheim\nminden\nmirow\nmittenwalde\nmitterteich\nmittweida\nmöckern\nmöckmühl\nmoers\nmölln\nmönchengladbach\nmonheim\nmonheim\nmonschau\nmontabaur\nmoosburg\nmörfelden\nmoringen\nmosbach\nmössingen\nmücheln\nmügeln\nmühlacker\nmühlberg\nmühldorf\nmühlhausen\nmühlheim\nmühlheim\nmülheim\nmülheim\nmüllheim\nmüllrose\nmünchberg\nmüncheberg\nmünchenbernsdorf\nmunderkingen\nmunich\nmünnerstadt\nmünsingen\nmunster\nmünster\nmünstermaifeld\nmünzenberg\nmurrhardt\nmylau\nnabburg\nnagold\nnaila\nnassau\nnastätten\nnauen\nnaumburg\nnaumburg\nnaunhof\nnebra\nneckarbischofsheim\nneckargemünd\nneckarsteinach\nneckarsulm\nneresheim\nnetphen\nnettetal\nnetzschkau\nneu\nneubrandenburg\nneubukow\nneubulach\nneuburg\nneudenau\nneuenbürg\nneuenburg\nneuenhaus\nneuenrade\nneuenstadt\nneuenstein\nneuerburg\nneuffen\nneuhaus\nneu\nneukalen\nneukirchen\nneukirchen\nneukloster\nneumark\nneumarkt\nneumarkt\nneumünster\nneunburg\nneunkirchen\nneuötting\nneuruppin\nneusalza\nneusäß\nneuss\nneustadt\nneustadt\nneustadt\nneustadt\nneustadt\nneustadt\nneustadt\nneustadt\nneustadt\nneustadt\nneustadt\nneustadt\nneustadt\nneustrelitz\nneutraubling\nneu\nneuwied\nnidda\nniddatal\nnidderau\nnideggen\nniebüll\nniedenstein\nniederkassel\nniedernhall\nnieder\nniederstetten\nniederstotzingen\nnieheim\nniemegk\nnienburg\nnienburg\nnierstein\nniesky\nnittenau\nnorden\nnordenham\nnorderney\nnorderstedt\nnordhausen\nnordhorn\nnördlingen\nnortheim\nnortorf\nnossen\nnuremberg\nnürtingen\noberasbach\noberharz\noberhausen\noberhof\noberkirch\noberkochen\noberlungwitz\nobermoschel\nobernburg\noberndorf\nobernkirchen\nober\noberriexingen\nobertshausen\noberursel\noberviechtach\noberweißbach\noberwesel\noberwiesenthal,\nochsenfurt\nochsenhausen\nochtrup\noderberg\noebisfelde\noederan\noelde\noelsnitz\noelsnitz\noer\noerlinghausen\noestrich\noettingen\noffenbach\noffenburg\nohrdruf\nöhringen\nolbernhau\nolching\noldenburg\noldenburg\nolfen\nolpe\nolsberg\noppenau\noppenheim\noranienbaum\noranienburg\norlamünde\nornbau\nortenberg\nortrand\noschatz\noschersleben\nosnabrück\nosterburg\nosterburken\nosterfeld\nosterhofen\nosterholz\nosterode\nosterwieck\nostfildern\nostheim\nosthofen\nöstringen\nostritz\notterberg\notterndorf\nottweiler\noverath\nowen\npaderborn\npapenburg\npappenheim\nparchim\nparsberg\npasewalk\npassau\npattensen\npausa\npegau\npegnitz\npeine\npeitz\npenig\npenkun\npenzberg\npenzlin\nperleberg\npetershagen\npfaffenhofen\npfarrkirchen\npforzheim\npfreimd\npfullendorf\npfullingen\npfungstadt\nphilippsburg\npinneberg\npirmasens\npirna\nplattling\nplau\nplaue\nplauen\nplettenberg\npleystein\nplochingen\nplön\npockau\npocking\npohlheim\npolch\nporta\npößneck\npotsdam\npottenstein\npreetz\npremnitz\nprenzlau\npressath\npreußisch\nprichsenstadt\npritzwalk\nprüm\npuchheim\npulheim\npulsnitz\nputbus\nputlitz\npüttlingen\nquakenbrück\nquedlinburg\nquerfurt\nquickborn\nrabenau\nradeberg\nradebeul\nradeburg\nradevormwald\nradolfzell\nraguhn\nrahden\nrain\nramstein\nranis\nransbach\nrastatt\nrastenberg\nrathenow\nratingen\nratzeburg\nrauenberg\nraunheim\nrauschenberg\nravensburg\nravenstein\nrecklinghausen\nrees\nregen\nregensburg\nregis\nrehau\nrehburg\nrehna\nreichelsheim\nreichenbach\nreichenbach\nreinbek\nreinfeld,\nreinheim\nremagen\nremda\nremscheid\nremseck\nrenchen\nrendsburg\nrennerod\nrenningen\nrerik\nrethem\nreutlingen\nrheda\nrhede\nrheinau\nrheinbach\nrheinberg\nrheinböllen\nrheine\nrheinfelden\nrheinsberg\nrheinstetten\nrhens\nrhinow\nribnitz\nrichtenberg\nriedenburg\nriedlingen\nriedstadt\nrieneck\nriesa\nrietberg\nrinteln\nröbel\nrochlitz\nrockenhausen\nrodalben\nrodenberg\nrödental\nrödermark\nrodewisch\nrodgau\nroding\nrömhild\nromrod\nronneburg\nronnenberg\nrosbach\nrosenfeld\nrosenheim\nrosenthal\nrösrath\nroßleben\nroßwein\nrostock\nrotenburg\nrotenburg\nroth\nrötha\nröthenbach\nrothenburg\nrothenburg\nrothenfels\nrottenburg\nrottenburg\nröttingen\nrottweil\nrötz\nrüdesheim\nrudolstadt\nruhla\nruhland\nrunkel\nrüsselsheim\nrutesheim\nrüthen\nsaalburg\nsaalfeld\nsaarbrücken\nsaarburg\nsaarlouis\nsachsenhagen\nsachsenheim\nsalzgitter\nsalzkotten\nsalzwedel\nsandau\nsandersdorf\nsangerhausen\nsankt\nsankt\nsankt\nsarstedt\nsassenberg\nsassnitz\nsayda\nschalkau\nschauenstein\nscheer\nscheibenberg\nscheinfeld\nschelklingen\nschenefeld\nscheßlitz\nschieder\nschifferstadt\nschillingsfürst\nschiltach\nschirgiswalde\nschkeuditz\nschkölen\nschleiden\nschleiz\nschleswig\nschlettau\nschleusingen\nschlieben\nschlitz\nschloß\nschlotheim\nschlüchtern\nschlüsselfeld\nschmalkalden\nschmallenberg\nschmölln\nschnackenburg\nschnaittenbach\nschneeberg\nschneverdingen\nschömberg\nschönau\nschönau\nschönberg\nschönebeck\nschöneck\nschönewalde\nschongau\nschöningen\nschönsee\nschönwald\nschopfheim\nschöppenstedt\nschorndorf\nschortens\nschotten\nschramberg\nschraplau\nschriesheim\nschrobenhausen\nschrozberg\nschüttorf\nschwaan\nschwabach\nschwäbisch\nschwäbisch\nschwabmünchen\nschwaigern\nschwalbach\nschwalmstadt\nschwandorf\nschwanebeck\nschwarzenbach\nschwarzenbach\nschwarzenbek\nschwarzenberg\nschwarzenborn\nschwarzheide\nschwedt\nschweich\nschweinfurt\nschwelm\nschwentinental\nschwerin\nschwerte\nschwetzingen\nsebnitz\nseehausen\nseeland\nseelow\nseelze\nseesen\nsehnde\nseifhennersdorf\nselb\nselbitz\nseligenstadt\nselm\nselters\nsenden\nsendenhorst\nsenftenberg\nseßlach\nsiegburg\nsiegen\nsigmaringen\nsimbach\nsimmern\nsindelfingen\nsingen\nsinsheim\nsinzig\nsoest\nsolingen\nsolms\nsoltau\nsömmerda\nsondershausen\nsonneberg\nsonnewalde\nsonthofen\nsontra\nspaichingen\nspalt\nspangenberg\nspeicher\nspenge\nspeyer\nspremberg\nspringe\nsprockhövel\nstade\nstadtallendorf\nstadtbergen\nstadthagen\nstadtilm\nstadtlengsfeld\nstadtlohn\nstadtoldendorf\nstadtprozelten\nstadtroda\nstadtsteinach\nstadt\nstarnberg\nstaßfurt\nstaufen\nstaufenberg\nstavenhagen\nstein\nsteinach\nsteinau\nsteinbach\nsteinbach\nsteinfurt\nsteinheim\nsteinheim\nstendal\nsternberg\nstockach\nstolberg\nstollberg\nstolpen\nstorkow\nstößen\nstraelen\nstralsund\nstrasburg\nstraubing\nstrausberg\nstrehla\nstromberg\nstühlingen\nstutensee\nstuttgart\nsüdliches\nsuhl\nsulingen\nsulz\nsulzbach\nsulzbach\nsulzburg\nsundern\nsüßen\nsyke\ntambach\ntangerhütte\ntangermünde\ntann\ntanna\ntauberbischofsheim\ntaucha\ntaunusstein\ntecklenburg\ntegernsee\ntelgte\nteltow\ntemplin\ntengen\ntessin\nteterow\ntettnang\nteublitz\nteuchern\nteupitz\nteuschnitz\nthale\nthalheim\nthannhausen\ntharandt\nthemar\nthum\ntirschenreuth\ntitisee\ntittmoning\ntodtnau\ntöging\ntönisvorst\ntönning\ntorgau\ntorgelow\ntornesch\ntraben\ntraunreut\ntraunstein\ntrebbin\ntrebsen\ntreffurt\ntrendelburg\ntreuchtlingen\ntreuen\ntreuenbrietzen\ntriberg\ntribsees\ntrier\ntriptis\ntrochtelfingen\ntroisdorf\ntrossingen\ntrostberg\ntübingen\ntuttlingen\ntwistringen\nübach\nüberlingen\nuebigau\nueckermünde\nuelzen\nuetersen\nuffenheim\nuhingen\nulm\nulmen\nulrichstein\nummerstadt\nunkel\nunna\nunterschleißheim\nusedom\nusingen\nuslar\nvacha\nvaihingen\nvallendar\nvarel\nvechta\nvelbert\nvelburg\nvelden\nvelen\nvellberg\nvellmar\nvelten\nverden\nveringenstadt\nverl\nversmold\nvetschau\nviechtach\nviernheim\nviersen\nvillingen\nvilsbiburg\nvilseck\nvilshofen\nvisselhövede\nvlotho\nvoerde\nvogtsburg\nvohburg\nvohenstrauß\nvöhrenbach\nvöhringen\nvolkach\nvölklingen\nvolkmarsen\nvreden\nwachenheim\nwächtersbach\nwadern\nwaghäusel\nwahlstedt\nwaiblingen\nwaibstadt\nwaischenfeld\nwaldbröl\nwaldeck\nwaldenbuch\nwaldenburg\nwaldenburg\nwaldershof\nwaldheim\nwaldkappel\nwaldkirch\nwaldkirchen\nwaldkraiburg\nwaldmünchen\nwaldsassen\nwaldshut\nwalldorf\nwalldürn\nwallenfels\nwalsrode\nwaltershausen\nwaltrop\nwanfried\nwangen\nwanzleben\nwarburg\nwaren\nwarendorf\nwarin\nwarstein\nwassenberg\nwasserburg\nwassertrüdingen\nwasungen\nwedel\nweener\nwegberg\nwegeleben\nwehr\nweida\nweiden\nweikersheim\nweil\nweilburg\nweil\nweilheim\nweilheim\nweimar\nweingarten\nweinheim\nweinsberg\nweinstadt\nweismain\nweißenberg\nweißenburg\nweißenfels\nweißenhorn\nweißensee\nweißenstadt\nweißenthurm\nweißwasser\nweiterstadt\nwelzheim\nwelzow\nwemding\nwendlingen\nwerben\nwerdau\nwerder\nwerdohl\nwerl\nwermelskirchen\nwernau\nwerne\nwerneuchen\nwernigerode\nwertheim\nwerther\nwertingen\nwesel\nwesenberg\nwesselburen\nwesseling\nwesterburg\nwesterstede\nwetter\nwetter\nwettin\nwetzlar\nwiddern\nwiehe\nwiehl\nwiesbaden\nwiesensteig\nwiesloch\nwiesmoor\nwildau\nwildberg\nwildenfels\nwildeshausen\nwilhelmshaven\nwilkau\nwillebadessen\nwillich\nwilsdruff\nwilster\nwilthen\nwindischeschenbach\nwindsbach\nwinnenden\nwinsen\nwinterberg\nwipperfürth\nwirges\nwismar\nwissen\nwitten\nwittenberg\nwittenberge\nwittenburg\nwittichenau\nwittlich\nwittingen\nwittmund\nwittstock\nwitzenhausen\nwoldegk\nwolfach\nwolfenbüttel\nwolfhagen\nwolframs\nwolfratshausen\nwolfsburg\nwolfstein\nwolgast\nwolkenstein\nwolmirstedt\nworms\nwörrstadt\nwörth\nwörth\nwörth\nwriezen\nwülfrath\nwunsiedel\nwunstorf\nwuppertal\nwürselen\nwurzbach\nwürzburg\nwurzen\nwustrow\nwyk\nxanten\nzahna\nzarrentin\nzehdenick\nzeil\nzeitz\nzell\nzell\nzell\nzella\nzerbst\nzeulenroda\nzeven\nziegenrück\nzierenberg\nziesar\nzirndorf\nzittau\nzörbig\nzossen\nzschopau\nzülpich\nzweibrücken\nzwenkau\nzwickau\nzwiesel\nzwingenberg\nzwönitz".split("\n"));
 	this.trainingData.set("animals","cat\nbat\nbird\ncow\ndog\nrabbit\nhorse\nfly\nlizard\nduck\ngoose\nhorse\npig\nanaconda\nlion\ntiger\nfox\narmadillo\nelephant\nshark\nshrew\ngnu\nkangaroo\nboar\ndeer\nviper\ncobra\nfalcon\nfrog\nheron\ngull\nkingfisher\nseal".split("\n"));
 	this.trainingData.set("pokemon","bulbasaur\nivysaur\nvenusaur\ncharmander\ncharmeleon\ncharizard\nsquirtle\nwartortle\nblastoise\ncaterpie\nmetapod\nbutterfree\nweedle\nkakuna\nbeedrill\npidgey\npidgeotto\npidgeot\nrattata\nraticate\nspearow\nfearow\nekans\narbok\npikachu\nraichu\nsandshrew\nsandslash\nnidoran\nnidorina\nnidoqueen\nnidoran\nnidorino\nnidoking\nclefairy\nclefable\nvulpix\nninetales\njigglypuff\nwigglytuff\nzubat\ngolbat\noddish\ngloom\nvileplume\nparas\nparasect\nvenonat\nvenomoth\ndiglett\ndugtrio\nmeowth\npersian\npsyduck\ngolduck\nmankey\nprimeape\ngrowlithe\narcanine\npoliwag\npoliwhirl\npoliwrath\nabra\nkadabra\nalakazam\nmachop\nmachoke\nmachamp\nbellsprout\nweepinbell\nvictreebel\ntentacool\ntentacruel\ngeodude\ngraveler\ngolem\nponyta\nrapidash\nslowpoke\nslowbro\nmagnemite\nmagneton\nfarfetchd\ndoduo\ndodrio\nseel\ndewgong\ngrimer\nmuk\nshellder\ncloyster\ngastly\nhaunter\ngengar\nonix\ndrowzee\nhypno\nkrabby\nkingler\nvoltorb\nelectrode\nexeggcute\nexeggutor\ncubone\nmarowak\nhitmonlee\nhitmonchan\nlickitung\nkoffing\nweezing\nrhyhorn\nrhydon\nchansey\ntangela\nkangaskhan\nhorsea\nseadra\ngoldeen\nseaking\nstaryu\nstarmie\nmime\nscyther\njynx\nelectabuzz\nmagmar\npinsir\ntauros\nmagikarp\ngyarados\nlapras\nditto\neevee\nvaporeon\njolteon\nflareon\nporygon\nomanyte\nomastar\nkabuto\nkabutops\naerodactyl\nsnorlax\narticuno\nzapdos\nmoltres\ndratini\ndragonair\ndragonite\nmewtwo\nmew".split("\n"));
+	this.trainingData.set("fish","catfish\nlungfish\nblackfish\nalbacore\nalewife\nalfonsino\nalgaeeater\nalligatorfish\nalligator\nanchovy\nanemonefish\nangelfish\nangler\nanglerfish\nicefish\ncodlet\narapaima\narcherfish\nchar\ngurnard\nsearobin\narmorhead\narowana\narrowtooth\naruana\ncarp\nglassfish\nmackerel\ncod\nherring\nsalmon\nsaury\nsilverside\ngrayling\nprowfish\nayu\nbaikal\noilfish\nbala\nballan\nwrasse\nkillifish\nbandfish\nbanjo\nbangus\nbarb\nbarbel\ndragonfish\nhoundshark\nbarfish\nbarracuda\nbarracudina\nbarramundi\ndanio\nbarreleye\nbaskingshark\nbass\nbasslet\nbatfish\nbatray\nbeachsalmon\nbeardfish\nsturgeon\ndanio\nbetta\nbichir\ngoatfish\nbigeye\nsquaretail\ncarp\nbuffalo\nbigscale\npomfret\nbillfish\nbitterling\nblackchin\nblackfish\ntetra\nreefshark\nscalyfin\nscabbardfish\nswallower\ntriggerfish\nbleak\nblenny\ngoby\nblobfish\nblowfish\nblueeye\nbluefin\nbluefish\nbluegill\ngourami\nwhiting\nknifefish\nminnow\nboafish\nboarfish\nsnipeeel\nbocaccio\nboga\nbonefish\nbonito\nbonnetmouth\nchub\nbonytongue\nbowfin\nboxfish\nbream\nbrill\nbristlemouth\nbristlenose\ndogfish\nlamprey\nbrotula\nbuffalofish\nbullhead\nbullshark\nbulltrout\nburbot\nburi\nburmadanio\nbutterflyray\nbutterflyfish\nflyingfish\nhalibut\nrockfish\ncandiru\ncandlefish\ncapelin\ncardinalfish\ncardinaltetra\ncarp\ncarpetshark\ncarpsucker\ncatalufa\ncatfish\ncatla\ncatshark\ncavefish\nrainbowfish\nmudminnow\npickerel\nchannelbass\nchannelcatfish\nchar\ncherrysalmon\nchimaera\nchinooksalmon\ncherubfish\nchub\nchubsucker\nchumsalmon\ncichlid\ncisco\nclingfish\nclownfish\ncobbler\ncobia\ncod\ncodlet\ncodling\ncoelacanth\ncoffinfish\ncohosalmon\ncoley\ncarpetshark\nsquawfish\ncombfish\nblenny\ntunny\nconger\ncichlid\ncookiecutter\ncoolieloach\ncornetfish\ncowfish\ncownose\ncowshark\ncrappie\ncrestfish\nkelpfish\ncroaker\ncrocodileshark\ncuckoowrasse\ncusk\ncuskeel\ncutlassfish\ncutthroateel\ncutthroattrout\ndab\ndace\ndaggertooth\ndamselfish\ndanio\ndarter\ndartfish\ndealfish\npupfish\nsmelt\ncardinalfish\nflathead\nstingray\ndemoiselle\ndevario\ndevilray\ndhufish\ndiscus\ndiver\ndogfish\ndogteeth\ndorab\ndorado\ndory\ndottyback\ndragonet\ndragonfish\ndragongoby\ndriftfish\ndrum\nduckbill\nduskygrouper\neagleray\neel\neelgoby\neelpout\neeltailcatfish\nelasmobranch\nelectriceel\nelephantnose\nelver\nparrotfish\nemperor\nbream\nescolar\neulachon\nflounder\nbrotula\nmoray\ntrevally\nfangtooth\nsculpin\nfeatherback\nfierasfer\nfilefish\nfingerfish\nfirefish\nwhalefish\nflagblenny\nflagfin\nflagfish\nflagtail\nflashlightfish\nflatfish\nflathead\nflier\nflounder\ngurnard\nflyingfish\nfootballfish\nbrooder\nhatchetfish\nfrogfish\nfusilier\ngaljoen\ngangesshark\ngar\ngaribaldi\ngarpike\nghostfish\nghostflathead\nghostknifefish\nghostpipefish\nghostshark\nghoul\ngibberfish\nshad\nglassfish\ngoatfish\ngoby\nshiner\ngoldeye\ngoldfish\ngombessa\ngoosefish\nrockfish\ngourami\ngraveldiver\ngrayling\nmullet\nreefshark\nwhiteshark\nswordtail\ngreeneye\ngreenling\ngrenadier\npuffer\ngroundshark\ngrouper\ngrunion\ngrunt\ngrunter\ngruntsculpin\ngudgeon\nguitarfish\nmenhaden\ngulper\ngunnel\nguppy\ngurnard\nhaddock\nhagfish\nhairtail\nhake\nhalfbeak\nhalfmoon\nhalibut\nhalosaur\nhamlet\nhammerhead\nhammerjaw\nhandfish\nhardhead\nharelip\nhatchetfish\nhawkfish\nherring\nhogsucker\nhoki\nhornshark\nhorsefish\nhoundshark\nhuchen\nhussar\nicefish\nide\nilisha\ninanga\ninconnu\njack\njackfish\njavelin\njawfish\njellynose\njewelfish\njewel\njewfish\njohndory\nkafue\nkahawai\nkaluga\nkanyu\nkelpperch\nkelpfish\nkillifish\nkingfish\nkingofthesalmon\ngourami\nknifefish\nknifejaw\nkoi\nkokanee\nkokopu\nlabyrinthfish\nladyfish\nlagena\nlampfish\nlamprey\nlancetfish\nlanternfish\nlargemouth\nleaffish\nleatherjacket\nlefteyeflounder\nlemonshark\nlemonsole\nlenok\nleopard\nlightfish\nlimia\nlinedsole\nling\nlingcod\nlionfish\nlivebearer\nlizardfish\nloach\nlongfin\nescolar\nmudsucker\nchimaera\nloosejaw\nlouvar\nluderick\nhake\nlumpsucker\nlungfish\nmackerel\nmackerelshark\nmadtom\nmahseer\nmakoshark\nmanefish\nmanofwar\nmantaray\nmarblefish\nmarlin\nmasu\nmedaka\nmedusafish\nmegamouthshark\nmenhaden\ngoldentrout\nmilkfish\nminnow\nminnowofthedeep\nmodocsucker\nmojarra\nmola\nprickleback\nmonkfish\nmooneye\nmoonfish\nmora\nmoray\nmorid\nmorwong\nmosquitofish\nmouthbrooder\nmrigal\nmudcat\nmudfish\nmudminnow\nmudminnow\nmudskipper\nmudsucker\nmullet\nmummichog\nmurraycod\nmuskellunge\nmustardeel\nnase\nneedlefish\nrivuline\nnibblefish\nnoodlefish\ndarter\ndaggertooth\nanchovy\nclingfish\nlampfish\nsearobin\nsquawfish\nstargazer\nnurseryfish\nnurseshark\noarfish\nsunfish\nwhitetipshark\noilfish\noldwife\nopah\nopaleye\nroughy\nunicornfish\nbatfish\nvelvetfish\noscar\nalbacore\nviperfish\npaddlefish\npanga\nparadisefish\nparore\nparrotfish\npeacockflounder\npeamouth\npearleye\npearlfish\npelicaneel\ngulper\npencilfish\npencilsmelt\ncorydoras\nperch\nelephantnose\npickerel\npigfish\npikeconger\npike\npikeblenny\npikeperch\npilchard\npilotfish\npineapplefish\npineconefish\npinksalmon\npíntano\npipefish\npiranha\npirarucu\npirateperch\nplaice\nplaty\nplatyfish\npleco\nplownose\npoacher\npollyfish\npollock\npomfret\npompano\ndolphinfish\nponyfish\ncatalufa\nporbeagle\nporcupinefish\nporgy\npowen\nprickleback\npricklefish\npricklyshark\nprowfish\npufferfish\npumpkinseed\npupfish\nsunfish\nquillback\nquillfish\nrabbitfish\nragfish\nrainbowtrout\nrainbowfish\nrasbora\nratfish\nrattail\nray\nrazorfish\nredsalmon\nredsnapper\nredfin\nredfish\nredlip\nredmouth\nwhalefish\nreedfish\nremora\nrequiemshark\nribboneel\nribbonfish\nriceeel\nricefish\nridgehead\ndace\nrivuline\nroach\nroanokebass\nrockbass\nrockbeauty\nrockcod\nrockfish\nrockling\ngunnel\nrohu\nronquil\nroosterfish\nropefish\nroughscad\nroughsculpin\nroughy\nroundhead\nwhitefish\nrudd\nrudderfish\nruffe\nsturgeon\nsábalo\nsabertooth\nsabertoothfish\nsablefish\nsailfish\nsalamanderfish\nsalmon\nsalmonshark\nsandbarshark\nsandburrower\nsanddab\nsanddiver\nsandeel\nsandfish\nsandgoby\nsandknifefish\nsandlance\nsandperch\nsandroller\nsandstargazer\nsandtiger\nsandtilefish\nfringehead\nsardine\nsargassumfish\nsauger\nsaury\nsawfish\nsawshark\nscabbardfish\nscat\nscissortail\nscorpionfish\nsculpin\nscup\nseabass\nseabream\nseacatfish\nseachub\nseadevil\nseadragon\nsealamprey\nsearaven\nseasnail\nseatoad\nseahorse\nseamoth\nsearobin\nshad\nshark\nsharksucker\nsharpnose\nsheatfish\nsheepshead\nsheepshead\nshiner\nshrimpfish\nsiamesefightingfish\nsillago\ndory\nsilverside\nsixgillray\nsixgillshark\nskate\nskilfish\nskipjacktuna\nmola\nsnipeeel\nsleeper\nsleepershark\nslickhead\nslimehead\nslipmouth\nsquaretail\nsmelt\nsmeltwhiting\nsnailfish\nsnakeeel\nsnakehead\nsnapper\nsnipeeel\nsnipefish\nsnoek\nsnook\nsnubnose\nsoldierfish\nsole\ndarter\nspadefish\nspaghettieel\nspearfish\nspeckledtrout\nspiderfish\nspikefish\nspinefoot\nbasslet\nspinyfin\nsplitfin\nspookfish\nsprat\nspringfish\nsquaretail\nsquawfish\nsqueaker\nsquirrelfish\nsculpin\nstargazer\nsteelhead\nstickleback\nstingfish\nstingray\nstonecat\nstonefish\nstoneroller\nburrfish\nsturgeon\nsucker\nnoodlefish\nsunfish\nsurfperch\nsurgeonfish\nswallower\nswampeel\nswampfish\nsweeper\nswordfish\nswordtail\ntadpolefish\ntailor\ntaimen\ntang\ntapetail\ntarpon\ntarwhine\ntelescopefish\ntench\ntenpounder\ntenuis\ntetra\nthornfish\nthreadfin\nthreadtail\nstickleback\npuffer\nthresher\ntigerbarb\ntigerperch\ntigershark\ntilapia\ntilefish\ntoadfish\ntommyruff\ntompot\ntonguefish\ntope\ntopminnow\ntorpedo\ntrahira\ntreefish\ntrevally\ntriggerfish\ntriplespine\ntripletail\ntrout\ntroutperch\ntrumpeter\ntrumpetfish\ntrunkfish\ntubeblenny\ntubeeye\ntubesnout\ntubeshoulder\ntuna\nturbot\nuaru\nunicornfish\nvanjaram\nlanternshark\nvelvetfish\nvendace\nvimba\nviperfish\nwahoo\nwallago\nwalleye\npollock\nwalu\nwarmouth\nwartyangler\nwaryfish\nwaspfish\nweaselshark\nweatherfish\nweever\nweeverfish\nwhalefish\nwhaleshark\nwhiff\nwhitebait\nwhitecroaker\nwhitefish\nwhitemarlin\nwhiteshark\nwhitetip\nwhiting\nwobbegong\nwolfeel\nwolffish\nwolfherring\nwormeel\nwormfish\nwrasse\nwrymouth\ntriplefin\nyellowbass\nyellowhead\nyellowjack\nyellowmargin\nyellowtail\namberjack\nbarracuda\nhorsemackerel\nsnapper\ntang\nweaver\nzander\nbullheadshark\nzebrafish\nlionfish\nzebraloach\nzebrashark\nturkeyfish\nziege\nzingel".split("\n"));
+	this.trainingData.set("plantscommon","alder\nblackalder\ncommonalder\nfalsealder\ngrayalder\nspeckledalder\nstripedalder\nwhitealder\nalmond\nambrosia\namyroot\napple\nosageapple\napricot\narfaj\narrowwood\nash\nblackash\nblueash\ncaneash\ngreenash\nmapleash\nredash\nriverash\nswampash\nwhiteash\nwaterash\nazolla\nbamboo\nbanana\nbaobab\nbay\nbaylaurel\nbean\nbearberry\nbearcorn\nbeech\nbindweed\nbirdsnest\nbirch\nblackbirch\nboleanbirch\ncanoebirch\ncherrybirch\nweepingbirch\nwhitebirch\ngraybirch\nmahoganybirch\npaperbirch\nredbirch\nriverbirch\nsilverbirch\nspicebirch\nsweetbirch\nwaterbirch\nweepingbirch\nwhitebirch\nyellowbirch\nbittercress\nbittersweet\nbitterweed\nblackberry\nblackcap\nblackhaw\nblackiehead\nblackweed\nblueberry\nbowwood\nbox\nfalsebox\nboxelder\nboxwood\nbrier\nsandbrier\nbrittlebush\nbroadleaf\nbrownbetty\nbuckeye\nbuffaloweed\nbutterflyweed\ncabbage\nclumpfoot\nskunkcabbage\nswampcabbage\njalap\ncarrot\ncarrotweed\nironwood\ncherry\nblackcherry\nrumcherry\nwildcherry\nwildblackcherry\nchestnut\nchiggerflower\nchrysanthemum\ncinnamon\nclove\nclover\ncoakum\ncoconut\ncoffeeplant\ncolicweed\ncollard\ncolwort\nconeflower\ncornel\ncornelian\ncorydalis\ncottonplant\ncress\nbankcress\nbermudacress\nbulbouscress\nlambscress\nlandcress\nscurvycress\nspringcress\nuplandcress\ncrowfoot\ncrowsnest\ncrowstoes\ncucumber\ndaisy\nyellowdaisy\ndeadnettle\ndevilsbite\ndevilsnose\ndevilsplague\ndewberry\ndindle\ndogwood\ndrumstick\nduckretten\nduscle\ndyeleaves\nearthgall\neucalyptus\neytelia\nfellenwort\nfelonwood\nfelonwort\nfennel\nferns\nchristmasfern\nmosquitofern\nswordferns\nwaterfern\nfeverbush\nfeverfew\nfig\nflax\nfluxroot\nfumewort\nyellowfumewort\ngallberry\ngarget\ngarlic\ngoldengarlic\nwildgarlic\ngarlicmustard\ngarlicroot\ngilliflower\ngoldenbuttons\ngoldenglow\ngordaldo\ngoosetongue\ngrapefruit\ngrapevine\ngroundberry\ngutweed\nhaldi\nharlequin\nhayfever\nhealingblade\nhedgeplant\nhellebore\nhemp\nhempdogbane\nhenplant\nhogweed\nholly\ninkberryholly\nmeadowholly\nswampholly\nhorsecane\nhoundsberry\nhuckleberry\nhouseleek\nindianhemp\nindianposy\ninkberry\nitchweed\nivy\njackinthebush\njuneberry\njuniper\nkeek\nkinnikinnik\nkousa\nkudzu\nlaceflower\nlambsfoot\nlavender\nleek\nlemon\nlettuce\nlilyleek\nlilac\nsummerlilac\nlovevine\nmaize\nmango\nmaple\nashleavedmaple\nblackmaple\ncreekmaple\ncutleafmaple\nmapleash\nmoosemaple\nrivermaple\nsilvermaple\nsoftmaple\nstripedmaple\nsugarmaple\nswampmaple\nwatermaple\nwhitemaple\nmesquite\nhoneymesquite\nmilfoil\nmilkweed\nmilkytassel\nmoosewood\nmorel\nmulberry\nredmulberry\nwhitemulberry\nneem\nnettle\nbullnettle\nhorsenettle\nnightshade\ndeadlynightshade\nwoodynightshade\nnosebleed\noak\nblueoak\nburoak\nblackoak\nchampionoak\ncoastliveoak\ncorkoak\ndyersoak\nislandoak\nmirbeckoak\nnorthernoak\npinoak\nredoak\nscruboak\nspanishoak\nspottedoak\nswampoak\nvalleyoak\nwhiteoak\nolive\nonion\ntreeonion\norangeroot\nosage\nparsley\nparsnip\npea\npeach\npeanut\npear\npellitory\npennyhedge\npepperroot\npigeonberry\npine\npineapple\npistachio\nplane\nplantain\npleurisyroot\npoisonivy\npoisonberry\npoisonflower\npoke\npokeroot\npokeweed\npolkweed\npolecatweed\npoplar\npoppy\npossumhaw\npotato\npudina\nquercitron\nradicalweed\nragweed\nragwort\nrantipole\nrapeseed\nraspberry\nblackraspberry\npurpleraspberry\nredbrush\nredbud\njudastree\nredweed\nrheumatismroot\nrhubarb\nribwort\nrice\nasianrice\nafricanrice\nroadweed\nrocket\ndamerocket\nsweetrocket\nwinterrocket\nyellowrocket\nrocketcress\nrose\nbabyrose\nlowrose\nprairierose\nramblerrose\nwildrose\nrosemary\nrye\nsanguinary\nsaskatoon\nscarletberry\nscoke\nscotchcap\nscurvygrass\nserviceberry\nshadblow\nshadbush\nsilkweed\nswampsilkweed\nskunkweed\nsnakeberry\nsnowdrop\nsorrel\nspeedwell\nspoolwood\nsquawbush\nstammerwort\nstickweed\nstrawberry\nsugarcane\nswallowwort\nsneezeweed\nsneezewort\nsunflower\nsugarplum\nwoundwort\nstagbush\nswallowwort\nsweetpotato\nswinies\nsycamore\ntansy\nwhitetansy\nwildtansy\ntea\nthimbleberry\nthimbleweed\nthousandleaf\nthousandseal\ntasselweed\nthistle\ncornthistle\ncornsowthistle\ncursedthistle\ngreenthistle\nhardthistle\nharesthistle\nmilkthistle\nnoddingthistle\nperennialthistle\npricklythistle\nsowthistle\nswinethistle\nwaythistle\nthyme\ntickleweed\ntobaccoplant\ntomato\ntoothwort\ntouchmenot\ntreadsoftly\ntrillium\nwakerobin\ntuberroot\ntulip\ntulsi\nvanillaorchid\nviburnum\nviolet\nvioletbloom\nvirginbower\nwalnut\nwaybread\nwheat\nwhiteroot\nwildcotton\nwildhops\nwillow\nwindroot\nwineberry\nwinterberry\nwintercress\nwoodbine\nwormwood\nwoundrocket\nyarrow\nyellowwood\nyam\nzedoary".split("\n"));
 	window.onload = $bind(this,this.onWindowLoaded);
 };
 Main.main = function() {
@@ -206,19 +208,19 @@ Main.prototype = {
 			_g.generate(data);
 		},false);
 		this.startsWithElement.addEventListener("change",function() {
-			if(_g.startsWithElement.value != null) _g.startsWith = _g.startsWithElement.value;
+			if(_g.startsWithElement.value != null) _g.startsWith = _g.startsWithElement.value.toLowerCase();
 		},false);
 		this.endsWithElement.addEventListener("change",function() {
-			if(_g.endsWithElement.value != null) _g.endsWith = _g.endsWithElement.value;
+			if(_g.endsWithElement.value != null) _g.endsWith = _g.endsWithElement.value.toLowerCase();
 		},false);
 		this.includesElement.addEventListener("change",function() {
-			if(_g.includesElement.value != null) _g.includes = _g.includesElement.value;
+			if(_g.includesElement.value != null) _g.includes = _g.includesElement.value.toLowerCase();
 		},false);
 		this.excludesElement.addEventListener("change",function() {
-			if(_g.excludesElement.value != null) _g.excludes = _g.excludesElement.value;
+			if(_g.excludesElement.value != null) _g.excludes = _g.excludesElement.value.toLowerCase();
 		},false);
 		this.similarElement.addEventListener("change",function() {
-			if(_g.similarElement.value != null) _g.similar = _g.similarElement.value;
+			if(_g.similarElement.value != null) _g.similar = _g.similarElement.value.toLowerCase();
 		},false);
 	}
 	,createTooltips: function(slider) {
@@ -238,14 +240,14 @@ Main.prototype = {
 		tipHandles[handleIdx].innerHTML = "<span class='tooltip'>" + (value == null?"null":"" + value) + "</span>";
 	}
 	,generate: function(data) {
-		this.duplicateTrie = new lycan_util_PrefixTrie();
+		this.duplicateTrie = new markov_util_PrefixTrie();
 		var _g = 0;
 		while(_g < data.length) {
 			var name = data[_g];
 			++_g;
 			this.duplicateTrie.insert(name);
 		}
-		this.generator = new lycan_namegen_NameGenerator(data,this.order,this.prior);
+		this.generator = new markov_namegen_NameGenerator(data,this.order,this.prior);
 		var names = [];
 		var startTime = new Date().getTime();
 		var currentTime = new Date().getTime();
@@ -262,8 +264,8 @@ Main.prototype = {
 	,setNames: function(names) {
 		var _g = this;
 		if(this.similar.length > 0) names.sort(function(x,y) {
-			var xSimilarity = lycan_util_EditDistanceMetrics.damerauLevenshtein(x,_g.similar,null);
-			var ySimilarity = lycan_util_EditDistanceMetrics.damerauLevenshtein(y,_g.similar,null);
+			var xSimilarity = markov_util_EditDistanceMetrics.damerauLevenshtein(x,_g.similar,null);
+			var ySimilarity = markov_util_EditDistanceMetrics.damerauLevenshtein(y,_g.similar,null);
 			if(xSimilarity > ySimilarity) return 1; else if(xSimilarity < ySimilarity) return -1; else return 0;
 		});
 		this.noNamesFoundElement.innerHTML = "";
@@ -343,13 +345,13 @@ var js__$Boot_HaxeError = function(val) {
 js__$Boot_HaxeError.__super__ = Error;
 js__$Boot_HaxeError.prototype = $extend(Error.prototype,{
 });
-var lycan_namegen_Generator = function(data,order,smoothing) {
+var markov_namegen_Generator = function(data,order,smoothing) {
 	if(!(data != null)) throw new js__$Boot_HaxeError("FAIL: data != null");
 	if(!(order >= 1)) throw new js__$Boot_HaxeError("FAIL: order >= 1");
 	this.order = order;
 	this.smoothing = smoothing;
 	this.models = [];
-	var letters = lycan_util__$ArraySet_ArraySet_$Impl_$.create();
+	var letters = markov_util__$ArraySet_ArraySet_$Impl_$.create();
 	var _g = 0;
 	while(_g < data.length) {
 		var d = data[_g];
@@ -358,7 +360,7 @@ var lycan_namegen_Generator = function(data,order,smoothing) {
 		var _g1 = d.length;
 		while(_g2 < _g1) {
 			var i = _g2++;
-			lycan_util__$ArraySet_ArraySet_$Impl_$.add(letters,d.charAt(i));
+			markov_util__$ArraySet_ArraySet_$Impl_$.add(letters,d.charAt(i));
 		}
 	}
 	letters.sort(function(a,b) {
@@ -366,17 +368,17 @@ var lycan_namegen_Generator = function(data,order,smoothing) {
 		if(a > b) return 1;
 		return 0;
 	});
-	var domain = lycan_util__$ArraySet_ArraySet_$Impl_$.toArray(letters);
+	var domain = markov_util__$ArraySet_ArraySet_$Impl_$.toArray(letters);
 	domain.splice(0,0,"#");
 	var _g3 = 0;
 	while(_g3 < order) {
 		var i1 = _g3++;
-		this.models.push(new lycan_namegen_Model(data.slice(),order - i1,smoothing,domain));
+		this.models.push(new markov_namegen_Model(data.slice(),order - i1,smoothing,domain));
 	}
 };
-lycan_namegen_Generator.prototype = {
+markov_namegen_Generator.prototype = {
 	generate: function() {
-		var name = lycan_util_StringExtensions.repeat("#",this.order);
+		var name = markov_util_StringExtensions.repeat("#",this.order);
 		var letter = this.getLetter(name);
 		while(letter != "#") {
 			if(letter != null) name += letter;
@@ -398,7 +400,7 @@ lycan_namegen_Generator.prototype = {
 		return letter;
 	}
 };
-var lycan_namegen_Model = function(data,order,smoothing,domain) {
+var markov_namegen_Model = function(data,order,smoothing,domain) {
 	if(!(domain != null && data != null)) throw new js__$Boot_HaxeError("FAIL: domain != null && data != null");
 	if(!(domain.length > 0 && data.length > 0)) throw new js__$Boot_HaxeError("FAIL: domain.length > 0 && data.length > 0");
 	if(!(smoothing >= 0 && smoothing <= 1)) throw new js__$Boot_HaxeError("FAIL: smoothing >= 0 && smoothing <= 1");
@@ -410,7 +412,7 @@ var lycan_namegen_Model = function(data,order,smoothing,domain) {
 	this.train(data);
 	this.buildChains();
 };
-lycan_namegen_Model.prototype = {
+markov_namegen_Model.prototype = {
 	retrain: function(data) {
 		if(!(data != null)) throw new js__$Boot_HaxeError("FAIL: data != null");
 		this.train(data);
@@ -419,7 +421,7 @@ lycan_namegen_Model.prototype = {
 	,train: function(data) {
 		while(data.length != 0) {
 			var d = data.pop();
-			d = lycan_util_StringExtensions.repeat("#",this.order) + d + "#";
+			d = markov_util_StringExtensions.repeat("#",this.order) + d + "#";
 			var _g1 = 0;
 			var _g = d.length - this.order;
 			while(_g1 < _g) {
@@ -492,11 +494,11 @@ lycan_namegen_Model.prototype = {
 		return 0;
 	}
 };
-var lycan_namegen_NameGenerator = function(data,order,smoothing) {
-	lycan_namegen_Generator.call(this,data,order,smoothing);
+var markov_namegen_NameGenerator = function(data,order,smoothing) {
+	markov_namegen_Generator.call(this,data,order,smoothing);
 };
-lycan_namegen_NameGenerator.__super__ = lycan_namegen_Generator;
-lycan_namegen_NameGenerator.prototype = $extend(lycan_namegen_Generator.prototype,{
+markov_namegen_NameGenerator.__super__ = markov_namegen_Generator;
+markov_namegen_NameGenerator.prototype = $extend(markov_namegen_Generator.prototype,{
 	generateName: function(minLength,maxLength,startsWith,endsWith,includes,excludes) {
 		var name = "";
 		name = this.generate();
@@ -517,8 +519,8 @@ lycan_namegen_NameGenerator.prototype = $extend(lycan_namegen_Generator.prototyp
 		return names;
 	}
 });
-var lycan_util_ArrayExtensions = function() { };
-lycan_util_ArrayExtensions.randomElementFromArrays = function(arrays) {
+var markov_util_ArrayExtensions = function() { };
+markov_util_ArrayExtensions.randomElementFromArrays = function(arrays) {
 	if(!(arrays != null && arrays.length != 0)) throw new js__$Boot_HaxeError("FAIL: arrays != null && arrays.length != 0");
 	var totalLength = 0;
 	var lengths = [];
@@ -533,16 +535,16 @@ lycan_util_ArrayExtensions.randomElementFromArrays = function(arrays) {
 	var n = Math.random() * totalLength;
 	var i = 0;
 	while(i < lengths.length) {
-		if(n < lengths[i]) return lycan_util_ArrayExtensions.randomElement(arrays[i]);
+		if(n < lengths[i]) return markov_util_ArrayExtensions.randomElement(arrays[i]);
 		i++;
 	}
 	throw new js__$Boot_HaxeError("Failed to get random element");
 };
-lycan_util_ArrayExtensions.randomElement = function(array) {
+markov_util_ArrayExtensions.randomElement = function(array) {
 	if(!(array != null && array.length != 0)) throw new js__$Boot_HaxeError("FAIL: array != null && array.length != 0");
 	return array[Std.random(array.length)];
 };
-lycan_util_ArrayExtensions.noNulls = function(array) {
+markov_util_ArrayExtensions.noNulls = function(array) {
 	if(!(array != null)) throw new js__$Boot_HaxeError("FAIL: array != null");
 	var _g = 0;
 	while(_g < array.length) {
@@ -552,7 +554,7 @@ lycan_util_ArrayExtensions.noNulls = function(array) {
 	}
 	return true;
 };
-lycan_util_ArrayExtensions.binarySearchCmp = function(a,x,min,max,comparator) {
+markov_util_ArrayExtensions.binarySearchCmp = function(a,x,min,max,comparator) {
 	if(!(a != null)) throw new js__$Boot_HaxeError("FAIL: a != null");
 	if(!(min >= 0 && min < a.length)) throw new js__$Boot_HaxeError("FAIL: min >= 0 && min < a.length");
 	if(!(max >= 0 && max < a.length)) throw new js__$Boot_HaxeError("FAIL: max >= 0 && max < a.length");
@@ -566,7 +568,7 @@ lycan_util_ArrayExtensions.binarySearchCmp = function(a,x,min,max,comparator) {
 	}
 	if(low <= max && comparator(a[low],x) == 0) return low; else return ~low;
 };
-lycan_util_ArrayExtensions.binarySearch = function(a,x,min,max) {
+markov_util_ArrayExtensions.binarySearch = function(a,x,min,max) {
 	if(!(a != null)) throw new js__$Boot_HaxeError("FAIL: a != null");
 	if(!(min >= 0 && min < a.length)) throw new js__$Boot_HaxeError("FAIL: min >= 0 && min < a.length");
 	if(!(max >= 0 && max < a.length)) throw new js__$Boot_HaxeError("FAIL: max >= 0 && max < a.length");
@@ -579,31 +581,31 @@ lycan_util_ArrayExtensions.binarySearch = function(a,x,min,max) {
 	}
 	if(low <= max && a[low] == x) return low; else return ~low;
 };
-var lycan_util__$ArraySet_ArraySet_$Impl_$ = {};
-lycan_util__$ArraySet_ArraySet_$Impl_$._new = function(array) {
+var markov_util__$ArraySet_ArraySet_$Impl_$ = {};
+markov_util__$ArraySet_ArraySet_$Impl_$._new = function(array) {
 	return array;
 };
-lycan_util__$ArraySet_ArraySet_$Impl_$.create = function(array) {
+markov_util__$ArraySet_ArraySet_$Impl_$.create = function(array) {
 	if(array == null) return [];
-	return lycan_util__$ArraySet_ArraySet_$Impl_$.toSet(array);
+	return markov_util__$ArraySet_ArraySet_$Impl_$.toSet(array);
 };
-lycan_util__$ArraySet_ArraySet_$Impl_$.intersection = function(this1,set) {
+markov_util__$ArraySet_ArraySet_$Impl_$.intersection = function(this1,set) {
 	var result = [];
 	var _g = 0;
 	while(_g < this1.length) {
 		var item = this1[_g];
 		++_g;
-		if(lycan_util__$ArraySet_ArraySet_$Impl_$.contains(set,item)) result.push(item);
+		if(markov_util__$ArraySet_ArraySet_$Impl_$.contains(set,item)) result.push(item);
 	}
 	return result;
 };
-lycan_util__$ArraySet_ArraySet_$Impl_$.union = function(this1,set) {
-	return lycan_util__$ArraySet_ArraySet_$Impl_$.toSet(this1.concat(lycan_util__$ArraySet_ArraySet_$Impl_$.toArray(set)));
+markov_util__$ArraySet_ArraySet_$Impl_$.union = function(this1,set) {
+	return markov_util__$ArraySet_ArraySet_$Impl_$.toSet(this1.concat(markov_util__$ArraySet_ArraySet_$Impl_$.toArray(set)));
 };
-lycan_util__$ArraySet_ArraySet_$Impl_$.unionArray = function(this1,set) {
-	return lycan_util__$ArraySet_ArraySet_$Impl_$.toSet(this1.concat(set));
+markov_util__$ArraySet_ArraySet_$Impl_$.unionArray = function(this1,set) {
+	return markov_util__$ArraySet_ArraySet_$Impl_$.toSet(this1.concat(set));
 };
-lycan_util__$ArraySet_ArraySet_$Impl_$.difference = function(this1,set) {
+markov_util__$ArraySet_ArraySet_$Impl_$.difference = function(this1,set) {
 	var result;
 	var array = this1.slice();
 	result = array;
@@ -612,19 +614,19 @@ lycan_util__$ArraySet_ArraySet_$Impl_$.difference = function(this1,set) {
 		var item = $it0.next();
 		HxOverrides.remove(result,item);
 	}
-	var array1 = lycan_util__$ArraySet_ArraySet_$Impl_$.toArray(result);
+	var array1 = markov_util__$ArraySet_ArraySet_$Impl_$.toArray(result);
 	return array1;
 };
-lycan_util__$ArraySet_ArraySet_$Impl_$.add = function(this1,v) {
-	if(lycan_util__$ArraySet_ArraySet_$Impl_$.contains(this1,v)) return false;
+markov_util__$ArraySet_ArraySet_$Impl_$.add = function(this1,v) {
+	if(markov_util__$ArraySet_ArraySet_$Impl_$.contains(this1,v)) return false;
 	this1.push(v);
 	return true;
 };
-lycan_util__$ArraySet_ArraySet_$Impl_$.copy = function(this1) {
+markov_util__$ArraySet_ArraySet_$Impl_$.copy = function(this1) {
 	var array = this1.slice();
 	return array;
 };
-lycan_util__$ArraySet_ArraySet_$Impl_$.contains = function(this1,v) {
+markov_util__$ArraySet_ArraySet_$Impl_$.contains = function(this1,v) {
 	var _g = 0;
 	while(_g < this1.length) {
 		var item = this1[_g];
@@ -633,29 +635,29 @@ lycan_util__$ArraySet_ArraySet_$Impl_$.contains = function(this1,v) {
 	}
 	return false;
 };
-lycan_util__$ArraySet_ArraySet_$Impl_$.slice = function(this1,pos,end) {
+markov_util__$ArraySet_ArraySet_$Impl_$.slice = function(this1,pos,end) {
 	var array = this1.slice(pos,end);
 	return array;
 };
-lycan_util__$ArraySet_ArraySet_$Impl_$.splice = function(this1,pos,len) {
+markov_util__$ArraySet_ArraySet_$Impl_$.splice = function(this1,pos,len) {
 	var array = this1.splice(pos,len);
 	return array;
 };
-lycan_util__$ArraySet_ArraySet_$Impl_$.toArray = function(this1) {
+markov_util__$ArraySet_ArraySet_$Impl_$.toArray = function(this1) {
 	return this1.slice();
 };
-lycan_util__$ArraySet_ArraySet_$Impl_$.toSet = function(array) {
+markov_util__$ArraySet_ArraySet_$Impl_$.toSet = function(array) {
 	var set = [];
 	var _g = 0;
 	while(_g < array.length) {
 		var v = array[_g];
 		++_g;
-		lycan_util__$ArraySet_ArraySet_$Impl_$.add(set,v);
+		markov_util__$ArraySet_ArraySet_$Impl_$.add(set,v);
 	}
 	return set;
 };
-var lycan_util_EditDistanceMetrics = function() { };
-lycan_util_EditDistanceMetrics.levenshtein = function(source,target) {
+var markov_util_EditDistanceMetrics = function() { };
+markov_util_EditDistanceMetrics.levenshtein = function(source,target) {
 	if(!(source != null && target != null)) throw new js__$Boot_HaxeError("FAIL: source != null && target != null");
 	var slen = source.length;
 	var tlen = target.length;
@@ -690,7 +692,7 @@ lycan_util_EditDistanceMetrics.levenshtein = function(source,target) {
 	}
 	return costs[costs.length - 1];
 };
-lycan_util_EditDistanceMetrics.damerauLevenshteinMatrix = function(source,target,enableTransposition) {
+markov_util_EditDistanceMetrics.damerauLevenshteinMatrix = function(source,target,enableTransposition) {
 	if(enableTransposition == null) enableTransposition = true;
 	if(!(source != null && target != null)) throw new js__$Boot_HaxeError("FAIL: source != null && target != null");
 	var w = source.length;
@@ -724,64 +726,64 @@ lycan_util_EditDistanceMetrics.damerauLevenshteinMatrix = function(source,target
 		while(_g11 < h) {
 			var y = _g11++;
 			if(source.charAt(x - 1) == target.charAt(y - 1)) cost = 0; else cost = 1;
-			var val = lycan_util_IntExtensions.min(costs[x - 1 + y * w] + 1,lycan_util_IntExtensions.min(costs[x + (y - 1) * w] + 1,costs[x - 1 + (y - 1) * w] + cost));
+			var val = markov_util_IntExtensions.min(costs[x - 1 + y * w] + 1,markov_util_IntExtensions.min(costs[x + (y - 1) * w] + 1,costs[x - 1 + (y - 1) * w] + cost));
 			costs[x + y * w] = val;
 			if(enableTransposition && x > 1 && y > 1 && source.charAt(x) == target.charAt(y - 1) && source.charAt(x - 1) == target.charAt(y)) {
-				var val1 = lycan_util_IntExtensions.min(costs[x + y * w],costs[x - 2 + (y - 2) * w] + cost);
+				var val1 = markov_util_IntExtensions.min(costs[x + y * w],costs[x - 2 + (y - 2) * w] + cost);
 				costs[x + y * w] = val1;
 			}
 		}
 	}
 	return costs;
 };
-lycan_util_EditDistanceMetrics.damerauLevenshtein = function(source,target,enableTransposition) {
+markov_util_EditDistanceMetrics.damerauLevenshtein = function(source,target,enableTransposition) {
 	if(enableTransposition == null) enableTransposition = true;
 	if(source.length == 0) return target.length;
 	if(target.length == 0) return source.length;
-	var table = lycan_util_EditDistanceMetrics.damerauLevenshteinMatrix(source,target,enableTransposition);
+	var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(source,target,enableTransposition);
 	return table[table.length - 1];
 };
-var lycan_util_FileReader = function() { };
-var lycan_util_IntExtensions = function() { };
-lycan_util_IntExtensions.abs = function(v) {
+var markov_util_FileReader = function() { };
+var markov_util_IntExtensions = function() { };
+markov_util_IntExtensions.abs = function(v) {
 	if(v < 0) return -v;
 	return v;
 };
-lycan_util_IntExtensions.clamp = function(v,min,max) {
+markov_util_IntExtensions.clamp = function(v,min,max) {
 	if(v < min) return min;
 	if(v > max) return max;
 	return v;
 };
-lycan_util_IntExtensions.clampSym = function(v,bound) {
+markov_util_IntExtensions.clampSym = function(v,bound) {
 	if(v < bound) return bound; else if(v > bound) return bound; else return v;
 };
-lycan_util_IntExtensions.even = function(v) {
+markov_util_IntExtensions.even = function(v) {
 	return v % 2 == 0;
 };
-lycan_util_IntExtensions.odd = function(v) {
+markov_util_IntExtensions.odd = function(v) {
 	return v % 2 != 0;
 };
-lycan_util_IntExtensions.max = function(a,b) {
+markov_util_IntExtensions.max = function(a,b) {
 	if(a > b) return a;
 	return b;
 };
-lycan_util_IntExtensions.min = function(a,b) {
+markov_util_IntExtensions.min = function(a,b) {
 	if(a < b) return a;
 	return b;
 };
-lycan_util_IntExtensions.toBool = function(v) {
+markov_util_IntExtensions.toBool = function(v) {
 	return v != 0;
 };
-lycan_util_IntExtensions.isPow2 = function(v) {
+markov_util_IntExtensions.isPow2 = function(v) {
 	return v > 0 && (v & v - 1) == 0;
 };
-lycan_util_IntExtensions.sign = function(x) {
+markov_util_IntExtensions.sign = function(x) {
 	if(x > 0) return 1; else if(x < 0) return -1; else return 0;
 };
-var lycan_util_PrefixTrie = function() {
-	this.root = new lycan_util_PrefixNode("",null,0);
+var markov_util_PrefixTrie = function() {
+	this.root = new markov_util_PrefixNode("",null,0);
 };
-lycan_util_PrefixTrie.findChild = function(node,letter) {
+markov_util_PrefixTrie.findChild = function(node,letter) {
 	var ret = null;
 	var _g = 0;
 	var _g1 = node.children;
@@ -795,16 +797,16 @@ lycan_util_PrefixTrie.findChild = function(node,letter) {
 	}
 	return ret;
 };
-lycan_util_PrefixTrie.prototype = {
+markov_util_PrefixTrie.prototype = {
 	insert: function(word) {
 		var current = this.root;
 		var _g1 = 0;
 		var _g = word.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			var child = lycan_util_PrefixTrie.findChild(current,word.charAt(i));
+			var child = markov_util_PrefixTrie.findChild(current,word.charAt(i));
 			if(child == null) {
-				child = new lycan_util_PrefixNode(word.charAt(i),current,i);
+				child = new markov_util_PrefixNode(word.charAt(i),current,i);
 				current.children.push(child);
 			} else child.frequency++;
 			current = child;
@@ -817,7 +819,7 @@ lycan_util_PrefixTrie.prototype = {
 		var _g = word.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			current = lycan_util_PrefixTrie.findChild(current,word.charAt(i));
+			current = markov_util_PrefixTrie.findChild(current,word.charAt(i));
 			if(current == null) return false;
 		}
 		if(!current.word) return false;
@@ -836,7 +838,7 @@ lycan_util_PrefixTrie.prototype = {
 					word += parent.letter;
 					parent = parent.parent;
 				}
-				words.push(lycan_util_StringExtensions.reverse(word));
+				words.push(markov_util_StringExtensions.reverse(word));
 			}
 			var _g = 0;
 			var _g1 = node.children;
@@ -849,7 +851,7 @@ lycan_util_PrefixTrie.prototype = {
 		return words;
 	}
 };
-var lycan_util_PrefixNode = function(letter,parent,depth) {
+var markov_util_PrefixNode = function(letter,parent,depth) {
 	this.parent = parent;
 	this.children = [];
 	this.letter = letter;
@@ -857,14 +859,14 @@ var lycan_util_PrefixNode = function(letter,parent,depth) {
 	this.word = false;
 	this.depth = depth;
 };
-var lycan_util_StringExtensions = function() { };
-lycan_util_StringExtensions.reverse = function(s) {
+var markov_util_StringExtensions = function() { };
+markov_util_StringExtensions.reverse = function(s) {
 	if(!(s != null)) throw new js__$Boot_HaxeError("FAIL: s != null");
 	var arr = s.split("");
 	arr.reverse();
 	return arr.join("");
 };
-lycan_util_StringExtensions.repeat = function(s,times) {
+markov_util_StringExtensions.repeat = function(s,times) {
 	if(!(s != null)) throw new js__$Boot_HaxeError("FAIL: s != null");
 	if(!(times >= 1)) throw new js__$Boot_HaxeError("FAIL: times >= 1");
 	var output = "";
@@ -875,10 +877,10 @@ lycan_util_StringExtensions.repeat = function(s,times) {
 	}
 	return output;
 };
-lycan_util_StringExtensions.contains = function(s,substr) {
+markov_util_StringExtensions.contains = function(s,substr) {
 	return s.indexOf(substr) >= 0;
 };
-lycan_util_StringExtensions.capitalize = function(s) {
+markov_util_StringExtensions.capitalize = function(s) {
 	return HxOverrides.substr(s,0,1).toUpperCase() + HxOverrides.substr(s,1,s.length - 1);
 };
 var $_, $fid = 0;

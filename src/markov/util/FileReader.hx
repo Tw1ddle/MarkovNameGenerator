@@ -1,4 +1,4 @@
-package lycan.util;
+package markov.util;
 
 import haxe.macro.Context;
 

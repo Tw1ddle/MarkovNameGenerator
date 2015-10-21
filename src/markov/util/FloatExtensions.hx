@@ -1,4 +1,4 @@
-package lycan.util;
+package markov.util;
 
 // Extension methods for floats
 class FloatExtensions {

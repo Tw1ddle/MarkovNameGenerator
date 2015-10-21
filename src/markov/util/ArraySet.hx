@@ -1,4 +1,4 @@
-package lycan.util;
+package markov.util;
 
 // A collection that contains no duplicate elements
 // Underlying data structure is an array

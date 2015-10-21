@@ -1,7 +1,5 @@
 ![Project logo](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/markovnamegen_logo.png?raw=true "Project logo")
 
-WORK IN PROGRESS
-
 Procedural name generator demo written in Haxe. Demonstrates the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
 
 ## Features ##
@@ -9,7 +7,6 @@ Procedural name generator demo written in Haxe. Demonstrates the [markov-namegen
 * Configurable training dataset, order and prior model parameter options.
 * Filter results by length, start, end and content.
 * Sort results by Damarau-Levenshtein distance to your preferred result.
-* Visualization of the training dataset and generated names in a trie.
 
 ## Usage ##
 
@@ -61,8 +58,11 @@ Here is the demo in action:
 
 ![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot1.png?raw=true "Screenshot 1")
 
+## How It Works ##
+
+The library uses [Markov chains](https://en.wikipedia.org/wiki/Markov_chain) to generate random words. Given a list of words, the library calculates the conditional probability of a letter coming up after a sequence of letters chosen so far - by looking back up to "n" characters, where "n" is the order of the model. The generator can use several models, each with memory n. Starting with the highest order models (models with bigger memories), it tries to get a new character, falling back to lower order models if necessary - this approach is called [Katz's back-off model](https://en.wikipedia.org/wiki/Katz%27s_back-off_model). A [Dirichlet prior](https://en.wikipedia.org/wiki/Dirichlet_distribution#Special_cases) is also used, which adds a constant probability that any letter may be picked as the next letter, which acts as an additive smoothing factor and adds a bit more "randomness" to the generated output. Loads of words are generated, and then get filtered out and sorted according to several tweakable criteria like length, start and end characters, [similarity to a target word](https://en.wikipedia.org/wiki/Levenshtein_distance), and so on.
+
 ## Notes ##
-* Most of the concepts used for the generator were suggested in [this article](http://www.roguebasin.com/index.php?title=Names_from_a_high_order_Markov_Process_and_a_simplified_Katz_back-off_scheme) by [Jeffrey Lund](https://github.com/jlund3).
-* The internal state of the generator is visualized using [d3.js](http://d3js.org/).
+* Many of the concepts used for the generator were suggested by [this article](http://www.roguebasin.com/index.php?title=Names_from_a_high_order_Markov_Process_and_a_simplified_Katz_back-off_scheme) by [Jeffrey Lund](https://github.com/jlund3).
 * The haxelib supports every Haxe target, but it has not been thoroughly tested or optimized for performance yet, especially on native platforms.
 * If you have any suggestions or questions then get in touch.

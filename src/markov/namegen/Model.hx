@@ -1,9 +1,9 @@
-package lycan.namegen;
+package markov.namegen;
 
 import haxe.ds.StringMap;
 
-using lycan.util.ArrayExtensions;
-using lycan.util.StringExtensions;
+using markov.util.ArrayExtensions;
+using markov.util.StringExtensions;
 
 class Model {
 	private var order:Int; // The order of the model i.e. how many steps it looks back
@@ -104,6 +104,14 @@ class Model {
 			totals.push(accumulator);
 		}
 		
+		// TODO linear search for now, because binary search seems to bug out sometimes...
+		var rand = Math.random() * accumulator;
+		for (i in 0...totals.length) {
+			if (rand < totals[i]) {
+				return i;
+			}
+		}
+		
 		// Get a random index
 		// Since the totals array is sorted in increasing order we use binary search
 		/*
@@ -113,13 +121,6 @@ class Model {
 		}
 		return index;
 		*/
-		
-		var rand = Math.random() * accumulator;
-		for (i in 0...totals.length) {
-			if (rand < totals[i]) {
-				return i;
-			}
-		}
 		
 		return 0;
 	}

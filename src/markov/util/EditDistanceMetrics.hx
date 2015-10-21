@@ -1,8 +1,8 @@
-package lycan.util;
+package markov.util;
 
 import haxe.ds.Vector;
 
-using lycan.util.IntExtensions;
+using markov.util.IntExtensions;
 
 class EditDistanceMetrics {
 	// Returns the number of single-character edits (insertions, deletions and replacements) needed to transform the source into the target

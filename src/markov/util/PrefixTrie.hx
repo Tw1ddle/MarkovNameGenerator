@@ -1,6 +1,6 @@
-package lycan.util;
+package markov.util;
 
-using lycan.util.StringExtensions;
+using markov.util.StringExtensions;
 
 // Unoptimized prefix trie
 class PrefixTrie {

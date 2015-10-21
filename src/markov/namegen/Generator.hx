@@ -1,8 +1,8 @@
-package lycan.namegen;
+package markov.namegen;
 
-import lycan.util.ArraySet;
+import markov.util.ArraySet;
 
-using lycan.util.StringExtensions;
+using markov.util.StringExtensions;
 
 // Procedural generation of names with high-order Markov chains
 // Uses Katz's back-off model - chooses the next character based on conditional probability given the last n-characters (where model order = n)

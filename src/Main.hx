@@ -7,12 +7,13 @@ import js.html.InputElement;
 import js.html.SelectElement;
 import js.nouislider.NoUiSlider;
 import js.wNumb.WNumb;
-import lycan.namegen.NameGenerator;
-import lycan.util.EditDistanceMetrics;
-import lycan.util.FileReader;
-import lycan.util.PrefixTrie;
+import markov.namegen.NameGenerator;
+import markov.util.EditDistanceMetrics;
+import markov.util.FileReader;
+import markov.util.PrefixTrie;
 
-using lycan.util.StringExtensions;
+using StringTools;
+using markov.util.StringExtensions;
 
 class Main {
 	private var generator:NameGenerator;
@@ -43,7 +44,7 @@ class Main {
 	
 	private inline function setDefaults():Void {
 		trainingDataKey = "tolkienesque_forenames";
-		numToGenerate = 100;	
+		numToGenerate = 100;
 		minLength = 7;
 		maxLength = 10;
 		order = 3;
@@ -131,6 +132,8 @@ class Main {
 		trainingData.set("german_towns", FileReader.readFile("embed/germantowns.txt").split("\n"));
 		trainingData.set("animals", FileReader.readFile("embed/animals.txt").split("\n"));
 		trainingData.set("pokemon", FileReader.readFile("embed/pokemon.txt").split("\n"));
+		trainingData.set("fish", FileReader.readFile("embed/fish.txt").split("\n"));
+		trainingData.set("plantscommon", FileReader.readFile("embed/plantscommon.txt").split("\n"));
 		
 		//trainingData.set("profanity_filter", FileReader.readFile("embed/profanityfilter.txt").split("\n")); // For reasons
 		
@@ -310,31 +313,31 @@ class Main {
 		
 		startsWithElement.addEventListener("change", function() {
 			if (startsWithElement.value != null) {
-				startsWith = startsWithElement.value;
+				startsWith = startsWithElement.value.toLowerCase();
 			}
 		}, false);
 		
 		endsWithElement.addEventListener("change", function() {
 			if (endsWithElement.value != null) {
-				endsWith = endsWithElement.value;
+				endsWith = endsWithElement.value.toLowerCase();
 			}
 		}, false);
 		
 		includesElement.addEventListener("change", function() {
 			if (includesElement.value != null) {
-				includes = includesElement.value;
+				includes = includesElement.value.toLowerCase();
 			}
 		}, false);
 		
 		excludesElement.addEventListener("change", function() {
 			if (excludesElement.value != null) {
-				excludes = excludesElement.value;
+				excludes = excludesElement.value.toLowerCase();
 			}
 		}, false);
 		
 		similarElement.addEventListener("change", function() {
 			if (similarElement.value != null) {
-				similar = similarElement.value;
+				similar = similarElement.value.toLowerCase();
 			}
 		}, false);
 	}
