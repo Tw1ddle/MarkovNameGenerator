@@ -1,5 +1,7 @@
 package graphs;
 
+// Unused, could be used with d3.js to draw a force graph of a prefix trie
+
 /*
 import js.d3.D3;
 import js.d3.layout.Layout.Force;

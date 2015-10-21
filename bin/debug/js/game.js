@@ -400,20 +400,28 @@ markov_namegen_Generator.prototype = {
 		return letter;
 	}
 };
-var markov_namegen_Model = function(data,order,smoothing,domain) {
-	if(!(domain != null && data != null)) throw new js__$Boot_HaxeError("FAIL: domain != null && data != null");
-	if(!(domain.length > 0 && data.length > 0)) throw new js__$Boot_HaxeError("FAIL: domain.length > 0 && data.length > 0");
+var markov_namegen_Model = function(data,order,smoothing,alphabet) {
+	if(!(alphabet != null && data != null)) throw new js__$Boot_HaxeError("FAIL: alphabet != null && data != null");
+	if(!(alphabet.length > 0 && data.length > 0)) throw new js__$Boot_HaxeError("FAIL: alphabet.length > 0 && data.length > 0");
 	if(!(smoothing >= 0 && smoothing <= 1)) throw new js__$Boot_HaxeError("FAIL: smoothing >= 0 && smoothing <= 1");
 	if(!(order > 0)) throw new js__$Boot_HaxeError("FAIL: order > 0");
 	this.order = order;
 	this.smoothing = smoothing;
-	this.alphabet = domain;
+	this.alphabet = alphabet;
 	this.observations = new haxe_ds_StringMap();
 	this.train(data);
 	this.buildChains();
 };
 markov_namegen_Model.prototype = {
-	retrain: function(data) {
+	generate: function(context) {
+		if(!(context != null)) throw new js__$Boot_HaxeError("FAIL: context != null");
+		var chain = this.chains.get(context);
+		if(chain == null) return null; else {
+			if(!(chain.length > 0)) throw new js__$Boot_HaxeError("FAIL: chain.length > 0");
+			return this.alphabet[this.selectIndex(chain)];
+		}
+	}
+	,retrain: function(data) {
 		if(!(data != null)) throw new js__$Boot_HaxeError("FAIL: data != null");
 		this.train(data);
 		this.buildChains();
@@ -453,14 +461,6 @@ markov_namegen_Model.prototype = {
 				}
 				value.push(this.smoothing + this.countMatches(this.observations.get(context),prediction));
 			}
-		}
-	}
-	,generate: function(context) {
-		if(!(context != null)) throw new js__$Boot_HaxeError("FAIL: context != null");
-		var chain = this.chains.get(context);
-		if(chain == null) return null; else {
-			if(!(chain.length > 0)) throw new js__$Boot_HaxeError("FAIL: chain.length > 0");
-			return this.alphabet[this.selectIndex(chain)];
 		}
 	}
 	,countMatches: function(arr,v) {

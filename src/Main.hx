@@ -16,32 +16,35 @@ using StringTools;
 using markov.util.StringExtensions;
 
 class Main {
-	private var generator:NameGenerator;
-	private var duplicateTrie:PrefixTrie;
-	private var trainingData:StringMap<Array<String>>;
+	private var generator:NameGenerator; // The Markov name generator
+	private var duplicateTrie:PrefixTrie; // Prefix trie for catching duplicates
+	private var trainingData:StringMap<Array<String>>; // The current training data
 	/*
 	private var trieGraph:TrieForceGraph;
 	private var markovGraph:MarkovGraph;
 	*/
 	
-	private var trainingDataKey:String;
-	private var numToGenerate:Int;
-	private var minLength:Int;
-	private var maxLength:Int;
-	private var order:Int;
-	private var prior:Float;
-	private var maxProcessingTime:Float;
-	private var startsWith:String = "";
-	private var endsWith:String = "";
-	private var includes:String = "";
-	private var excludes:String = "";
-	private var similar:String = "";
+	private var trainingDataKey:String; //
+	private var numToGenerate:Int; // Number of names to try to generate
+	private var minLength:Int; // Minimum name length
+	private var maxLength:Int; // Maximum name length
+	private var order:Int; // Maximum order model that the name generator should use
+	private var prior:Float; // Value of the Dirichlet prior that the name generator should use
+	private var maxProcessingTime:Float; // Maximum time the name generator should spend generating a batch of names
+	private var startsWith:String = ""; // String that names must start with
+	private var endsWith:String = ""; // String that names must end with
+	private var includes:String = ""; // String that names must include
+	private var excludes:String = ""; // String that names must include
+	private var similar:String = ""; // String that names are sorted by their similarity to
 	/*
-	private var generateTrieVisualization:Bool = false;
-	private var generateMarkovVisualization:Bool = false;
-	private var markovVisualizationMinP:Float = 0.01;
+	private var generateTrieVisualization:Bool = false; // Generate a graph of the duplicate trie
+	private var generateMarkovVisualization:Bool = false; // Generate a graph of one of the markov models
+	private var markovVisualizationMinP:Float = 0.01; // Minimum p value required to draw one of the markov model edges
 	*/
 	
+	/*
+	 * Set the default values for name generation, filtering and sorting
+	 */
 	private inline function setDefaults():Void {
 		trainingDataKey = "tolkienesque_forenames";
 		numToGenerate = 100;
@@ -87,6 +90,9 @@ class Main {
 	private var markovVisualizationPElement:Element;
 	*/
 	
+	/*
+	 * Get references to the input elements on the webpage
+	 */
 	private inline function createElements():Void {
 		trainingDataElement = cast Browser.document.getElementById("trainingdatalist");
 		orderElement = cast Browser.document.getElementById("order");		
@@ -113,8 +119,8 @@ class Main {
 	}
 	
 	private inline function new() {
+		// Build a lookup table for the training data
 		trainingData = new StringMap<Array<String>>();
-		
 		trainingData.set("us_forenames", FileReader.readFile("embed/usforenames.txt").split("\n"));
 		trainingData.set("tolkienesque_forenames", FileReader.readFile("embed/tolkienesqueforenames.txt").split("\n"));
 		trainingData.set("werewolf_forenames", FileReader.readFile("embed/werewolfforenames.txt").split("\n"));
@@ -134,9 +140,9 @@ class Main {
 		trainingData.set("pokemon", FileReader.readFile("embed/pokemon.txt").split("\n"));
 		trainingData.set("fish", FileReader.readFile("embed/fish.txt").split("\n"));
 		trainingData.set("plantscommon", FileReader.readFile("embed/plantscommon.txt").split("\n"));
+		//trainingData.set("profanity_filter", FileReader.readFile("embed/profanityfilter.txt").split("\n")); // Skipping this one for SEO and paranoia reasons
 		
-		//trainingData.set("profanity_filter", FileReader.readFile("embed/profanityfilter.txt").split("\n")); // For reasons
-		
+		// Wait for the window to load before creating the sliders, listening for input etc
 		Browser.window.onload = onWindowLoaded;
 	}
 	
@@ -147,6 +153,9 @@ class Main {
 		addEventListeners();
 	}
 	
+	/*
+	 * Create the settings sliders that go on the page
+	 */
 	private inline function createSliders():Void {
 		NoUiSlider.create(orderElement, {
 			start: [ 3 ],
@@ -297,6 +306,9 @@ class Main {
 		*/
 	}
 	
+	/*
+	 * Add event listeners to the input elements, in order to update the values we feed the model when "generate" is pressed
+	 */ 
 	private inline function addEventListeners():Void {
 		trainingDataElement.addEventListener("change", function() {
 			if (trainingDataElement.value != null) {
@@ -342,6 +354,9 @@ class Main {
 		}, false);
 	}
 	
+	/*
+	 * Helper method to create tooltips on the sliders
+	 */
 	private function createTooltips(slider:Element):Void {
 		var tipHandles = slider.getElementsByClassName("noUi-handle");
 		for (i in 0...tipHandles.length) {
@@ -352,12 +367,18 @@ class Main {
 		}
 	}
 	
+	/*
+	 * Helper method to update the tooltips on the sliders
+	 */
 	private function updateTooltips(slider:Element, handleIdx:Int, value:Float):Void {
 		var tipHandles = slider.getElementsByClassName("noUi-handle");
 		tipHandles[handleIdx].innerHTML = "<span class='tooltip'>" + Std.string(value) + "</span>";
 	}
 	
-	private function generate(data:Array<String>):Void {
+	/*
+	 * Runs when the "generate" button is pressed, creates a new batch of names and puts the new names in the "names" section
+	 */
+	private inline function generate(data:Array<String>):Void {
 		duplicateTrie = new PrefixTrie();
 		for (name in data) {
 			duplicateTrie.insert(name);
@@ -394,6 +415,9 @@ class Main {
 		*/
 	}
 	
+	/*
+	 * Helper method to set the names in the "names" section of the page
+	 */
 	private inline function setNames(names:Array<String>):Void {
 		if(similar.length > 0) {
 			names.sort(function(x:String, y:String):Int {

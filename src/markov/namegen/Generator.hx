@@ -15,7 +15,7 @@ class Generator {
 	/*
 	 * @param data - training data for the generator, array of words
 	 * @param order - number of models to use, will be of orders up to and including "order"
-	 * @params smoothing - the dirichlet prior/additive smoothing "randomness" factor
+	 * @param smoothing - the dirichlet prior/additive smoothing "randomness" factor
 	 */
 	public function new(data:Array<String>, order:Int, smoothing:Float) {
 		Sure.sure(data != null);
@@ -52,7 +52,7 @@ class Generator {
 	}
 	
 	/*
-	 * Generate a word
+	 * Generates a word
 	 */
 	public function generate():String {
 		var name = "#".repeat(order);
@@ -66,6 +66,9 @@ class Generator {
 		return name;
 	}
 	
+	/*
+	 * Generates a single letter 
+	 */
 	private function getLetter(name:String):String {
 		var letter:String = null;
 		var context:String = name.substring(name.length - order, name.length);
