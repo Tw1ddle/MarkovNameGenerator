@@ -48,11 +48,11 @@ class Main {
 	private inline function setDefaults():Void {
 		trainingDataKey = "animals";
 		numToGenerate = 100;
-		minLength = 6;
-		maxLength = 10;
-		order = 4;
-		prior = 0.0;
-		maxProcessingTime = 500;
+		minLength = 5;
+		maxLength = 11;
+		order = 3;
+		prior = 0.005;
+		maxProcessingTime = 800;
 		startsWith = "";
 		startsWithElement.value = startsWith;
 		endsWith = "";

@@ -55,7 +55,7 @@
 						  <option value="japanese_forenames">Japanese Forenames</option>
 						  <option value="french_forenames">French Forenames</option>
 						  <option value="german_towns">German Towns</option>
-						  <option value="animals">Animals</option>
+						  <option value="animals" selected="selected">Animals</option>
 						  <option value="fish">Fish</option>
 						  <option value="plantscommon">Plants (Common Names)</option>
 						  <option value="pokemon">Pokémon</option>
@@ -136,7 +136,7 @@
 				<h2>Names</h2>
 				<br>
 			
-				<p id="nonamesfound">Press "Settings" or "Generate" above to begin.</p>
+				<p id="nonamesfound">Press "Settings" to customize and "Generate" to begin.</p>
 				<ul style="list-style: none" id="currentnames">
 				</ul>
 			</div>
@@ -147,7 +147,7 @@
 				<h2>How It Works</h2>
 				<p>This site uses  <a href="https://en.wikipedia.org/wiki/Markov_chain" target="_blank">Markov chains</a> to <a href="https://en.wikipedia.org/wiki/Procedural_generation" target="_blank">procedurally generate</a> original and "random" words and names. Given a set of words as training data, the generator calculates the conditional probability of a letter appearing after the sequence of letters chosen so far.</p>
 				<p>The generator maintains an array of models that look up to "n" characters back, where "n" is the order of the highest order model specified in the settings. It starts with the highest order model, and falls back to lower order models using an approach called <a href="https://en.wikipedia.org/wiki/Katz%27s_back-off_model" target="_blank">Katz's back-off model</a>. If you increase the order setting, you can expect to see larger chunks of familiar words appearing in the generated output.</p>
-				<p>A Dirichlet prior is used to add a constant probability that any letter may be picked as the next letter. It acts like an additive smoothing factor, making the generated names look a bit more "random". In most cases it is best to keep this low, but it can be useful to increase this if you aren't seeing many results.</p>
+				<p>A <a href="https://en.wikipedia.org/wiki/Prior_probability" target="_blank">Dirichlet prior</a> is used to add a constant probability that any letter may be picked as the next letter. It acts like an additive smoothing factor, making the generated names look a bit more "random". In most cases it is best to keep this low, but it can be useful to increase this if you aren't seeing many results.</p>
 				<p>The generator generates as many words as possible before filtering and sorting them according to the tweakable criteria in the settings section. The length range limits how many characters long the words are. The start, end, includes and excludes options limit the acceptable content of the word.</p>
 				<p>The similarity field allows you to sort the generated names by their similarity to the name that you enter. The similarity of the words is determined by the <a href="https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance" target="_blank">Damerau-Levenshtein</a> distance.</p>
 				<p>This generator is suitable for generating all sorts of names - be they funny names, fantasy names, Scottish names, German names, Irish names, names of towns, animal names, theological names, werewolf names, all kinds of names.</p>
