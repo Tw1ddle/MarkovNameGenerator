@@ -31,11 +31,11 @@ class Main {
 	private var order:Int; // Maximum order model that the name generator should use
 	private var prior:Float; // Value of the Dirichlet prior that the name generator should use
 	private var maxProcessingTime:Float; // Maximum time the name generator should spend generating a batch of names
-	private var startsWith:String = ""; // String that names must start with
-	private var endsWith:String = ""; // String that names must end with
-	private var includes:String = ""; // String that names must include
-	private var excludes:String = ""; // String that names must include
-	private var similar:String = ""; // String that names are sorted by their similarity to
+	private var startsWith:String; // String that names must start with
+	private var endsWith:String; // String that names must end with
+	private var includes:String; // String that names must include
+	private var excludes:String; // String that names must include
+	private var similar:String; // String that names are sorted by their similarity to
 	/*
 	private var generateTrieVisualization:Bool = false; // Generate a graph of the duplicate trie
 	private var generateMarkovVisualization:Bool = false; // Generate a graph of one of the markov models
@@ -46,22 +46,22 @@ class Main {
 	 * Set the default values for name generation, filtering and sorting
 	 */
 	private inline function setDefaults():Void {
-		trainingDataKey = "tolkienesque_forenames";
+		trainingDataKey = "animals";
 		numToGenerate = 100;
-		minLength = 7;
+		minLength = 6;
 		maxLength = 10;
-		order = 3;
-		prior = 0.01;
+		order = 4;
+		prior = 0.0;
 		maxProcessingTime = 500;
-		startsWith = "a";
+		startsWith = "";
 		startsWithElement.value = startsWith;
 		endsWith = "";
 		endsWithElement.value = endsWith;
-		includes = "l";
+		includes = "";
 		includesElement.value = includes;
-		excludes = "z";
+		excludes = "";
 		excludesElement.value = excludes;
-		similar = "alina";
+		similar = "";
 		similarElement.value = similar;
 		
 		/*
@@ -158,7 +158,7 @@ class Main {
 	 */
 	private inline function createSliders():Void {
 		NoUiSlider.create(orderElement, {
-			start: [ 3 ],
+			start: [ order ],
 			connect: 'lower',
 			range: {
 				'min': [ 1, 1 ],
@@ -178,7 +178,7 @@ class Main {
 		});
 		
 		NoUiSlider.create(priorElement, {
-			start: [ 0.01 ],
+			start: [ prior ],
 			connect: 'lower',
 			range: {
 				'min': 0.001,
@@ -202,7 +202,7 @@ class Main {
 		});
 		
 		NoUiSlider.create(maxProcessingTimeElement, {
-			start: [ 500 ],
+			start: [ maxProcessingTime ],
 			connect: 'lower',
 			range: {
 				'min': 50,
@@ -225,11 +225,11 @@ class Main {
 		});
 		
 		NoUiSlider.create(lengthElement, {
-			start: [ 4, 11 ],
+			start: [ minLength, maxLength ],
 			connect: true,
 			range: {
 				'min': [ 3, 1 ],
-				'max': 18
+				'max': 21
 			},
 			pips: {
 				mode: 'range',

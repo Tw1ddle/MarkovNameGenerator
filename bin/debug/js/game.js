@@ -63,11 +63,6 @@ List.prototype = {
 	}
 };
 var Main = function() {
-	this.similar = "";
-	this.excludes = "";
-	this.includes = "";
-	this.endsWith = "";
-	this.startsWith = "";
 	this.trainingData = new haxe_ds_StringMap();
 	this.trainingData.set("us_forenames","james\njohn\nrobert\nmichael\nwilliam\ndavid\nrichard\ncharles\njoseph\nthomas\nchristopher\ndaniel\npaul\nmark\ndonald\ngeorge\nkenneth\nsteven\nedward\nbrian\nronald\nanthony\nkevin\njason\nmatthew\ngary\ntimothy\njose\nlarry\njeffrey\nfrank\nscott\neric\nstephen\nandrew\nraymond\ngregory\njoshua\njerry\ndennis\nwalter\npatrick\npeter\nharold\ndouglas\nhenry\ncarl\narthur\nryan\nroger\njoe\njuan\njack\nalbert\njonathan\njustin\nterry\ngerald\nkeith\nsamuel\nwillie\nralph\nlawrence\nnicholas\nroy\nbenjamin\nbruce\nbrandon\nadam\nharry\nfred\nwayne\nbilly\nsteve\nlouis\njeremy\naaron\nrandy\nhoward\neugene\ncarlos\nrussell\nbobby\nvictor\nmartin\nernest\nphillip\ntodd\njesse\ncraig\nalan\nshawn\nclarence\nsean\nphilip\nchris\njohnny\nearl\njimmy\nantonio\ndanny\nbryan\ntony\nluis\nmike\nstanley\nleonard\nnathan\ndale\nmanuel\nrodney\ncurtis\nnorman\nallen\nmarvin\nvincent\nglenn\njeffery\ntravis\njeff\nchad\njacob\nlee\nmelvin\nalfred\nkyle\nfrancis\nbradley\njesus\nherbert\nfrederick\nray\njoel\nedwin\ndon\neddie\nricky\ntroy\nrandall\nbarry\nalexander\nbernard\nmario\nleroy\nfrancisco\nmarcus\nmicheal\ntheodore\nclifford\nmiguel\noscar\njay\njim\ntom\ncalvin\nalex\njon\nronnie\nbill\nlloyd\ntommy\nleon\nderek\nwarren\ndarrell\njerome\nfloyd\nleo\nalvin\ntim\nwesley\ngordon\ndean\ngreg\njorge\ndustin\npedro\nderrick\ndan\nlewis\nzachary\ncorey\nherman\nmaurice\nvernon\nroberto\nclyde\nglen\nhector\nshane\nricardo\nsam\nrick\nlester\nbrent\nramon\ncharlie\ntyler\ngilbert\ngene\nmarc\nreginald\nruben\nbrett\nangel\nnathaniel\nrafael\nleslie\nedgar\nmilton\nraul\nben\nchester\ncecil\nduane\nfranklin\nandre\nelmer\nbrad\ngabriel\nron\nmitchell\nroland\narnold\nharvey\njared\nadrian\nkarl\ncory\nclaude\nerik\ndarryl\njamie\nneil\njessie\nchristian\njavier\nfernando\nclinton\nted\nmathew\ntyrone\ndarren\nlonnie\nlance\ncody\njulio\nkelly\nkurt\nallan\nnelson\nguy\nclayton\nhugh\nmax\ndwayne\ndwight\narmando\nfelix\njimmie\neverett\njordan\nian\nwallace\nken\nbob\njaime\ncasey\nalfredo\nalberto\ndave\nivan\njohnnie\nsidney\nbyron\njulian\nisaac\nmorris\nclifton\nwillard\ndaryl\nross\nvirgil\nandy\nmarshall\nsalvador\nperry\nkirk\nsergio\nmarion\ntracy\nseth\nkent\nterrance\nrene\neduardo\nterrence\nenrique\nfreddie\nwade\nmary\npatricia\nlinda\nbarbara\nelizabeth\njennifer\nmaria\nsusan\nmargaret\ndorothy\nlisa\nnancy\nkaren\nbetty\nhelen\nsandra\ndonna\ncarol\nruth\nsharon\nmichelle\nlaura\nsarah\nkimberly\ndeborah\njessica\nshirley\ncynthia\nangela\nmelissa\nbrenda\namy\nanna\nrebecca\nvirginia\nkathleen\npamela\nmartha\ndebra\namanda\nstephanie\ncarolyn\nchristine\nmarie\njanet\ncatherine\nfrances\nann\njoyce\ndiane\nalice\njulie\nheather\nteresa\ndoris\ngloria\nevelyn\njean\ncheryl\nmildred\nkatherine\njoan\nashley\njudith\nrose\njanice\nkelly\nnicole\njudy\nchristina\nkathy\ntheresa\nbeverly\ndenise\ntammy\nirene\njane\nlori\nrachel\nmarilyn\nandrea\nkathryn\nlouise\nsara\nanne\njacqueline\nwanda\nbonnie\njulia\nruby\nlois\ntina\nphyllis\nnorma\npaula\ndiana\nannie\nlillian\nemily\nrobin\npeggy\ncrystal\ngladys\nrita\ndawn\nconnie\nflorence\ntracy\nedna\ntiffany\ncarmen\nrosa\ncindy\ngrace\nwendy\nvictoria\nedith\nkim\nsherry\nsylvia\njosephine\nthelma\nshannon\nsheila\nethel\nellen\nelaine\nmarjorie\ncarrie\ncharlotte\nmonica\nesther\npauline\nemma\njuanita\nanita\nrhonda\nhazel\namber\neva\ndebbie\napril\nleslie\nclara\nlucille\njamie\njoanne\neleanor\nvalerie\ndanielle\nmegan\nalicia\nsuzanne\nmichele\ngail\nbertha\ndarlene\nveronica\njill\nerin\ngeraldine\nlauren\ncathy\njoann\nlorraine\nlynn\nsally\nregina\nerica\nbeatrice\ndolores\nbernice\naudrey\nyvonne\nannette\njune\nsamantha\nmarion\ndana\nstacy\nana\nrenee\nida\nvivian\nroberta\nholly\nbrittany\nmelanie\nloretta\nyolanda\njeanette\nlaurie\nkatie\nkristen\nvanessa\nalma\nsue\nelsie\nbeth\njeanne\nvicki\ncarla\ntara\nrosemary\neileen\nterri\ngertrude\nlucy\ntonya\nella\nstacey\nwilma\ngina\nkristin\njessie\nnatalie\nagnes\nvera\nwillie\ncharlene\nbessie\ndelores\nmelinda\npearl\narlene\nmaureen\ncolleen\nallison\ntamara\njoy\ngeorgia\nconstance\nlillie\nclaudia\njackie\nmarcia\ntanya\nnellie\nminnie\nmarlene\nheidi\nglenda\nlydia\nviola\ncourtney\nmarian\nstella\ncaroline\ndora\njo\nvickie\nmattie\nterry\nmaxine\nirma\nmabel\nmarsha\nmyrtle\nlena\nchristy\ndeanna\npatsy\nhilda\ngwendolyn\njennie\nnora\nmargie\nnina\ncassandra\nleah\npenny\nkay\npriscilla\nnaomi\ncarole\nbrandy\nolga\nbillie\ndianne\ntracey\nleona\njenny\nfelicia\nsonia\nmiriam\nvelma\nbecky\nbobbie\nviolet\nkristina\ntoni\nmisty\nmae\nshelly\ndaisy\nramona\nsherri\nerika\nkatrina\nclaire\nlindsey\nlindsay\ngeneva\nguadalupe\nbelinda\nmargarita\nsheryl\ncora\nfaye\nada\nnatasha\nsabrina\nisabel\nmarguerite\nhattie\nharriet\nmolly\ncecilia\nkristi\nbrandi\nblanche\nsandy\nrosie\njoanna\niris\neunice\nangie\ninez\nlynda\nmadeline\namelia\nalberta\ngenevieve\nmonique\njodi\njanie\nmaggie\nkayla\nsonya\njan\nlee\nkristine\ncandace\nfannie\nmaryann\nopal\nalison\nyvette\nmelody\nluz\nsusie\nolivia\nflora\nshelley\nkristy\nmamie\nlula\nlola\nverna\nbeulah\nantoinette\ncandice\njuana\njeannette\npam\nkelli\nhannah\nwhitney\nbridget\nkarla\ncelia\nlatoya\npatty\nshelia\ngayle\ndella\nvicky\nlynne\nsheri\nmarianne\nkara\njacquelyn\nerma\nblanca\nmyra\nleticia\npat\nkrista\nroxanne\nangelica\njohnnie\nrobyn\nfrancis\nadrienne\nrosalie\nalexandra\nbrooke\nbethany\nsadie\nbernadette\ntraci\njody\nkendra\njasmine\nnichole\nrachael\nchelsea\nmable\nernestine\nmuriel\nmarcella\nelena\nkrystal\nangelina\nnadine\nkari\nestelle\ndianna\npaulette\nlora\nmona\ndoreen\nrosemarie\nangel\ndesiree\nantonia\nhope\nginger\njanis\nbetsy\nchristie\nfreda\nmercedes\nmeredith\nlynette\nteri\ncristina\neula\nleigh\nmeghan\nsophia\neloise\nrochelle\ngretchen\ncecelia\nraquel\nhenrietta\nalyssa\njana\nkelley\ngwen\nkerry\njenna\ntricia\nlaverne\nolive\nalexis\ntasha\nsilvia\nelvira\ncasey\ndelia\nsophie\nkate\npatti\nlorena\nkellie\nsonja\nlila\nlana\ndarla\nmay\nmindy\nessie\nmandy\nlorene\nelsa\njosefina\njeannie\nmiranda\ndixie\nlucia\nmarta\nfaith\nlela\njohanna\nshari\ncamille\ntami\nshawna\nelisa\nebony\nmelba\nora\nnettie\ntabitha\nollie\njaime\nwinifred\nkristie".split("\n"));
 	this.trainingData.set("tolkienesque_forenames","alfwine\nabattârik\nadanedhel\nadanel\nadrahil\nadûnakhôr\naegnor\naerin\nagarwaen\naikanáro\naiwendil\nalatar\nalatáriel\nalcarin\naldamir\naldarion\naldaron\naldor\namandil\namdír\namlaith\namras\namrod\namroth\namrothos\nanairë\nanardil\nanárion\nanborn\nancalagon\nancalimë\nancalimon\nandrast\nanducal\nanfauglir\nandreth\nandróg\nangbor\nangrod\nannatar\narador\naraglas\naragorn\naragost\narahad\narahael\naranarth\narantar\naranuir\naraphant\naraphor\narassuil\naratan\naratar\narathorn\naraval\naravir\naravorn\naredhel\nargeleb\nargon\nargonui\narien\naros\narthedain\narvedui\narvegil\narveleg\narwen\nasfaloth\natanamir\natanatar\naulë\nausir\navranc\nazaghâl\nazog\nbaldor\nbalin\nbaragund\nbarahir\nbarahir\nbaran\nbard\nbauglir\nbelecthor\nbeleg\nbelegorn\nbelegund\nbelemir\nbëor\nbeorn\nbereg\nberegond\nberen\nbergil\nbert\nberúthiel\nbifur\nboldog\nberylla\nbofur\nbolg\nbolger\nbombadil\nbombur\nbór\nborin\nboromir\nboron\nborondir\nbrand\nbrandir\ngormadoc\nmeriadoc\nprimula\nbrego\nbregolas\nbregor\nbrodda\nbrytta\nbucca\nbarliman\ncalembel\ncalimehtar\ncalion\ncalmacil\ncalmacil\ncaranthir\ncarcharoth\ncastamir\ncemendur\nceleborn\ncelebrían\ncelebrimbor\ncelebrindor\ncelegorm\ncelepharn\nceorl\ncírdan\ncirion\nciryaher\nciryandil\nciryatan\nciryon\ncotton\ncurufin\ncurunír\ndaeron\ndáin\ndéagol\ndenethor\ndéor\ndeórwine\ndernhelm\ndior\ndís\ndori\ndorlas\ndraugluin\nduilin\ndurin\ndwalin\neärendil\neärendur\namandil\neärnil\neärnur\neärwen\necthelion\negalmoth\neilinel\nelanor\nelbereth\neldacar\neldarion\nelemmakil\nelendil\nelendor\nelendur\nelenna\nelenwë\nelessar\nelfhelm\nelfhild\nelfwine\nelladan\nelmo\nelrohir\nelrond\nelros\nelu\nelwë\nelwing\nelven\nking\nemeldir\nemerië\nenel\nenelyë\neöl\néomer\néomund\neönwë\neorl\néothain\néothéod\néowyn\neradan\nerendis\nerestor\nerkenbrand\nilúvatar\nestel\nestelmo\nestë\nfalassion\nfaniel\nfaramir\nfastred\nfëanor\nfelaróf\nfengel\nfíli\nfinarfin\nfindis\nfinduilas\nfinduilas\nfingolfin\nfingon\nfinrod\nfinvain\nfinwë\nfíriel\nfolcwine\nfréa\nfréaláf\nfréawine\nfreca\nfrerin\nfrór\nfuinur\nfundin\ngalador\ngaladriel\ngaldor\ngamil\ngamling\ngandalf\nghânburi\ngilgalad\ngildor\ngilrain\ngimilkhâd\ngimilzôr\ngimli\nginglith\ngirion\nglanhír\nglaurung\nglóin\nglóredhel\nglorfindel\ngoldberry\ngoldwine\ngolfimbul\ngollum\ngorbag\ngorlim\ngorthaur\ngothmog\ngram\ngríma\ngrimbold\ngrishnákh\ngrór\ngwaihir\ngwathir\ngwindor\nhador\nhalbarad\nhaldad\nhaldan\nhaldar\nhaldir\nhaleth\nhallas\nhalmir\nháma\nhandir\nhardang\nhareth\nhelm\nherion\nherucalmo\nherumor\nherunúmen\nhirgon\nhiril\nhostamir\nhuan\nhundar\nhuor\nhúrin\nhyarmendacil\nibûn\nidril\nilmarë\nilúvatar\nimbar\nimin\niminyë\nimrahil\nindis\ninglor\ningwë\ninziladûn\ninzilbêth\nírildë\nirimë\nirmo\nisildur\nisilmë\nisilmo\nivriniel\nkhamûl\nkhîm\nkíli\narthedain\nlagduf\nlalaith\nlegolas\nlenwë\nléod\nlindir\nlugdush\nlúthien\nlurtz\nmablung\nmaedhros\nmaeglin\nmaglor\nmagor\nmahtan\nmaiar\nmalach\nmallor\nmalvegil\nmanthor\nmanwë\nmarach\nvoronwë\nmauhúr\nmelian\nmeleth\nmeneldil\nmeneldur\nmîm\nminalcar\nminardil\nminastir\nminyatur\nmírielar\nzimraphel\nmírielserindë\nmithrandir\nmorgoth\nmorwen\nmorwen\nmuzgash\nnahar\nnáin\nnámo\nnarmacil\nnarvi\nnerdanel\nnessa\nnienna\nnienor\nnimloth\nnimrodel\nníniel\nnóm\nnori\nohtar\nóin\nolórin\nolwë\nondoher\nori\nornendil\norodreth\noromë\noropher\norophin\nossë\nostoher\npallando\npalantir\npelendur\npengolodh\npharazôn\nberúthiel\nradagast\nrían\nrómendacil\nrúmil\nlobelia\nlotho\nsador\nsaeros\nsakalthôr\nsalgant\nsalmar\nsaruman\nsauron\nscatha\nshadowfax\nshagrat\nshelob\nsilmariën\nsingollo\nsiriondil\nsmaug\nsméagol\nsnowmane\nsoronto\nstrider\nsúrion\nelmar\ntarcil\ntarondor\ntarannon\ntata\ntatië\ntelchar\ntelemmaitë\ntelemnar\ntelperiën\ntelumehtar\nthengel\nthéoden\nthéodred\nthéodwyn\nthingol\nthorin\nthorondir\nthorondor\nthráin\nthranduil\nthrór\ntilion\ntindomiel\ntinúviel\nadalgrim\nbelladonna\nferumbras\nfortinbras\ngerontius\nisumbras\npaladin\nperegrin\npervinca\ntulkas\ntuor\nturgon\nturambar\ntúrin\nufthak\nuglúk\nuinen\nuldor\nulfang\nulfast\nulwarth\nulmo\numbardacil\nundómiel\nungoliant\nuolë\nkúvion\nurwen\nvairë\nvalacar\nvalandil\nvalandur\nvána\nvanimeldë\nvarda\nvardamir\nnólimon\nvidugavia\nvidumavi\nvinyarion\nvorondil\nvoronwë\nwalda\nwormtongue\nyavanna\nyávien\nzimraphel\nzimrathôn".split("\n"));
@@ -95,22 +90,22 @@ Main.main = function() {
 };
 Main.prototype = {
 	setDefaults: function() {
-		this.trainingDataKey = "tolkienesque_forenames";
+		this.trainingDataKey = "animals";
 		this.numToGenerate = 100;
-		this.minLength = 7;
+		this.minLength = 6;
 		this.maxLength = 10;
-		this.order = 3;
-		this.prior = 0.01;
+		this.order = 4;
+		this.prior = 0.0;
 		this.maxProcessingTime = 500;
-		this.startsWith = "a";
+		this.startsWith = "";
 		this.startsWithElement.value = this.startsWith;
 		this.endsWith = "";
 		this.endsWithElement.value = this.endsWith;
-		this.includes = "l";
+		this.includes = "";
 		this.includesElement.value = this.includes;
-		this.excludes = "z";
+		this.excludes = "";
 		this.excludesElement.value = this.excludes;
-		this.similar = "alina";
+		this.similar = "";
 		this.similarElement.value = this.similar;
 	}
 	,createElements: function() {
@@ -142,29 +137,29 @@ Main.prototype = {
 		this.includesElement = window.document.getElementById("includes");
 		this.excludesElement = window.document.getElementById("excludes");
 		this.similarElement = window.document.getElementById("similar");
-		this.trainingDataKey = "tolkienesque_forenames";
+		this.trainingDataKey = "animals";
 		this.numToGenerate = 100;
-		this.minLength = 7;
+		this.minLength = 6;
 		this.maxLength = 10;
-		this.order = 3;
-		this.prior = 0.01;
+		this.order = 4;
+		this.prior = 0.0;
 		this.maxProcessingTime = 500;
-		this.startsWith = "a";
+		this.startsWith = "";
 		this.startsWithElement.value = this.startsWith;
 		this.endsWith = "";
 		this.endsWithElement.value = this.endsWith;
-		this.includes = "l";
+		this.includes = "";
 		this.includesElement.value = this.includes;
-		this.excludes = "z";
+		this.excludes = "";
 		this.excludesElement.value = this.excludes;
-		this.similar = "alina";
+		this.similar = "";
 		this.similarElement.value = this.similar;
 		this.createSliders();
 		this.addEventListeners();
 	}
 	,createSliders: function() {
 		var _g = this;
-		noUiSlider.create(this.orderElement,{ start : [3], connect : "lower", range : { 'min' : [1,1], 'max' : [9]}, pips : { mode : "range", density : 10}});
+		noUiSlider.create(this.orderElement,{ start : [this.order], connect : "lower", range : { 'min' : [1,1], 'max' : [9]}, pips : { mode : "range", density : 10}});
 		this.createTooltips(this.orderElement);
 		this.orderElement.noUiSlider.on("change",function(values,handle,rawValues) {
 			_g.order = values[handle] | 0;
@@ -172,7 +167,7 @@ Main.prototype = {
 		this.orderElement.noUiSlider.on("update",function(values1,handle1,rawValues1) {
 			_g.updateTooltips(_g.orderElement,handle1,values1[handle1] | 0);
 		});
-		noUiSlider.create(this.priorElement,{ start : [0.01], connect : "lower", range : { 'min' : 0.001, '50%' : 0.15, 'max' : 0.3}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 2})}});
+		noUiSlider.create(this.priorElement,{ start : [this.prior], connect : "lower", range : { 'min' : 0.001, '50%' : 0.15, 'max' : 0.3}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 2})}});
 		this.createTooltips(this.priorElement);
 		this.priorElement.noUiSlider.on("change",function(values2,handle2,rawValues2) {
 			_g.prior = parseFloat(values2[handle2]);
@@ -180,7 +175,7 @@ Main.prototype = {
 		this.priorElement.noUiSlider.on("update",function(values3,handle3,rawValues3) {
 			_g.updateTooltips(_g.priorElement,handle3,values3[handle3]);
 		});
-		noUiSlider.create(this.maxProcessingTimeElement,{ start : [500], connect : "lower", range : { 'min' : 50, 'max' : 5000}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 0})}});
+		noUiSlider.create(this.maxProcessingTimeElement,{ start : [this.maxProcessingTime], connect : "lower", range : { 'min' : 50, 'max' : 5000}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 0})}});
 		this.createTooltips(this.maxProcessingTimeElement);
 		this.maxProcessingTimeElement.noUiSlider.on("change",function(values4,handle4,rawValues4) {
 			_g.maxProcessingTime = parseFloat(values4[handle4]);
@@ -188,7 +183,7 @@ Main.prototype = {
 		this.maxProcessingTimeElement.noUiSlider.on("update",function(values5,handle5,rawValues5) {
 			_g.updateTooltips(_g.maxProcessingTimeElement,handle5,values5[handle5] | 0);
 		});
-		noUiSlider.create(this.lengthElement,{ start : [4,11], connect : true, range : { 'min' : [3,1], 'max' : 18}, pips : { mode : "range", density : 10}});
+		noUiSlider.create(this.lengthElement,{ start : [this.minLength,this.maxLength], connect : true, range : { 'min' : [3,1], 'max' : 21}, pips : { mode : "range", density : 10}});
 		this.createTooltips(this.lengthElement);
 		this.lengthElement.noUiSlider.on("change",function(values6,handle6,rawValues6) {
 			if(handle6 == 0) _g.minLength = values6[handle6] | 0; else if(handle6 == 1) _g.maxLength = values6[handle6] | 0;
