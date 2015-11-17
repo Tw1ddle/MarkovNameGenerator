@@ -1,14 +1,14 @@
 ![Project logo](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/markovnamegen_logo.png?raw=true "Project logo")
 
-Procedural name generator demo written in Haxe. Demonstrates the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
+Procedural name generator written in Haxe. Demonstrates the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
 
-Check out the live demo [in the browser](http://www.samcodes.co.uk/project/markov-namegen/).
+Try it out now [in your browser](http://www.samcodes.co.uk/project/markov-namegen/).
 
 ## Features ##
 * Dozens of preset training datasets.
-* Configurable training dataset, order and prior model parameter options.
+* Configurable corpus, order and prior model parameter settings.
 * Filter results by length, start, end and content.
-* Sort results by Damarau-Levenshtein distance to your preferred result.
+* Sort by Damarau-Levenshtein distance to order your results by similarity.
 
 ## Usage ##
 
@@ -43,7 +43,7 @@ Bradnincham
 
 ## Install ##
 
-Get the Haxe library code here or on haxelib. 
+Get the Haxe library code here or through haxelib. 
 
 Include it in your ```.hxml```
 ```
@@ -58,9 +58,9 @@ Or add it to your ```Project.xml```:
 ## Screenshots ##
 Here is the demo in action:
 
-![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot1.png?raw=true "Screenshot 1")
+![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot2.png?raw=true "Name generator screenshot 2")
 
-![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot2.png?raw=true "Screenshot 2")
+![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot1.png?raw=true "Name generator screenshot 1")
 
 ## How It Works ##
 
@@ -75,7 +75,7 @@ A [Dirichlet prior](https://en.wikipedia.org/wiki/Dirichlet_distribution#Special
 Loads of words are generated, and are filtered and sorted according to several tweakable criteria like length, start and end characters, [similarity to a target word](https://en.wikipedia.org/wiki/Levenshtein_distance), and so on.
 
 ## Notes ##
-* Many of the concepts used for the generator were suggested by [this article](http://www.roguebasin.com/index.php?title=Names_from_a_high_order_Markov_Process_and_a_simplified_Katz_back-off_scheme) by [Jeffrey Lund](https://github.com/jlund3).
+* Many of the concepts used for the generator were suggested in [this article](http://www.roguebasin.com/index.php?title=Names_from_a_high_order_Markov_Process_and_a_simplified_Katz_back-off_scheme) by [Jeffrey Lund](https://github.com/jlund3).
 * The haxelib supports every Haxe target, but it has not been thoroughly tested or optimized for performance yet, especially on native platforms.
 * If you have any suggestions or questions then get in touch.
 
