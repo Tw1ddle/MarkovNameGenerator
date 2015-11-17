@@ -6,6 +6,11 @@ function $extend(from, fields) {
 	return proto;
 }
 var HxOverrides = function() { };
+HxOverrides.cca = function(s,index) {
+	var x = s.charCodeAt(index);
+	if(x != x) return undefined;
+	return x;
+};
 HxOverrides.substr = function(s,pos,len) {
 	if(pos != null && pos != 0 && len != null && len < 0) return "";
 	if(len == null) len = s.length;
@@ -110,6 +115,7 @@ Main.prototype = {
 	}
 	,createElements: function() {
 		this.trainingDataElement = window.document.getElementById("trainingdatalist");
+		this.trainingDataTextEdit = window.document.getElementById("trainingdataedit");
 		this.orderElement = window.document.getElementById("order");
 		this.priorElement = window.document.getElementById("prior");
 		this.maxProcessingTimeElement = window.document.getElementById("maxtime");
@@ -125,6 +131,7 @@ Main.prototype = {
 	}
 	,onWindowLoaded: function() {
 		this.trainingDataElement = window.document.getElementById("trainingdatalist");
+		this.trainingDataTextEdit = window.document.getElementById("trainingdataedit");
 		this.orderElement = window.document.getElementById("order");
 		this.priorElement = window.document.getElementById("prior");
 		this.maxProcessingTimeElement = window.document.getElementById("maxtime");
@@ -156,6 +163,7 @@ Main.prototype = {
 		this.similarElement.value = this.similar;
 		this.createSliders();
 		this.addEventListeners();
+		this.trainingDataElementSelectionChanged();
 	}
 	,createSliders: function() {
 		var _g = this;
@@ -195,12 +203,15 @@ Main.prototype = {
 	,addEventListeners: function() {
 		var _g = this;
 		this.trainingDataElement.addEventListener("change",function() {
-			if(_g.trainingDataElement.value != null) _g.trainingDataKey = _g.trainingDataElement.value;
+			_g.trainingDataElementSelectionChanged();
+		},false);
+		this.trainingDataTextEdit.addEventListener("change",function() {
 		},false);
 		this.generateElement.addEventListener("click",function() {
-			var data = _g.trainingData.get(_g.trainingDataKey);
-			if(!(data != null)) throw new js__$Boot_HaxeError("FAIL: data != null");
-			_g.generate(data);
+			var data = _g.trainingDataTextEdit.value;
+			if(data == null || data.length == 0) return;
+			var arr = data.split(" ");
+			if(arr.length > 0) _g.generate(arr);
 		},false);
 		this.startsWithElement.addEventListener("change",function() {
 			if(_g.startsWithElement.value != null) _g.startsWith = _g.startsWithElement.value.toLowerCase();
@@ -217,6 +228,23 @@ Main.prototype = {
 		this.similarElement.addEventListener("change",function() {
 			if(_g.similarElement.value != null) _g.similar = _g.similarElement.value.toLowerCase();
 		},false);
+	}
+	,trainingDataElementSelectionChanged: function() {
+		if(this.trainingDataElement.value != null) {
+			this.trainingDataKey = this.trainingDataElement.value;
+			if(this.trainingData.get(this.trainingDataKey) != null) {
+				var s = "";
+				var data = this.trainingData.get(this.trainingDataKey);
+				var _g = 0;
+				while(_g < data.length) {
+					var i = data[_g];
+					++_g;
+					s += i + " ";
+				}
+				s = StringTools.rtrim(s);
+				this.trainingDataTextEdit.value = s;
+			}
+		}
 	}
 	,createTooltips: function(slider) {
 		var tipHandles = slider.getElementsByClassName("noUi-handle");
@@ -290,6 +318,16 @@ StringTools.endsWith = function(s,end) {
 	var elen = end.length;
 	var slen = s.length;
 	return slen >= elen && HxOverrides.substr(s,slen - elen,elen) == end;
+};
+StringTools.isSpace = function(s,pos) {
+	var c = HxOverrides.cca(s,pos);
+	return c > 8 && c < 14 || c == 32;
+};
+StringTools.rtrim = function(s) {
+	var l = s.length;
+	var r = 0;
+	while(r < l && StringTools.isSpace(s,l - r - 1)) r++;
+	if(r > 0) return HxOverrides.substr(s,0,l - r); else return s;
 };
 StringTools.replace = function(s,sub,by) {
 	return s.split(sub).join(by);

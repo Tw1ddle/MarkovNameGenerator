@@ -252,3 +252,15 @@ a:hover {
 	-moz-column-width: 150px;
 	column-width: 150px;
 }
+
+#trainingdataedit {
+	resize: horizontal;
+	min-width: 80vw;
+	min-height: 300px;
+	max-height: 900px;
+	border: 3px solid #cccccc;
+	padding: 5px;
+	background-image: url(bg.gif);
+	background-position: bottom right;
+	background-repeat: no-repeat;
+}

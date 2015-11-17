@@ -72,6 +72,7 @@ class Main {
 	}
 	
 	private var trainingDataElement:SelectElement;
+	private var trainingDataTextEdit:InputElement;
 	private var orderElement:Element;
 	private var priorElement:Element;
 	private var maxProcessingTimeElement:Element;
@@ -95,6 +96,7 @@ class Main {
 	 */
 	private inline function createElements():Void {
 		trainingDataElement = cast Browser.document.getElementById("trainingdatalist");
+		trainingDataTextEdit = cast Browser.document.getElementById("trainingdataedit");
 		orderElement = cast Browser.document.getElementById("order");		
 		priorElement = cast Browser.document.getElementById("prior");
 		maxProcessingTimeElement = cast Browser.document.getElementById("maxtime");
@@ -151,6 +153,8 @@ class Main {
 		setDefaults();
 		createSliders();
 		addEventListeners();
+		
+		trainingDataElementSelectionChanged();
 	}
 	
 	/*
@@ -311,16 +315,22 @@ class Main {
 	 */ 
 	private inline function addEventListeners():Void {
 		trainingDataElement.addEventListener("change", function() {
-			if (trainingDataElement.value != null) {
-				trainingDataKey = trainingDataElement.value;
-			}
+			trainingDataElementSelectionChanged();
+		}, false);
+		
+		trainingDataTextEdit.addEventListener("change", function() {
+			
 		}, false);
 		
 		generateElement.addEventListener("click", function() {
-			var data = trainingData.get(trainingDataKey);
-			Sure.sure(data != null);
-			
-			generate(data);
+			var data = trainingDataTextEdit.value;
+			if (data == null || data.length == 0) {
+				return;
+			}
+			var arr = data.split(" ");
+			if(arr.length > 0) {
+				generate(arr);
+			}
 		}, false);
 		
 		startsWithElement.addEventListener("change", function() {
@@ -352,6 +362,21 @@ class Main {
 				similar = similarElement.value.toLowerCase();
 			}
 		}, false);
+	}
+	
+	private function trainingDataElementSelectionChanged():Void {
+		if (trainingDataElement.value != null) {
+			trainingDataKey = trainingDataElement.value;
+			if (trainingData.get(trainingDataKey) != null) {
+				var s:String = "";
+				var data = trainingData.get(trainingDataKey);
+				for (i in data) {
+					s += i + " ";
+				}
+				s = s.rtrim();
+				trainingDataTextEdit.value = s;
+			}
+		}
 	}
 	
 	/*
