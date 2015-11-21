@@ -26,7 +26,7 @@ class Generator {
 		
 		models = new Array<Model>();
 		
-		// Find sort the alphabet used in the training data
+		// Identify and sort the alphabet used in the training data
 		var letters = ArraySet.create();
 		for (word in data) {
 			for (i in 0...word.length) {
