@@ -142,6 +142,8 @@ class Main {
 		trainingData.set("pokemon", FileReader.readFile("embed/pokemon.txt").split("\n"));
 		trainingData.set("fish", FileReader.readFile("embed/fish.txt").split("\n"));
 		trainingData.set("plantscommon", FileReader.readFile("embed/plantscommon.txt").split("\n"));
+		trainingData.set("countries", FileReader.readFile("embed/countries.txt").split("\n"));
+		trainingData.set("clothing", FileReader.readFile("embed/clothing.txt").split("\n"));
 		//trainingData.set("profanity_filter", FileReader.readFile("embed/profanityfilter.txt").split("\n")); // Skipping this one for SEO and paranoia reasons
 		
 		// Wait for the window to load before creating the sliders, listening for input etc
