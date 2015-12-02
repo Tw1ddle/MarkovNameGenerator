@@ -8,7 +8,7 @@ Try it out now [in your browser](http://www.samcodes.co.uk/project/markov-namege
 * Dozens of preset training datasets.
 * Configurable corpus, order and prior model parameter settings.
 * Filter results by length, start, end and content.
-* Sort by Damarau-Levenshtein distance to order your results by similarity.
+* Sort by Damerau-Levenshtein distance to list your results by similarity.
 
 ## Usage ##
 
