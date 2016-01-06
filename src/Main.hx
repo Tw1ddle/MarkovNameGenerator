@@ -18,13 +18,13 @@ using markov.util.StringExtensions;
 class Main {
 	private var generator:NameGenerator; // The Markov name generator
 	private var duplicateTrie:PrefixTrie; // Prefix trie for catching duplicates
-	private var trainingData:StringMap<Array<String>>; // The current training data
+	private var trainingData:StringMap<Array<String>>; // The training data
 	/*
 	private var trieGraph:TrieForceGraph;
 	private var markovGraph:MarkovGraph;
 	*/
 	
-	private var trainingDataKey:String; //
+	private var trainingDataKey:String; // The selected training data key
 	private var numToGenerate:Int; // Number of names to try to generate
 	private var minLength:Int; // Minimum name length
 	private var maxLength:Int; // Maximum name length

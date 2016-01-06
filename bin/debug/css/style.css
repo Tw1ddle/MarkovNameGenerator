@@ -117,6 +117,7 @@ label {
 }
 body {
     text-align: center;
+	background-color: #ffffff;
 }
 select {
     padding: 9px;
