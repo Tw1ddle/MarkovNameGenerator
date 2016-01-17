@@ -40,27 +40,6 @@
 						<h3>Name Data Preset</h3>
 					
 						<select id="trainingdatalist">
-						  <option value="tolkienesque_forenames">Tolkienesque Forenames</option>
-						  <option value="us_forenames">American Forenames</option>
-						  <option value="werewolf_forenames">Werewolf Forenames</option>
-						  <option value="romandeity_forenames">Roman Deity Forenames</option>
-						  <option value="norsedeity_forenames">Norse Deity Forenames</option>
-						  <option value="swedish_forenames">Swedish Forenames</option>
-						  <option value="english_towns">English Towns</option>
-						  <option value="theological_demons">Theological Demons</option>
-						  <option value="irish_forenames">Irish Forenames</option>
-						  <option value="scottish_surnames">Scottish Surnames</option>
-						  <option value="icelandic_forenames">Icelandic Forenames</option>
-						  <option value="theological_angels">Theological Angels</option>
-						  <option value="japanese_forenames">Japanese Forenames</option>
-						  <option value="french_forenames">French Forenames</option>
-						  <option value="german_towns">German Towns</option>
-						  <option value="animals" selected="selected">Animals</option>
-						  <option value="fish">Fish</option>
-						  <option value="plantscommon">Plants (Common Names)</option>
-						  <option value="pokemon">Pokémon</option>
-						  <option value="countries">Countries</option>
-						  <option value="clothing">Clothing</option>
 						</select>
 						
 						<h3>Current Data</h3>
@@ -151,7 +130,7 @@
 		<section id="three" class="main style3">
 			<div class="container stitched">
 				<h2>How It Works</h2>
-				<p>This site uses  <a href="https://en.wikipedia.org/wiki/Markov_chain" target="_blank">Markov chains</a> to <a href="https://en.wikipedia.org/wiki/Procedural_generation" target="_blank">procedurally generate</a> original and "random" words and names. Given a set of words as training data, the generator calculates the conditional probability of a letter appearing after the sequence of letters chosen so far. There are dozens of training presets, and the corpus can also be manually edited.</p>
+				<p>This page uses  <a href="https://en.wikipedia.org/wiki/Markov_chain" target="_blank">Markov chains</a> to <a href="https://en.wikipedia.org/wiki/Procedural_generation" target="_blank">procedurally generate</a> original and "random" words and names. Given a set of words as training data, the generator calculates the conditional probability of a letter appearing after the sequence of letters chosen so far. There are dozens of training presets, and the corpus can also be manually edited.</p>
 				<p>The generator maintains an array of models that look up to "n" characters back, where "n" is the order of the highest order model specified in the settings. It starts with the highest order model, and falls back to lower order models using an approach called <a href="https://en.wikipedia.org/wiki/Katz%27s_back-off_model" target="_blank">Katz's back-off model</a>. If you increase the order setting, you can expect to see larger chunks of familiar words appearing in the generated output.</p>
 				<p>A Dirichlet prior is used to add a constant probability that any letter may be picked as the next letter. It acts like an additive smoothing factor, making the generated names look a bit more "random". In most cases it is best to keep this low, but it can be useful to increase this if you aren't getting many results.</p>
 				<p>The generator generates as many names as possible before filtering and sorting them according to tweakable criteria in the settings section. The length range limits how many characters long the words are. The start, end, includes and excludes options limit the acceptable content of the word.</p>
