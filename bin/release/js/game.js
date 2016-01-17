@@ -105,19 +105,6 @@ var Main = function() {
 		if(left > right) return 1;
 		return 0;
 	});
-	var trainingDataList = window.document.getElementById("trainingdatalist");
-	var _g1 = 0;
-	var _g11 = this.trainingData;
-	while(_g1 < _g11.length) {
-		var data1 = _g11[_g1];
-		++_g1;
-		var option;
-		var _this = window.document;
-		option = _this.createElement("option");
-		option.appendChild(window.document.createTextNode(data1.displayName));
-		option.value = data1.value;
-		trainingDataList.appendChild(option);
-	}
 	window.onload = $bind(this,this.onWindowLoaded);
 };
 Main.main = function() {
@@ -139,6 +126,7 @@ Main.prototype = {
 		this.includesElement = window.document.getElementById("includes");
 		this.excludesElement = window.document.getElementById("excludes");
 		this.similarElement = window.document.getElementById("similar");
+		this.buildTrainingDataList();
 		this.setDefaults();
 		this.createSliders();
 		this.addEventListeners();
@@ -159,6 +147,20 @@ Main.prototype = {
 		this.includesElement = window.document.getElementById("includes");
 		this.excludesElement = window.document.getElementById("excludes");
 		this.similarElement = window.document.getElementById("similar");
+	}
+	,buildTrainingDataList: function() {
+		var _g = 0;
+		var _g1 = this.trainingData;
+		while(_g < _g1.length) {
+			var data = _g1[_g];
+			++_g;
+			var option;
+			var _this = window.document;
+			option = _this.createElement("option");
+			option.appendChild(window.document.createTextNode(data.displayName));
+			option.value = data.value;
+			this.trainingDataListElement.appendChild(option);
+		}
 	}
 	,getCustomTrainingData: function() {
 		var params = window.location.search.substring(1);

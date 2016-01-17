@@ -76,21 +76,13 @@ class Main {
 			return 0;
 		});
 		
-		// Generate the HTML training data selection list
-		var trainingDataList = cast Browser.document.getElementById("trainingdatalist");
-		for (data in trainingData) {
-			var option = Browser.document.createOptionElement();
-			option.appendChild(Browser.document.createTextNode(data.displayName));
-			option.value = data.value;
-			trainingDataList.appendChild(option);
-		}
-		
 		// Wait for the window to load before creating the sliders, listening for input etc
 		Browser.window.onload = onWindowLoaded;
 	}
 	
 	private inline function onWindowLoaded():Void {
 		getElementReferences();
+		buildTrainingDataList();
 		setDefaults();
 		createSliders();
 		addEventListeners();
@@ -141,6 +133,18 @@ class Main {
 		generateMarkovVisualizationElement = cast Browser.document.getElementById("generatemarkovgraph");
 		markovVisualizationPElement = cast Browser.document.getElementById("markovp");
 		*/
+	}
+	
+	/*
+	 * Generates the HTML training data selection list
+	 */
+	private inline function buildTrainingDataList():Void {
+		for (data in trainingData) {
+			var option = Browser.document.createOptionElement();
+			option.appendChild(Browser.document.createTextNode(data.displayName));
+			option.value = data.value;
+			trainingDataListElement.appendChild(option);
+		}
 	}
 	
 	/*
