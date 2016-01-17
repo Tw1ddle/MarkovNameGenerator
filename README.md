@@ -5,7 +5,7 @@ Procedural name generator written in Haxe. Demonstrates the [markov-namegen haxe
 Try it out now [in your browser](http://www.samcodes.co.uk/project/markov-namegen/).
 
 ## Features ##
-* Dozens of preset training datasets.
+* Dozens of editable training data presets.
 * Configurable corpus, order and prior model parameter settings.
 * Filter results by length, start, end and content.
 * Sort by Damerau-Levenshtein distance to list your results by similarity.
@@ -42,11 +42,6 @@ Bradnincham
 ```
 
 You can also set custom training data using GET parameters, for example: [emotions](http://www.samcodes.co.uk/project/markov-namegen/?w=joyfulness&w=tenderness&w=helplessness&w=rageful&w=cheerfulness&w=sympathy&w=powerlessness&w=boredness&w=outraged&w=adoration&w=dreading&w=rejected&w=hostile&w=proudness&w=fondness&w=distrusting&w=disillusioned&w=bitterness&w=satisfied&w=receptive&w=suspicious&w=inferior&w=hatefulness&w=excited&w=interested&w=cautiousness&w=confused&w=scornful&w=amused&w=delighted&w=disturbed&w=griefstricken&w=spitefulness&w=elated&w=shocked&w=overwhelmed&w=vengefulness&w=enthusia) and [metasyntactic variables](http://www.samcodes.co.uk/project/markov-namegen/?w=foo&w=bar&w=baz&w=quux&w=quuux&w=quuuux&w=bazola&w=ztesch&w=thud&w=grunt&w=fred&w=jim&w=wombat&w=spam&w=eggs&w=snork&w=zot&w=blarg&w=wibble&w=zork&w=oogle&w=foogle&w=boogle&w=gork&w=bork&w=bongo&w=corge):
-
-```
-http://www.samcodes.co.uk/project/markov-namegen?w=joyfulness&w=tenderness&w=helplessness&w=rageful&w=cheerfulness&w=sympathy&w=powerlessness&w=boredness&w=outraged&w=adoration&w=dreading&w=rejected&w=hostile&w=proudness&w=fondness&w=distrusting&w=disillusioned&w=bitterness&w=satisfied&w=receptive&w=suspicious&w=inferior&w=hatefulness&w=excited&w=interested&w=cautiousness&w=confused&w=scornful&w=amused&w=delighted&w=disturbed&w=griefstricken&w=spitefulness&w=elated&w=shocked&w=overwhelmed&w=vengefulness&w=enthusiastic&w=exhilarated&w=uncomfortable&w=isolated&w=disliked&w=optimistic&w=dismayed&w=guilty&w=numb&w=resentful&w=elated&w=amazed&w=hurt&w=regretful&w=trusting&w=delighted&w=confused&w=lonely&w=ambivalent&w=alienated&w=calm&w=stunned&w=melancholy&w=exhausted&w=bitter&w=relaxed&w=interested&w=depressed&w=insecure&w=insulted&w=relieved&w=intrigued&w=hopelessness&w=disgusted&w=indifferent&w=hopeful&w=absorbed&w=sadness&w=pity&w=pleased&w=curious&w=guilty&w=revulsion&w=confident&w=anticipating&w=hurt&w=contempt&w=brave&w=eager&w=lonely&w=weary&w=comfortable&w=hesitant&w=regretful&w=bored&w=safe&w=fearful&w=depressed&w=preoccupied&w=happy&w=anxious&w=hopeless&w=angry&w=love&w=worried&w=sorrow&w=jealous&w=lust&w=scared&w=uncertain&w=envious&w=aroused&w=insecure&w=anguished&w=annoyed&w=tender&w=rejected&w=disappointed&w=humiliated&w=compassionate&w=horrified&w=self conscious&w=irritated&w=caring&w=alarmed&w=shamed&w=aggravated&w=infatuated&w=shocked&w=embarrassed&w=restless&w=concern&w=panicked&w=humiliated&w=grumpy&w=trust&w=afraid&w=disgraced&w=awkward&w=liking&w=nervous&w=uncomfortable&w=exasperated&w=attraction&w=disoriented&w=neglected&w=frustrated
-http://www.samcodes.co.uk/project/markov-namegen?w=foo&w=bar&w=baz&w=quux&w=quuux&w=quuuux&w=bazola&w=ztesch&w=thud&w=grunt&w=fred&w=jim&w=wombat&w=spam&w=eggs&w=snork&w=zot&w=blarg&w=wibble&w=zork&w=oogle&w=foogle&w=boogle&w=gork&w=bork&w=bongo&w=corge
-```
 
 ## Install ##
 
