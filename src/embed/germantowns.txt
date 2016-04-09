@@ -1223,7 +1223,7 @@ oberursel
 oberviechtach
 oberweißbach
 oberwesel
-oberwiesenthal,
+oberwiesenthal
 ochsenfurt
 ochsenhausen
 ochtrup
@@ -1374,7 +1374,7 @@ reichelsheim
 reichenbach
 reichenbach
 reinbek
-reinfeld,
+reinfeld
 reinheim
 remagen
 remda
