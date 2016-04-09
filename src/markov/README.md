@@ -1,17 +1,18 @@
-### Building
+# markov-namegen
 
-On Windows you should open the .hxproj in FlashDevelop, select either debug or release configuration and hit test. 
+Markov process string algorithm written in Haxe, designed for procedural name generation. Try it out [here](http://www.samcodes.co.uk/project/markov-namegen/).
 
-Manually invoke build using the .hxml files for other platforms.
+## Features
+* Katz backoff using "high order" models - look up to "n" characters back.
+* Sort procedurally generated strings by length, start, end and content.
+* Damerau-Levenshtein distance sort method.
+* Dirichlet prior parameter.
 
-See the demo for example usage and tips: https://github.com/Tw1ddle/MarkovNameGenerator
+## Usage
+
+See the [demo](https://github.com/Tw1ddle/MarkovNameGenerator) for a complete example.
 	
-Also see the live example: http://www.samcodes.co.uk/project/markov-namegen/
-	
-#### Usage Suggestions
-
-The generator works using Markov chains and so require training data. A hundred or so words in a given category is usually sufficient for good results.
-
-To get best results the training dataset, model order and prior will need to be tweaked for the type of words you want to generate. I suggest filtering words to suit: look at length, beginning, end, contents, edit distance limits. Some of this done for you in NameGenerator.hx, but if you prefer to do it your own way, use Generator.hx.
-
-I also recommend sorting your words by similarity to preferred "good words" using an edit distance metric, so you can pick the most similar results. There are a few basic edit distance metric algorithms provided in EditDistanceMetrics.hx.
+## Tips
+* The generator works using Markov chains and so require training data. A hundred or so words in a given category is usually sufficient for good results.
+* Sort words by similarity to preferred "good words" using an edit distance metric, pick the most similar and suitable results. There are a few edit distance measures provided in EditDistanceMetrics.hx.
+* To get best results the training dataset, model order and prior will need to be tweaked for the type of words you want to generate. Filter words to suit: look at length, beginning, end, contents, edit distance limits. Some of this done for you in NameGenerator.hx. If you prefer to do it your own way, use Generator.hx.
