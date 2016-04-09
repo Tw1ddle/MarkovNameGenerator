@@ -42,14 +42,20 @@ p a {
     text-decoration: none;
 }
 html { 
-    -o-user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
+	user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-ms-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
 }
 li {
-    -o-user-select: text;
-    -moz-user-select: text;
-    -webkit-user-select: text;
+	user-select: text;
+	-moz-user-select: text;
+	-khtml-user-select: text;
+	-ms-user-select: text;
+	-webkit-user-select: text;
+	-o-user-select: text;
 }
 img {
     max-width:90%;
@@ -254,6 +260,7 @@ a:hover {
 	column-gap: 20px;    
     column-width: 150px;
     overflow: hidden;
+	max-width: 100vw;
 }
 
 #trainingdataedit {
