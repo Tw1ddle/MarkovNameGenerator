@@ -1,8 +1,8 @@
 ![Project logo](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/markovnamegen_logo.png?raw=true "Markov Namegen Procedural Name Generator Project logo")
 
-Procedural name generator written in Haxe. Demonstrates the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
+Markov-chain based procedural name generator written in Haxe. Try it out now [in your browser](http://www.samcodes.co.uk/project/markov-namegen/).
 
-Try it out now [in your browser](http://www.samcodes.co.uk/project/markov-namegen/).
+Demonstrates the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
 
 ## Features ##
 * Dozens of editable training data presets.
@@ -78,8 +78,7 @@ Loads of words are generated, and are filtered and sorted according to several t
 
 ## Notes ##
 * Many of the concepts used for the generator were suggested in [this article](http://www.roguebasin.com/index.php?title=Names_from_a_high_order_Markov_Process_and_a_simplified_Katz_back-off_scheme) by [Jeffrey Lund](https://github.com/jlund3).
-* The haxelib supports every Haxe target.
-* If you have any questions or suggestions then [get in touch](http://samcodes.co.uk/contact).
+* If you have any questions or suggestions then [get in touch](http://samcodes.co.uk/contact) or open an issue.
 
 ## License ##
 The website and demo code are licensed under CC BY-NC. The [haxelib library](http://lib.haxe.org/p/markov-namegen/) itself is MIT licensed. The noUiSlider settings sliders are WTFPL. Most of the training data was compiled from sites like Wikipedia and census data sources.
