@@ -9,10 +9,11 @@ Demonstrates the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
 * Configurable corpus, order and prior model parameter settings.
 * Filter results by length, start, end and content.
 * Sort by Damerau-Levenshtein distance to list your results by similarity.
+* Save and share your custom data, settings and results with one click.
 
 ## Usage ##
 
-Try the [demo](http://www.samcodes.co.uk/project/markov-namegen/) in your browser and generate your own words. Example settings:
+Try the [demo](http://www.samcodes.co.uk/project/markov-namegen/) in your browser and generate your own words:
 
 ```
 Training Dataset: English Towns
@@ -41,7 +42,7 @@ Botteringham
 Bradnincham
 ```
 
-You can also set custom training data through the URL query string, for example: [emotions](http://www.samcodes.co.uk/project/markov-namegen/?w=joyfulness&w=tenderness&w=helplessness&w=rageful&w=cheerfulness&w=sympathy&w=powerlessness&w=boredness&w=outraged&w=adoration&w=dreading&w=rejected&w=hostile&w=proudness&w=fondness&w=distrusting&w=disillusioned&w=bitterness&w=satisfied&w=receptive&w=suspicious&w=inferior&w=hatefulness&w=excited&w=interested&w=cautiousness&w=confused&w=scornful&w=amused&w=delighted&w=disturbed&w=griefstricken&w=spitefulness&w=elated&w=shocked&w=overwhelmed&w=vengefulness&w=enthusia) or [metasyntactic variables](http://www.samcodes.co.uk/project/markov-namegen/?w=foo&w=bar&w=baz&w=quux&w=quuux&w=quuuux&w=bazola&w=ztesch&w=thud&w=grunt&w=fred&w=jim&w=wombat&w=spam&w=eggs&w=snork&w=zot&w=blarg&w=wibble&w=zork&w=oogle&w=foogle&w=boogle&w=gork&w=bork&w=bongo&w=corge).
+You can save or share custom training data, settings and results. Hit the "Get Sharing Link" button on the demo page - simply copy the custom URL that gets generated. Note that large training data sets may create URLs that are too long for some browsers or servers to handle.
 
 ## Install ##
 
