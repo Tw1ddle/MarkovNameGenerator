@@ -248,7 +248,7 @@ Main.prototype = {
 		}
 	}
 	,makeCustomQueryString: function() {
-		var s = "file:///C:/Users/admin/Desktop/Haxe%20Coding/MarkovNames/bin/debug/index.html";
+		var s = "http://www.samcodes.co.uk/project/markov-namegen/";
 		var appendKv = function(k,v,sep) {
 			if(sep == null) sep = "&";
 			if(k == null || k.length == 0 || v == null || v.length == 0) return;
@@ -1223,6 +1223,6 @@ ID.markovgraph = "markovgraph";
 ID.triegraph = "triegraph";
 ID.nonamesfound = "nonamesfound";
 ID.currentnames = "currentnames";
-Main.WEBSITE_URL = "file:///C:/Users/admin/Desktop/Haxe%20Coding/MarkovNames/bin/debug/index.html";
+Main.WEBSITE_URL = "http://www.samcodes.co.uk/project/markov-namegen/";
 Main.main();
 })(typeof console != "undefined" ? console : {log:function(){}});

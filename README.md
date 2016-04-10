@@ -1,4 +1,4 @@
-![Project logo](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/markovnamegen_logo.png?raw=true "Markov Namegen Procedural Name Generator Project logo")
+[![Project logo](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/markovnamegen_logo.png?raw=true "Markov Namegen Procedural Name Generator Project logo")](http://www.samcodes.co.uk/project/markov-namegen/)
 
 Markov-chain based procedural name generator written in Haxe. Try it out now [in your browser](http://www.samcodes.co.uk/project/markov-namegen/).
 
@@ -42,7 +42,7 @@ Botteringham
 Bradnincham
 ```
 
-You can save or share custom training data, settings and results. Hit the "Get Sharing Link" button on the demo page - simply copy the custom URL that gets generated. Note that large training data sets may create URLs that are too long for some browsers or servers to handle.
+You can save or share custom training data, settings and results. Hit the "Get Sharing Link" button on the demo page and copy the generated URL. Be aware that large training data sets can create URLs that are too long for some browsers and servers to handle.
 
 ## Install ##
 
@@ -61,11 +61,10 @@ Or add it to your ```Project.xml```:
 ## Screenshots ##
 Here is the demo in action:
 
-![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot2.png?raw=true "Name generator screenshot 2")
+[![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot2.png?raw=true "Name generator screenshot 2")](http://www.samcodes.co.uk/project/markov-namegen/)
 
 
-
-![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot1.png?raw=true "Name generator screenshot 1")
+[![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot1.png?raw=true "Name generator screenshot 1")](http://www.samcodes.co.uk/project/markov-namegen/)
 
 ## How It Works ##
 
