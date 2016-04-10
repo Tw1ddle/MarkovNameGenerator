@@ -273,3 +273,15 @@ a:hover {
     background-position: bottom right;
     background-repeat: no-repeat;
 }
+
+#shareedit {
+	display:none;
+    resize: horizontal;
+    min-width: 80vw;
+    min-height: 150px;
+    max-height: 900px;
+    border: 3px solid #cccccc;
+    padding: 5px;
+    background-position: bottom right;
+    background-repeat: no-repeat;
+}

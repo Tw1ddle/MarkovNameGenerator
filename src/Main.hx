@@ -11,13 +11,50 @@ import markov.util.EditDistanceMetrics;
 import markov.util.FileReader;
 import markov.util.PrefixTrie;
 
-using StringTools;
 using markov.util.StringExtensions;
+using StringTools;
+
+// Automatic HTML code completion, you need to point these to your checkout path
+#if debug
+@:build(CodeCompletion.buildLocalFile("C:/Users/admin/Desktop/Haxe Coding/MarkovNames/bin/debug/index.html"))
+#else
+@:build(CodeCompletion.buildLocalFile("C:/Users/admin/Desktop/Haxe Coding/MarkovNames/bin/release/index.html"))
+#end
+//@:build(CodeCompletion.buildUrl("http://www.samcodes.co.uk/project/markov-namegen/"))
+class ID {}
+
+// The keys for reading/writing preset settings in a URL query string
+// These settings keys concern the name generator parameters and result filtering
+@:enum abstract GeneratorSettingKey(String) from String to String {
+	var PRESET_WORD_KEY = "w";
+	var RESULT_WORD_KEY = "r";
+	var NAME_DATA_PRESET = "name_data_preset";
+	var NUMBER_TO_GENERATE = "number_to_generate";
+	var LENGTH_RANGE_MIN = "length_range_min";
+	var LENGTH_RANGE_MAX = "length_range_max";
+	var ORDER = "order";
+	var PRIOR = "prior";
+	var MAX_PROCESSING_TIME = "max_processing_time";
+	var STARTS_WITH = "starts_with";
+	var ENDS_WITH = "ends_width";
+	var INCLUDES = "includes";
+	var EXCLUDES = "excludes";
+	var SIMILAR_TO = "similar_to";
+}
+
+// The keys for reading/writing the webpage settings in a URL query string
+// These settings keys concern the page state and layout
+@:enum abstract PageSettingKey(String) from String to String {
+	var SETTINGS_OPEN = "settings_open";
+}
 
 class Main {
+	private static inline var WEBSITE_URL:String = "http://www.samcodes.co.uk/project/markov-namegen/"; // Hosted demo URL for building the custom query string
+	
 	private var generator:NameGenerator; // The Markov name generator
 	private var duplicateTrie:PrefixTrie; // Prefix trie for catching duplicates
 	private var trainingData:Array<TrainingData>; // The training data
+	
 	/*
 	private var trieGraph:TrieForceGraph;
 	private var markovGraph:MarkovGraph;
@@ -27,18 +64,12 @@ class Main {
 		var main = new Main();
 	}
 	
+	private inline function addTrainingData(value:String, display:String, data:Array<String>):Void {
+		trainingData.push(new TrainingData(value, display, data));
+	}
+	
 	private inline function new() {
-		// Builds a lookup table for the training data, matching the presets in the HTML
 		trainingData = new Array<TrainingData>();
-		
-		var addTrainingData = function(value:String, display:String, data:Array<String>):Void {
-			trainingData.push(new TrainingData(value, display, data));
-		}
-		
-		var addCustomTrainingData = function(value:String, display:String) {
-			trainingData.push(new TrainingData(value, "Custom", getCustomTrainingData()));
-		};
-		
 		addTrainingData("us_forenames", "American Forenames", FileReader.readFile("embed/usforenames.txt").split("\n"));
 		addTrainingData("tolkienesque_forenames", "Tolkienesque Forenames", FileReader.readFile("embed/tolkienesqueforenames.txt").split("\n"));
 		addTrainingData("werewolf_forenames", "Werewolf Forenames", FileReader.readFile("embed/werewolfforenames.txt").split("\n"));
@@ -61,20 +92,9 @@ class Main {
 		addTrainingData("countries", "Countries", FileReader.readFile("embed/countries.txt").split("\n"));
 		addTrainingData("clothing", "Clothing", FileReader.readFile("embed/clothing.txt").split("\n"));
 		//addTrainingData("profanity_filter", "Profanity", FileReader.readFile("embed/profanityfilter.txt").split("\n")); // Skipping this one for SEO and paranoia reasons
-		addCustomTrainingData("custom", "Custom");
-		
-		// Alphabetically sort the training data list items
-		trainingData.sort(function(a:TrainingData, b:TrainingData):Int {
-			var left = a.displayName.toLowerCase();
-			var right = b.displayName.toLowerCase();
-			if (left < right) {
-				return -1;
-			}
-			if (left > right) {
-				return 1;
-			}
-			return 0;
-		});
+		if(!isQueryStringEmpty()) {
+			addTrainingData("custom", "Custom", []);
+		}
 		
 		// Wait for the window to load before creating the sliders, listening for input etc
 		Browser.window.onload = onWindowLoaded;
@@ -83,14 +103,13 @@ class Main {
 	private inline function onWindowLoaded():Void {
 		getElementReferences();
 		buildTrainingDataList();
-		setDefaults();
+		
+		applySettings();
 		createSliders();
 		addEventListeners();
-		
-		trainingDataElementSelectionChanged();
 	}
 	
-	private var trainingDataListElement:SelectElement;
+	private var nameDataPresetListElement:SelectElement;
 	private var trainingDataTextEdit:InputElement;
 	private var orderElement:Element;
 	private var priorElement:Element;
@@ -104,6 +123,8 @@ class Main {
 	private var includesElement:InputElement;
 	private var excludesElement:InputElement;
 	private var similarElement:InputElement;
+	private var shareLinkElement:Element;
+	private var shareLinkTextEdit:InputElement;
 	/*
 	private var generateTrieVisualizationElement:Element;
 	private var generateMarkovVisualizationElement:Element;
@@ -113,25 +134,27 @@ class Main {
 	/*
 	 * Get references to the input elements on the webpage
 	 */
-	private inline function getElementReferences():Void {
-		trainingDataListElement = cast Browser.document.getElementById("trainingdatalist");
-		trainingDataTextEdit = cast Browser.document.getElementById("trainingdataedit");
-		orderElement = cast Browser.document.getElementById("order");		
-		priorElement = cast Browser.document.getElementById("prior");
-		maxProcessingTimeElement = cast Browser.document.getElementById("maxtime");
-		noNamesFoundElement = cast Browser.document.getElementById("nonamesfound");
-		currentNamesElement = cast Browser.document.getElementById("currentnames");
-		generateElement = cast Browser.document.getElementById("generate");
-		lengthElement = cast Browser.document.getElementById("minmaxlength");
-		startsWithElement = cast Browser.document.getElementById("startswith");
-		endsWithElement = cast Browser.document.getElementById("endswith");
-		includesElement = cast Browser.document.getElementById("includes");
-		excludesElement = cast Browser.document.getElementById("excludes");
-		similarElement = cast Browser.document.getElementById("similar");
+	private inline function getElementReferences():Void {		
+		nameDataPresetListElement = cast Browser.document.getElementById(ID.trainingdatalist);
+		trainingDataTextEdit = cast Browser.document.getElementById(ID.trainingdataedit);
+		orderElement = cast Browser.document.getElementById(ID.order);
+		priorElement = cast Browser.document.getElementById(ID.prior);
+		maxProcessingTimeElement = cast Browser.document.getElementById(ID.maxtime);
+		noNamesFoundElement = cast Browser.document.getElementById(ID.nonamesfound);
+		currentNamesElement = cast Browser.document.getElementById(ID.currentnames);
+		generateElement = cast Browser.document.getElementById(ID.generate);
+		lengthElement = cast Browser.document.getElementById(ID.minmaxlength);
+		startsWithElement = cast Browser.document.getElementById(ID.startswith);
+		endsWithElement = cast Browser.document.getElementById(ID.endswith);
+		includesElement = cast Browser.document.getElementById(ID.includes);
+		excludesElement = cast Browser.document.getElementById(ID.excludes);
+		similarElement = cast Browser.document.getElementById(ID.similar);
+		shareLinkElement = cast Browser.document.getElementById(ID.shareurl);
+		shareLinkTextEdit = cast Browser.document.getElementById(ID.shareedit);
 		/*
-		generateTrieVisualizationElement = cast Browser.document.getElementById("generatetriegraph");
-		generateMarkovVisualizationElement = cast Browser.document.getElementById("generatemarkovgraph");
-		markovVisualizationPElement = cast Browser.document.getElementById("markovp");
+		generateTrieVisualizationElement = cast Browser.document.getElementById("ID.generatetriegraph");
+		generateMarkovVisualizationElement = cast Browser.document.getElementById("ID.generatemarkovgraph");
+		markovVisualizationPElement = cast Browser.document.getElementById("ID.markovp");
 		*/
 	}
 	
@@ -139,70 +162,62 @@ class Main {
 	 * Generates the HTML training data selection list
 	 */
 	private inline function buildTrainingDataList():Void {
+		// Alphabetically sort the internal training data
+		trainingData.sort(function(a:TrainingData, b:TrainingData):Int {
+			var left = a.displayName.toLowerCase();
+			var right = b.displayName.toLowerCase();
+			if (left < right) {
+				return -1;
+			}
+			if (left > right) {
+				return 1;
+			}
+			return 0;
+		});
+		
+		// Create the data list items
 		for (data in trainingData) {
 			var option = Browser.document.createOptionElement();
 			option.appendChild(Browser.document.createTextNode(data.displayName));
 			option.value = data.value;
-			trainingDataListElement.appendChild(option);
+			nameDataPresetListElement.appendChild(option);
 		}
 	}
 	
-	/*
-	 * Try to take custom training data from "w" parameters in the URL
-	 */
-	private inline function getCustomTrainingData():Array<String> {
-		var params = Browser.window.location.search.substring(1);
-		
-		if (params == null || params == "") {
-			return [];
-		}
-		
-		var splitParams = params.split("&");
-		var trainingData = new Array<String>();
-		for (param in splitParams) {
-			var kv = param.split("=");
-			if (kv.length < 2) {
-				continue;
-			}
-			
-			if (kv[0] == "w") {
-				trainingData.push(kv[1]);
-			}
-		}
-		
-		return trainingData;
-	}
+	private var lastNames:Array<String> = []; // The last set of generated names
 	
-	private var trainingDataKey(default, set):String; // The selected training data key
+	private var trainingDataKey(get, set):String; // The selected training data key
 	private var numToGenerate:Int; // Number of names to try to generate
 	private var minLength:Int; // Minimum name length
 	private var maxLength:Int; // Maximum name length
 	private var order:Int; // Maximum order model that the name generator should use
 	private var prior:Float; // Value of the Dirichlet prior that the name generator should use
-	private var maxProcessingTime:Float; // Maximum time the name generator should spend generating a batch of names
-	private var startsWith:String; // String that names must start with
-	private var endsWith:String; // String that names must end with
-	private var includes:String; // String that names must include
-	private var excludes:String; // String that names must include
-	private var similar:String; // String that names are sorted by their similarity to
+	private var maxProcessingTime:Int; // Maximum time the name generator should spend generating a batch of names
+	private var startsWith(get, set):String; // String that names must start with
+	private var endsWith(get, set):String; // String that names must end with
+	private var includes(get, set):String; // String that names must include
+	private var excludes(get, set):String; // String that names must include
+	private var similar(get, set):String; // String that names are sorted by their similarity to
 	/*
 	private var generateTrieVisualization:Bool = false; // Generate a graph of the duplicate trie
 	private var generateMarkovVisualization:Bool = false; // Generate a graph of one of the markov models
 	private var markovVisualizationMinP:Float = 0.01; // Minimum p value required to draw one of the markov model edges
 	*/
 	
-	/*
-	 * Set the default values for name generation, filtering and sorting
-	 */
-	private inline function setDefaults():Void {
-		// Optionally set custom data via a query string in the URL		
-		var data = findTrainingDataForKey("custom");
-		if (data != null && data.length > 0) {
-			trainingDataKey = "custom";
-		} else {
-			trainingDataKey = "animals";
+	private inline function isQueryStringEmpty():Bool {
+		var params = Browser.window.location.search.substring(1);
+		if (params == null || params == "") {
+			return true;
 		}
-		
+		return false;
+	}
+	
+	/*
+	 * Applies default settings, then any custom settings encoded in the query string
+	 */
+	private inline function applySettings():Void {
+		// Apply the default settings for name generation, filtering, sorting etc
+		trainingDataKey = "animals";
 		numToGenerate = 100;
 		minLength = 5;
 		maxLength = 11;
@@ -210,21 +225,115 @@ class Main {
 		prior = 0.005;
 		maxProcessingTime = 800;
 		startsWith = "";
-		startsWithElement.value = startsWith;
 		endsWith = "";
-		endsWithElement.value = endsWith;
 		includes = "";
-		includesElement.value = includes;
 		excludes = "";
-		excludesElement.value = excludes;
 		similar = "";
-		similarElement.value = similar;
-		
 		/*
 		markovVisualizationMinP = 0.01;
 		generateTrieVisualization = false;
 		generateMarkovVisualization = false;
 		*/
+		
+		// Apply custom settings
+		if (isQueryStringEmpty()) {
+			return;
+		}
+		var params = Browser.window.location.search.substring(1);
+		var splitParams = params.split("&");
+		var customTrainingData = new Array<String>();
+		var sharedResultData = new Array<String>();
+		for (param in splitParams) {
+			var kv = param.split("=");
+			if (kv.length < 2) {
+				continue;
+			}
+			
+			var k = kv[0];
+			var v = kv[1];
+			
+			switch(k) {
+				case GeneratorSettingKey.RESULT_WORD_KEY:
+					sharedResultData.push(v);
+				case GeneratorSettingKey.PRESET_WORD_KEY:
+					customTrainingData.push(v);
+				case GeneratorSettingKey.LENGTH_RANGE_MIN:
+					minLength = Std.parseInt(v);
+				case GeneratorSettingKey.LENGTH_RANGE_MAX:
+					maxLength = Std.parseInt(v);
+				case GeneratorSettingKey.ORDER:
+					order = Std.parseInt(v);
+				case GeneratorSettingKey.PRIOR:
+					prior = Std.parseFloat(v);
+				case GeneratorSettingKey.MAX_PROCESSING_TIME:
+					maxProcessingTime = Std.parseInt(v);
+				case GeneratorSettingKey.STARTS_WITH:
+					startsWith = v;
+				case GeneratorSettingKey.ENDS_WITH:
+					endsWith = v;
+				case GeneratorSettingKey.INCLUDES:
+					includes = v;
+				case GeneratorSettingKey.EXCLUDES:
+					excludes = v;
+				case GeneratorSettingKey.SIMILAR_TO:
+					similar = v;
+			}
+		}
+		
+		if (sharedResultData.length > 0) {
+			lastNames = sharedResultData;
+			setNames(lastNames);
+		}
+		
+		if (customTrainingData.length > 3) { // Arbitrary minimum, just in case something goes a bit wrong when reading the query string
+			var data = getTrainingDataForKey("custom");
+			data.data = customTrainingData;
+			trainingDataKey = "custom";
+		}
+	}
+	
+	/*
+	 * Creates a settings query string for the current settings
+	 */
+	private inline function makeCustomQueryString():String {
+		var s:String = WEBSITE_URL;
+		
+		var appendKv = function(k:String, v:String, sep = "&") {
+			if (k == null || k.length == 0 || v == null || v.length == 0) {
+				return;
+			}
+			s += (sep + k + "=" + v);
+		}
+		
+		appendKv(GeneratorSettingKey.LENGTH_RANGE_MIN, Std.string(minLength), "?");
+		appendKv(GeneratorSettingKey.LENGTH_RANGE_MAX, Std.string(maxLength));
+		appendKv(GeneratorSettingKey.ORDER, Std.string(order));
+		appendKv(GeneratorSettingKey.PRIOR, Std.string(prior));
+		appendKv(GeneratorSettingKey.MAX_PROCESSING_TIME, Std.string(maxProcessingTime));
+		appendKv(GeneratorSettingKey.STARTS_WITH, startsWith);
+		appendKv(GeneratorSettingKey.ENDS_WITH, endsWith);
+		appendKv(GeneratorSettingKey.INCLUDES, includes);
+		appendKv(GeneratorSettingKey.EXCLUDES, excludes);
+		appendKv(GeneratorSettingKey.SIMILAR_TO, similar);
+		
+		var data = trainingDataTextEdit.value.split(" ");
+		if (data.length > 1) {
+			for (word in data) {
+				if (word != null && word.length != 0) {
+					appendKv(GeneratorSettingKey.PRESET_WORD_KEY, word);
+				}
+			}
+		}
+		
+		if(lastNames.length > 0) {
+			for (name in lastNames) {
+				if (name != null && name.length != 0) {
+					appendKv(GeneratorSettingKey.RESULT_WORD_KEY, name);
+				}
+			}
+		}
+		
+		return s;
 	}
 	
 	/*
@@ -384,8 +493,8 @@ class Main {
 	 * Add event listeners to the input elements, in order to update the values we feed the model when "generate" is pressed
 	 */ 
 	private inline function addEventListeners():Void {
-		trainingDataListElement.addEventListener("change", function() {
-			trainingDataElementSelectionChanged();
+		nameDataPresetListElement.addEventListener("change", function() {
+			trainingDataKey = nameDataPresetListElement.value;
 		}, false);
 		
 		trainingDataTextEdit.addEventListener("change", function() {
@@ -432,21 +541,21 @@ class Main {
 				similar = similarElement.value.toLowerCase();
 			}
 		}, false);
+		
+		shareLinkElement.addEventListener("click", function() {
+			shareLinkTextEdit.value = makeCustomQueryString();
+			shareLinkTextEdit.style.display = "block";
+		}, false);
 	}
 	
-	private function trainingDataElementSelectionChanged():Void {
-		if (trainingDataListElement.value != null) {
-			trainingDataKey = trainingDataListElement.value;
-			var data = findTrainingDataForKey(trainingDataKey);
-			if (data != null) {
-				var s:String = "";
-				for (i in data) {
-					s += i + " ";
-				}
-				s = s.rtrim();
-				trainingDataTextEdit.value = s;
-			}
+	private function nameDataPresetSelectionChanged(key:String):Void {
+		var data = getTrainingDataForKey(key);
+		var s:String = "";
+		for (i in data.data) {
+			s += i + " ";
 		}
+		s = s.rtrim();
+		trainingDataTextEdit.value = s;
 	}
 	
 	/*
@@ -493,6 +602,7 @@ class Main {
 			currentTime = Date.now().getTime();
 		}
 		
+		lastNames = names;
 		setNames(names);
 		
 		/*
@@ -545,23 +655,65 @@ class Main {
 	/*
 	 * Helper method to search the training data array for a particular set of training data
 	 */
-	private function findTrainingDataForKey(key:String):Array<String> {
+	private function getTrainingDataForKey(key:String):TrainingData {
 		for (data in trainingData) {
 			if (data.value == key) {
-				return data.data;
+				return data;
 			}
 		}
 		return null;
+	}
+	
+	private function get_trainingDataKey():String {
+		return nameDataPresetListElement.value;
 	}
 	
 	/*
 	 * Updates the selected preset item when the training data key is changed programatically
 	 */ 
 	private function set_trainingDataKey(key:String):String {
-		if (trainingDataListElement != null) {
-			trainingDataListElement.value = key;
-		}
-		return this.trainingDataKey = key;
+		nameDataPresetListElement.value = key;
+		nameDataPresetSelectionChanged(key);
+		return nameDataPresetListElement.value;
+	}
+	
+	/*
+	 * Misc HTML element accessors
+	 */
+	private function get_startsWith():String {
+		return startsWithElement.value;
+	}
+	private function set_startsWith(s:String):String {
+		startsWithElement.value = startsWith;
+		return startsWith;
+	}
+	private function get_endsWith():String {
+		return endsWithElement.value;
+	}
+	private function set_endsWith(s:String):String {
+		endsWithElement.value = endsWith;
+		return endsWith;
+	}
+	private function get_includes():String {
+		return includesElement.value;
+	}
+	private function set_includes(s:String):String {
+		includesElement.value = includes;
+		return includes;
+	}
+	private function set_excludes(s:String):String {
+		excludesElement.value = excludes;
+		return excludes;
+	}
+	private function get_excludes():String {
+		return excludesElement.value;
+	}
+	private function set_similar(s:String):String {
+		similarElement.value = similar;
+		return similar;
+	}
+	private function get_similar():String {
+		return similarElement.value;
 	}
 }
 
@@ -569,7 +721,7 @@ class Main {
 private class TrainingData {
 	public var value(default, null):String; // The "value" field in the select element
 	public var displayName(default, null):String; // The display name in the select element
-	public var data(default, null):Array<String>; // The training data itself
+	public var data:Array<String>; // The training data itself
 	
 	public inline function new(value:String, displayName:String, data:Array<String>) {
 		this.value = value;

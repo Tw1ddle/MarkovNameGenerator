@@ -49,9 +49,9 @@ capybara
 caribou
 carp
 cat
-catshark
 caterpillar
 catfish
+catshark
 centipede
 chameleon
 cheetah
@@ -112,8 +112,8 @@ fowl
 fox
 frog
 fruitbat
-gamefowl
 galliform
+gamefowl
 gazelle
 gecko
 gerbil

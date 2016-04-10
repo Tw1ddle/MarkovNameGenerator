@@ -36,7 +36,6 @@ axbridge
 axminster
 aylesbury
 aylsham
-town
 bacup
 bakewell
 bampton
@@ -50,6 +49,7 @@ barnsley
 barnstaple
 barrow
 barton
+basildon
 basingstoke
 batley
 battle
@@ -104,6 +104,7 @@ bourne
 bournemouth
 bovey
 brackley
+bracknell
 bradford
 brading
 bradley
@@ -160,8 +161,8 @@ camborne
 camelford
 cannock
 canvey
-carnforth
 carlton
+carnforth
 carshalton
 carterton
 castle
@@ -177,8 +178,8 @@ cheltenham
 chertsey
 chesham
 cheshunt
-chesterfield
 chester
+chesterfield
 chickerell
 chilton
 chingford
@@ -217,8 +218,8 @@ corby
 corringham
 corsham
 cotgrave
-cowes
 coulsdon
+cowes
 cramlington
 cranbrook
 craven
@@ -231,9 +232,9 @@ cromer
 crook
 crosby
 crowborough
-croydon
 crowland
 crowle
+croydon
 cullompton
 dagenham
 dalton
@@ -277,9 +278,9 @@ easingwold
 east
 east
 east
+east
 eastbourne
 eastleigh
-east
 eastwood
 eccles
 eccleshall
@@ -359,7 +360,6 @@ halewood
 halifax
 halstead
 haltwhistle
-redenhall
 harlow
 harpenden
 harrogate
@@ -376,9 +376,9 @@ hatfield
 hatherleigh
 havant
 haverhill
+hawes
 hawkinge
 haxby
-hawes
 hayle
 haywards
 heanor
@@ -398,10 +398,10 @@ hessle
 hetton
 hexham
 heywood
+high
 higham
 highbridge
 highworth
-high
 hinckley
 hingham
 hitchin
@@ -531,6 +531,7 @@ midhurst
 midsomer
 mildenhall
 millom
+milton
 minchinhampton
 minehead
 minster
@@ -539,8 +540,8 @@ mitcham
 mitcheldean
 modbury
 morecambe
-moretonhampstead
 moreton
+moretonhampstead
 morley
 morpeth
 mossley
@@ -632,6 +633,8 @@ rawtenstall
 rayleigh
 reading
 redcar
+redditch
+redenhall
 redruth
 reepham
 reigate
@@ -708,8 +711,8 @@ snodland
 soham
 solihull
 somerton
-southam
 southall
+southam
 southborough
 southend
 southgate
@@ -730,8 +733,8 @@ stalbridge
 stalham
 stalybridge
 stamford
-stanley
 stanhope
+stanley
 stapleford
 staveley
 stevenage
@@ -745,8 +748,8 @@ stony
 stotfold
 stourbridge
 stourport
-stowmarket
 stow
+stowmarket
 stratford
 stretford
 strood
@@ -768,6 +771,7 @@ tamworth
 taunton
 tavistock
 teignmouth
+telford
 telscombe
 tenbury
 tenterden
@@ -798,6 +802,7 @@ tottenham
 totton
 tow
 towcester
+town
 tring
 trowbridge
 twickenham
@@ -814,8 +819,8 @@ wadebridge
 wadhurst
 wainfleet
 wallasey
-wallsend
 wallingford
+wallsend
 walsall
 waltham
 waltham
@@ -827,15 +832,17 @@ wareham
 warminster
 warrington
 warwick
+washington
 watchet
 watford
 wath
 watlington
 watton
-wellingborough
 wednesbury
+wellingborough
 wellington
 wells
+welwyn
 wembley
 wendover
 westbury
@@ -860,8 +867,8 @@ wigan
 wigton
 willenhall
 willesden
-wilton
 wilmslow
+wilton
 wimbledon
 wimborne
 wincanton
@@ -901,10 +908,3 @@ yarmouth
 yate
 yateley
 yeovil
-basildon
-bracknell
-milton
-redditch
-telford
-washington
-welwyn
