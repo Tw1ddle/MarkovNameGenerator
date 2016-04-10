@@ -352,7 +352,7 @@ Main.prototype = {
 			_g.shareLinkTextEdit.style.display = "block";
 		},false);
 	}
-	,nameDataPresetSelectionChanged: function(key) {
+	,onNameDataPresetSelectionChanged: function(key) {
 		var data = this.getTrainingDataForKey(key);
 		var s = "";
 		var _g = 0;
@@ -401,11 +401,11 @@ Main.prototype = {
 			}
 			currentTime = new Date().getTime();
 		}
-		this.lastNames = names;
 		this.setNames(names);
 	}
 	,setNames: function(names) {
 		var _g = this;
+		this.lastNames = names;
 		if(this.get_similar().length > 0) names.sort(function(x,y) {
 			var xSimilarity = markov_util_EditDistanceMetrics.damerauLevenshtein(x,_g.get_similar(),null);
 			var ySimilarity = markov_util_EditDistanceMetrics.damerauLevenshtein(y,_g.get_similar(),null);
@@ -440,43 +440,38 @@ Main.prototype = {
 	}
 	,set_trainingDataKey: function(key) {
 		this.nameDataPresetListElement.value = key;
-		this.nameDataPresetSelectionChanged(key);
+		this.onNameDataPresetSelectionChanged(key);
 		return this.nameDataPresetListElement.value;
 	}
 	,get_startsWith: function() {
-		return this.startsWithElement.value;
+		return this.startsWithElement.value.toLowerCase();
 	}
 	,set_startsWith: function(s) {
-		this.startsWithElement.value = this.get_startsWith();
-		return this.get_startsWith();
+		return this.startsWithElement.value = s.toLowerCase();
 	}
 	,get_endsWith: function() {
-		return this.endsWithElement.value;
+		return this.endsWithElement.value.toLowerCase();
 	}
 	,set_endsWith: function(s) {
-		this.endsWithElement.value = this.get_endsWith();
-		return this.get_endsWith();
+		return this.endsWithElement.value = s.toLowerCase();
 	}
 	,get_includes: function() {
-		return this.includesElement.value;
+		return this.includesElement.value.toLowerCase();
 	}
 	,set_includes: function(s) {
-		this.includesElement.value = this.get_includes();
-		return this.get_includes();
-	}
-	,set_excludes: function(s) {
-		this.excludesElement.value = this.get_excludes();
-		return this.get_excludes();
+		return this.includesElement.value = s.toLowerCase();
 	}
 	,get_excludes: function() {
-		return this.excludesElement.value;
+		return this.excludesElement.value.toLowerCase();
 	}
-	,set_similar: function(s) {
-		this.similarElement.value = this.get_similar();
-		return this.get_similar();
+	,set_excludes: function(s) {
+		return this.excludesElement.value = s.toLowerCase();
 	}
 	,get_similar: function() {
-		return this.similarElement.value;
+		return this.similarElement.value.toLowerCase();
+	}
+	,set_similar: function(s) {
+		return this.similarElement.value = s.toLowerCase();
 	}
 };
 var _$Main_TrainingData = function(value,displayName,data) {

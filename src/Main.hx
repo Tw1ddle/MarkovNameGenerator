@@ -134,7 +134,7 @@ class Main {
 	/*
 	 * Get references to the input elements on the webpage
 	 */
-	private inline function getElementReferences():Void {		
+	private inline function getElementReferences():Void {
 		nameDataPresetListElement = cast Browser.document.getElementById(ID.trainingdatalist);
 		trainingDataTextEdit = cast Browser.document.getElementById(ID.trainingdataedit);
 		orderElement = cast Browser.document.getElementById(ID.order);
@@ -548,7 +548,7 @@ class Main {
 		}, false);
 	}
 	
-	private function nameDataPresetSelectionChanged(key:String):Void {
+	private function onNameDataPresetSelectionChanged(key:String):Void {
 		var data = getTrainingDataForKey(key);
 		var s:String = "";
 		for (i in data.data) {
@@ -602,7 +602,6 @@ class Main {
 			currentTime = Date.now().getTime();
 		}
 		
-		lastNames = names;
 		setNames(names);
 		
 		/*
@@ -624,6 +623,8 @@ class Main {
 	 * Helper method to set the generated names in the "names" section of the page
 	 */
 	private inline function setNames(names:Array<String>):Void {
+		lastNames = names;
+		
 		if(similar.length > 0) {
 			names.sort(function(x:String, y:String):Int {
 				var xSimilarity:Float = EditDistanceMetrics.damerauLevenshtein(x, similar);
@@ -673,7 +674,7 @@ class Main {
 	 */ 
 	private function set_trainingDataKey(key:String):String {
 		nameDataPresetListElement.value = key;
-		nameDataPresetSelectionChanged(key);
+		onNameDataPresetSelectionChanged(key);
 		return nameDataPresetListElement.value;
 	}
 	
@@ -681,39 +682,34 @@ class Main {
 	 * Misc HTML element accessors
 	 */
 	private function get_startsWith():String {
-		return startsWithElement.value;
+		return startsWithElement.value.toLowerCase();
 	}
 	private function set_startsWith(s:String):String {
-		startsWithElement.value = startsWith;
-		return startsWith;
+		return startsWithElement.value = s.toLowerCase();
 	}
 	private function get_endsWith():String {
-		return endsWithElement.value;
+		return endsWithElement.value.toLowerCase();
 	}
 	private function set_endsWith(s:String):String {
-		endsWithElement.value = endsWith;
-		return endsWith;
+		return endsWithElement.value = s.toLowerCase();
 	}
 	private function get_includes():String {
-		return includesElement.value;
+		return includesElement.value.toLowerCase();
 	}
 	private function set_includes(s:String):String {
-		includesElement.value = includes;
-		return includes;
-	}
-	private function set_excludes(s:String):String {
-		excludesElement.value = excludes;
-		return excludes;
+		return includesElement.value = s.toLowerCase();
 	}
 	private function get_excludes():String {
-		return excludesElement.value;
+		return excludesElement.value.toLowerCase();
 	}
-	private function set_similar(s:String):String {
-		similarElement.value = similar;
-		return similar;
+	private function set_excludes(s:String):String {
+		return excludesElement.value = s.toLowerCase();
 	}
 	private function get_similar():String {
-		return similarElement.value;
+		return similarElement.value.toLowerCase();
+	}
+	private function set_similar(s:String):String {
+		return similarElement.value = s.toLowerCase();
 	}
 }
 
