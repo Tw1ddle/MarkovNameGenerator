@@ -249,8 +249,8 @@ class Main {
 				continue;
 			}
 			
-			var k = kv[0];
-			var v = kv[1];
+			var k = kv[0].urlDecode();
+			var v = kv[1].urlDecode();
 			
 			switch(k) {
 				case GeneratorSettingKey.RESULT_WORD_KEY:
@@ -302,7 +302,7 @@ class Main {
 			if (k == null || k.length == 0 || v == null || v.length == 0) {
 				return;
 			}
-			s += (sep + k + "=" + v);
+			s += (sep + k.urlEncode() + "=" + v.urlEncode());
 		}
 		
 		appendKv(GeneratorSettingKey.LENGTH_RANGE_MIN, Std.string(minLength), "?");

@@ -196,8 +196,8 @@ Main.prototype = {
 			++_g;
 			var kv = param.split("=");
 			if(kv.length < 2) continue;
-			var k = kv[0];
-			var v = kv[1];
+			var k = decodeURIComponent(kv[0].split("+").join(" "));
+			var v = decodeURIComponent(kv[1].split("+").join(" "));
 			switch(k) {
 			case "r":
 				sharedResultData.push(v);
@@ -252,7 +252,7 @@ Main.prototype = {
 		var appendKv = function(k,v,sep) {
 			if(sep == null) sep = "&";
 			if(k == null || k.length == 0 || v == null || v.length == 0) return;
-			s += sep + k + "=" + v;
+			s += sep + encodeURIComponent(k) + "=" + encodeURIComponent(v);
 		};
 		appendKv("length_range_min",Std.string(this.minLength),"?");
 		appendKv("length_range_max",Std.string(this.maxLength));

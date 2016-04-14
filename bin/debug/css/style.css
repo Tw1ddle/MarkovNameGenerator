@@ -249,7 +249,6 @@ a:hover {
 }
 
 #currentnames {
-	text-transform: lowercase;
 	list-style: none;
 	-webkit-column-count: 6;
 	-webkit-column-gap: 20px;
