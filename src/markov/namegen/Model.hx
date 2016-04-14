@@ -2,7 +2,6 @@ package markov.namegen;
 
 import haxe.ds.StringMap;
 
-using markov.util.ArrayExtensions;
 using markov.util.StringExtensions;
 
 // Encapsulates a Markov model
@@ -121,23 +120,12 @@ class Model {
 			totals.push(accumulator);
 		}
 		
-		// TODO linear search for now, because binary search seems to bug out sometimes...
 		var rand = Math.random() * accumulator;
 		for (i in 0...totals.length) {
 			if (rand < totals[i]) {
 				return i;
 			}
 		}
-		
-		// Get a random index
-		// Since the totals array is sorted in increasing order we use binary search
-		/*
-		var index:Int = totals.binarySearch(Math.random() * accumulator, 0, totals.length - 1);
-		if (index < 0) {
-			index = -index;
-		}
-		return index;
-		*/
 		
 		return 0;
 	}

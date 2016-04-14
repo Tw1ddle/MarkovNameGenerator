@@ -5,8 +5,7 @@ import haxe.Utf8;
 using StringTools;
 
 // Extension methods for Strings
-class StringExtensions {	
-	// NOTE this will be slow
+class StringExtensions {
 	public static inline function reverse(s:String):String {
 		Sure.sure(s != null);
 		var arr:Array<String> = s.split("");

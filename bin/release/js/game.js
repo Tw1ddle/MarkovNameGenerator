@@ -492,9 +492,6 @@ Std.parseInt = function(x) {
 	if(isNaN(v)) return null;
 	return v;
 };
-Std.random = function(x) {
-	if(x <= 0) return 0; else return Math.floor(Math.random() * x);
-};
 var StringTools = function() { };
 StringTools.__name__ = true;
 StringTools.startsWith = function(s,start) {
@@ -814,69 +811,6 @@ markov_namegen_NameGenerator.prototype = $extend(markov_namegen_Generator.protot
 		return names;
 	}
 });
-var markov_util_ArrayExtensions = function() { };
-markov_util_ArrayExtensions.__name__ = true;
-markov_util_ArrayExtensions.randomElementFromArrays = function(arrays) {
-	if(!(arrays != null && arrays.length != 0)) throw new js__$Boot_HaxeError("FAIL: arrays != null && arrays.length != 0");
-	var totalLength = 0;
-	var lengths = [];
-	var _g = 0;
-	while(_g < arrays.length) {
-		var array = arrays[_g];
-		++_g;
-		if(!(array != null && array.length != 0)) throw new js__$Boot_HaxeError("FAIL: array != null && array.length != 0");
-		totalLength += array.length;
-		lengths.push(totalLength);
-	}
-	var n = Math.random() * totalLength;
-	var i = 0;
-	while(i < lengths.length) {
-		if(n < lengths[i]) return markov_util_ArrayExtensions.randomElement(arrays[i]);
-		i++;
-	}
-	throw new js__$Boot_HaxeError("Failed to get random element");
-};
-markov_util_ArrayExtensions.randomElement = function(array) {
-	if(!(array != null && array.length != 0)) throw new js__$Boot_HaxeError("FAIL: array != null && array.length != 0");
-	return array[Std.random(array.length)];
-};
-markov_util_ArrayExtensions.noNulls = function(array) {
-	if(!(array != null)) throw new js__$Boot_HaxeError("FAIL: array != null");
-	var _g = 0;
-	while(_g < array.length) {
-		var e = array[_g];
-		++_g;
-		if(e == null) return false;
-	}
-	return true;
-};
-markov_util_ArrayExtensions.binarySearchCmp = function(a,x,min,max,comparator) {
-	if(!(a != null)) throw new js__$Boot_HaxeError("FAIL: a != null");
-	if(!(min >= 0 && min < a.length)) throw new js__$Boot_HaxeError("FAIL: min >= 0 && min < a.length");
-	if(!(max >= 0 && max < a.length)) throw new js__$Boot_HaxeError("FAIL: max >= 0 && max < a.length");
-	if(!(comparator != null)) throw new js__$Boot_HaxeError("FAIL: comparator != null");
-	var low = min;
-	var high = max + 1;
-	var middle;
-	while(low < high) {
-		middle = low + (high - low >> 1);
-		if(comparator(a[middle],x) < 0) low = middle + 1; else high = middle;
-	}
-	if(low <= max && comparator(a[low],x) == 0) return low; else return ~low;
-};
-markov_util_ArrayExtensions.binarySearch = function(a,x,min,max) {
-	if(!(a != null)) throw new js__$Boot_HaxeError("FAIL: a != null");
-	if(!(min >= 0 && min < a.length)) throw new js__$Boot_HaxeError("FAIL: min >= 0 && min < a.length");
-	if(!(max >= 0 && max < a.length)) throw new js__$Boot_HaxeError("FAIL: max >= 0 && max < a.length");
-	var low = min;
-	var high = max + 1;
-	var middle;
-	while(low < high) {
-		middle = low + (high - low >> 1);
-		if(a[middle] < x) low = middle + 1; else high = middle;
-	}
-	if(low <= max && a[low] == x) return low; else return ~low;
-};
 var markov_util__$ArraySet_ArraySet_$Impl_$ = {};
 markov_util__$ArraySet_ArraySet_$Impl_$.__name__ = true;
 markov_util__$ArraySet_ArraySet_$Impl_$._new = function(array) {

@@ -4,8 +4,8 @@
 	"license": "MIT",
 	"tags": ["cross","haxe","utility","game","tool"],
 	"description": "Procedural word generation tool using a high order Markov process, back-off scheme, filtering and sorting",
-	"version": "1.0.2",
-	"releasenote": "Initial release + bugfixes",
+	"version": "1.0.3",
+	"releasenote": "Minor code cleanup and bugfixes",
 	"contributors": ["samcodes"],
 	"dependencies": {"sure": ""}
 }

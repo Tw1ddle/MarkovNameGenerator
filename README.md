@@ -42,7 +42,7 @@ Botteringham
 Bradnincham
 ```
 
-You can save or share custom training data, settings and results. Hit the "Get Sharing Link" button on the demo page and copy the generated URL. Be aware that large training data sets can create URLs that are too long for some browsers and servers to handle.
+You can save or share custom training data, settings and results. Hit the "Get Sharing Link" button in the settings section, and copy the generated URL. Note that large training data sets will create URLs too long for some browsers and servers - reduce the size of your training dataset to work around this.
 
 ## Install ##
 
