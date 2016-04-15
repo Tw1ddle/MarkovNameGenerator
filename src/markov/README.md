@@ -4,7 +4,7 @@ Markov process string algorithm written in Haxe, designed for procedural name ge
 
 ## Features
 * Katz backoff using "high order" models - look up to "n" characters back.
-* Sort procedurally generated strings by length, start, end and content.
+* Sort and filter generated strings by length, start, end and content.
 * Damerau-Levenshtein distance sort method.
 * Dirichlet prior parameter.
 

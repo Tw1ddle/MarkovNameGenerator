@@ -42,35 +42,11 @@ class ID {}
 	var SIMILAR_TO = "similar_to";
 }
 
-// The keys for reading/writing the webpage settings in a URL query string
-// These settings keys concern the page state and layout
-@:enum abstract PageSettingKey(String) from String to String {
-	var SETTINGS_OPEN = "settings_open";
-}
-
-// These encode/decode helper methods are used for reducing the length of the URL query string for sharing settings/training data/results
-// This is necessary because the query string can get too long when dealing with large data sets
-@:access(markov.util.PrefixTrie)
-class TrieEncoder {
-	private inline function depthDelimiter(depth:Int):String {
-		return "__" + depth + "__";
-	}
-	
-	/*
-	 * Encodes a string representation of the trie, traversing the trie breadth first
-	 */
-	public static function toEncodedString(trie:PrefixTrie):String {
-		// TODO
-		return "";
-	}
-	
-	/*
-	 * Decodes the string representation of the trie and returns the trie instance
-	 */ 
-	public static function fromEncodedString(s:String):PrefixTrie {
-		// TODO
-		return null;
-	}
+// The data that should be saved into the custom query string
+// Note, should really use bitset/flags for this instead
+private enum CustomQueryStringOption {
+	SETTINGS_TRAINING_DATA_RESULTS;
+	SETTINGS_RESULTS;
 }
 
 class Main {
@@ -116,7 +92,6 @@ class Main {
 		addTrainingData("plantscommon", "Plants (Common Names)", FileReader.readFile("embed/plantscommon.txt").split("\n"));
 		addTrainingData("countries", "Countries", FileReader.readFile("embed/countries.txt").split("\n"));
 		addTrainingData("clothing", "Clothing", FileReader.readFile("embed/clothing.txt").split("\n"));
-		//addTrainingData("profanity_filter", "Profanity", FileReader.readFile("embed/profanityfilter.txt").split("\n")); // Skipping this one for SEO and paranoia reasons
 		if(!isQueryStringEmpty()) {
 			addTrainingData("custom", "Custom", []);
 		}
@@ -148,7 +123,8 @@ class Main {
 	private var includesElement:InputElement;
 	private var excludesElement:InputElement;
 	private var similarElement:InputElement;
-	private var shareLinkElement:Element;
+	private var shareResultsAndSettingsElement:Element;
+	private var shareResultsOnlyElement:Element;
 	private var shareLinkTextEdit:InputElement;
 	/*
 	private var generateTrieVisualizationElement:Element;
@@ -174,7 +150,8 @@ class Main {
 		includesElement = cast Browser.document.getElementById(ID.includes);
 		excludesElement = cast Browser.document.getElementById(ID.excludes);
 		similarElement = cast Browser.document.getElementById(ID.similar);
-		shareLinkElement = cast Browser.document.getElementById(ID.shareurl);
+		shareResultsAndSettingsElement = cast Browser.document.getElementById(ID.shareresultsandsettings);
+		shareResultsOnlyElement = cast Browser.document.getElementById(ID.shareresultsonly);
 		shareLinkTextEdit = cast Browser.document.getElementById(ID.shareedit);
 		/*
 		generateTrieVisualizationElement = cast Browser.document.getElementById("ID.generatetriegraph");
@@ -320,7 +297,7 @@ class Main {
 	/*
 	 * Creates a settings query string for the current settings
 	 */
-	private inline function makeCustomQueryString():String {
+	private function makeCustomQueryString(mode:CustomQueryStringOption):String {
 		var s:String = WEBSITE_URL;
 		
 		var appendKv = function(k:String, v:String, sep = "&") {
@@ -330,22 +307,26 @@ class Main {
 			s += (sep + k.urlEncode() + "=" + v.urlEncode());
 		}
 		
-		appendKv(GeneratorSettingKey.LENGTH_RANGE_MIN, Std.string(minLength), "?");
-		appendKv(GeneratorSettingKey.LENGTH_RANGE_MAX, Std.string(maxLength));
-		appendKv(GeneratorSettingKey.ORDER, Std.string(order));
-		appendKv(GeneratorSettingKey.PRIOR, Std.string(prior));
-		appendKv(GeneratorSettingKey.MAX_PROCESSING_TIME, Std.string(maxProcessingTime));
-		appendKv(GeneratorSettingKey.STARTS_WITH, startsWith);
-		appendKv(GeneratorSettingKey.ENDS_WITH, endsWith);
-		appendKv(GeneratorSettingKey.INCLUDES, includes);
-		appendKv(GeneratorSettingKey.EXCLUDES, excludes);
-		appendKv(GeneratorSettingKey.SIMILAR_TO, similar);
+		if(mode == CustomQueryStringOption.SETTINGS_TRAINING_DATA_RESULTS) {
+			appendKv(GeneratorSettingKey.LENGTH_RANGE_MIN, Std.string(minLength), "?");
+			appendKv(GeneratorSettingKey.LENGTH_RANGE_MAX, Std.string(maxLength));
+			appendKv(GeneratorSettingKey.ORDER, Std.string(order));
+			appendKv(GeneratorSettingKey.PRIOR, Std.string(prior));
+			appendKv(GeneratorSettingKey.MAX_PROCESSING_TIME, Std.string(maxProcessingTime));
+			appendKv(GeneratorSettingKey.STARTS_WITH, startsWith);
+			appendKv(GeneratorSettingKey.ENDS_WITH, endsWith);
+			appendKv(GeneratorSettingKey.INCLUDES, includes);
+			appendKv(GeneratorSettingKey.EXCLUDES, excludes);
+			appendKv(GeneratorSettingKey.SIMILAR_TO, similar);
+		}
 		
-		var data = trainingDataTextEdit.value.split(" ");
-		if (data.length > 1) {
-			for (word in data) {
-				if (word != null && word.length != 0) {
-					appendKv(GeneratorSettingKey.PRESET_WORD_KEY, word);
+		if(mode == CustomQueryStringOption.SETTINGS_TRAINING_DATA_RESULTS) {
+			var data = trainingDataTextEdit.value.split(" ");
+			if (data.length > 1) {
+				for (word in data) {
+					if (word != null && word.length != 0) {
+						appendKv(GeneratorSettingKey.PRESET_WORD_KEY, word);
+					}
 				}
 			}
 		}
@@ -567,8 +548,13 @@ class Main {
 			}
 		}, false);
 		
-		shareLinkElement.addEventListener("click", function() {
-			shareLinkTextEdit.value = makeCustomQueryString();
+		shareResultsAndSettingsElement.addEventListener("click", function() {
+			shareLinkTextEdit.value = makeCustomQueryString(CustomQueryStringOption.SETTINGS_TRAINING_DATA_RESULTS);
+			shareLinkTextEdit.style.display = "block";
+		}, false);
+		
+		shareResultsOnlyElement.addEventListener("click", function() {
+			shareLinkTextEdit.value = makeCustomQueryString(CustomQueryStringOption.SETTINGS_RESULTS);
 			shareLinkTextEdit.style.display = "block";
 		}, false);
 	}

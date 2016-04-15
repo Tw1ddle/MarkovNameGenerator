@@ -1,4 +1,5 @@
 (function (console) { "use strict";
+var $estr = function() { return js_Boot.__string_rec(this,''); };
 function $extend(from, fields) {
 	function Inherit() {} Inherit.prototype = from; var proto = new Inherit();
 	for (var name in fields) proto[name] = fields[name];
@@ -71,19 +72,13 @@ List.prototype = {
 };
 var ID = function() { };
 ID.__name__ = true;
-var TrieEncoder = function() { };
-TrieEncoder.__name__ = true;
-TrieEncoder.toEncodedString = function(trie) {
-	return "";
-};
-TrieEncoder.fromEncodedString = function(s) {
-	return null;
-};
-TrieEncoder.prototype = {
-	depthDelimiter: function(depth) {
-		return "__" + depth + "__";
-	}
-};
+var _$Main_CustomQueryStringOption = { __ename__ : true, __constructs__ : ["SETTINGS_TRAINING_DATA_RESULTS","SETTINGS_RESULTS"] };
+_$Main_CustomQueryStringOption.SETTINGS_TRAINING_DATA_RESULTS = ["SETTINGS_TRAINING_DATA_RESULTS",0];
+_$Main_CustomQueryStringOption.SETTINGS_TRAINING_DATA_RESULTS.toString = $estr;
+_$Main_CustomQueryStringOption.SETTINGS_TRAINING_DATA_RESULTS.__enum__ = _$Main_CustomQueryStringOption;
+_$Main_CustomQueryStringOption.SETTINGS_RESULTS = ["SETTINGS_RESULTS",1];
+_$Main_CustomQueryStringOption.SETTINGS_RESULTS.toString = $estr;
+_$Main_CustomQueryStringOption.SETTINGS_RESULTS.__enum__ = _$Main_CustomQueryStringOption;
 var Main = function() {
 	this.lastNames = [];
 	this.trainingData = [];
@@ -134,7 +129,8 @@ Main.prototype = {
 		this.includesElement = window.document.getElementById("includes");
 		this.excludesElement = window.document.getElementById("excludes");
 		this.similarElement = window.document.getElementById("similar");
-		this.shareLinkElement = window.document.getElementById("shareurl");
+		this.shareResultsAndSettingsElement = window.document.getElementById("shareresultsandsettings");
+		this.shareResultsOnlyElement = window.document.getElementById("shareresultsonly");
 		this.shareLinkTextEdit = window.document.getElementById("shareedit");
 		this.buildTrainingDataList();
 		this.applySettings();
@@ -156,7 +152,8 @@ Main.prototype = {
 		this.includesElement = window.document.getElementById("includes");
 		this.excludesElement = window.document.getElementById("excludes");
 		this.similarElement = window.document.getElementById("similar");
-		this.shareLinkElement = window.document.getElementById("shareurl");
+		this.shareResultsAndSettingsElement = window.document.getElementById("shareresultsandsettings");
+		this.shareResultsOnlyElement = window.document.getElementById("shareresultsonly");
 		this.shareLinkTextEdit = window.document.getElementById("shareedit");
 	}
 	,buildTrainingDataList: function() {
@@ -260,30 +257,34 @@ Main.prototype = {
 			this.set_trainingDataKey("custom");
 		}
 	}
-	,makeCustomQueryString: function() {
+	,makeCustomQueryString: function(mode) {
 		var s = "http://www.samcodes.co.uk/project/markov-namegen/";
 		var appendKv = function(k,v,sep) {
 			if(sep == null) sep = "&";
 			if(k == null || k.length == 0 || v == null || v.length == 0) return;
 			s += sep + encodeURIComponent(k) + "=" + encodeURIComponent(v);
 		};
-		appendKv("length_range_min",Std.string(this.minLength),"?");
-		appendKv("length_range_max",Std.string(this.maxLength));
-		appendKv("order",Std.string(this.order));
-		appendKv("prior",Std.string(this.prior));
-		appendKv("max_processing_time",Std.string(this.maxProcessingTime));
-		appendKv("starts_with",this.get_startsWith());
-		appendKv("ends_width",this.get_endsWith());
-		appendKv("includes",this.get_includes());
-		appendKv("excludes",this.get_excludes());
-		appendKv("similar_to",this.get_similar());
-		var data = this.trainingDataTextEdit.value.split(" ");
-		if(data.length > 1) {
-			var _g = 0;
-			while(_g < data.length) {
-				var word = data[_g];
-				++_g;
-				if(word != null && word.length != 0) appendKv("w",word);
+		if(mode == _$Main_CustomQueryStringOption.SETTINGS_TRAINING_DATA_RESULTS) {
+			appendKv("length_range_min",Std.string(this.minLength),"?");
+			appendKv("length_range_max",Std.string(this.maxLength));
+			appendKv("order",Std.string(this.order));
+			appendKv("prior",Std.string(this.prior));
+			appendKv("max_processing_time",Std.string(this.maxProcessingTime));
+			appendKv("starts_with",this.get_startsWith());
+			appendKv("ends_width",this.get_endsWith());
+			appendKv("includes",this.get_includes());
+			appendKv("excludes",this.get_excludes());
+			appendKv("similar_to",this.get_similar());
+		}
+		if(mode == _$Main_CustomQueryStringOption.SETTINGS_TRAINING_DATA_RESULTS) {
+			var data = this.trainingDataTextEdit.value.split(" ");
+			if(data.length > 1) {
+				var _g = 0;
+				while(_g < data.length) {
+					var word = data[_g];
+					++_g;
+					if(word != null && word.length != 0) appendKv("w",word);
+				}
 			}
 		}
 		if(this.lastNames.length > 0) {
@@ -360,8 +361,12 @@ Main.prototype = {
 		this.similarElement.addEventListener("change",function() {
 			if(_g.similarElement.value != null) _g.set_similar(_g.similarElement.value.toLowerCase());
 		},false);
-		this.shareLinkElement.addEventListener("click",function() {
-			_g.shareLinkTextEdit.value = _g.makeCustomQueryString();
+		this.shareResultsAndSettingsElement.addEventListener("click",function() {
+			_g.shareLinkTextEdit.value = _g.makeCustomQueryString(_$Main_CustomQueryStringOption.SETTINGS_TRAINING_DATA_RESULTS);
+			_g.shareLinkTextEdit.style.display = "block";
+		},false);
+		this.shareResultsOnlyElement.addEventListener("click",function() {
+			_g.shareLinkTextEdit.value = _g.makeCustomQueryString(_$Main_CustomQueryStringOption.SETTINGS_RESULTS);
 			_g.shareLinkTextEdit.style.display = "block";
 		},false);
 	}
@@ -1163,7 +1168,8 @@ ID.markovgraph = "markovgraph";
 ID.triegraph = "triegraph";
 ID.nonamesfound = "nonamesfound";
 ID.currentnames = "currentnames";
-ID.shareurl = "shareurl";
+ID.shareresultsonly = "shareresultsonly";
+ID.shareresultsandsettings = "shareresultsandsettings";
 ID.shareedit = "shareedit";
 Main.WEBSITE_URL = "http://www.samcodes.co.uk/project/markov-namegen/";
 Main.main();
