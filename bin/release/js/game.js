@@ -72,13 +72,13 @@ List.prototype = {
 };
 var ID = function() { };
 ID.__name__ = true;
-var _$Main_CustomQueryStringOption = { __ename__ : true, __constructs__ : ["SETTINGS_TRAINING_DATA_RESULTS","SETTINGS_RESULTS"] };
-_$Main_CustomQueryStringOption.SETTINGS_TRAINING_DATA_RESULTS = ["SETTINGS_TRAINING_DATA_RESULTS",0];
-_$Main_CustomQueryStringOption.SETTINGS_TRAINING_DATA_RESULTS.toString = $estr;
-_$Main_CustomQueryStringOption.SETTINGS_TRAINING_DATA_RESULTS.__enum__ = _$Main_CustomQueryStringOption;
-_$Main_CustomQueryStringOption.SETTINGS_RESULTS = ["SETTINGS_RESULTS",1];
-_$Main_CustomQueryStringOption.SETTINGS_RESULTS.toString = $estr;
-_$Main_CustomQueryStringOption.SETTINGS_RESULTS.__enum__ = _$Main_CustomQueryStringOption;
+var _$Main_CustomQueryStringOption = { __ename__ : true, __constructs__ : ["EVERYTHING","NO_TRAINING_DATA"] };
+_$Main_CustomQueryStringOption.EVERYTHING = ["EVERYTHING",0];
+_$Main_CustomQueryStringOption.EVERYTHING.toString = $estr;
+_$Main_CustomQueryStringOption.EVERYTHING.__enum__ = _$Main_CustomQueryStringOption;
+_$Main_CustomQueryStringOption.NO_TRAINING_DATA = ["NO_TRAINING_DATA",1];
+_$Main_CustomQueryStringOption.NO_TRAINING_DATA.toString = $estr;
+_$Main_CustomQueryStringOption.NO_TRAINING_DATA.__enum__ = _$Main_CustomQueryStringOption;
 var Main = function() {
 	this.lastNames = [];
 	this.trainingData = [];
@@ -264,19 +264,17 @@ Main.prototype = {
 			if(k == null || k.length == 0 || v == null || v.length == 0) return;
 			s += sep + encodeURIComponent(k) + "=" + encodeURIComponent(v);
 		};
-		if(mode == _$Main_CustomQueryStringOption.SETTINGS_TRAINING_DATA_RESULTS) {
-			appendKv("length_range_min",Std.string(this.minLength),"?");
-			appendKv("length_range_max",Std.string(this.maxLength));
-			appendKv("order",Std.string(this.order));
-			appendKv("prior",Std.string(this.prior));
-			appendKv("max_processing_time",Std.string(this.maxProcessingTime));
-			appendKv("starts_with",this.get_startsWith());
-			appendKv("ends_width",this.get_endsWith());
-			appendKv("includes",this.get_includes());
-			appendKv("excludes",this.get_excludes());
-			appendKv("similar_to",this.get_similar());
-		}
-		if(mode == _$Main_CustomQueryStringOption.SETTINGS_TRAINING_DATA_RESULTS) {
+		appendKv("length_range_min",Std.string(this.minLength),"?");
+		appendKv("length_range_max",Std.string(this.maxLength));
+		appendKv("order",Std.string(this.order));
+		appendKv("prior",Std.string(this.prior));
+		appendKv("max_processing_time",Std.string(this.maxProcessingTime));
+		appendKv("starts_with",this.get_startsWith());
+		appendKv("ends_width",this.get_endsWith());
+		appendKv("includes",this.get_includes());
+		appendKv("excludes",this.get_excludes());
+		appendKv("similar_to",this.get_similar());
+		if(mode != _$Main_CustomQueryStringOption.NO_TRAINING_DATA) {
 			var data = this.trainingDataTextEdit.value.split(" ");
 			if(data.length > 1) {
 				var _g = 0;
@@ -362,11 +360,11 @@ Main.prototype = {
 			if(_g.similarElement.value != null) _g.set_similar(_g.similarElement.value.toLowerCase());
 		},false);
 		this.shareResultsAndSettingsElement.addEventListener("click",function() {
-			_g.shareLinkTextEdit.value = _g.makeCustomQueryString(_$Main_CustomQueryStringOption.SETTINGS_TRAINING_DATA_RESULTS);
+			_g.shareLinkTextEdit.value = _g.makeCustomQueryString(_$Main_CustomQueryStringOption.EVERYTHING);
 			_g.shareLinkTextEdit.style.display = "block";
 		},false);
 		this.shareResultsOnlyElement.addEventListener("click",function() {
-			_g.shareLinkTextEdit.value = _g.makeCustomQueryString(_$Main_CustomQueryStringOption.SETTINGS_RESULTS);
+			_g.shareLinkTextEdit.value = _g.makeCustomQueryString(_$Main_CustomQueryStringOption.NO_TRAINING_DATA);
 			_g.shareLinkTextEdit.style.display = "block";
 		},false);
 	}

@@ -43,10 +43,10 @@ class ID {}
 }
 
 // The data that should be saved into the custom query string
-// Note, should really use bitset/flags for this instead
+// Note, should really use bitset/flags if more options are added
 private enum CustomQueryStringOption {
-	SETTINGS_TRAINING_DATA_RESULTS;
-	SETTINGS_RESULTS;
+	EVERYTHING;
+	NO_TRAINING_DATA;
 }
 
 class Main {
@@ -307,20 +307,18 @@ class Main {
 			s += (sep + k.urlEncode() + "=" + v.urlEncode());
 		}
 		
-		if(mode == CustomQueryStringOption.SETTINGS_TRAINING_DATA_RESULTS) {
-			appendKv(GeneratorSettingKey.LENGTH_RANGE_MIN, Std.string(minLength), "?");
-			appendKv(GeneratorSettingKey.LENGTH_RANGE_MAX, Std.string(maxLength));
-			appendKv(GeneratorSettingKey.ORDER, Std.string(order));
-			appendKv(GeneratorSettingKey.PRIOR, Std.string(prior));
-			appendKv(GeneratorSettingKey.MAX_PROCESSING_TIME, Std.string(maxProcessingTime));
-			appendKv(GeneratorSettingKey.STARTS_WITH, startsWith);
-			appendKv(GeneratorSettingKey.ENDS_WITH, endsWith);
-			appendKv(GeneratorSettingKey.INCLUDES, includes);
-			appendKv(GeneratorSettingKey.EXCLUDES, excludes);
-			appendKv(GeneratorSettingKey.SIMILAR_TO, similar);
-		}
+		appendKv(GeneratorSettingKey.LENGTH_RANGE_MIN, Std.string(minLength), "?");
+		appendKv(GeneratorSettingKey.LENGTH_RANGE_MAX, Std.string(maxLength));
+		appendKv(GeneratorSettingKey.ORDER, Std.string(order));
+		appendKv(GeneratorSettingKey.PRIOR, Std.string(prior));
+		appendKv(GeneratorSettingKey.MAX_PROCESSING_TIME, Std.string(maxProcessingTime));
+		appendKv(GeneratorSettingKey.STARTS_WITH, startsWith);
+		appendKv(GeneratorSettingKey.ENDS_WITH, endsWith);
+		appendKv(GeneratorSettingKey.INCLUDES, includes);
+		appendKv(GeneratorSettingKey.EXCLUDES, excludes);
+		appendKv(GeneratorSettingKey.SIMILAR_TO, similar);
 		
-		if(mode == CustomQueryStringOption.SETTINGS_TRAINING_DATA_RESULTS) {
+		if(mode != CustomQueryStringOption.NO_TRAINING_DATA) {
 			var data = trainingDataTextEdit.value.split(" ");
 			if (data.length > 1) {
 				for (word in data) {
@@ -549,12 +547,12 @@ class Main {
 		}, false);
 		
 		shareResultsAndSettingsElement.addEventListener("click", function() {
-			shareLinkTextEdit.value = makeCustomQueryString(CustomQueryStringOption.SETTINGS_TRAINING_DATA_RESULTS);
+			shareLinkTextEdit.value = makeCustomQueryString(CustomQueryStringOption.EVERYTHING);
 			shareLinkTextEdit.style.display = "block";
 		}, false);
 		
 		shareResultsOnlyElement.addEventListener("click", function() {
-			shareLinkTextEdit.value = makeCustomQueryString(CustomQueryStringOption.SETTINGS_RESULTS);
+			shareLinkTextEdit.value = makeCustomQueryString(CustomQueryStringOption.NO_TRAINING_DATA);
 			shareLinkTextEdit.style.display = "block";
 		}, false);
 	}
