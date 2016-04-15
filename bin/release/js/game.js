@@ -71,6 +71,19 @@ List.prototype = {
 };
 var ID = function() { };
 ID.__name__ = true;
+var TrieEncoder = function() { };
+TrieEncoder.__name__ = true;
+TrieEncoder.toEncodedString = function(trie) {
+	return "";
+};
+TrieEncoder.fromEncodedString = function(s) {
+	return null;
+};
+TrieEncoder.prototype = {
+	depthDelimiter: function(depth) {
+		return "__" + depth + "__";
+	}
+};
 var Main = function() {
 	this.lastNames = [];
 	this.trainingData = [];
@@ -1142,8 +1155,6 @@ ID.endswith = "endswith";
 ID.includes = "includes";
 ID.excludes = "excludes";
 ID.similar = "similar";
-ID.shareurl = "shareurl";
-ID.shareedit = "shareedit";
 ID.generatetriegraph = "generatetriegraph";
 ID.generatemarkovgraph = "generatemarkovgraph";
 ID.markovp = "markovp";
@@ -1152,6 +1163,8 @@ ID.markovgraph = "markovgraph";
 ID.triegraph = "triegraph";
 ID.nonamesfound = "nonamesfound";
 ID.currentnames = "currentnames";
+ID.shareurl = "shareurl";
+ID.shareedit = "shareedit";
 Main.WEBSITE_URL = "http://www.samcodes.co.uk/project/markov-namegen/";
 Main.main();
 })(typeof console != "undefined" ? console : {log:function(){}});

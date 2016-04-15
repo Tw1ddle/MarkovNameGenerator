@@ -48,6 +48,31 @@ class ID {}
 	var SETTINGS_OPEN = "settings_open";
 }
 
+// These encode/decode helper methods are used for reducing the length of the URL query string for sharing settings/training data/results
+// This is necessary because the query string can get too long when dealing with large data sets
+@:access(markov.util.PrefixTrie)
+class TrieEncoder {
+	private inline function depthDelimiter(depth:Int):String {
+		return "__" + depth + "__";
+	}
+	
+	/*
+	 * Encodes a string representation of the trie, traversing the trie breadth first
+	 */
+	public static function toEncodedString(trie:PrefixTrie):String {
+		// TODO
+		return "";
+	}
+	
+	/*
+	 * Decodes the string representation of the trie and returns the trie instance
+	 */ 
+	public static function fromEncodedString(s:String):PrefixTrie {
+		// TODO
+		return null;
+	}
+}
+
 class Main {
 	private static inline var WEBSITE_URL:String = "http://www.samcodes.co.uk/project/markov-namegen/"; // Hosted demo URL for building the custom query string
 	
