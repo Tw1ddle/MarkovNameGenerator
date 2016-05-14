@@ -91,7 +91,9 @@ class Main {
 		addTrainingData("fish", "Fish", FileReader.readFile("embed/fish.txt").split("\n"));
 		addTrainingData("plantscommon", "Plants (Common Names)", FileReader.readFile("embed/plantscommon.txt").split("\n"));
 		addTrainingData("countries", "Countries", FileReader.readFile("embed/countries.txt").split("\n"));
-		addTrainingData("clothing", "Clothing", FileReader.readFile("embed/clothing.txt").split("\n"));
+		addTrainingData("fruit", "Fruit", FileReader.readFile("embed/fruit.txt").split("\n"));
+		addTrainingData("colours", "Colors", FileReader.readFile("embed/colours.txt").split("\n"));
+		addTrainingData("musicalinstruments", "Musical Instruments", FileReader.readFile("embed/musicalinstruments.txt").split("\n"));
 		if(!isQueryStringEmpty()) {
 			addTrainingData("custom", "Custom", []);
 		}
@@ -224,7 +226,7 @@ class Main {
 		minLength = 5;
 		maxLength = 11;
 		order = 3;
-		prior = 0.005;
+		prior = 0.0;
 		maxProcessingTime = 800;
 		startsWith = "";
 		endsWith = "";
