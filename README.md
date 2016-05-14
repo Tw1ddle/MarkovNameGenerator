@@ -42,11 +42,11 @@ Botteringham
 Bradnincham
 ```
 
-You can save or share custom training data, settings and results. Hit the "Get Sharing Link" button in the settings section, and copy the generated URL. Note that large training data sets will create URLs too long for some browsers and servers - reduce the size of your training dataset to work around this.
+You can save or share custom training data, settings and results - simply hit one of the sharing buttons and and copy the generated URL. Note that large training data sets will create URLs too long for some browsers and servers - reduce the amount of training data to work around this.
 
 ## Install ##
 
-Get the Haxe library code here or through haxelib. 
+Get the Haxe library code here or through haxelib.
 
 Include it in your ```.hxml```
 ```
