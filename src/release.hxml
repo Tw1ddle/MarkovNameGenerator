@@ -1,5 +1,3 @@
 --no-traces
 
--lib sure
-
--js ../bin/release/js/game.js
+-js ../bin/release/js/markov.js

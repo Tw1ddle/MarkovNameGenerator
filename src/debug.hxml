@@ -1,5 +1,3 @@
 -debug
 
--lib sure
-
--js ../bin/debug/js/game.js
+-js ../bin/debug/js/markov.js

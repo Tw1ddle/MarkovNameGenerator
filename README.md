@@ -1,6 +1,6 @@
 [![Project logo](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/markovnamegen_logo.png?raw=true "Markov Namegen Procedural Name Generator Project logo")](http://www.samcodes.co.uk/project/markov-namegen/)
 
-Markov-chain based procedural name generator written in Haxe. Try it out now [in your browser](http://www.samcodes.co.uk/project/markov-namegen/).
+**Markov Namegen** is a Markov chain-based procedural name generator written in Haxe. Try it now [in your browser](http://www.samcodes.co.uk/project/markov-namegen/).
 
 Demonstrates the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
 
@@ -8,12 +8,12 @@ Demonstrates the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
 * Dozens of editable training data presets.
 * Configurable corpus, order and prior model parameter settings.
 * Filter results by length, start, end and content.
-* Sort by Damerau-Levenshtein distance to list your results by similarity.
-* Save and share your custom data, settings and results with one click.
+* Sort by Damerau-Levenshtein distance to list results by similarity.
+* Save and share custom data, settings and results with one click.
 
 ## Usage ##
 
-Try the [demo](http://www.samcodes.co.uk/project/markov-namegen/) in your browser and generate your own words:
+Try the [demo](http://www.samcodes.co.uk/project/markov-namegen/) in the browser and generate your own words. For example:
 
 ```
 Training Dataset: English Towns
@@ -42,11 +42,11 @@ Botteringham
 Bradnincham
 ```
 
-You can save or share custom training data, settings and results - simply hit one of the sharing buttons and and copy the generated URL. Note that large training data sets will create URLs too long for some browsers and servers - reduce the amount of training data to work around this.
+You can save or share custom training data, settings and results - simply hit one of the sharing buttons and and use the generated URL. Note that large training data set generate URLs too long for some browsers and servers - reduce the amount of training data to work around this.
 
 ## Install ##
 
-Get the Haxe library code here or through haxelib.
+Get the Haxe library from [GitHub](https://github.com/Tw1ddle/MarkovNameGenerator) or through [haxelib](http://lib.haxe.org/p/markov-namegen/).
 
 Include it in your ```.hxml```
 ```

@@ -94,6 +94,7 @@ class Main {
 		addTrainingData("fruit", "Fruit", FileReader.readFile("embed/fruit.txt").split("\n"));
 		addTrainingData("colours", "Colors", FileReader.readFile("embed/colours.txt").split("\n"));
 		addTrainingData("musicalinstruments", "Musical Instruments", FileReader.readFile("embed/musicalinstruments.txt").split("\n"));
+		addTrainingData("languages", "Languages", FileReader.readFile("embed/languages.txt").split("\n"));
 		if(!isQueryStringEmpty()) {
 			addTrainingData("custom", "Custom", []);
 		}
