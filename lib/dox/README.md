@@ -1,0 +1,1 @@
+This project generates the Markov Namegen documentation using [dox](https://github.com/HaxeFoundation/dox), the Haxe documentation generator.

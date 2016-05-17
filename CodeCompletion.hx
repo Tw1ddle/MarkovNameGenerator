@@ -3,14 +3,27 @@ package;
 import haxe.macro.Context;
 import haxe.macro.Expr;
 
-// Code completion for HTML files, based on the macro by Nicolas Cannasse: http://code.haxe.org/category/macros/completion-from-url.html
+/**
+ * Code completion helper macros that gather ids from HTML files for autocompletion when working with such files in Haxe.
+ * These are based on the macro by Nicolas Cannasse: http://code.haxe.org/category/macros/completion-from-url.html
+ */
 class CodeCompletion {
-	public static function buildUrl(url:String) {
+	/**
+	 * Scrapes the element ids from the HTML file at the supplied URL.
+	 * @param	url	The HTTP URL to the HTML file.
+	 * @return	An array of fields containing the element ids from the HTML file.
+	 */
+	public static function buildUrl(url:String):Array<Field> {
 		var h = haxe.Http.requestUrl(url);
 		return build(h);
 	}
 	
-	public static function buildLocalFile(path:String) {
+	/**
+	 * Scrapes the element ids from the HTML file at the local file path.
+	 * @param	path	The local file path to the HTML file.
+	 * @return	An array of fields containing the element ids from the HTML file.
+	 */
+	public static function buildLocalFile(path:String):Array<Field> {
 		try {
 			var p = Context.resolvePath(path);
 			Context.registerModuleDependency(Context.getLocalModule(), p);

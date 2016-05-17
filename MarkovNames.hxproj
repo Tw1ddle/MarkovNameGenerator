@@ -46,7 +46,7 @@
   <options>
     <option showHiddenPaths="False" />
     <option testMovie="Custom" />
-    <option testMovieCommand="..\bin\$(BuildConfig)\index.html" />
+    <option testMovieCommand="bin\$(BuildConfig)\index.html" />
   </options>
   <!-- Plugin storage -->
   <storage />

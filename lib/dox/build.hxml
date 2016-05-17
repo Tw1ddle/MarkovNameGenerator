@@ -1,0 +1,5 @@
+-xml types.xml
+-lib Sure
+-cp ..
+Main
+--no-output

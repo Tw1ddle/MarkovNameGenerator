@@ -65,38 +65,40 @@ class Main {
 		var main = new Main();
 	}
 	
-	private inline function addTrainingData(value:String, display:String, data:Array<String>):Void {
-		trainingData.push(new TrainingData(value, display, data));
+	private inline function addTrainingData(displayName:String, data:Array<String>):Void {
+		trainingData.push(new TrainingData(displayName, displayName, data));
 	}
 	
 	private inline function new() {
 		trainingData = new Array<TrainingData>();
-		addTrainingData("us_forenames", "American Forenames", FileReader.readFile("embed/usforenames.txt").split("\n"));
-		addTrainingData("tolkienesque_forenames", "Tolkienesque Forenames", FileReader.readFile("embed/tolkienesqueforenames.txt").split("\n"));
-		addTrainingData("werewolf_forenames", "Werewolf Forenames", FileReader.readFile("embed/werewolfforenames.txt").split("\n"));
-		addTrainingData("romandeity_forenames", "Roman Deity Forenames", FileReader.readFile("embed/romandeityforenames.txt").split("\n"));
-		addTrainingData("norsedeity_forenames", "Norse Deity Forenames", FileReader.readFile("embed/norsedeityforenames.txt").split("\n"));
-		addTrainingData("swedish_forenames", "Swedish Forenames", FileReader.readFile("embed/swedishforenames.txt").split("\n"));
-		addTrainingData("english_towns", "English Towns", FileReader.readFile("embed/englishtowns.txt").split("\n"));
-		addTrainingData("theological_demons", "Theological Demons", FileReader.readFile("embed/theologicaldemons.txt").split("\n"));
-		addTrainingData("scottish_surnames", "Scottish Surnames", FileReader.readFile("embed/scottishsurnames.txt").split("\n"));
-		addTrainingData("irish_forenames", "Irish Forenames", FileReader.readFile("embed/irishforenames.txt").split("\n"));
-		addTrainingData("icelandic_forenames", "Icelandic Forenames", FileReader.readFile("embed/icelandicforenames.txt").split("\n"));
-		addTrainingData("theological_angels", "Theological Angels", FileReader.readFile("embed/theologicalangels.txt").split("\n"));
-		addTrainingData("japanese_forenames", "Japanese Forenames", FileReader.readFile("embed/japaneseforenames.txt").split("\n"));
-		addTrainingData("french_forenames", "French Forenames", FileReader.readFile("embed/frenchforenames.txt").split("\n"));
-		addTrainingData("german_towns", "German Towns", FileReader.readFile("embed/germantowns.txt").split("\n"));
-		addTrainingData("animals", "Animals", FileReader.readFile("embed/animals.txt").split("\n"));
-		addTrainingData("pokemon", "Pokemon", FileReader.readFile("embed/pokemon.txt").split("\n"));
-		addTrainingData("fish", "Fish", FileReader.readFile("embed/fish.txt").split("\n"));
-		addTrainingData("plantscommon", "Plants (Common Names)", FileReader.readFile("embed/plantscommon.txt").split("\n"));
-		addTrainingData("countries", "Countries", FileReader.readFile("embed/countries.txt").split("\n"));
-		addTrainingData("fruit", "Fruit", FileReader.readFile("embed/fruit.txt").split("\n"));
-		addTrainingData("colours", "Colors", FileReader.readFile("embed/colours.txt").split("\n"));
-		addTrainingData("musicalinstruments", "Musical Instruments", FileReader.readFile("embed/musicalinstruments.txt").split("\n"));
-		addTrainingData("languages", "Languages", FileReader.readFile("embed/languages.txt").split("\n"));
+		addTrainingData("American Forenames", FileReader.readFileAsStringArray("embed/usforenames.txt"));
+		addTrainingData("Animals", FileReader.readFileAsStringArray("embed/animals.txt"));
+		addTrainingData("Clothing", FileReader.readFileAsStringArray("embed/clothing.txt"));
+		addTrainingData("Colors", FileReader.readFileAsStringArray("embed/colours.txt"));
+		addTrainingData("Countries", FileReader.readFileAsStringArray("embed/countries.txt"));
+		addTrainingData("English Towns", FileReader.readFileAsStringArray("embed/englishtowns.txt"));
+		addTrainingData("Fish", FileReader.readFileAsStringArray("embed/fish.txt"));
+		addTrainingData("French Forenames", FileReader.readFileAsStringArray("embed/frenchforenames.txt"));
+		addTrainingData("Fruit", FileReader.readFileAsStringArray("embed/fruit.txt"));
+		addTrainingData("German Towns", FileReader.readFileAsStringArray("embed/germantowns.txt"));
+		addTrainingData("Icelandic Forenames", FileReader.readFileAsStringArray("embed/icelandicforenames.txt"));
+		addTrainingData("Irish Forenames", FileReader.readFileAsStringArray("embed/irishforenames.txt"));
+		addTrainingData("Japanese Forenames", FileReader.readFileAsStringArray("embed/japaneseforenames.txt"));
+		addTrainingData("Languages", FileReader.readFileAsStringArray("embed/languages.txt"));
+		addTrainingData("Musical Instruments", FileReader.readFileAsStringArray("embed/musicalinstruments.txt"));
+		addTrainingData("Norse Deity Forenames", FileReader.readFileAsStringArray("embed/norsedeityforenames.txt"));
+		addTrainingData("Places In Cumbria", FileReader.readFileAsStringArray("embed/placesincumbria.txt"));
+		addTrainingData("Plants (Common Names)", FileReader.readFileAsStringArray("embed/plantscommon.txt"));
+		addTrainingData("Pokemon", FileReader.readFileAsStringArray("embed/pokemon.txt"));
+		addTrainingData("Roman Deity Forenames", FileReader.readFileAsStringArray("embed/romandeityforenames.txt"));
+		addTrainingData("Scottish Surnames", FileReader.readFileAsStringArray("embed/scottishsurnames.txt"));
+		addTrainingData("Swedish Forenames", FileReader.readFileAsStringArray("embed/swedishforenames.txt"));
+		addTrainingData("Theological Angels", FileReader.readFileAsStringArray("embed/theologicalangels.txt"));
+		addTrainingData("Theological Demons", FileReader.readFileAsStringArray("embed/theologicaldemons.txt"));
+		addTrainingData("Tolkienesque Forenames", FileReader.readFileAsStringArray("embed/tolkienesqueforenames.txt"));
+		addTrainingData("Werewolf Forenames", FileReader.readFileAsStringArray("embed/werewolfforenames.txt"));
 		if(!isQueryStringEmpty()) {
-			addTrainingData("custom", "Custom", []);
+			addTrainingData("Custom", []);
 		}
 		
 		// Wait for the window to load before creating the sliders, listening for input etc
@@ -222,7 +224,7 @@ class Main {
 	 */
 	private inline function applySettings():Void {
 		// Apply the default settings for name generation, filtering, sorting etc
-		trainingDataKey = "animals";
+		trainingDataKey = "Animals";
 		numToGenerate = 100;
 		minLength = 5;
 		maxLength = 11;
@@ -291,9 +293,9 @@ class Main {
 		}
 		
 		if (customTrainingData.length > 3) { // Arbitrary minimum, just in case something goes a bit wrong when reading the query string
-			var data = getTrainingDataForKey("custom");
+			var data = getTrainingDataForKey("Custom");
 			data.data = customTrainingData;
-			trainingDataKey = "custom";
+			trainingDataKey = "Custom";
 		}
 	}
 	

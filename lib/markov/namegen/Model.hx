@@ -4,41 +4,63 @@ import haxe.ds.StringMap;
 
 using markov.util.StringExtensions;
 
-// Encapsulates a Markov model
+/**
+ * A Markov model that uses string training data.
+ */
 class Model {
-	private var order:Int; // The order of the model i.e. how many steps it looks back
-	private var smoothing:Float; // Dirichlet prior, like additive smoothing, increases the probability of any item being picked
-	private var alphabet:Array<String>; // The alphabet of the data
+	/**
+	 * The order of the model i.e. how many characters it looks back.
+	 */
+	private var order:UInt;
+	
+	/**
+	 * Dirichlet prior, like additive smoothing, increases the probability of any item being picked.
+	 */
+	private var prior:Float;
+	
+	/**
+	 * The alphabet of the training data.
+	 */
+	private var alphabet:Array<String>;
+	
+	/**
+	 * The observations.
+	 */
 	private var observations:StringMap<Array<String>>;
+	
+	/**
+	 * The Markov chains.
+	 */
 	private var chains:StringMap<Array<Float>>;
 	
-	/*
-	 * @param data - training data for the generator, array of words
-	 * @param order - number of models to use, will be of orders up to and including "order"
-	 * @params smoothing - the dirichlet prior/additive smoothing "randomness" factor
-	 * @params alphabet - the alphabet of the training data (array of all the symbols used in the training data)
+	/**
+	 * Creates a new Markov model.
+	 * @param	data	Training data for the generator, array of words.
+	 * @param	order	Number of models to use, will be of orders up to and including "order".
+	 * @param	smoothing	The dirichlet prior/additive smoothing "randomness" factor.
+	 * @param	alphabet	The alphabet of the training data i.e. a set of the symbols used in the training data.
 	 */
-	public function new(data:Array<String>, order:Int, smoothing:Float, alphabet:Array<String>) {
+	public function new(data:Array<String>, order:UInt, prior:Float, alphabet:Array<String>) {
 		Sure.sure(alphabet != null && data != null);
 		Sure.sure(alphabet.length > 0 && data.length > 0);
-		Sure.sure(smoothing >= 0 && smoothing <= 1);
-		Sure.sure(order > 0);
+		Sure.sure(prior >= 0 && prior <= 1);
 		
 		this.order = order;
-		this.smoothing = smoothing;
+		this.prior = prior;
 		this.alphabet = alphabet;
 		
 		observations = new StringMap<Array<String>>();		
 		train(data);
 		buildChains();
 		
+		// Debug trace
 		//trace(observations.toString());
 		//trace(chains.toString());
 	}
 	
-	/*
-	 * Attempts to generate the next letter given the context (the n previous letters)
-	 * May return null, be sure to check against that
+	/**
+	 * Attempts to generate the next letter in the word given the context, the previous "n" letters.
+	 * @param	context	The previous "n" letters in the word.
 	 */
 	public function generate(context:String):String {
 		Sure.sure(context != null);
@@ -51,17 +73,9 @@ class Model {
 		}
 	}
 	
-	/*
-	 * Helper function, regenerates the markov chains
-	 */ 
-	public function retrain(data:Array<String>):Void {
-		Sure.sure(data != null);
-		train(data);
-		buildChains();
-	}
-	
-	/*
-	 * Trains the model on the provided training data
+	/**
+	 * Trains the model on the given training data.
+	 * @param	data	The training data.
 	 */
 	private function train(data:Array<String>):Void {
 		while (data.length != 0) {
@@ -76,11 +90,16 @@ class Model {
 					observations.set(key, value);
 				}
 				value.push(d.charAt(i + order));
+				
+				// Debug trace
 				//trace(d.charAt(i + order));
 			}
 		}
 	}
 	
+	/**
+	 * Builds the Markov chains for the model.
+	 */
 	private function buildChains():Void {
 		chains = new StringMap<Array<Float>>();
 		
@@ -91,13 +110,25 @@ class Model {
 					value = new Array<Float>();
 					chains.set(context, value);
 				}
-				value.push(smoothing + countMatches(observations.get(context), prediction));
+				value.push(prior + countMatches(observations.get(context), prediction));
+				
+				// Debug trace
 				//trace(context + " -> " + (smoothing + countMatches(observations.get(context), prediction)));
 			}
 		}
 	}
 	
-	private inline function countMatches(arr:Array<String>, v:String):Int {
+	/**
+	 * Retrains the model on new data, regenerating the markov chains.
+	 * @param	data	The new training data.
+	 */ 
+	public function retrain(data:Array<String>):Void {
+		Sure.sure(data != null);
+		train(data);
+		buildChains();
+	}
+	
+	private inline static function countMatches(arr:Array<String>, v:String):Int {
 		if (arr == null) {
 			return 0;
 		}
@@ -111,7 +142,7 @@ class Model {
 		return i;
 	}
 	
-	private function selectIndex(chain:Array<Float>):Int {
+	private static function selectIndex(chain:Array<Float>):Int {
 		var totals = new Array<Float>();
 		var accumulator:Float = 0;
 		

@@ -1,4 +1,4 @@
-package graphs;
+package;
 
 // Unused, could be used with d3.js to draw a force graph of a prefix trie
 
