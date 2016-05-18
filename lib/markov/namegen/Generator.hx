@@ -5,22 +5,27 @@ import markov.util.ArraySet;
 using markov.util.StringExtensions;
 
 /**
- * A word generator that procedurally generates words using high-order Markov chains build from training data.
- * Uses Katz's back-off model - chooses the next character based on conditional probability given the last n-characters (where model order = n) and backs down to lower order models when higher models fail.
- * Uses a Dirichlet prior, which is like additive smoothing and raises the chances of a "random" letter being picked instead of one that's trained in.
- * More information: https://github.com/Tw1ddle/MarkovNameGenerator
+ * A procedural word generator that uses on Markov chains. Made for use with user-supplied word arrays.
+ * 
+ * Uses Katz's back-off model - uses multiple Markov models, starting with the highest order model first. This approach looks for the next letter based on the last "n" letter, backing down to lower order models when higher models fail.
+ * 
+ * Uses a Dirichlet prior, which acts as an additive smoothing factor, increasing the probability of a random letter being picked.
+ * 
+ * @see http://www.samcodes.co.uk/project/markov-namegen/
  */
 class Generator {
 	/**
-	 * The highest order used by this generator.
-	 * Generators have models from 1 to "order".
-	 * Models with a given order look back up to "order" characters when choosing the next character.
+	 * The highest order model used by this generator.
+	 * 
+	 * Generators own models of order 1 through order "n". 
+	 * Generators of order "n" look back up to "n" characters when choosing the next character.
 	 */
 	public var order(default, null):UInt;
 	
 	/**
 	 * Dirichlet prior, acts as an additive smoothing factor.
-	 * It is an additional constant probability that a random letter is picked from the alphabet.
+	 * 
+	 * The prior adds a constant probability that a random letter is picked from the alphabet when generating a new letter.
 	 */
 	public var prior(default, null):Float;
 	
@@ -73,7 +78,7 @@ class Generator {
 	 * Generates a word.
 	 * @return The generated word.
 	 */
-	public function generate():String {
+	public function generate():String {		
 		var word = "#".repeat(order);
 		var letter = getLetter(word);
 		while (letter != "#") {
@@ -86,11 +91,14 @@ class Generator {
 	}
 	
 	/**
-	 * Generates the next letter.
-	 * @param	context	The context of the 
-	 * @return	
+	 * Generates the next letter in a word.
+	 * @param	context	The context the model will use for generating the next letter.
+	 * @return	The generated letter, or null if no model could generate one.
 	 */
 	private function getLetter(context:String):String {
+		Sure.sure(context != null);
+		Sure.sure(context.length > 0);
+		
 		var letter:String = null;
 		var context:String = context.substring(context.length - order, context.length);
 		for (model in models) {

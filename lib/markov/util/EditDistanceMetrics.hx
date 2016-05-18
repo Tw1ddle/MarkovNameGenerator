@@ -9,11 +9,14 @@ using markov.util.IntExtensions;
  */
 class EditDistanceMetrics {
 	/**
-	 * Calculates the number of single-character edits (insertions, deletions and replacements) required to transform the source into the target, known as the Levenshtein distance.
-	 * This is a fast, iterative method that doesn't create a whole distance table up front.
-	 * The source and target may not be null.
-	 * @param	source	The source string.
-	 * @param	target	The target string.
+	 * Calculates the Levenshtein distance between two Strings.
+	 * 
+	 * The Levenshtein distance is the number of insertions, deletions and replacements needed to transform a source String into a target String.
+	 * 
+	 * This is a fast iterative method that doesn't create a whole distance table up front.
+	 * 
+	 * @param	source	The source string. Must not be null.
+	 * @param	target	The target string. Must not be null.
 	 * @param	The number of single-character edits needed to transform the source into the target.
 	 */
 	public static function levenshtein(source:String, target:String):Int {
@@ -57,12 +60,18 @@ class EditDistanceMetrics {
 	}
 	
 	/**
-	 * Calculates the number of character edits (insertions, deletions, replacements and transpositions) required to transform the source into the target, known as the Damerau-Levenshtein distance.
-	 * @param	source	The source string.
-	 * @param	target	The target string.
+	 * Calculates the Damerau-Levenshtein distance between two Strings.
+	 * 
+	 * The Damerau-Levenshtein distance is the number of insertions, deletions, replacements and transpositions needed to transform a source String into a target String.
+	 *
+	 * @param	source	The source string. Must not be null. 
+	 * @param	target	The target string. Must not be null.
 	 * @return	The number of character edits needed to transform the source into the target.
 	 */
 	public static inline function damerauLevenshtein(source:String, target:String):Int {
+		Sure.sure(source != null);
+		Sure.sure(target != null);
+		
 		if (source.length == 0) {
 			return target.length;
 		} 
@@ -74,11 +83,10 @@ class EditDistanceMetrics {
 	}
 	
 	/**
-	 * Calculates the distance table for single-character edits (insertions, deletions and replacements) that transform the source into the target.
-	 * Damerau-Levenshtein is like the Levenshtein distance, but also allows for transposition of adjacent symbols.
-	 * The source and target may not be null.
-	 * @param	source	The source string.
-	 * @param	target	The target string.
+	 * Calculates the Levenshtein or Damerau-Levenshtein distance table for the edit operations (insertions, deletions, replacements and optionally transpositions) needed to transform a source String into a target String.
+	 * 
+	 * @param	source	The source string. Must not be null.
+	 * @param	target	The target string. Must not be null.
 	 * @param	enableTransposition	Whether to allow adjacent symbols to be transposed i.e. swapped.
 	 * @return	The distance table, which can be queried to obtain sequences of operations to transform the source to the target.
 	 */

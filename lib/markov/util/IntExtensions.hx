@@ -5,7 +5,7 @@ package markov.util;
  */
 class IntExtensions {
 	/**
-	 * Clamps a value between min and max.
+	 * Clamps a value between min and max inclusive.
 	 * @param	v	The value to clamp.
 	 * @param	min	The minimum allowed value.
 	 * @param	max	The maximum allowed value.
@@ -22,7 +22,7 @@ class IntExtensions {
 	}
 	
 	/**
-	 * Returns the smaller of the two integers.
+	 * Returns the smaller of two integers.
 	 * @param	a	The first integer.
 	 * @param	b	The second integer.
 	 * @return	The smaller of the two integers.

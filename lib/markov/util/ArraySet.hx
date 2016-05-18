@@ -2,14 +2,15 @@ package markov.util;
 
 /**
  * A collection that contains no duplicate elements.
- * Element are compared using the "==" operator.
- * The underlying data structure is a Haxe array.
+ * Element are compared using the standard equality operator.
+ * 
+ * The underlying data structure is a Haxe Array.
  */
 @:forward(indexOf, iterator, lastIndexOf, length, map, pop, remove, reverse, shift, sort)
 abstract ArraySet<T>(Array<T>) {
 	/**
-	 * Creates a set from an array.
-	 * @param	array	The array to convert to a set.
+	 * Creates a set from an Array.
+	 * @param	array	The Array to convert to a set.
 	 * @return	The new ArraySet.
 	 */
 	public static function create<T>(?array:Array<T>):ArraySet<T> {
@@ -21,7 +22,7 @@ abstract ArraySet<T>(Array<T>) {
 	
 	/**
 	 * Returns a new set containing the intersection of two sets.
-	 * For example: intersect([A, B, C], [B, C, D]) => [B, C]. 
+	 * i.e. intersect([A, B, C], [B, C, D]) => [B, C]. 
 	 * @param	set	The set to intersect with this set.
 	 * @return	The intersection of this set and the given set.
 	 */
@@ -37,7 +38,7 @@ abstract ArraySet<T>(Array<T>) {
 	
 	/**
 	 * Returns a new set containing the union of two sets.
-	 * For example: union([A, B, C], [B, C, D]) => [A, B, C, D].
+	 * i.e. union([A, B, C], [B, C, D]) => [A, B, C, D].
 	 * @param	set The set to unify with this set.
 	 * @return	The union of this set and the given set.
 	 */
@@ -47,9 +48,9 @@ abstract ArraySet<T>(Array<T>) {
 	
 	/**
 	 * Returns a new set containing the union of the set and array.
-	 * For example: union([A, B, C], [B, C, D]) => [A, B, C, D].
-	 * @param	The array to unify with this set.
-	 * @return	The union of this set and the given array.
+	 * i.e. union([A, B, C], [B, C, D]) => [A, B, C, D].
+	 * @param	arr	The array to unify with this set.
+	 * @return	The union of this set and the given Array.
 	 */
 	@:op(A+B) public inline function unionArray(arr:Array<T>):ArraySet<T> {
 		return toSet(this.concat(arr));
@@ -57,8 +58,8 @@ abstract ArraySet<T>(Array<T>) {
 	
 	/**
 	 * Returns a new set containing the difference of two sets.
-	 * For example: difference([A, B, C], [B, C, D]) => [A, D].
-	 * @param	The set to difference with this set.
+	 * i.e. difference([A, B, C], [B, C, D]) => [A, D].
+	 * @param	set	The set to difference with this set.
 	 * @return	The difference of this set and the given set.
 	 */ 
 	@:op(A-B) public inline function difference(set:ArraySet<T>):ArraySet<T> {
@@ -70,10 +71,10 @@ abstract ArraySet<T>(Array<T>) {
 	}
 
 	/**
-	 * Adds an element to the set, provided that the element is not already present.
-	 * The element must not be null.
+	 * Attempts to add an element to the set. The added element must not be null.
+	 * Succeeds if the element is not already in the set, fails if it was in the set.
 	 * @param	element	The element to add to the set.
-	 * @return	True if the element was not already present, false if it was present.
+	 * @return	True if the element was not present, false if it was already present.
 	 */
 	public function add(element:T):Bool {
 		Sure.sure(element != null);
@@ -85,9 +86,8 @@ abstract ArraySet<T>(Array<T>) {
 	}
 	
 	/**
-	 * Checks whether an element is contained within the set.
-	 * The element must not be null.
-	 * @param	element	The element to check for.
+	 * Checks if an element is contained within the set.
+	 * @param	element	The element to search the set for. The element must not be null.
 	 * @return	True if the element is present, false it is not present.
 	 */
 	public function contains(element:T):Bool {
@@ -100,15 +100,15 @@ abstract ArraySet<T>(Array<T>) {
 	}
 
 	/**
-	 * Clones the set.
-	 * @return 	A clone of the original set.
+	 * Copies the set. Analogous to Array.copy().
+	 * @return 	A shallow copy of the original set.
 	 */
 	public inline function copy():ArraySet<T> {
 		return new ArraySet(this.copy());
 	}
 
 	/**
-	 * Array.slice method, but returning an ArraySet instead.
+	 * Wraps the Array.slice method, returns an ArraySet instead of an Array.
 	 * @param	pos	The inclusive start index of the slice operation.
 	 * @param	end	The exclusive end index of the slice operation.
 	 * @return	The requested slice of the ArraySet.
@@ -118,7 +118,7 @@ abstract ArraySet<T>(Array<T>) {
 	}
 
 	/**
-	 * Array.splice method, but returning an ArraySet instead.
+	 * Wraps the Array.splice method, returns an ArraySet instead of an Array.
 	 * @param	pos	The inclusive start index of the slice operation.
 	 * @param	len	The number of elements to remove.
 	 * @return	The requested section of the ArraySet.
@@ -128,16 +128,16 @@ abstract ArraySet<T>(Array<T>) {
 	}
 	
 	/**
-	 * Converts the set into an array.
-	 * @return	A copy of the underlying array.
+	 * Converts the set into an Array.
+	 * @return	A shallow copy of the set as an Array.
 	 */
 	@:to public function toArray():Array<T> {
 		return this.copy();
 	}
 	
 	/**
-	 * Converts an array to a set, removing all duplicated values.
-	 * @param	array	The array to convert to a set.
+	 * Converts an Array to a set, removing all duplicated values.
+	 * @param	array	The Array to convert to a set.
 	 * @return	The newly created ArraySet.
 	 */
 	@:from public static function toSet<T>(array:Array<T>):ArraySet<T> {

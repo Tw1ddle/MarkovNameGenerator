@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset='utf-8'/>
+	<link href="::api.config.rootPath::bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="::api.config.rootPath::bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+	<link href="::api.config.rootPath::bootstrap/css/bootstrap-select.min.css" rel="stylesheet" />
+	
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,700italic,400italic' rel='stylesheet' type='text/css'/>
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600,600italic,400' rel='stylesheet' type='text/css'/>
+	<link href='http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css' rel='stylesheet' type='text/css' />
+
+	<script src="::api.config.rootPath::jquery-1.9.1.min.js"></script>
+	<script src="::api.config.rootPath::bootstrap/js/bootstrap.min.js"></script>
+	<script src="::api.config.rootPath::bootstrap/js/bootstrap-select.min.js"></script>
+	<link href="::api.config.rootPath::styles.css" rel="stylesheet" />
+	<link href="::api.config.rootPath::haxe-nav.css" rel="stylesheet" />
+	<script type="text/javascript">var dox = {
+		rootPath: "::api.config.rootPath::",
+		platforms: [
+			::foreach pf api.config.platforms::
+				"::pf::"
+				::if !repeat.pf.last::,::end::
+			::end::
+		]
+	};</script>
+	<script type="text/javascript" src="::api.config.rootPath::/nav.js"></script>
+	<script type="text/javascript" src="::api.config.rootPath::/index.js"></script>
+	<link rel="icon" href="::api.config.rootPath::/favicon.ico" type="image/x-icon"></link>
+	<title>::api.currentPageName::::if api.config.pageTitle !=null:: - ::api.config.pageTitle::::end::</title>
+
+	::set description = api.getShortDesc(type)::
+	::set description = description.substr(3, description.length-7)::
+	<meta name="description" ::cond type.doc!=null && description.length>0:: content="::description::"/>
+</head>
+<body>
+	<nav class="section nav dark">
+	<div class="navbar navbar-fixed-top navbar-inverse">
+		<div class="navbar-inner">
+			<button class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse" type="button"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="brand haxe-logo" href="http://haxe.org/"><img alt="Haxe" height="21" onerror="this.src='http://haxe.org/img/haxe-logo-horizontal-on-dark.png'" src="http://haxe.org/img/haxe-logo-horizontal-on-dark.svg" width="107" /></a>
+			
+			<a class="brand sub lib" href="/">API</a>
+
+			<div class="nav-collapse collapse">
+				<ul class="nav">
+					<!-- required submenu  on every subsite, put class="active" on   -->
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="/documentation/">Learn Haxe <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="http://haxe.org/documentation/">Introduction</a></li>
+							<li class="divider"></li>
+							<li><a href="http://haxe.org/manual/">Manual</a></li>
+							<li class="active"><a href="http://api.haxe.org">API Documentation</a></li>
+							<li class="divider"></li>
+							<li><a href="http://try.haxe.org">Try Haxe</a></li>
+							<li><a href="http://lib.haxe.org">Haxelib</a></li>
+							<li><a href="http://code.haxe.org">Code Cookbook</a></li>
+						</ul>
+					</li>
+					<li class=" dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Connect <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="https://github.com/HaxeFoundation"><i class="fa fa-github"></i> Github</a></li>
+							<li><a href="https://github.com/HaxeFoundation/haxe/issues"><i class="fa fa-github"></i> Bug reports</a></li>
+							<li><a href="http://stackoverflow.com/questions/tagged/haxe"><i class="fa fa-stack-exchange"></i> Stack Overflow</a></li>
+							<li><a href="http://groups.google.com/group/haxelang?hl=en"><i class="fa fa-envelope-o"></i> Google Groups</a></li>
+							<li><a href="http://webchat.freenode.net/?channels=haxe"><i class="fa fa-comments-o"></i> IRC</a></li>
+							<li><a href="http://haxe.org/blog"><i class="fa fa-rss"></i> Blog</a></li>
+							<li class="divider"></li>
+							<li><a href="https://plus.google.com/communities/103302587329918132234"><i class="fa fa-google-plus"></i> Google+</a></li>
+							<li><a href="https://www.facebook.com/haxe.org/"><i class="fa fa-facebook"></i> Facebook</a></li>
+							<li><a href="https://twitter.com/search?q=%23haxe"><i class="fa fa-twitter"></i> #haxe</a></li>
+							<li><a href="https://twitter.com/haxelang"><i class="fa fa-twitter"></i> @haxelang</a></li>
+							<li><a href="https://twitter.com/haxe_org"><i class="fa fa-twitter"></i> @haxe_org</a></li>
+							<li class="divider"></li>
+							<li><a href="http://haxe.org/foundation/contact.html">Contact</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<div class="container main-content">
+	<div class="row-fluid">
+		<div class="span3">
+		<div class="well sidebar-nav">
+			<form class="form-search" id="searchForm">
+			<div class="input-prepend input-block-level">
+				<span class="add-on"><i class="icon-search"></i></span>
+				<input id="search" type="text" placeholder="Search" autocomplete="off"/>
+			</div>
+			</form>		
+			<div class="dropdown" ::cond (api.config.platforms.length>1)::>
+				<select id="select-platform" class="selectpicker" title="Filter by platform" data-width="100%">
+					<option value="all" selected="true">All Platforms</option>
+					::foreach i api.config.platforms::
+						<option>::i::</option>
+					::end::
+				</select>
+			</div>
+		</div>
+			<div class="well sidebar-nav">
+				<div id="nav"></div>
+			</div>
+		</div>
+		<div class="span9">::raw __content__::</div>
+	</div>
+</div>
+
+<footer class="section dark site-footer">
+	<div class="container">
+		<div class="copyright">
+			<p ::cond api.isDefined("version")::>This documentation is generated for version ::api.getValue('version')::</p>
+			<p>&copy;2015&nbsp;
+			<a href="http://haxe.org/foundation/" title="Haxe Foundation Website" class="hf-link">Haxe Foundation</a> |&nbsp;
+			<a href="https://github.com/HaxeFoundation/haxe" title="Haxe on Github">Contribute to Haxe</a>
+			</p>
+		</div>
+	</div>
+</footer>
+
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+</body>
+</html>

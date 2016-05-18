@@ -5,18 +5,24 @@ using markov.util.StringExtensions;
 using StringTools;
 
 /**
- * An example class that facilitates simple name generation, building on the basic word generator class.
- * Note, it may be necessary to rewrite the basic word Generator class to accommodate assumptions and characteristics of their design.
+ * An example name generator that builds upon the Generator class. This should be sufficient for most simple name generation scenarios.
+ * 
+ * For complex name generators, modifying the Generator class to your specifications may be more appropriate or performant than extending this approach.
  */
-class NameGenerator extends Generator {
+class NameGenerator {
+	/**
+	 * The underlying word generator.
+	 */
+	private var generator:Generator;
+	
 	/**
 	 * Creates a new procedural name generator.
 	 * @param	data	Training data for the generator, an array of words.
 	 * @param	order	Highest order of model to use - models 1 to order will be generated.
 	 * @param	prior	The dirichlet prior/additive smoothing "randomness" factor.
 	 */
-	public function new(data:Array<String>, order:Int, smoothing:Float) {
-		super(data, order, smoothing);
+	public function new(data:Array<String>, order:Int, prior:Float) {
+		generator = new Generator(data, order, prior);
 	}
 	
 	/**
@@ -28,12 +34,12 @@ class NameGenerator extends Generator {
 	 * @param	endsWith	The text the word must end with.
 	 * @param	includes	The text the word must include.
 	 * @param	excludes	The text the word must exclude.
-	 * @return	The word that meets the specified constraints, or null if the generated word did not meet the constraints.
+	 * @return	A word that meets the specified constraints, or null if the generated word did not meet the constraints.
 	 */
 	public function generateName(minLength:Int, maxLength:Int, startsWith:String, endsWith:String, includes:String, excludes:String):String {		
 		var name = "";
 		
-		name = generate();
+		name = generator.generate();
 		name = name.replace("#", "");
 		if (name.length >= minLength && name.length <= maxLength && name.startsWith(startsWith) && name.endsWith(endsWith) && (includes.length == 0 || name.contains(includes)) && (excludes.length == 0 || !name.contains(excludes))) {
 			return name;
@@ -52,7 +58,7 @@ class NameGenerator extends Generator {
 	 * @param	includes	The text the word must include.
 	 * @param	excludes	The text the word must exclude.
 	 * @param	maxTimePerName	The maximum time in seconds to spend generating each name.
-	 * @return	The word that meets the specified constraints, or null if no word was generated in the time alotted.
+	 * @return	A word that meets the specified constraints, or null if no word that met the constraints was generated in the time alotted.
 	 */
 	public function generateNames(n:Int, minLength:Int, maxLength:Int, startsWith:String, endsWith:String, includes:String, excludes:String, maxTimePerName:Float = 0.02):Array<String> {
 		var names = new Array<String>();

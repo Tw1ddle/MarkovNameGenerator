@@ -11,4 +11,4 @@
 * Remove some unused methods and other minor code cleanup.
 
 ## 1.0.4
-* Wrote full Haxe dox documentation and did some minor code cleanup.
+* Wrote Haxe dox documentation and did some minor code cleanup, mostly removal of unused methods.
