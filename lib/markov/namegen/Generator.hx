@@ -7,11 +7,13 @@ using markov.util.StringExtensions;
 /**
  * A procedural word generator that uses on Markov chains. Made for use with user-supplied word arrays.
  * 
- * Uses Katz's back-off model - uses multiple Markov models, starting with the highest order model first. This approach looks for the next letter based on the last "n" letter, backing down to lower order models when higher models fail.
+ * This uses Katz's back-off model. This approach uses high order Markov models. It looks for the next letter based on the last "n" letters, backing down to lower order models when higher models fail.
  * 
- * Uses a Dirichlet prior, which acts as an additive smoothing factor, increasing the probability of a random letter being picked.
+ * This also uses a Dirichlet prior, which acts as an additive smoothing factor, introducing a chance for random letters to be be picked.
  * 
  * @see http://www.samcodes.co.uk/project/markov-namegen/
+ * @see https://en.wikipedia.org/wiki/Katz%27s_back-off_model
+ * @see https://en.wikipedia.org/wiki/Additive_smoothing
  */
 class Generator {
 	/**

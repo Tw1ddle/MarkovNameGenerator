@@ -1,0 +1,13 @@
+/** MEDIA Q **/
+
+@media (max-width: 979px)
+{
+	nav .navbar-fixed-top .navbar-inner, nav .navbar-fixed-bottom .navbar-inner
+	{
+		padding: 0px;
+	}
+	nav .navbar-fixed-top
+	{
+		margin-bottom: 0;
+	}
+}

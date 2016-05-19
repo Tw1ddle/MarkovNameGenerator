@@ -5,7 +5,7 @@ import haxe.ds.StringMap;
 using markov.util.StringExtensions;
 
 /**
- * A Markov model that is built from string training data.
+ * A Markov model built using string training data.
  */
 class Model {
 	/**

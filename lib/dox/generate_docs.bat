@@ -9,8 +9,5 @@ del types.xml
 rem Build the XML-format type information.
 haxe build.hxml
 
-rem Copy the documentation site theme resources to the destination folder (overwrites any existing folder content).
-robocopy /s /e ./themes/samcodes/ ./generated_docs /mir
-
 rem Generate the documentation.
-haxelib run dox -i types.xml -theme ./themes/samcodes --title "Markov Namegen API" -D version 1.0.0 --include "(markov)" -o generated_docs
+haxelib run dox -i types.xml -theme ./themes/samcodes --title "Markov Namegen API" -D version 1.0.4 --include "(markov)" -o generated_docs
