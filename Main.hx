@@ -76,6 +76,7 @@ class Main {
 		addTrainingData("Clothing", FileReader.readFileAsStringArray("embed/clothing.txt"));
 		addTrainingData("Colors", FileReader.readFileAsStringArray("embed/colours.txt"));
 		addTrainingData("Countries", FileReader.readFileAsStringArray("embed/countries.txt"));
+		addTrainingData("Diseases", FileReader.readFileAsStringArray("embed/diseases.txt"));
 		addTrainingData("English Towns", FileReader.readFileAsStringArray("embed/englishtowns.txt"));
 		addTrainingData("Fish", FileReader.readFileAsStringArray("embed/fish.txt"));
 		addTrainingData("French Forenames", FileReader.readFileAsStringArray("embed/frenchforenames.txt"));
