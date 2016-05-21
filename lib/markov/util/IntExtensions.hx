@@ -6,19 +6,19 @@ package markov.util;
 class IntExtensions {
 	/**
 	 * Clamps a value between min and max inclusive.
-	 * @param	v	The value to clamp.
+	 * @param	value	The value to clamp.
 	 * @param	min	The minimum allowed value.
 	 * @param	max	The maximum allowed value.
 	 * @return	The value clamped to the range [min, max].
 	 */
-	inline public static function clamp(v:Int, min:Int, max:Int):Int {
-		if (v < min) {
+	inline public static function clamp(value:Int, min:Int, max:Int):Int {
+		if (value < min) {
 			return min;
 		}
-		if (v > max) {
+		if (value > max) {
 			return max;
 		}
-		return v;
+		return value;
 	}
 	
 	/**

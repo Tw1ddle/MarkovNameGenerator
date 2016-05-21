@@ -2,4 +2,8 @@
 
 -lib sure
 
+# Uncomment to use the markov namegen haxelib
+#-lib markov-namegen
+
+# Uncomment to use markov namegen as a git submodule
 -cp lib

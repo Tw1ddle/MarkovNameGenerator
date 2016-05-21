@@ -48,11 +48,11 @@ abstract ArraySet<T>(Array<T>) {
 	/**
 	 * Returns a new set containing the union of the set and array.
 	 * i.e. union([A, B, C], [B, C, D]) => [A, B, C, D].
-	 * @param	arr	The array to unify with this set.
+	 * @param	array	The array to unify with this set.
 	 * @return	The union of this set and the given Array.
 	 */
-	@:op(A+B) public inline function unionArray(arr:Array<T>):ArraySet<T> {
-		return toSet(this.concat(arr));
+	@:op(A+B) public inline function unionArray(array:Array<T>):ArraySet<T> {
+		return toSet(this.concat(array));
 	}
 	
 	/**
@@ -108,22 +108,22 @@ abstract ArraySet<T>(Array<T>) {
 
 	/**
 	 * Wraps the Array.slice method, returns an ArraySet instead of an Array.
-	 * @param	pos	The inclusive start index of the slice operation.
+	 * @param	position	The inclusive start index of the slice operation.
 	 * @param	end	The exclusive end index of the slice operation.
 	 * @return	The requested slice of the ArraySet.
 	 */
-	public inline function slice(pos:Int, ?end:Int):ArraySet<T> {
-		return new ArraySet(this.slice(pos, end));
+	public inline function slice(position:Int, ?end:Int):ArraySet<T> {
+		return new ArraySet(this.slice(position, end));
 	}
 
 	/**
 	 * Wraps the Array.splice method, returns an ArraySet instead of an Array.
-	 * @param	pos	The inclusive start index of the slice operation.
-	 * @param	len	The number of elements to remove.
+	 * @param	position	The inclusive start index of the slice operation.
+	 * @param	length	The number of elements to remove.
 	 * @return	The requested section of the ArraySet.
 	 */
-	public inline function splice(pos:Int, len:Int):ArraySet<T> {
-		return new ArraySet(this.splice(pos, len));
+	public inline function splice(position:Int, length:Int):ArraySet<T> {
+		return new ArraySet(this.splice(position, length));
 	}
 	
 	/**
