@@ -2,7 +2,7 @@
 
 **Markov Namegen** is a Markov chain-based procedural name generator written in Haxe. Try it now [in your browser](http://www.samcodes.co.uk/project/markov-namegen/).
 
-Demonstrates the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
+Demonstrates the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen). Read the [API documentation here](http://tw1ddle.github.io/MarkovNameGenerator/).
 
 ## Features ##
 * Dozens of editable training data presets.
@@ -13,7 +13,7 @@ Demonstrates the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen).
 
 ## Usage ##
 
-Try the [demo](http://www.samcodes.co.uk/project/markov-namegen/) in the browser and generate your own words. For example:
+Try the [demo](http://www.samcodes.co.uk/project/markov-namegen/) to generate your own words. For example:
 
 ```
 Training Dataset: English Towns
@@ -81,6 +81,7 @@ Loads of words are generated, and are filtered and sorted according to several t
 ## Notes ##
 * Many of the concepts used for the generator were suggested in [this article](http://www.roguebasin.com/index.php?title=Names_from_a_high_order_Markov_Process_and_a_simplified_Katz_back-off_scheme) by [Jeffrey Lund](https://github.com/jlund3).
 * If you have any questions or suggestions then [get in touch](http://samcodes.co.uk/contact) or open an issue.
+* Remember to read the [documentation](http://tw1ddle.github.io/MarkovNameGenerator/).
 
 ## License ##
 The website and demo code are licensed under CC BY-NC. The [haxelib library](http://lib.haxe.org/p/markov-namegen/) itself is MIT licensed. The noUiSlider settings sliders are WTFPL. Most of the training data was compiled from sites like Wikipedia and census data sources.

@@ -10,7 +10,7 @@ Markov Namegen is a Markov chain-based word generator written in Haxe, made for 
 
 ## Usage
 
-See the [demo code](https://github.com/Tw1ddle/MarkovNameGenerator) for a complete worked example.
+See the [demo code](https://github.com/Tw1ddle/MarkovNameGenerator) for a complete worked example. Also read the [documentation here](http://tw1ddle.github.io/MarkovNameGenerator/).
 
 ## Tips
 * The generator works by using Markov chains, and requires training data to build them. A hundred or more words within your chosen category is usually sufficient for good results.

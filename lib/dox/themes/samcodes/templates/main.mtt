@@ -37,7 +37,7 @@
 <div class="navbar navbar-fixed-top ">
 	<div class="navbar-inner">
 		<a class="samcodes-logo" href="https://github.com/Tw1ddle/MarkovNameGenerator"><img alt="Markov Namegen" height="42" src="::api.config.rootPath::markovnamegen-logo.png" width="307" /></a>
-		<a class="api-link" href="/">API</a>
+		<a class="api-link" href="/MarkovNameGenerator/markov/namegen/index.html">API</a>
 	</div>
 </div>
 <div class="container main-content">
