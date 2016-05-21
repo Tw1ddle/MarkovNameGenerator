@@ -2,7 +2,7 @@
 
 **Markov Namegen** is a Markov chain-based procedural name generator written in Haxe. Try it now [in your browser](http://www.samcodes.co.uk/project/markov-namegen/).
 
-Demonstrates the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen). Read the [API documentation here](http://tw1ddle.github.io/MarkovNameGenerator/).
+Demonstrates the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen). Read the library [documentation here](http://tw1ddle.github.io/MarkovNameGenerator/).
 
 ## Features ##
 * Dozens of editable training data presets.
