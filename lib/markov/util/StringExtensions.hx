@@ -55,7 +55,7 @@ class StringExtensions {
 	
 	/**
 	 * Creates a capitalized version of a string.
-	 * @param	s	The string to capitalize.
+	 * @param	str	The string to capitalize.
 	 * @return	A capitalized copy of the string.
 	 */
 	public static inline function capitalize(str:String):String {

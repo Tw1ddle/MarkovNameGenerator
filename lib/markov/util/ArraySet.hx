@@ -1,10 +1,9 @@
 package markov.util;
 
 /**
- * A collection that contains no duplicate elements.
- * Element are compared using the standard equality operator.
+ * A collection that contains no duplicate elements. The underlying data structure is a Haxe Array.
  * 
- * The underlying data structure is a Haxe Array.
+ * Elements are compared using the standard equality operator.
  */
 @:forward(indexOf, iterator, lastIndexOf, length, map, pop, remove, reverse, shift, sort)
 abstract ArraySet<T>(Array<T>) {

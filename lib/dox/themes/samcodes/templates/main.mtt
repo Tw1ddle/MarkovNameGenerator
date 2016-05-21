@@ -34,15 +34,12 @@
 	<meta name="description" ::cond type.doc!=null && description.length>0:: content="::description::"/>
 </head>
 <body>
-	<nav class="section nav dark">
-	<div class="navbar navbar-fixed-top ">
-		<div class="navbar-inner">
-			<a class="brand samcodes-logo" href="https://github.com/Tw1ddle/MarkovNameGenerator"><img alt="Markov Namegen" height="42" src="::api.config.rootPath::markovnamegen-logo.png" width="307" /></a>
-			
-			<a class="brand sub lib" href="/">API</a>
-		</div>
+<div class="navbar navbar-fixed-top ">
+	<div class="navbar-inner">
+		<a class="samcodes-logo" href="https://github.com/Tw1ddle/MarkovNameGenerator"><img alt="Markov Namegen" height="42" src="::api.config.rootPath::markovnamegen-logo.png" width="307" /></a>
+		<a class="api-link" href="/">API</a>
 	</div>
-</nav>
+</div>
 <div class="container main-content">
 	<div class="row-fluid">
 		<div class="span3">
@@ -75,7 +72,7 @@
 		<div class="copyright">
 			<p ::cond api.isDefined("version")::>This documentation is generated for version ::api.getValue('version')::</p>
 			<p>
-			<a href="http://www.samcodes.co.uk/project/markov-namegen/" title="Markov Namegen Website" class="hf-link">Markov Namegen Website</a> |&nbsp;
+			<a href="http://www.samcodes.co.uk/project/markov-namegen/" title="Markov Namegen Demo" class="hf-link">Markov Namegen Website</a> |&nbsp;
 			<a href="https://github.com/Tw1ddle/MarkovNameGenerator" title="Markov Namegen on Github">Contribute to Markov Namegen</a> |&nbsp;
 			<a href="https://twitter.com/Sam_Twidale" title="Contact Sam">Contact Sam</a>
 			</p>

@@ -1,13 +1,39 @@
-/** MEDIA Q **/
-
-@media (max-width: 979px)
+.nav
 {
-	nav .navbar-fixed-top .navbar-inner, nav .navbar-fixed-bottom .navbar-inner
-	{
-		padding: 0px;
-	}
-	nav .navbar-fixed-top
-	{
-		margin-bottom: 0;
-	}
+}
+
+a
+{
+	color: #000;
+	font-weight: bold;
+}
+
+a:visited 
+{
+	color: #000;
+	font-weight: bold;
+}
+
+a:hover 
+{
+	color: #000;
+	font-weight: bold;
+}
+
+.api-link
+{
+	float:right;
+	margin-right: 20px;
+	font-size: 48px;
+}
+
+.navbar .navbar-inner
+{
+	background-image: none;
+	background-color: #ffffff;
+}
+
+.well
+{
+	background-color: #ffffff;
 }
