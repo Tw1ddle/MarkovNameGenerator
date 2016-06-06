@@ -8,20 +8,24 @@ import js.nouislider.NoUiSlider;
 import js.wNumb.WNumb;
 import markov.namegen.NameGenerator;
 import markov.util.EditDistanceMetrics;
-import markov.util.FileReader;
 import markov.util.PrefixTrie;
 
 using markov.util.StringExtensions;
 using StringTools;
 
-// Automatic HTML code completion, you need to point these to your checkout path
+// Automatic HTML code completion, you need to point these to your debug/release HTML
 #if debug
-@:build(CodeCompletion.buildLocalFile("C:/Users/admin/Desktop/Haxe Coding/MarkovNames/bin/debug/index.html"))
+@:build(CodeCompletion.buildLocalFile("bin/debug/index.html"))
 #else
-@:build(CodeCompletion.buildLocalFile("C:/Users/admin/Desktop/Haxe Coding/MarkovNames/bin/release/index.html"))
+@:build(CodeCompletion.buildLocalFile("bin/release/index.html"))
 #end
 //@:build(CodeCompletion.buildUrl("http://www.samcodes.co.uk/project/markov-namegen/"))
 class ID {}
+
+// Automatically reads training data from files into corresponding static arrays of strings in this class
+@:build(TrainingDataBuilder.build("embed"))
+@:keep
+class TrainingDatas {}
 
 // The keys for reading/writing preset settings in a URL query string
 // These settings keys concern the name generator parameters and result filtering
@@ -70,37 +74,12 @@ class Main {
     }
 
     private inline function new() {
-        trainingData = new Array<TrainingData>();
-        addTrainingData("American Forenames", FileReader.readFileAsStringArray("embed/american_forenames.txt"));
-        addTrainingData("Animals", FileReader.readFileAsStringArray("embed/animals.txt"));
-        addTrainingData("Clothing", FileReader.readFileAsStringArray("embed/clothing.txt"));
-        addTrainingData("Colors", FileReader.readFileAsStringArray("embed/colours.txt"));
-        addTrainingData("Cooking Utensils", FileReader.readFileAsStringArray("embed/cooking_utensils.txt"));
-        addTrainingData("Countries", FileReader.readFileAsStringArray("embed/countries.txt"));
-        addTrainingData("Dinosaurs", FileReader.readFileAsStringArray("embed/dinosaurs.txt"));
-        addTrainingData("Diseases", FileReader.readFileAsStringArray("embed/diseases.txt"));
-        addTrainingData("English Towns", FileReader.readFileAsStringArray("embed/english_towns.txt"));
-        addTrainingData("Fish", FileReader.readFileAsStringArray("embed/fish.txt"));
-        addTrainingData("French Forenames", FileReader.readFileAsStringArray("embed/french_forenames.txt"));
-        addTrainingData("Fruit", FileReader.readFileAsStringArray("embed/fruit.txt"));
-        addTrainingData("German Towns", FileReader.readFileAsStringArray("embed/german_towns.txt"));
-        addTrainingData("Icelandic Forenames", FileReader.readFileAsStringArray("embed/icelandic_forenames.txt"));
-        addTrainingData("Irish Forenames", FileReader.readFileAsStringArray("embed/irish_forenames.txt"));
-        addTrainingData("Japanese Forenames", FileReader.readFileAsStringArray("embed/japanese_forenames.txt"));
-        addTrainingData("Languages", FileReader.readFileAsStringArray("embed/languages.txt"));
-        addTrainingData("Musical Instruments", FileReader.readFileAsStringArray("embed/musical_instruments.txt"));
-        addTrainingData("Mythical Humanoids", FileReader.readFileAsStringArray("embed/mythical_humanoids.txt"));
-        addTrainingData("Norse Deity Forenames", FileReader.readFileAsStringArray("embed/norse_deity_forenames.txt"));
-        addTrainingData("Places In Cumbria", FileReader.readFileAsStringArray("embed/places_in_cumbria.txt"));
-        addTrainingData("Plants (Common Names)", FileReader.readFileAsStringArray("embed/plants_(common_names).txt"));
-        addTrainingData("Pokemon", FileReader.readFileAsStringArray("embed/pokemon.txt"));
-        addTrainingData("Roman Deity Forenames", FileReader.readFileAsStringArray("embed/roman_deity_forenames.txt"));
-        addTrainingData("Scottish Surnames", FileReader.readFileAsStringArray("embed/scottish_surnames.txt"));
-        addTrainingData("Swedish Forenames", FileReader.readFileAsStringArray("embed/swedish_forenames.txt"));
-        addTrainingData("Theological Angels", FileReader.readFileAsStringArray("embed/theological_angels.txt"));
-        addTrainingData("Theological Demons", FileReader.readFileAsStringArray("embed/theological_demons.txt"));
-        addTrainingData("Tolkienesque Forenames", FileReader.readFileAsStringArray("embed/tolkienesque_forenames.txt"));
-        addTrainingData("Werewolf Forenames", FileReader.readFileAsStringArray("embed/werewolf_forenames.txt"));
+		// Read in the training data
+		trainingData = new Array<TrainingData>();
+		for (name in Type.getClassFields(TrainingDatas)) {
+			var data = Reflect.field(TrainingDatas, name);
+			addTrainingData(name, data);
+		}
         if(!isQueryStringEmpty()) {
             addTrainingData("Custom", []);
         }
@@ -228,6 +207,7 @@ class Main {
      */
     private inline function applySettings():Void {
         // Apply the default settings for name generation, filtering, sorting etc
+		Sure.sure(Reflect.hasField(TrainingDatas, "Animals"));
         trainingDataKey = "Animals";
         numToGenerate = 100;
         minLength = 5;

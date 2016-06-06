@@ -35,17 +35,6 @@ class FileReader {
         return toExpr(content);
     }
 
-    /**
-     * Reads all the files in a directory and returns them as an array of arrays of strings at compile time.
-     * @param   directoryPath   File path to the directory to be scanned.
-     * @param   splitter    Regex for splitting deciding how to split the strings. Defaults to newline splitting if the splitter is null.
-     * @return  Array of string arrays expression of the split files.
-     */
-    macro public static function readFilesInDirectoryAsStringArrays(directoryPath:String, ?splitter:EReg):ExprOf <Array<Array<String>>> {
-        var content = loadFilesAsStrings(directoryPath, splitter);
-        return toExpr(content);
-    }
-
     #if macro
     static function toExpr(v:Dynamic) {
         return Context.makeExpr(v, Context.currentPos());
@@ -75,24 +64,6 @@ class FileReader {
         }
         catch(e:Dynamic) {
             return haxe.macro.Context.error('Failed to load file $filePath: $e', Context.currentPos());
-        }
-    }
-
-    static private function loadFilesAsStrings(directoryPath:String, ?splitter:EReg) {
-        if (splitter == null) {
-            splitter = new EReg("[\r\n]", "g");
-        }
-
-        var arrays = new Array<Array<String>>();
-        try {
-            var files = FileSystem.readDirectory(directoryPath);
-            for (file in files) {
-                arrays.push(loadFileAsStringArray(directoryPath + "/" + file, splitter));
-            }
-            return arrays;
-        }
-        catch (e:Dynamic) {
-            return Context.error('Failed to find directory $directoryPath: $e', Context.currentPos());
         }
     }
     #end
