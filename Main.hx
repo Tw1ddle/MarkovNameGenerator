@@ -27,6 +27,19 @@ class ID {}
 @:keep
 class TrainingDatas {}
 
+// A set of name training data
+private class TrainingData {
+    public var value(default, null):String; // The "value" field in the select element
+    public var displayName(default, null):String; // The display name in the select element
+    public var data:Array<String>; // The training data itself
+
+    public inline function new(value:String, displayName:String, data:Array<String>) {
+        this.value = value;
+        this.displayName = displayName;
+        this.data = data;
+    }
+}
+
 // The keys for reading/writing preset settings in a URL query string
 // These settings keys concern the name generator parameters and result filtering
 @:enum abstract GeneratorSettingKey(String) from String to String {
@@ -708,18 +721,5 @@ class Main {
     }
     private function set_similar(s:String):String {
         return similarElement.value = s.toLowerCase();
-    }
-}
-
-// A set of name training data
-private class TrainingData {
-    public var value(default, null):String; // The "value" field in the select element
-    public var displayName(default, null):String; // The display name in the select element
-    public var data:Array<String>; // The training data itself
-
-    public inline function new(value:String, displayName:String, data:Array<String>) {
-        this.value = value;
-        this.displayName = displayName;
-        this.data = data;
     }
 }
