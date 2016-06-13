@@ -371,14 +371,14 @@ class Main {
             connect: 'lower',
             range: {
                 'min': 0.001,
-                '50%': 0.15,
-                'max': 0.3
+                '50%': 0.025,
+                'max': 0.05
             },
             pips: {
                 mode: 'range',
                 density: 10,
                 format: new WNumb( {
-                    decimals: 2
+                    decimals: 3
                 })
             }
         });
