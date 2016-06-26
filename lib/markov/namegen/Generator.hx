@@ -5,9 +5,9 @@ import markov.util.ArraySet;
 using markov.util.StringExtensions;
 
 /**
- * A procedural word generator that uses on Markov chains. Made for use with user-supplied word arrays.
+ * A procedural word generator that uses Markov chains built from a user-provided array of words.
  *
- * This uses Katz's back-off model. This approach uses high order Markov models. It looks for the next letter based on the last "n" letters, backing down to lower order models when higher models fail.
+ * This uses Katz's back-off model, which is an approach that uses high-order models. It looks for the next letter based on the last "n" letters, backing down to lower order models when higher models fail.
  *
  * This also uses a Dirichlet prior, which acts as an additive smoothing factor, introducing a chance for random letters to be be picked.
  *
