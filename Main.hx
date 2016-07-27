@@ -1,6 +1,7 @@
 package;
 
 import js.Browser;
+import js.html.DataListElement;
 import js.html.Element;
 import js.html.InputElement;
 import js.html.SelectElement;
@@ -70,12 +71,39 @@ class Main {
     private static inline var WEBSITE_URL:String = "http://www.samcodes.co.uk/project/markov-namegen/"; // Hosted demo URL for building the custom query string
 
     private var generator:NameGenerator; // The Markov name generator
-    private var duplicateTrie:PrefixTrie; // Prefix trie for catching duplicates
+    private var duplicateTrie:PrefixTrie; // Prefix trie for catching duplicate generated words
+	
     private var trainingData:Array<TrainingData>; // The training data
+	private var trainingDataTopicTrie:PrefixTrie; // Prefix trie for finding matching topic when the user searches for them in the search text box
 
     /*
     private var trieGraph:TrieForceGraph;
     private var markovGraph:MarkovGraph;
+    */
+	
+    private var nameDataPresetListElement:SelectElement = cast Browser.document.getElementById(ID.trainingdatalist);
+	private var nameDataSearchBoxElement:InputElement = cast Browser.document.getElementById(ID.trainingdatasearchbox);
+	private var nameDataDataListElement:DataListElement = cast Browser.document.getElementById(ID.namedatapresetslist);
+    private var trainingDataTextEdit:InputElement = cast Browser.document.getElementById(ID.trainingdataedit);
+    private var orderElement:Element = cast Browser.document.getElementById(ID.order);
+    private var priorElement:Element = cast Browser.document.getElementById(ID.prior);
+    private var maxProcessingTimeElement:Element = cast Browser.document.getElementById(ID.maxtime);
+    private var noNamesFoundElement:Element = cast Browser.document.getElementById(ID.nonamesfound);
+    private var currentNamesElement:Element = cast Browser.document.getElementById(ID.currentnames);
+    private var generateElement:Element = cast Browser.document.getElementById(ID.generate);
+    private var lengthElement:InputElement = cast Browser.document.getElementById(ID.minmaxlength);
+    private var startsWithElement:InputElement = cast Browser.document.getElementById(ID.startswith);
+    private var endsWithElement:InputElement = cast Browser.document.getElementById(ID.endswith);
+    private var includesElement:InputElement = cast Browser.document.getElementById(ID.includes);
+    private var excludesElement:InputElement = cast Browser.document.getElementById(ID.excludes);
+    private var similarElement:InputElement = cast Browser.document.getElementById(ID.similar);
+    private var shareResultsAndSettingsElement:Element = cast Browser.document.getElementById(ID.shareresultsandsettings);
+    private var shareResultsOnlyElement:Element = cast Browser.document.getElementById(ID.shareresultsonly);
+    private var shareLinkTextEdit:InputElement = cast Browser.document.getElementById(ID.shareedit);
+    /*
+    private var generateTrieVisualizationElement:Element = cast Browser.document.getElementById(ID.generatetriegraph);
+    private var generateMarkovVisualizationElement:Element = cast Browser.document.getElementById(ID.generatemarkovgraph);
+    private var markovVisualizationPElement:Element = cast Browser.document.getElementById(ID.markovp);
     */
 
     private static function main():Void {
@@ -102,63 +130,11 @@ class Main {
     }
 
     private inline function onWindowLoaded():Void {
-        getElementReferences();
         buildTrainingDataList();
 
         applySettings();
         createSliders();
         addEventListeners();
-    }
-
-    private var nameDataPresetListElement:SelectElement;
-    private var trainingDataTextEdit:InputElement;
-    private var orderElement:Element;
-    private var priorElement:Element;
-    private var maxProcessingTimeElement:Element;
-    private var noNamesFoundElement:Element;
-    private var currentNamesElement:Element;
-    private var generateElement:Element;
-    private var lengthElement:InputElement;
-    private var startsWithElement:InputElement;
-    private var endsWithElement:InputElement;
-    private var includesElement:InputElement;
-    private var excludesElement:InputElement;
-    private var similarElement:InputElement;
-    private var shareResultsAndSettingsElement:Element;
-    private var shareResultsOnlyElement:Element;
-    private var shareLinkTextEdit:InputElement;
-    /*
-    private var generateTrieVisualizationElement:Element;
-    private var generateMarkovVisualizationElement:Element;
-    private var markovVisualizationPElement:Element;
-    */
-
-    /*
-     * Get references to the input elements on the webpage
-     */
-    private inline function getElementReferences():Void {
-        nameDataPresetListElement = cast Browser.document.getElementById(ID.trainingdatalist);
-        trainingDataTextEdit = cast Browser.document.getElementById(ID.trainingdataedit);
-        orderElement = cast Browser.document.getElementById(ID.order);
-        priorElement = cast Browser.document.getElementById(ID.prior);
-        maxProcessingTimeElement = cast Browser.document.getElementById(ID.maxtime);
-        noNamesFoundElement = cast Browser.document.getElementById(ID.nonamesfound);
-        currentNamesElement = cast Browser.document.getElementById(ID.currentnames);
-        generateElement = cast Browser.document.getElementById(ID.generate);
-        lengthElement = cast Browser.document.getElementById(ID.minmaxlength);
-        startsWithElement = cast Browser.document.getElementById(ID.startswith);
-        endsWithElement = cast Browser.document.getElementById(ID.endswith);
-        includesElement = cast Browser.document.getElementById(ID.includes);
-        excludesElement = cast Browser.document.getElementById(ID.excludes);
-        similarElement = cast Browser.document.getElementById(ID.similar);
-        shareResultsAndSettingsElement = cast Browser.document.getElementById(ID.shareresultsandsettings);
-        shareResultsOnlyElement = cast Browser.document.getElementById(ID.shareresultsonly);
-        shareLinkTextEdit = cast Browser.document.getElementById(ID.shareedit);
-        /*
-        generateTrieVisualizationElement = cast Browser.document.getElementById("ID.generatetriegraph");
-        generateMarkovVisualizationElement = cast Browser.document.getElementById("ID.generatemarkovgraph");
-        markovVisualizationPElement = cast Browser.document.getElementById("ID.markovp");
-        */
     }
 
     /*
@@ -178,12 +154,20 @@ class Main {
             return 0;
         });
 
-        // Create the data list items
+		trainingDataTopicTrie = new PrefixTrie();
+		
+		// Create the data list items and insert them into the topic trie
         for (data in trainingData) {
-            var option = Browser.document.createOptionElement();
-            option.appendChild(Browser.document.createTextNode(data.displayName));
-            option.value = data.value;
-            nameDataPresetListElement.appendChild(option);
+			var makeOption = function() {
+				var option = Browser.document.createOptionElement();
+				option.appendChild(Browser.document.createTextNode(data.displayName));
+				option.value = data.value;
+				return option;
+			}
+            nameDataPresetListElement.appendChild(makeOption());
+			nameDataDataListElement.appendChild(makeOption());
+			
+			trainingDataTopicTrie.insert(data.displayName);
         }
     }
 
@@ -502,6 +486,18 @@ class Main {
         nameDataPresetListElement.addEventListener("change", function() {
             trainingDataKey = nameDataPresetListElement.value;
         }, false);
+		
+		nameDataSearchBoxElement.addEventListener("change", function() {
+			if (trainingDataTopicTrie.find(nameDataSearchBoxElement.value)) {
+				trainingDataKey = nameDataSearchBoxElement.value;
+			}
+		}, false);
+		nameDataSearchBoxElement.addEventListener("input", function() {
+			if (trainingDataTopicTrie.find(nameDataSearchBoxElement.value)) {
+				trainingDataKey = nameDataSearchBoxElement.value;
+			}
+		}, false);
+
 
         trainingDataTextEdit.addEventListener("change", function() {
 
@@ -685,6 +681,7 @@ class Main {
      */
     private function set_trainingDataKey(key:String):String {
         nameDataPresetListElement.value = key;
+		nameDataSearchBoxElement.value = key;
         onNameDataPresetSelectionChanged(key);
         return nameDataPresetListElement.value;
     }

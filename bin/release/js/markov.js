@@ -89,6 +89,25 @@ _$Main_CustomQueryStringOption.NO_TRAINING_DATA.toString = $estr;
 _$Main_CustomQueryStringOption.NO_TRAINING_DATA.__enum__ = _$Main_CustomQueryStringOption;
 var Main = function() {
 	this.lastNames = [];
+	this.shareLinkTextEdit = window.document.getElementById("shareedit");
+	this.shareResultsOnlyElement = window.document.getElementById("shareresultsonly");
+	this.shareResultsAndSettingsElement = window.document.getElementById("shareresultsandsettings");
+	this.similarElement = window.document.getElementById("similar");
+	this.excludesElement = window.document.getElementById("excludes");
+	this.includesElement = window.document.getElementById("includes");
+	this.endsWithElement = window.document.getElementById("endswith");
+	this.startsWithElement = window.document.getElementById("startswith");
+	this.lengthElement = window.document.getElementById("minmaxlength");
+	this.generateElement = window.document.getElementById("generate");
+	this.currentNamesElement = window.document.getElementById("currentnames");
+	this.noNamesFoundElement = window.document.getElementById("nonamesfound");
+	this.maxProcessingTimeElement = window.document.getElementById("maxtime");
+	this.priorElement = window.document.getElementById("prior");
+	this.orderElement = window.document.getElementById("order");
+	this.trainingDataTextEdit = window.document.getElementById("trainingdataedit");
+	this.nameDataDataListElement = window.document.getElementById("namedatapresetslist");
+	this.nameDataSearchBoxElement = window.document.getElementById("trainingdatasearchbox");
+	this.nameDataPresetListElement = window.document.getElementById("trainingdatalist");
 	this.trainingData = [];
 	var _g = 0;
 	var _g1 = Type.getClassFields(TrainingDatas);
@@ -110,46 +129,10 @@ Main.prototype = {
 		this.trainingData.push(new _$Main_TrainingData(displayName,displayName,data));
 	}
 	,onWindowLoaded: function() {
-		this.nameDataPresetListElement = window.document.getElementById("trainingdatalist");
-		this.trainingDataTextEdit = window.document.getElementById("trainingdataedit");
-		this.orderElement = window.document.getElementById("order");
-		this.priorElement = window.document.getElementById("prior");
-		this.maxProcessingTimeElement = window.document.getElementById("maxtime");
-		this.noNamesFoundElement = window.document.getElementById("nonamesfound");
-		this.currentNamesElement = window.document.getElementById("currentnames");
-		this.generateElement = window.document.getElementById("generate");
-		this.lengthElement = window.document.getElementById("minmaxlength");
-		this.startsWithElement = window.document.getElementById("startswith");
-		this.endsWithElement = window.document.getElementById("endswith");
-		this.includesElement = window.document.getElementById("includes");
-		this.excludesElement = window.document.getElementById("excludes");
-		this.similarElement = window.document.getElementById("similar");
-		this.shareResultsAndSettingsElement = window.document.getElementById("shareresultsandsettings");
-		this.shareResultsOnlyElement = window.document.getElementById("shareresultsonly");
-		this.shareLinkTextEdit = window.document.getElementById("shareedit");
 		this.buildTrainingDataList();
 		this.applySettings();
 		this.createSliders();
 		this.addEventListeners();
-	}
-	,getElementReferences: function() {
-		this.nameDataPresetListElement = window.document.getElementById("trainingdatalist");
-		this.trainingDataTextEdit = window.document.getElementById("trainingdataedit");
-		this.orderElement = window.document.getElementById("order");
-		this.priorElement = window.document.getElementById("prior");
-		this.maxProcessingTimeElement = window.document.getElementById("maxtime");
-		this.noNamesFoundElement = window.document.getElementById("nonamesfound");
-		this.currentNamesElement = window.document.getElementById("currentnames");
-		this.generateElement = window.document.getElementById("generate");
-		this.lengthElement = window.document.getElementById("minmaxlength");
-		this.startsWithElement = window.document.getElementById("startswith");
-		this.endsWithElement = window.document.getElementById("endswith");
-		this.includesElement = window.document.getElementById("includes");
-		this.excludesElement = window.document.getElementById("excludes");
-		this.similarElement = window.document.getElementById("similar");
-		this.shareResultsAndSettingsElement = window.document.getElementById("shareresultsandsettings");
-		this.shareResultsOnlyElement = window.document.getElementById("shareresultsonly");
-		this.shareLinkTextEdit = window.document.getElementById("shareedit");
 	}
 	,buildTrainingDataList: function() {
 		this.trainingData.sort(function(a,b) {
@@ -159,17 +142,25 @@ Main.prototype = {
 			if(left > right) return 1;
 			return 0;
 		});
+		this.trainingDataTopicTrie = new markov_util_PrefixTrie();
 		var _g = 0;
 		var _g1 = this.trainingData;
 		while(_g < _g1.length) {
-			var data = _g1[_g];
+			var data = [_g1[_g]];
 			++_g;
-			var option;
-			var _this = window.document;
-			option = _this.createElement("option");
-			option.appendChild(window.document.createTextNode(data.displayName));
-			option.value = data.value;
-			this.nameDataPresetListElement.appendChild(option);
+			var makeOption = (function(data) {
+				return function() {
+					var option;
+					var _this = window.document;
+					option = _this.createElement("option");
+					option.appendChild(window.document.createTextNode(data[0].displayName));
+					option.value = data[0].value;
+					return option;
+				};
+			})(data);
+			this.nameDataPresetListElement.appendChild(makeOption());
+			this.nameDataDataListElement.appendChild(makeOption());
+			this.trainingDataTopicTrie.insert(data[0].displayName);
 		}
 	}
 	,isQueryStringEmpty: function() {
@@ -332,6 +323,12 @@ Main.prototype = {
 		this.nameDataPresetListElement.addEventListener("change",function() {
 			_g.set_trainingDataKey(_g.nameDataPresetListElement.value);
 		},false);
+		this.nameDataSearchBoxElement.addEventListener("change",function() {
+			if(_g.trainingDataTopicTrie.find(_g.nameDataSearchBoxElement.value)) _g.set_trainingDataKey(_g.nameDataSearchBoxElement.value);
+		},false);
+		this.nameDataSearchBoxElement.addEventListener("input",function() {
+			if(_g.trainingDataTopicTrie.find(_g.nameDataSearchBoxElement.value)) _g.set_trainingDataKey(_g.nameDataSearchBoxElement.value);
+		},false);
 		this.trainingDataTextEdit.addEventListener("change",function() {
 		},false);
 		this.generateElement.addEventListener("click",function() {
@@ -453,6 +450,7 @@ Main.prototype = {
 	}
 	,set_trainingDataKey: function(key) {
 		this.nameDataPresetListElement.value = key;
+		this.nameDataSearchBoxElement.value = key;
 		this.onNameDataPresetSelectionChanged(key);
 		return this.nameDataPresetListElement.value;
 	}
@@ -1168,6 +1166,8 @@ var __map_reserved = {}
 ID.header = "header";
 ID.accordion = "accordion";
 ID.trainingdatalist = "trainingdatalist";
+ID.trainingdatasearchbox = "trainingdatasearchbox";
+ID.namedatapresetslist = "namedatapresetslist";
 ID.trainingdataedit = "trainingdataedit";
 ID.minmaxlength = "minmaxlength";
 ID.order = "order";
