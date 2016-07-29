@@ -102,6 +102,7 @@ var Main = function() {
 	this.currentNamesElement = window.document.getElementById("currentnames");
 	this.noNamesFoundElement = window.document.getElementById("nonamesfound");
 	this.maxProcessingTimeElement = window.document.getElementById("maxtime");
+	this.maxWordsToGenerateElement = window.document.getElementById("maxwordstogenerate");
 	this.priorElement = window.document.getElementById("prior");
 	this.orderElement = window.document.getElementById("order");
 	this.trainingDataTextEdit = window.document.getElementById("trainingdataedit");
@@ -171,7 +172,7 @@ Main.prototype = {
 	,applySettings: function() {
 		if(!Object.prototype.hasOwnProperty.call(TrainingDatas,"Animals")) throw new js__$Boot_HaxeError("FAIL: Reflect.hasField(TrainingDatas, \"Animals\")");
 		this.set_trainingDataKey("Animals");
-		this.numToGenerate = 100;
+		this.maxWordsToGenerate = 100;
 		this.minLength = 5;
 		this.maxLength = 11;
 		this.order = 3;
@@ -214,6 +215,9 @@ Main.prototype = {
 			case "prior":
 				this.prior = parseFloat(v);
 				break;
+			case "max_words":
+				this.maxWordsToGenerate = Std.parseInt(v);
+				break;
 			case "max_processing_time":
 				this.maxProcessingTime = Std.parseInt(v);
 				break;
@@ -255,6 +259,7 @@ Main.prototype = {
 		appendKv("length_range_max",Std.string(this.maxLength));
 		appendKv("order",Std.string(this.order));
 		appendKv("prior",Std.string(this.prior));
+		appendKv("max_words",Std.string(this.maxWordsToGenerate));
 		appendKv("max_processing_time",Std.string(this.maxProcessingTime));
 		appendKv("starts_with",this.get_startsWith());
 		appendKv("ends_width",this.get_endsWith());
@@ -301,21 +306,29 @@ Main.prototype = {
 		this.priorElement.noUiSlider.on("update",function(values3,handle3,rawValues3) {
 			_g.updateTooltips(_g.priorElement,handle3,values3[handle3]);
 		});
+		noUiSlider.create(this.maxWordsToGenerateElement,{ start : [100], connect : "lower", range : { 'min' : 20, 'max' : 1000}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 0})}});
+		this.createTooltips(this.maxWordsToGenerateElement);
+		this.maxWordsToGenerateElement.noUiSlider.on("change",function(values4,handle4,rawValues4) {
+			_g.maxWordsToGenerate = parseFloat(values4[handle4]);
+		});
+		this.maxWordsToGenerateElement.noUiSlider.on("update",function(values5,handle5,rawValues5) {
+			_g.updateTooltips(_g.maxWordsToGenerateElement,handle5,values5[handle5] | 0);
+		});
 		noUiSlider.create(this.maxProcessingTimeElement,{ start : [this.maxProcessingTime], connect : "lower", range : { 'min' : 50, 'max' : 5000}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 0})}});
 		this.createTooltips(this.maxProcessingTimeElement);
-		this.maxProcessingTimeElement.noUiSlider.on("change",function(values4,handle4,rawValues4) {
-			_g.maxProcessingTime = parseFloat(values4[handle4]);
+		this.maxProcessingTimeElement.noUiSlider.on("change",function(values6,handle6,rawValues6) {
+			_g.maxProcessingTime = parseFloat(values6[handle6]);
 		});
-		this.maxProcessingTimeElement.noUiSlider.on("update",function(values5,handle5,rawValues5) {
-			_g.updateTooltips(_g.maxProcessingTimeElement,handle5,values5[handle5] | 0);
+		this.maxProcessingTimeElement.noUiSlider.on("update",function(values7,handle7,rawValues7) {
+			_g.updateTooltips(_g.maxProcessingTimeElement,handle7,values7[handle7] | 0);
 		});
 		noUiSlider.create(this.lengthElement,{ start : [this.minLength,this.maxLength], connect : true, range : { 'min' : [3,1], 'max' : 21}, pips : { mode : "range", density : 10}});
 		this.createTooltips(this.lengthElement);
-		this.lengthElement.noUiSlider.on("change",function(values6,handle6,rawValues6) {
-			if(handle6 == 0) _g.minLength = values6[handle6] | 0; else if(handle6 == 1) _g.maxLength = values6[handle6] | 0;
+		this.lengthElement.noUiSlider.on("change",function(values8,handle8,rawValues8) {
+			if(handle8 == 0) _g.minLength = values8[handle8] | 0; else if(handle8 == 1) _g.maxLength = values8[handle8] | 0;
 		});
-		this.lengthElement.noUiSlider.on("update",function(values7,handle7,rawValues7) {
-			_g.updateTooltips(_g.lengthElement,handle7,values7[handle7] | 0);
+		this.lengthElement.noUiSlider.on("update",function(values9,handle9,rawValues9) {
+			_g.updateTooltips(_g.lengthElement,handle9,values9[handle9] | 0);
 		});
 	}
 	,addEventListeners: function() {
@@ -402,7 +415,7 @@ Main.prototype = {
 		var names = [];
 		var startTime = new Date().getTime();
 		var currentTime = new Date().getTime();
-		while(names.length < this.numToGenerate && currentTime < startTime + this.maxProcessingTime) {
+		while(names.length < this.maxWordsToGenerate && currentTime < startTime + this.maxProcessingTime) {
 			var name1 = this.generator.generateName(this.minLength,this.maxLength,this.get_startsWith(),this.get_endsWith(),this.get_includes(),this.get_excludes());
 			if(name1 != null && !this.duplicateTrie.find(name1)) {
 				names.push(name1);
@@ -1172,6 +1185,7 @@ ID.trainingdataedit = "trainingdataedit";
 ID.minmaxlength = "minmaxlength";
 ID.order = "order";
 ID.prior = "prior";
+ID.maxwordstogenerate = "maxwordstogenerate";
 ID.maxtime = "maxtime";
 ID.startswith = "startswith";
 ID.endswith = "endswith";

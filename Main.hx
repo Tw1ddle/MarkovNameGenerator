@@ -52,6 +52,7 @@ private class TrainingData {
     var LENGTH_RANGE_MAX = "length_range_max";
     var ORDER = "order";
     var PRIOR = "prior";
+	var MAX_WORDS = "max_words";
     var MAX_PROCESSING_TIME = "max_processing_time";
     var STARTS_WITH = "starts_with";
     var ENDS_WITH = "ends_width";
@@ -87,6 +88,7 @@ class Main {
     private var trainingDataTextEdit:InputElement = cast Browser.document.getElementById(ID.trainingdataedit);
     private var orderElement:Element = cast Browser.document.getElementById(ID.order);
     private var priorElement:Element = cast Browser.document.getElementById(ID.prior);
+	private var maxWordsToGenerateElement:Element = cast Browser.document.getElementById(ID.maxwordstogenerate);
     private var maxProcessingTimeElement:Element = cast Browser.document.getElementById(ID.maxtime);
     private var noNamesFoundElement:Element = cast Browser.document.getElementById(ID.nonamesfound);
     private var currentNamesElement:Element = cast Browser.document.getElementById(ID.currentnames);
@@ -174,7 +176,7 @@ class Main {
     private var lastNames:Array<String> = []; // The last set of generated names
 
     private var trainingDataKey(get, set):String; // The selected training data key
-    private var numToGenerate:Int; // Number of names to try to generate
+    private var maxWordsToGenerate:Int; // Number of names to try to generate
     private var minLength:Int; // Minimum name length
     private var maxLength:Int; // Maximum name length
     private var order:Int; // Maximum order model that the name generator should use
@@ -206,7 +208,7 @@ class Main {
         // Apply the default settings for name generation, filtering, sorting etc
 		Sure.sure(Reflect.hasField(TrainingDatas, "Animals"));
         trainingDataKey = "Animals";
-        numToGenerate = 100;
+        maxWordsToGenerate = 100;
         minLength = 5;
         maxLength = 11;
         order = 3;
@@ -253,6 +255,8 @@ class Main {
                     order = Std.parseInt(v);
                 case GeneratorSettingKey.PRIOR:
                     prior = Std.parseFloat(v);
+				case GeneratorSettingKey.MAX_WORDS:
+					maxWordsToGenerate = Std.parseInt(v);
                 case GeneratorSettingKey.MAX_PROCESSING_TIME:
                     maxProcessingTime = Std.parseInt(v);
                 case GeneratorSettingKey.STARTS_WITH:
@@ -297,6 +301,7 @@ class Main {
         appendKv(GeneratorSettingKey.LENGTH_RANGE_MAX, Std.string(maxLength));
         appendKv(GeneratorSettingKey.ORDER, Std.string(order));
         appendKv(GeneratorSettingKey.PRIOR, Std.string(prior));
+		appendKv(GeneratorSettingKey.MAX_WORDS, Std.string(maxWordsToGenerate));
         appendKv(GeneratorSettingKey.MAX_PROCESSING_TIME, Std.string(maxProcessingTime));
         appendKv(GeneratorSettingKey.STARTS_WITH, startsWith);
         appendKv(GeneratorSettingKey.ENDS_WITH, endsWith);
@@ -372,6 +377,29 @@ class Main {
         });
         untyped priorElement.noUiSlider.on(UiSliderEvent.UPDATE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
             updateTooltips(priorElement, handle, values[handle]);
+        });
+		
+		NoUiSlider.create(maxWordsToGenerateElement, {
+			start: [ 100 ],
+			connect: 'lower',
+			range: {
+				'min': 20,
+				'max': 1000
+			},
+			pips: {
+				mode: 'range',
+				density: 10,
+				format: new WNumb( {
+					decimals: 0
+				})
+			}
+		});
+		createTooltips(maxWordsToGenerateElement);
+        untyped maxWordsToGenerateElement.noUiSlider.on(UiSliderEvent.CHANGE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
+            maxWordsToGenerate = Std.parseFloat(untyped values[handle]);
+        });
+        untyped maxWordsToGenerateElement.noUiSlider.on(UiSliderEvent.UPDATE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
+            updateTooltips(maxWordsToGenerateElement, handle, Std.int(values[handle]));
         });
 
         NoUiSlider.create(maxProcessingTimeElement, {
@@ -600,7 +628,7 @@ class Main {
         var startTime = Date.now().getTime();
         var currentTime = Date.now().getTime();
 
-        while (names.length < numToGenerate && currentTime < startTime + maxProcessingTime) {
+        while (names.length < maxWordsToGenerate && currentTime < startTime + maxProcessingTime) {
             var name = generator.generateName(minLength, maxLength, startsWith, endsWith, includes, excludes);
             if (name != null && !duplicateTrie.find(name)) {
                 names.push(name);
