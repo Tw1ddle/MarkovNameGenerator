@@ -93,6 +93,8 @@ class Main {
     private var noNamesFoundElement:Element = cast Browser.document.getElementById(ID.nonamesfound);
     private var currentNamesElement:Element = cast Browser.document.getElementById(ID.currentnames);
     private var generateElement:Element = cast Browser.document.getElementById(ID.generate);
+	private var randomThemeElement:Element = cast Browser.document.getElementById(ID.random);
+	private var namesTitleElement:Element = cast Browser.document.getElementById(ID.namestitle);
     private var lengthElement:InputElement = cast Browser.document.getElementById(ID.minmaxlength);
     private var startsWithElement:InputElement = cast Browser.document.getElementById(ID.startswith);
     private var endsWithElement:InputElement = cast Browser.document.getElementById(ID.endswith);
@@ -538,9 +540,24 @@ class Main {
             }
             var arr = data.split(" ");
             if(arr.length > 0) {
-                generate(arr);
+                generate(trainingDataKey, arr);
             }
         }, false);
+
+		randomThemeElement.addEventListener("click", function() {
+			var topics = Type.getClassFields(TrainingDatas);
+			var topic = topics[Std.random(topics.length)];
+			trainingDataKey = topic;
+			
+            var data = trainingDataTextEdit.value;
+            if (data == null || data.length == 0) {
+                return;
+            }
+            var arr = data.split(" ");
+            if(arr.length > 0) {
+                generate(trainingDataKey, arr);
+            }
+		}, false);
 
         startsWithElement.addEventListener("change", function() {
             if (startsWithElement.value != null) {
@@ -617,7 +634,9 @@ class Main {
     /*
      * Runs when the "generate" button is pressed, creates a new batch of names and puts the new names in the "names" section
      */
-    private inline function generate(data:Array<String>):Void {
+    private inline function generate(presetName:String, data:Array<String>):Void {
+		namesTitleElement.innerHTML = presetName;
+		
         duplicateTrie = new PrefixTrie();
         for (name in data) {
             duplicateTrie.insert(name);
