@@ -1,11 +1,11 @@
-[![Project logo](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/markovnamegen_logo.png?raw=true "Markov Namegen Procedural Name Generator Project logo")](http://www.samcodes.co.uk/project/markov-namegen/)
+[![Project logo](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/markovnamegen_logo.png?raw=true "Markov Namegen Procedural Random Name Generator Project logo")](http://www.samcodes.co.uk/project/markov-namegen/)
 
-**Markov Namegen** is a Markov chain-based procedural name generator written in Haxe. Try it now [in your browser](http://www.samcodes.co.uk/project/markov-namegen/).
+**Markov Namegen** is a Markov chain-based procedural name generator written in Haxe. Run it now [in your browser](http://www.samcodes.co.uk/project/markov-namegen/).
 
-Demonstrates the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen). Read the library [documentation here](http://tw1ddle.github.io/MarkovNameGenerator/).
+Demonstrates the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen). Read the [documentation here](http://tw1ddle.github.io/MarkovNameGenerator/).
 
 ## Features ##
-* Dozens of editable training data presets.
+* Hundreds of editable training data presets.
 * Configurable corpus, order and prior model parameter settings.
 * Filter results by length, start, end and content.
 * Sort by Damerau-Levenshtein distance to list results by similarity.
@@ -61,22 +61,22 @@ Or add it to your ```Project.xml```:
 ## Screenshots ##
 Here is the demo in action:
 
-[![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot2.png?raw=true "Name generator screenshot 2")](http://www.samcodes.co.uk/project/markov-namegen/)
+[![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot1.png?raw=true "Markov Namegen Procedural Random Name Generator screenshot 1")](http://www.samcodes.co.uk/project/markov-namegen/)
 
 
-[![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot1.png?raw=true "Name generator screenshot 1")](http://www.samcodes.co.uk/project/markov-namegen/)
+[![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot2.png?raw=true "Markov Namegen Procedural Random Name Generator screenshot 2")](http://www.samcodes.co.uk/project/markov-namegen/)
 
 ## How It Works ##
 
-The [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen) uses [Markov chains](https://en.wikipedia.org/wiki/Markov_chain) to generate random words.
+The [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen) uses [Markov chains](https://en.wikipedia.org/wiki/Markov_chain) to procedurally generate original words.
 
-Given a set of words as [training data](https://en.wikipedia.org/wiki/Machine_learning), the library calculates the conditional probability of a letter coming up after a sequence of letters chosen so far. It looks back up to "n" characters, where "n" is the order of the model.
+Using a set of words as [training data](https://en.wikipedia.org/wiki/Machine_learning), the library calculates the conditional probability of a letter coming up after a sequence of letters chosen so far. It looks back up to "n" characters, where "n" is the order of the model.
 
-The generator can use several orders of models, each with memory n. Starting with the highest order models (models with bigger memories), it tries to get a new character, falling back to lower order models if necessary - this approach is known as [Katz's back-off model](https://en.wikipedia.org/wiki/Katz%27s_back-off_model).
+The generator can use several orders of models, each with memory n. Starting with the highest order models (models with bigger memories), it tries to get a new character, falling back to lower order models if necessary - an approach known as [Katz's back-off model](https://en.wikipedia.org/wiki/Katz%27s_back-off_model).
 
-A [Dirichlet prior](https://en.wikipedia.org/wiki/Dirichlet_distribution#Special_cases) is also used, which adds a constant probability that any letter may be picked as the next letter, which acts as an additive smoothing factor and adds a bit more "randomness" to the generated output.
+A [Dirichlet prior](https://en.wikipedia.org/wiki/Dirichlet_distribution#Special_cases) is used to add a constant probability that any letter may be picked as the next letter. This acts as an additive smoothing factor and adds a bit more "randomness" to the generated output.
 
-Loads of words are generated, and are filtered and sorted according to several tweakable criteria like length, start and end characters, [similarity to a target word](https://en.wikipedia.org/wiki/Levenshtein_distance), and so on.
+Countless words are generated, and are then filtered and sorted according to several tweakable criteria like length, start and end characters, [similarity to a target word](https://en.wikipedia.org/wiki/Levenshtein_distance), and so on.
 
 ## Notes ##
 * Many of the concepts used for the generator were suggested in [this article](http://www.roguebasin.com/index.php?title=Names_from_a_high_order_Markov_Process_and_a_simplified_Katz_back-off_scheme) by [Jeffrey Lund](https://github.com/jlund3).
