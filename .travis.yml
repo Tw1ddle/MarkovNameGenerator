@@ -1,0 +1,18 @@
+sudo: required
+dist: trusty
+
+language: haxe
+
+os:
+  - linux
+
+# see haxe versions: http://haxe.org/website-content/downloads/versions.json
+haxe:
+  - "3.4.2"
+
+install:
+  - haxelib install Sure
+
+script:
+  - haxe MarkovNames.hxml debug.hxml
+  - haxe MarkovNames.hxml release.hxml
