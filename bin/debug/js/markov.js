@@ -133,6 +133,9 @@ var Main = function() {
 	window.onload = $bind(this,this.onWindowLoaded);
 };
 Main.__name__ = true;
+Main.getElement = function(id) {
+	return window.document.getElementById(id);
+};
 Main.main = function() {
 	var main = new Main();
 };
