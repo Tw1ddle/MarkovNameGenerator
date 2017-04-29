@@ -76,11 +76,6 @@ class Main {
 	
     private var trainingData:Array<TrainingData>; // The training data
 	private var trainingDataTopicTrie:PrefixTrie; // Prefix trie for finding matching topic when the user searches for them in the search text box
-
-    /*
-    private var trieGraph:TrieForceGraph;
-    private var markovGraph:MarkovGraph;
-    */
 	
     private var nameDataPresetListElement:SelectElement = cast Browser.document.getElementById(ID.trainingdatalist);
 	private var nameDataSearchBoxElement:InputElement = cast Browser.document.getElementById(ID.trainingdatasearchbox);
@@ -104,11 +99,6 @@ class Main {
     private var shareResultsAndSettingsElement:Element = cast Browser.document.getElementById(ID.shareresultsandsettings);
     private var shareResultsOnlyElement:Element = cast Browser.document.getElementById(ID.shareresultsonly);
     private var shareLinkTextEdit:InputElement = cast Browser.document.getElementById(ID.shareedit);
-    /*
-    private var generateTrieVisualizationElement:Element = cast Browser.document.getElementById(ID.generatetriegraph);
-    private var generateMarkovVisualizationElement:Element = cast Browser.document.getElementById(ID.generatemarkovgraph);
-    private var markovVisualizationPElement:Element = cast Browser.document.getElementById(ID.markovp);
-    */
 
     private static function main():Void {
         var main = new Main();
@@ -189,11 +179,6 @@ class Main {
     private var includes(get, set):String; // String that names must include
     private var excludes(get, set):String; // String that names must include
     private var similar(get, set):String; // String that names are sorted by their similarity to
-    /*
-    private var generateTrieVisualization:Bool = false; // Generate a graph of the duplicate trie
-    private var generateMarkovVisualization:Bool = false; // Generate a graph of one of the markov models
-    private var markovVisualizationMinP:Float = 0.01; // Minimum p value required to draw one of the markov model edges
-    */
 
     private inline function isQueryStringEmpty():Bool {
         var params = Browser.window.location.search.substring(1);
@@ -657,20 +642,6 @@ class Main {
         }
 
         setNames(names);
-
-        /*
-        if(generateTrieVisualization) {
-            trieGraph = new TrieForceGraph(duplicateTrie, "#triegraph", 400, 500);
-        } else {
-            D3.select("svg").remove();
-        }
-
-        if (generateMarkovVisualization) {
-            markovGraph = new MarkovGraph(generator, 1, "#markovgraph", 400, 500, markovVisualizationMinP);
-        } else {
-            D3.select("svg").remove();
-        }
-        */
     }
 
     /*
