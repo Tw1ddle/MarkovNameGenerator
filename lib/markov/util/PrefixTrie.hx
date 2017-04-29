@@ -152,12 +152,6 @@ class PrefixNode {
      */
     public var word:Bool;
 
-    /*
-    // Used for drawing a force graph using d3.js
-    public var x:Float;
-    public var y:Float;
-    */
-
     /**
      * Creates a new trie node.
      * @param   parent  The parent of this node. Null if the node is the root node.
@@ -173,10 +167,5 @@ class PrefixNode {
         this.depth = depth;
         frequency = 1;
         word = false;
-
-        /*
-        x = 0;
-        y = 0;
-        */
     }
 }
