@@ -1,5 +1,7 @@
 [![Project logo](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/markovnamegen_logo.png?raw=true "Markov Namegen Procedural Random Name Generator Project logo")](http://www.samcodes.co.uk/project/markov-namegen/)
 
+[![Travis Build Status](https://img.shields.io/travis/Tw1ddle/MarkovNameGenerator.svg?style=flat-square)](https://travis-ci.org/Tw1ddle/MarkovNameGenerator)
+
 **Markov Namegen** is a Markov chain-based procedural name generator written in Haxe. Run it now [in your browser](http://www.samcodes.co.uk/project/markov-namegen/).
 
 Demonstrates the [markov-namegen haxelib](http://lib.haxe.org/p/markov-namegen). Read the [documentation here](http://tw1ddle.github.io/MarkovNameGenerator/).
