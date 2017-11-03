@@ -297,7 +297,7 @@ Main.prototype = {
 				this.noNamesFoundElement.innerHTML = "";
 				this.currentNamesElement.innerHTML = "";
 				if(names.length == 0) {
-					this.noNamesFoundElement.textContent = "No names found, try again or change the settings.";
+					this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
 				}
 				var _g3 = 0;
 				while(_g3 < names.length) {
@@ -377,95 +377,182 @@ Main.prototype = {
 			}
 		},false);
 		this.trainingDataTextEdit.addEventListener("change",function() {
+			var data3 = _gthis2.trainingDataTextEdit.value;
+			if(!(data3 == null || data3.length == 0)) {
+				var arr = data3.split(" ");
+				if(arr.length > 0) {
+					var presetName = _gthis2.get_trainingDataKey();
+					_gthis2.namesTitleElement.innerHTML = presetName;
+					_gthis2.duplicateTrie = new markov_util_PrefixTrie();
+					var _g4 = 0;
+					while(_g4 < arr.length) {
+						var name1 = arr[_g4];
+						++_g4;
+						_gthis2.duplicateTrie.insert(name1);
+					}
+					_gthis2.generator = new markov_namegen_NameGenerator(arr,_gthis2.order,_gthis2.prior);
+					var names1 = [];
+					var startTime = new Date().getTime();
+					var currentTime = new Date().getTime();
+					while(names1.length < _gthis2.maxWordsToGenerate && currentTime < startTime + _gthis2.maxProcessingTime) {
+						var name2 = _gthis2.generator.generateName(_gthis2.minLength,_gthis2.maxLength,_gthis2.get_startsWith(),_gthis2.get_endsWith(),_gthis2.get_includes(),_gthis2.get_excludes());
+						if(name2 != null && !_gthis2.duplicateTrie.find(name2)) {
+							names1.push(name2);
+							_gthis2.duplicateTrie.insert(name2);
+						}
+						currentTime = new Date().getTime();
+					}
+					var _gthis3 = _gthis2;
+					_gthis2.lastNames = names1;
+					if(_gthis2.get_similar().length > 0) {
+						names1.sort(function(x1,y1) {
+							var target2 = _gthis3.get_similar();
+							if(!(x1 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: source != null");
+							}
+							if(!(target2 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: target != null");
+							}
+							var xSimilarity1;
+							if(x1.length == 0) {
+								xSimilarity1 = target2.length;
+							} else if(target2.length == 0) {
+								xSimilarity1 = x1.length;
+							} else {
+								var table2 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x1,target2,true);
+								xSimilarity1 = table2[table2.length - 1];
+							}
+							var target3 = _gthis3.get_similar();
+							if(!(y1 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: source != null");
+							}
+							if(!(target3 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: target != null");
+							}
+							var ySimilarity1;
+							if(y1.length == 0) {
+								ySimilarity1 = target3.length;
+							} else if(target3.length == 0) {
+								ySimilarity1 = y1.length;
+							} else {
+								var table3 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y1,target3,true);
+								ySimilarity1 = table3[table3.length - 1];
+							}
+							if(xSimilarity1 > ySimilarity1) {
+								return 1;
+							} else if(xSimilarity1 < ySimilarity1) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis2.noNamesFoundElement.innerHTML = "";
+					_gthis2.currentNamesElement.innerHTML = "";
+					if(names1.length == 0) {
+						_gthis2.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+					}
+					var _g5 = 0;
+					while(_g5 < names1.length) {
+						var name3 = names1[_g5];
+						++_g5;
+						var li1 = window.document.createElement("li");
+						if(!(name3 != null)) {
+							throw new js__$Boot_HaxeError("FAIL: str != null");
+						}
+						li1.textContent = HxOverrides.substr(name3,0,1).toUpperCase() + HxOverrides.substr(name3,1,name3.length - 1);
+						_gthis2.currentNamesElement.appendChild(li1);
+					}
+				}
+			}
 		},false);
 		this.generateElement.addEventListener("click",function() {
-			var data3 = _gthis2.trainingDataTextEdit.value;
-			if(data3 == null || data3.length == 0) {
-				return;
-			}
-			var arr = data3.split(" ");
-			if(arr.length > 0) {
-				var presetName = _gthis2.get_trainingDataKey();
-				_gthis2.namesTitleElement.innerHTML = presetName;
-				_gthis2.duplicateTrie = new markov_util_PrefixTrie();
-				var _g4 = 0;
-				while(_g4 < arr.length) {
-					var name1 = arr[_g4];
-					++_g4;
-					_gthis2.duplicateTrie.insert(name1);
-				}
-				_gthis2.generator = new markov_namegen_NameGenerator(arr,_gthis2.order,_gthis2.prior);
-				var names1 = [];
-				var startTime = new Date().getTime();
-				var currentTime = new Date().getTime();
-				while(names1.length < _gthis2.maxWordsToGenerate && currentTime < startTime + _gthis2.maxProcessingTime) {
-					var name2 = _gthis2.generator.generateName(_gthis2.minLength,_gthis2.maxLength,_gthis2.get_startsWith(),_gthis2.get_endsWith(),_gthis2.get_includes(),_gthis2.get_excludes());
-					if(name2 != null && !_gthis2.duplicateTrie.find(name2)) {
-						names1.push(name2);
-						_gthis2.duplicateTrie.insert(name2);
+			var data4 = _gthis2.trainingDataTextEdit.value;
+			if(!(data4 == null || data4.length == 0)) {
+				var arr1 = data4.split(" ");
+				if(arr1.length > 0) {
+					var presetName1 = _gthis2.get_trainingDataKey();
+					_gthis2.namesTitleElement.innerHTML = presetName1;
+					_gthis2.duplicateTrie = new markov_util_PrefixTrie();
+					var _g6 = 0;
+					while(_g6 < arr1.length) {
+						var name4 = arr1[_g6];
+						++_g6;
+						_gthis2.duplicateTrie.insert(name4);
 					}
-					currentTime = new Date().getTime();
-				}
-				var _gthis3 = _gthis2;
-				_gthis2.lastNames = names1;
-				if(_gthis2.get_similar().length > 0) {
-					names1.sort(function(x1,y1) {
-						var target2 = _gthis3.get_similar();
-						if(!(x1 != null)) {
-							throw new js__$Boot_HaxeError("FAIL: source != null");
+					_gthis2.generator = new markov_namegen_NameGenerator(arr1,_gthis2.order,_gthis2.prior);
+					var names2 = [];
+					var startTime1 = new Date().getTime();
+					var currentTime1 = new Date().getTime();
+					while(names2.length < _gthis2.maxWordsToGenerate && currentTime1 < startTime1 + _gthis2.maxProcessingTime) {
+						var name5 = _gthis2.generator.generateName(_gthis2.minLength,_gthis2.maxLength,_gthis2.get_startsWith(),_gthis2.get_endsWith(),_gthis2.get_includes(),_gthis2.get_excludes());
+						if(name5 != null && !_gthis2.duplicateTrie.find(name5)) {
+							names2.push(name5);
+							_gthis2.duplicateTrie.insert(name5);
 						}
-						if(!(target2 != null)) {
-							throw new js__$Boot_HaxeError("FAIL: target != null");
-						}
-						var xSimilarity1;
-						if(x1.length == 0) {
-							xSimilarity1 = target2.length;
-						} else if(target2.length == 0) {
-							xSimilarity1 = x1.length;
-						} else {
-							var table2 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x1,target2,true);
-							xSimilarity1 = table2[table2.length - 1];
-						}
-						var target3 = _gthis3.get_similar();
-						if(!(y1 != null)) {
-							throw new js__$Boot_HaxeError("FAIL: source != null");
-						}
-						if(!(target3 != null)) {
-							throw new js__$Boot_HaxeError("FAIL: target != null");
-						}
-						var ySimilarity1;
-						if(y1.length == 0) {
-							ySimilarity1 = target3.length;
-						} else if(target3.length == 0) {
-							ySimilarity1 = y1.length;
-						} else {
-							var table3 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y1,target3,true);
-							ySimilarity1 = table3[table3.length - 1];
-						}
-						if(xSimilarity1 > ySimilarity1) {
-							return 1;
-						} else if(xSimilarity1 < ySimilarity1) {
-							return -1;
-						} else {
-							return 0;
-						}
-					});
-				}
-				_gthis2.noNamesFoundElement.innerHTML = "";
-				_gthis2.currentNamesElement.innerHTML = "";
-				if(names1.length == 0) {
-					_gthis2.noNamesFoundElement.textContent = "No names found, try again or change the settings.";
-				}
-				var _g5 = 0;
-				while(_g5 < names1.length) {
-					var name3 = names1[_g5];
-					++_g5;
-					var li1 = window.document.createElement("li");
-					if(!(name3 != null)) {
-						throw new js__$Boot_HaxeError("FAIL: str != null");
+						currentTime1 = new Date().getTime();
 					}
-					li1.textContent = HxOverrides.substr(name3,0,1).toUpperCase() + HxOverrides.substr(name3,1,name3.length - 1);
-					_gthis2.currentNamesElement.appendChild(li1);
+					var _gthis4 = _gthis2;
+					_gthis2.lastNames = names2;
+					if(_gthis2.get_similar().length > 0) {
+						names2.sort(function(x2,y2) {
+							var target4 = _gthis4.get_similar();
+							if(!(x2 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: source != null");
+							}
+							if(!(target4 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: target != null");
+							}
+							var xSimilarity2;
+							if(x2.length == 0) {
+								xSimilarity2 = target4.length;
+							} else if(target4.length == 0) {
+								xSimilarity2 = x2.length;
+							} else {
+								var table4 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x2,target4,true);
+								xSimilarity2 = table4[table4.length - 1];
+							}
+							var target5 = _gthis4.get_similar();
+							if(!(y2 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: source != null");
+							}
+							if(!(target5 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: target != null");
+							}
+							var ySimilarity2;
+							if(y2.length == 0) {
+								ySimilarity2 = target5.length;
+							} else if(target5.length == 0) {
+								ySimilarity2 = y2.length;
+							} else {
+								var table5 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y2,target5,true);
+								ySimilarity2 = table5[table5.length - 1];
+							}
+							if(xSimilarity2 > ySimilarity2) {
+								return 1;
+							} else if(xSimilarity2 < ySimilarity2) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis2.noNamesFoundElement.innerHTML = "";
+					_gthis2.currentNamesElement.innerHTML = "";
+					if(names2.length == 0) {
+						_gthis2.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+					}
+					var _g7 = 0;
+					while(_g7 < names2.length) {
+						var name6 = names2[_g7];
+						++_g7;
+						var li2 = window.document.createElement("li");
+						if(!(name6 != null)) {
+							throw new js__$Boot_HaxeError("FAIL: str != null");
+						}
+						li2.textContent = HxOverrides.substr(name6,0,1).toUpperCase() + HxOverrides.substr(name6,1,name6.length - 1);
+						_gthis2.currentNamesElement.appendChild(li2);
+					}
 				}
 			}
 		},false);
@@ -473,93 +560,92 @@ Main.prototype = {
 			var topics = Type.getClassFields(TrainingDatas);
 			var topic = topics[Std.random(topics.length)];
 			_gthis2.set_trainingDataKey(topic);
-			var data4 = _gthis2.trainingDataTextEdit.value;
-			if(data4 == null || data4.length == 0) {
-				return;
-			}
-			var arr1 = data4.split(" ");
-			if(arr1.length > 0) {
-				var presetName1 = _gthis2.get_trainingDataKey();
-				_gthis2.namesTitleElement.innerHTML = presetName1;
-				_gthis2.duplicateTrie = new markov_util_PrefixTrie();
-				var _g6 = 0;
-				while(_g6 < arr1.length) {
-					var name4 = arr1[_g6];
-					++_g6;
-					_gthis2.duplicateTrie.insert(name4);
-				}
-				_gthis2.generator = new markov_namegen_NameGenerator(arr1,_gthis2.order,_gthis2.prior);
-				var names2 = [];
-				var startTime1 = new Date().getTime();
-				var currentTime1 = new Date().getTime();
-				while(names2.length < _gthis2.maxWordsToGenerate && currentTime1 < startTime1 + _gthis2.maxProcessingTime) {
-					var name5 = _gthis2.generator.generateName(_gthis2.minLength,_gthis2.maxLength,_gthis2.get_startsWith(),_gthis2.get_endsWith(),_gthis2.get_includes(),_gthis2.get_excludes());
-					if(name5 != null && !_gthis2.duplicateTrie.find(name5)) {
-						names2.push(name5);
-						_gthis2.duplicateTrie.insert(name5);
+			var data5 = _gthis2.trainingDataTextEdit.value;
+			if(!(data5 == null || data5.length == 0)) {
+				var arr2 = data5.split(" ");
+				if(arr2.length > 0) {
+					var presetName2 = _gthis2.get_trainingDataKey();
+					_gthis2.namesTitleElement.innerHTML = presetName2;
+					_gthis2.duplicateTrie = new markov_util_PrefixTrie();
+					var _g8 = 0;
+					while(_g8 < arr2.length) {
+						var name7 = arr2[_g8];
+						++_g8;
+						_gthis2.duplicateTrie.insert(name7);
 					}
-					currentTime1 = new Date().getTime();
-				}
-				var _gthis4 = _gthis2;
-				_gthis2.lastNames = names2;
-				if(_gthis2.get_similar().length > 0) {
-					names2.sort(function(x2,y2) {
-						var target4 = _gthis4.get_similar();
-						if(!(x2 != null)) {
-							throw new js__$Boot_HaxeError("FAIL: source != null");
+					_gthis2.generator = new markov_namegen_NameGenerator(arr2,_gthis2.order,_gthis2.prior);
+					var names3 = [];
+					var startTime2 = new Date().getTime();
+					var currentTime2 = new Date().getTime();
+					while(names3.length < _gthis2.maxWordsToGenerate && currentTime2 < startTime2 + _gthis2.maxProcessingTime) {
+						var name8 = _gthis2.generator.generateName(_gthis2.minLength,_gthis2.maxLength,_gthis2.get_startsWith(),_gthis2.get_endsWith(),_gthis2.get_includes(),_gthis2.get_excludes());
+						if(name8 != null && !_gthis2.duplicateTrie.find(name8)) {
+							names3.push(name8);
+							_gthis2.duplicateTrie.insert(name8);
 						}
-						if(!(target4 != null)) {
-							throw new js__$Boot_HaxeError("FAIL: target != null");
-						}
-						var xSimilarity2;
-						if(x2.length == 0) {
-							xSimilarity2 = target4.length;
-						} else if(target4.length == 0) {
-							xSimilarity2 = x2.length;
-						} else {
-							var table4 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x2,target4,true);
-							xSimilarity2 = table4[table4.length - 1];
-						}
-						var target5 = _gthis4.get_similar();
-						if(!(y2 != null)) {
-							throw new js__$Boot_HaxeError("FAIL: source != null");
-						}
-						if(!(target5 != null)) {
-							throw new js__$Boot_HaxeError("FAIL: target != null");
-						}
-						var ySimilarity2;
-						if(y2.length == 0) {
-							ySimilarity2 = target5.length;
-						} else if(target5.length == 0) {
-							ySimilarity2 = y2.length;
-						} else {
-							var table5 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y2,target5,true);
-							ySimilarity2 = table5[table5.length - 1];
-						}
-						if(xSimilarity2 > ySimilarity2) {
-							return 1;
-						} else if(xSimilarity2 < ySimilarity2) {
-							return -1;
-						} else {
-							return 0;
-						}
-					});
-				}
-				_gthis2.noNamesFoundElement.innerHTML = "";
-				_gthis2.currentNamesElement.innerHTML = "";
-				if(names2.length == 0) {
-					_gthis2.noNamesFoundElement.textContent = "No names found, try again or change the settings.";
-				}
-				var _g7 = 0;
-				while(_g7 < names2.length) {
-					var name6 = names2[_g7];
-					++_g7;
-					var li2 = window.document.createElement("li");
-					if(!(name6 != null)) {
-						throw new js__$Boot_HaxeError("FAIL: str != null");
+						currentTime2 = new Date().getTime();
 					}
-					li2.textContent = HxOverrides.substr(name6,0,1).toUpperCase() + HxOverrides.substr(name6,1,name6.length - 1);
-					_gthis2.currentNamesElement.appendChild(li2);
+					var _gthis5 = _gthis2;
+					_gthis2.lastNames = names3;
+					if(_gthis2.get_similar().length > 0) {
+						names3.sort(function(x3,y3) {
+							var target6 = _gthis5.get_similar();
+							if(!(x3 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: source != null");
+							}
+							if(!(target6 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: target != null");
+							}
+							var xSimilarity3;
+							if(x3.length == 0) {
+								xSimilarity3 = target6.length;
+							} else if(target6.length == 0) {
+								xSimilarity3 = x3.length;
+							} else {
+								var table6 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x3,target6,true);
+								xSimilarity3 = table6[table6.length - 1];
+							}
+							var target7 = _gthis5.get_similar();
+							if(!(y3 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: source != null");
+							}
+							if(!(target7 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: target != null");
+							}
+							var ySimilarity3;
+							if(y3.length == 0) {
+								ySimilarity3 = target7.length;
+							} else if(target7.length == 0) {
+								ySimilarity3 = y3.length;
+							} else {
+								var table7 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y3,target7,true);
+								ySimilarity3 = table7[table7.length - 1];
+							}
+							if(xSimilarity3 > ySimilarity3) {
+								return 1;
+							} else if(xSimilarity3 < ySimilarity3) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis2.noNamesFoundElement.innerHTML = "";
+					_gthis2.currentNamesElement.innerHTML = "";
+					if(names3.length == 0) {
+						_gthis2.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+					}
+					var _g9 = 0;
+					while(_g9 < names3.length) {
+						var name9 = names3[_g9];
+						++_g9;
+						var li3 = window.document.createElement("li");
+						if(!(name9 != null)) {
+							throw new js__$Boot_HaxeError("FAIL: str != null");
+						}
+						li3.textContent = HxOverrides.substr(name9,0,1).toUpperCase() + HxOverrides.substr(name9,1,name9.length - 1);
+						_gthis2.currentNamesElement.appendChild(li3);
+					}
 				}
 			}
 		},false);
@@ -767,7 +853,7 @@ Main.prototype = {
 			this.noNamesFoundElement.innerHTML = "";
 			this.currentNamesElement.innerHTML = "";
 			if(names.length == 0) {
-				this.noNamesFoundElement.textContent = "No names found, try again or change the settings.";
+				this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
 			}
 			var _g1 = 0;
 			while(_g1 < names.length) {
@@ -898,95 +984,182 @@ Main.prototype = {
 			}
 		},false);
 		this.trainingDataTextEdit.addEventListener("change",function() {
+			var data = _gthis.trainingDataTextEdit.value;
+			if(!(data == null || data.length == 0)) {
+				var arr = data.split(" ");
+				if(arr.length > 0) {
+					var presetName = _gthis.get_trainingDataKey();
+					_gthis.namesTitleElement.innerHTML = presetName;
+					_gthis.duplicateTrie = new markov_util_PrefixTrie();
+					var _g = 0;
+					while(_g < arr.length) {
+						var name = arr[_g];
+						++_g;
+						_gthis.duplicateTrie.insert(name);
+					}
+					_gthis.generator = new markov_namegen_NameGenerator(arr,_gthis.order,_gthis.prior);
+					var names = [];
+					var startTime = new Date().getTime();
+					var currentTime = new Date().getTime();
+					while(names.length < _gthis.maxWordsToGenerate && currentTime < startTime + _gthis.maxProcessingTime) {
+						var name1 = _gthis.generator.generateName(_gthis.minLength,_gthis.maxLength,_gthis.get_startsWith(),_gthis.get_endsWith(),_gthis.get_includes(),_gthis.get_excludes());
+						if(name1 != null && !_gthis.duplicateTrie.find(name1)) {
+							names.push(name1);
+							_gthis.duplicateTrie.insert(name1);
+						}
+						currentTime = new Date().getTime();
+					}
+					var _gthis1 = _gthis;
+					_gthis.lastNames = names;
+					if(_gthis.get_similar().length > 0) {
+						names.sort(function(x,y) {
+							var target = _gthis1.get_similar();
+							if(!(x != null)) {
+								throw new js__$Boot_HaxeError("FAIL: source != null");
+							}
+							if(!(target != null)) {
+								throw new js__$Boot_HaxeError("FAIL: target != null");
+							}
+							var xSimilarity;
+							if(x.length == 0) {
+								xSimilarity = target.length;
+							} else if(target.length == 0) {
+								xSimilarity = x.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+								xSimilarity = table[table.length - 1];
+							}
+							var target1 = _gthis1.get_similar();
+							if(!(y != null)) {
+								throw new js__$Boot_HaxeError("FAIL: source != null");
+							}
+							if(!(target1 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: target != null");
+							}
+							var ySimilarity;
+							if(y.length == 0) {
+								ySimilarity = target1.length;
+							} else if(target1.length == 0) {
+								ySimilarity = y.length;
+							} else {
+								var table1 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target1,true);
+								ySimilarity = table1[table1.length - 1];
+							}
+							if(xSimilarity > ySimilarity) {
+								return 1;
+							} else if(xSimilarity < ySimilarity) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis.noNamesFoundElement.innerHTML = "";
+					_gthis.currentNamesElement.innerHTML = "";
+					if(names.length == 0) {
+						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+					}
+					var _g1 = 0;
+					while(_g1 < names.length) {
+						var name2 = names[_g1];
+						++_g1;
+						var li = window.document.createElement("li");
+						if(!(name2 != null)) {
+							throw new js__$Boot_HaxeError("FAIL: str != null");
+						}
+						li.textContent = HxOverrides.substr(name2,0,1).toUpperCase() + HxOverrides.substr(name2,1,name2.length - 1);
+						_gthis.currentNamesElement.appendChild(li);
+					}
+				}
+			}
 		},false);
 		this.generateElement.addEventListener("click",function() {
-			var data = _gthis.trainingDataTextEdit.value;
-			if(data == null || data.length == 0) {
-				return;
-			}
-			var arr = data.split(" ");
-			if(arr.length > 0) {
-				var presetName = _gthis.get_trainingDataKey();
-				_gthis.namesTitleElement.innerHTML = presetName;
-				_gthis.duplicateTrie = new markov_util_PrefixTrie();
-				var _g = 0;
-				while(_g < arr.length) {
-					var name = arr[_g];
-					++_g;
-					_gthis.duplicateTrie.insert(name);
-				}
-				_gthis.generator = new markov_namegen_NameGenerator(arr,_gthis.order,_gthis.prior);
-				var names = [];
-				var startTime = new Date().getTime();
-				var currentTime = new Date().getTime();
-				while(names.length < _gthis.maxWordsToGenerate && currentTime < startTime + _gthis.maxProcessingTime) {
-					var name1 = _gthis.generator.generateName(_gthis.minLength,_gthis.maxLength,_gthis.get_startsWith(),_gthis.get_endsWith(),_gthis.get_includes(),_gthis.get_excludes());
-					if(name1 != null && !_gthis.duplicateTrie.find(name1)) {
-						names.push(name1);
-						_gthis.duplicateTrie.insert(name1);
+			var data1 = _gthis.trainingDataTextEdit.value;
+			if(!(data1 == null || data1.length == 0)) {
+				var arr1 = data1.split(" ");
+				if(arr1.length > 0) {
+					var presetName1 = _gthis.get_trainingDataKey();
+					_gthis.namesTitleElement.innerHTML = presetName1;
+					_gthis.duplicateTrie = new markov_util_PrefixTrie();
+					var _g2 = 0;
+					while(_g2 < arr1.length) {
+						var name3 = arr1[_g2];
+						++_g2;
+						_gthis.duplicateTrie.insert(name3);
 					}
-					currentTime = new Date().getTime();
-				}
-				var _gthis1 = _gthis;
-				_gthis.lastNames = names;
-				if(_gthis.get_similar().length > 0) {
-					names.sort(function(x,y) {
-						var target = _gthis1.get_similar();
-						if(!(x != null)) {
-							throw new js__$Boot_HaxeError("FAIL: source != null");
+					_gthis.generator = new markov_namegen_NameGenerator(arr1,_gthis.order,_gthis.prior);
+					var names1 = [];
+					var startTime1 = new Date().getTime();
+					var currentTime1 = new Date().getTime();
+					while(names1.length < _gthis.maxWordsToGenerate && currentTime1 < startTime1 + _gthis.maxProcessingTime) {
+						var name4 = _gthis.generator.generateName(_gthis.minLength,_gthis.maxLength,_gthis.get_startsWith(),_gthis.get_endsWith(),_gthis.get_includes(),_gthis.get_excludes());
+						if(name4 != null && !_gthis.duplicateTrie.find(name4)) {
+							names1.push(name4);
+							_gthis.duplicateTrie.insert(name4);
 						}
-						if(!(target != null)) {
-							throw new js__$Boot_HaxeError("FAIL: target != null");
-						}
-						var xSimilarity;
-						if(x.length == 0) {
-							xSimilarity = target.length;
-						} else if(target.length == 0) {
-							xSimilarity = x.length;
-						} else {
-							var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
-							xSimilarity = table[table.length - 1];
-						}
-						var target1 = _gthis1.get_similar();
-						if(!(y != null)) {
-							throw new js__$Boot_HaxeError("FAIL: source != null");
-						}
-						if(!(target1 != null)) {
-							throw new js__$Boot_HaxeError("FAIL: target != null");
-						}
-						var ySimilarity;
-						if(y.length == 0) {
-							ySimilarity = target1.length;
-						} else if(target1.length == 0) {
-							ySimilarity = y.length;
-						} else {
-							var table1 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target1,true);
-							ySimilarity = table1[table1.length - 1];
-						}
-						if(xSimilarity > ySimilarity) {
-							return 1;
-						} else if(xSimilarity < ySimilarity) {
-							return -1;
-						} else {
-							return 0;
-						}
-					});
-				}
-				_gthis.noNamesFoundElement.innerHTML = "";
-				_gthis.currentNamesElement.innerHTML = "";
-				if(names.length == 0) {
-					_gthis.noNamesFoundElement.textContent = "No names found, try again or change the settings.";
-				}
-				var _g1 = 0;
-				while(_g1 < names.length) {
-					var name2 = names[_g1];
-					++_g1;
-					var li = window.document.createElement("li");
-					if(!(name2 != null)) {
-						throw new js__$Boot_HaxeError("FAIL: str != null");
+						currentTime1 = new Date().getTime();
 					}
-					li.textContent = HxOverrides.substr(name2,0,1).toUpperCase() + HxOverrides.substr(name2,1,name2.length - 1);
-					_gthis.currentNamesElement.appendChild(li);
+					var _gthis2 = _gthis;
+					_gthis.lastNames = names1;
+					if(_gthis.get_similar().length > 0) {
+						names1.sort(function(x1,y1) {
+							var target2 = _gthis2.get_similar();
+							if(!(x1 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: source != null");
+							}
+							if(!(target2 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: target != null");
+							}
+							var xSimilarity1;
+							if(x1.length == 0) {
+								xSimilarity1 = target2.length;
+							} else if(target2.length == 0) {
+								xSimilarity1 = x1.length;
+							} else {
+								var table2 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x1,target2,true);
+								xSimilarity1 = table2[table2.length - 1];
+							}
+							var target3 = _gthis2.get_similar();
+							if(!(y1 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: source != null");
+							}
+							if(!(target3 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: target != null");
+							}
+							var ySimilarity1;
+							if(y1.length == 0) {
+								ySimilarity1 = target3.length;
+							} else if(target3.length == 0) {
+								ySimilarity1 = y1.length;
+							} else {
+								var table3 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y1,target3,true);
+								ySimilarity1 = table3[table3.length - 1];
+							}
+							if(xSimilarity1 > ySimilarity1) {
+								return 1;
+							} else if(xSimilarity1 < ySimilarity1) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis.noNamesFoundElement.innerHTML = "";
+					_gthis.currentNamesElement.innerHTML = "";
+					if(names1.length == 0) {
+						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+					}
+					var _g3 = 0;
+					while(_g3 < names1.length) {
+						var name5 = names1[_g3];
+						++_g3;
+						var li1 = window.document.createElement("li");
+						if(!(name5 != null)) {
+							throw new js__$Boot_HaxeError("FAIL: str != null");
+						}
+						li1.textContent = HxOverrides.substr(name5,0,1).toUpperCase() + HxOverrides.substr(name5,1,name5.length - 1);
+						_gthis.currentNamesElement.appendChild(li1);
+					}
 				}
 			}
 		},false);
@@ -994,93 +1167,92 @@ Main.prototype = {
 			var topics = Type.getClassFields(TrainingDatas);
 			var topic = topics[Std.random(topics.length)];
 			_gthis.set_trainingDataKey(topic);
-			var data1 = _gthis.trainingDataTextEdit.value;
-			if(data1 == null || data1.length == 0) {
-				return;
-			}
-			var arr1 = data1.split(" ");
-			if(arr1.length > 0) {
-				var presetName1 = _gthis.get_trainingDataKey();
-				_gthis.namesTitleElement.innerHTML = presetName1;
-				_gthis.duplicateTrie = new markov_util_PrefixTrie();
-				var _g2 = 0;
-				while(_g2 < arr1.length) {
-					var name3 = arr1[_g2];
-					++_g2;
-					_gthis.duplicateTrie.insert(name3);
-				}
-				_gthis.generator = new markov_namegen_NameGenerator(arr1,_gthis.order,_gthis.prior);
-				var names1 = [];
-				var startTime1 = new Date().getTime();
-				var currentTime1 = new Date().getTime();
-				while(names1.length < _gthis.maxWordsToGenerate && currentTime1 < startTime1 + _gthis.maxProcessingTime) {
-					var name4 = _gthis.generator.generateName(_gthis.minLength,_gthis.maxLength,_gthis.get_startsWith(),_gthis.get_endsWith(),_gthis.get_includes(),_gthis.get_excludes());
-					if(name4 != null && !_gthis.duplicateTrie.find(name4)) {
-						names1.push(name4);
-						_gthis.duplicateTrie.insert(name4);
+			var data2 = _gthis.trainingDataTextEdit.value;
+			if(!(data2 == null || data2.length == 0)) {
+				var arr2 = data2.split(" ");
+				if(arr2.length > 0) {
+					var presetName2 = _gthis.get_trainingDataKey();
+					_gthis.namesTitleElement.innerHTML = presetName2;
+					_gthis.duplicateTrie = new markov_util_PrefixTrie();
+					var _g4 = 0;
+					while(_g4 < arr2.length) {
+						var name6 = arr2[_g4];
+						++_g4;
+						_gthis.duplicateTrie.insert(name6);
 					}
-					currentTime1 = new Date().getTime();
-				}
-				var _gthis2 = _gthis;
-				_gthis.lastNames = names1;
-				if(_gthis.get_similar().length > 0) {
-					names1.sort(function(x1,y1) {
-						var target2 = _gthis2.get_similar();
-						if(!(x1 != null)) {
-							throw new js__$Boot_HaxeError("FAIL: source != null");
+					_gthis.generator = new markov_namegen_NameGenerator(arr2,_gthis.order,_gthis.prior);
+					var names2 = [];
+					var startTime2 = new Date().getTime();
+					var currentTime2 = new Date().getTime();
+					while(names2.length < _gthis.maxWordsToGenerate && currentTime2 < startTime2 + _gthis.maxProcessingTime) {
+						var name7 = _gthis.generator.generateName(_gthis.minLength,_gthis.maxLength,_gthis.get_startsWith(),_gthis.get_endsWith(),_gthis.get_includes(),_gthis.get_excludes());
+						if(name7 != null && !_gthis.duplicateTrie.find(name7)) {
+							names2.push(name7);
+							_gthis.duplicateTrie.insert(name7);
 						}
-						if(!(target2 != null)) {
-							throw new js__$Boot_HaxeError("FAIL: target != null");
-						}
-						var xSimilarity1;
-						if(x1.length == 0) {
-							xSimilarity1 = target2.length;
-						} else if(target2.length == 0) {
-							xSimilarity1 = x1.length;
-						} else {
-							var table2 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x1,target2,true);
-							xSimilarity1 = table2[table2.length - 1];
-						}
-						var target3 = _gthis2.get_similar();
-						if(!(y1 != null)) {
-							throw new js__$Boot_HaxeError("FAIL: source != null");
-						}
-						if(!(target3 != null)) {
-							throw new js__$Boot_HaxeError("FAIL: target != null");
-						}
-						var ySimilarity1;
-						if(y1.length == 0) {
-							ySimilarity1 = target3.length;
-						} else if(target3.length == 0) {
-							ySimilarity1 = y1.length;
-						} else {
-							var table3 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y1,target3,true);
-							ySimilarity1 = table3[table3.length - 1];
-						}
-						if(xSimilarity1 > ySimilarity1) {
-							return 1;
-						} else if(xSimilarity1 < ySimilarity1) {
-							return -1;
-						} else {
-							return 0;
-						}
-					});
-				}
-				_gthis.noNamesFoundElement.innerHTML = "";
-				_gthis.currentNamesElement.innerHTML = "";
-				if(names1.length == 0) {
-					_gthis.noNamesFoundElement.textContent = "No names found, try again or change the settings.";
-				}
-				var _g3 = 0;
-				while(_g3 < names1.length) {
-					var name5 = names1[_g3];
-					++_g3;
-					var li1 = window.document.createElement("li");
-					if(!(name5 != null)) {
-						throw new js__$Boot_HaxeError("FAIL: str != null");
+						currentTime2 = new Date().getTime();
 					}
-					li1.textContent = HxOverrides.substr(name5,0,1).toUpperCase() + HxOverrides.substr(name5,1,name5.length - 1);
-					_gthis.currentNamesElement.appendChild(li1);
+					var _gthis3 = _gthis;
+					_gthis.lastNames = names2;
+					if(_gthis.get_similar().length > 0) {
+						names2.sort(function(x2,y2) {
+							var target4 = _gthis3.get_similar();
+							if(!(x2 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: source != null");
+							}
+							if(!(target4 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: target != null");
+							}
+							var xSimilarity2;
+							if(x2.length == 0) {
+								xSimilarity2 = target4.length;
+							} else if(target4.length == 0) {
+								xSimilarity2 = x2.length;
+							} else {
+								var table4 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x2,target4,true);
+								xSimilarity2 = table4[table4.length - 1];
+							}
+							var target5 = _gthis3.get_similar();
+							if(!(y2 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: source != null");
+							}
+							if(!(target5 != null)) {
+								throw new js__$Boot_HaxeError("FAIL: target != null");
+							}
+							var ySimilarity2;
+							if(y2.length == 0) {
+								ySimilarity2 = target5.length;
+							} else if(target5.length == 0) {
+								ySimilarity2 = y2.length;
+							} else {
+								var table5 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y2,target5,true);
+								ySimilarity2 = table5[table5.length - 1];
+							}
+							if(xSimilarity2 > ySimilarity2) {
+								return 1;
+							} else if(xSimilarity2 < ySimilarity2) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis.noNamesFoundElement.innerHTML = "";
+					_gthis.currentNamesElement.innerHTML = "";
+					if(names2.length == 0) {
+						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+					}
+					var _g5 = 0;
+					while(_g5 < names2.length) {
+						var name8 = names2[_g5];
+						++_g5;
+						var li2 = window.document.createElement("li");
+						if(!(name8 != null)) {
+							throw new js__$Boot_HaxeError("FAIL: str != null");
+						}
+						li2.textContent = HxOverrides.substr(name8,0,1).toUpperCase() + HxOverrides.substr(name8,1,name8.length - 1);
+						_gthis.currentNamesElement.appendChild(li2);
+					}
 				}
 			}
 		},false);
@@ -1221,7 +1393,7 @@ Main.prototype = {
 		this.noNamesFoundElement.innerHTML = "";
 		this.currentNamesElement.innerHTML = "";
 		if(names.length == 0) {
-			this.noNamesFoundElement.textContent = "No names found, try again or change the settings.";
+			this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
 		}
 		var _g1 = 0;
 		while(_g1 < names.length) {
@@ -1233,6 +1405,191 @@ Main.prototype = {
 			}
 			li.textContent = HxOverrides.substr(name2,0,1).toUpperCase() + HxOverrides.substr(name2,1,name2.length - 1);
 			this.currentNamesElement.appendChild(li);
+		}
+	}
+	,generateForRandomPreset: function() {
+		var topics = Type.getClassFields(TrainingDatas);
+		var topic = topics[Std.random(topics.length)];
+		this.set_trainingDataKey(topic);
+		var data = this.trainingDataTextEdit.value;
+		if(data == null || data.length == 0) {
+			return;
+		}
+		var arr = data.split(" ");
+		if(arr.length > 0) {
+			var presetName = this.get_trainingDataKey();
+			this.namesTitleElement.innerHTML = presetName;
+			this.duplicateTrie = new markov_util_PrefixTrie();
+			var _g = 0;
+			while(_g < arr.length) {
+				var name = arr[_g];
+				++_g;
+				this.duplicateTrie.insert(name);
+			}
+			this.generator = new markov_namegen_NameGenerator(arr,this.order,this.prior);
+			var names = [];
+			var startTime = new Date().getTime();
+			var currentTime = new Date().getTime();
+			while(names.length < this.maxWordsToGenerate && currentTime < startTime + this.maxProcessingTime) {
+				var name1 = this.generator.generateName(this.minLength,this.maxLength,this.get_startsWith(),this.get_endsWith(),this.get_includes(),this.get_excludes());
+				if(name1 != null && !this.duplicateTrie.find(name1)) {
+					names.push(name1);
+					this.duplicateTrie.insert(name1);
+				}
+				currentTime = new Date().getTime();
+			}
+			var _gthis = this;
+			this.lastNames = names;
+			if(this.get_similar().length > 0) {
+				names.sort(function(x,y) {
+					var target = _gthis.get_similar();
+					if(!(x != null)) {
+						throw new js__$Boot_HaxeError("FAIL: source != null");
+					}
+					if(!(target != null)) {
+						throw new js__$Boot_HaxeError("FAIL: target != null");
+					}
+					var xSimilarity;
+					if(x.length == 0) {
+						xSimilarity = target.length;
+					} else if(target.length == 0) {
+						xSimilarity = x.length;
+					} else {
+						var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+						xSimilarity = table[table.length - 1];
+					}
+					var target1 = _gthis.get_similar();
+					if(!(y != null)) {
+						throw new js__$Boot_HaxeError("FAIL: source != null");
+					}
+					if(!(target1 != null)) {
+						throw new js__$Boot_HaxeError("FAIL: target != null");
+					}
+					var ySimilarity;
+					if(y.length == 0) {
+						ySimilarity = target1.length;
+					} else if(target1.length == 0) {
+						ySimilarity = y.length;
+					} else {
+						var table1 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target1,true);
+						ySimilarity = table1[table1.length - 1];
+					}
+					if(xSimilarity > ySimilarity) {
+						return 1;
+					} else if(xSimilarity < ySimilarity) {
+						return -1;
+					} else {
+						return 0;
+					}
+				});
+			}
+			this.noNamesFoundElement.innerHTML = "";
+			this.currentNamesElement.innerHTML = "";
+			if(names.length == 0) {
+				this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+			}
+			var _g1 = 0;
+			while(_g1 < names.length) {
+				var name2 = names[_g1];
+				++_g1;
+				var li = window.document.createElement("li");
+				if(!(name2 != null)) {
+					throw new js__$Boot_HaxeError("FAIL: str != null");
+				}
+				li.textContent = HxOverrides.substr(name2,0,1).toUpperCase() + HxOverrides.substr(name2,1,name2.length - 1);
+				this.currentNamesElement.appendChild(li);
+			}
+		}
+	}
+	,generateForCurrentSettings: function() {
+		var data = this.trainingDataTextEdit.value;
+		if(data == null || data.length == 0) {
+			return;
+		}
+		var arr = data.split(" ");
+		if(arr.length > 0) {
+			var presetName = this.get_trainingDataKey();
+			this.namesTitleElement.innerHTML = presetName;
+			this.duplicateTrie = new markov_util_PrefixTrie();
+			var _g = 0;
+			while(_g < arr.length) {
+				var name = arr[_g];
+				++_g;
+				this.duplicateTrie.insert(name);
+			}
+			this.generator = new markov_namegen_NameGenerator(arr,this.order,this.prior);
+			var names = [];
+			var startTime = new Date().getTime();
+			var currentTime = new Date().getTime();
+			while(names.length < this.maxWordsToGenerate && currentTime < startTime + this.maxProcessingTime) {
+				var name1 = this.generator.generateName(this.minLength,this.maxLength,this.get_startsWith(),this.get_endsWith(),this.get_includes(),this.get_excludes());
+				if(name1 != null && !this.duplicateTrie.find(name1)) {
+					names.push(name1);
+					this.duplicateTrie.insert(name1);
+				}
+				currentTime = new Date().getTime();
+			}
+			var _gthis = this;
+			this.lastNames = names;
+			if(this.get_similar().length > 0) {
+				names.sort(function(x,y) {
+					var target = _gthis.get_similar();
+					if(!(x != null)) {
+						throw new js__$Boot_HaxeError("FAIL: source != null");
+					}
+					if(!(target != null)) {
+						throw new js__$Boot_HaxeError("FAIL: target != null");
+					}
+					var xSimilarity;
+					if(x.length == 0) {
+						xSimilarity = target.length;
+					} else if(target.length == 0) {
+						xSimilarity = x.length;
+					} else {
+						var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+						xSimilarity = table[table.length - 1];
+					}
+					var target1 = _gthis.get_similar();
+					if(!(y != null)) {
+						throw new js__$Boot_HaxeError("FAIL: source != null");
+					}
+					if(!(target1 != null)) {
+						throw new js__$Boot_HaxeError("FAIL: target != null");
+					}
+					var ySimilarity;
+					if(y.length == 0) {
+						ySimilarity = target1.length;
+					} else if(target1.length == 0) {
+						ySimilarity = y.length;
+					} else {
+						var table1 = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target1,true);
+						ySimilarity = table1[table1.length - 1];
+					}
+					if(xSimilarity > ySimilarity) {
+						return 1;
+					} else if(xSimilarity < ySimilarity) {
+						return -1;
+					} else {
+						return 0;
+					}
+				});
+			}
+			this.noNamesFoundElement.innerHTML = "";
+			this.currentNamesElement.innerHTML = "";
+			if(names.length == 0) {
+				this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+			}
+			var _g1 = 0;
+			while(_g1 < names.length) {
+				var name2 = names[_g1];
+				++_g1;
+				var li = window.document.createElement("li");
+				if(!(name2 != null)) {
+					throw new js__$Boot_HaxeError("FAIL: str != null");
+				}
+				li.textContent = HxOverrides.substr(name2,0,1).toUpperCase() + HxOverrides.substr(name2,1,name2.length - 1);
+				this.currentNamesElement.appendChild(li);
+			}
 		}
 	}
 	,setNames: function(names) {
@@ -1284,7 +1641,7 @@ Main.prototype = {
 		this.noNamesFoundElement.innerHTML = "";
 		this.currentNamesElement.innerHTML = "";
 		if(names.length == 0) {
-			this.noNamesFoundElement.textContent = "No names found, try again or change the settings.";
+			this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
 		}
 		var _g = 0;
 		while(_g < names.length) {
@@ -2423,5 +2780,3 @@ TrainingDatas["Werewolf Forenames"] = ["accalia","adalwolf","adalwolfa","adolpha
 Main.WEBSITE_URL = "http://www.samcodes.co.uk/project/markov-namegen/";
 Main.main();
 })();
-
-//# sourceMappingURL=markov.js.map

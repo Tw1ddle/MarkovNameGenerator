@@ -20,7 +20,7 @@
 		<link rel="apple-touch-icon-precomposed" type="image/x-icon" href="icon/apple-touch-icon-precomposed.png">
 		<!--[if IE]><link rel="shortcut icon" type="image/x-icon" href="icon/favicon.ico"><![endif]-->
 		<link rel="stylesheet" type="text/css" href="css/style.css">
-		<link rel="stylesheet" type="text/css" href="css/nouislider.css">
+		<link rel="stylesheet" type="text/css" href="css/nouislider.min.css">
 		<link rel="stylesheet" type="text/css" href="css/nouislider.pips.css">
 	</head>
 	
@@ -35,7 +35,7 @@
 					<img class="logo" src="assets/images/markovnamegen_logo.png" alt="procedural name generation, name generator markov-namegen haxelib logo">
 				</a>
 				
-				<p><a href="https://en.wikipedia.org/wiki/Procedural_generation" target="_blank">Procedurally generate</a> names using a <a href="https://en.wikipedia.org/wiki/Markov_process" target="_blank">Markov process</a>. A free and <a href="https://github.com/Tw1ddle/MarkovNameGenerator" target="_blank">open source</a> name generator, written in <a href="http://haxe.org/" target="_blank">Haxe</a> by <a href="https://twitter.com/Sam_Twidale" target="_blank">Sam Twidale</a>.</p>
+				<p><a href="https://github.com/Tw1ddle/MarkovNameGenerator" target="_blank">Markov Namegen</a> procedurally generates names using a <a href="https://en.wikipedia.org/wiki/Markov_process" target="_blank">Markov process</a>. A free and <a href="https://github.com/Tw1ddle/MarkovNameGenerator" target="_blank">open source</a> name generator, written in <a href="http://haxe.org/" target="_blank">Haxe</a> by <a href="https://twitter.com/Sam_Twidale" target="_blank">Sam Twidale</a>.</p>
 			</div>
 		</section>
 		
@@ -130,7 +130,7 @@
 		
 		<div class="container stitched">
 			<h2>How It Works</h2>
-			<p>This site uses  <a href="https://en.wikipedia.org/wiki/Markov_chain" target="_blank">Markov chains</a> to <a href="https://en.wikipedia.org/wiki/Procedural_generation" target="_blank">procedurally generate</a> original names. Given a set of words as training data, the generator calculates the conditional probability of a letter appearing after the sequence of letters chosen so far. There are dozens of training presets, and the corpus can also be manually edited through the settings dropdown.</p>
+			<p>This site uses  <a href="https://en.wikipedia.org/wiki/Markov_chain" target="_blank">Markov chains</a> to <a href="https://en.wikipedia.org/wiki/Procedural_generation" target="_blank">procedurally generate</a> original names. Given a set of words as training data, the name generator calculates the conditional probability of a letter appearing after the sequence of letters chosen so far. There are dozens of training presets, and the corpus can also be manually edited through the settings dropdown section.</p>
 			<p>The generator maintains an array of models that look up to "n" characters back, where "n" is the maximum model order specified in the settings. The process starts by checking the highest order model, falling back to lower order models if necessary, using an approach called <a href="https://en.wikipedia.org/wiki/Katz%27s_back-off_model" target="_blank">Katz's back-off model</a>. As you increase the order setting, larger chunks of familiar words will appear in the generated output.</p>
 			<p>A Dirichlet prior is used to add a constant probability that any letter may be picked as the next letter. It acts like an additive smoothing factor, making the generated name content a bit more "random". In most cases it is best to keep this parameter small, but it can be useful to increase this if you aren't getting many results.</p>
 			<p>The generator generates as many names as possible, then filters and sorts the results according to tweakable criteria in the settings section. The length range parameter limits how many characters long the words are. The start, end, includes and excludes options limit the acceptable content of the word.</p>
@@ -139,9 +139,8 @@
 			<p>If you have any suggestions, requests or comments then feel free to <a href="http://samcodes.co.uk/contact/" target="_blank">contact me</a>.</p>
 		</div>
 		
-		<script type="text/javascript" src="js/wNumb.js"></script>
-		<script type="text/javascript" src="js/nouislider.js"></script>
+		<script type="text/javascript" src="js/wNumb.min.js"></script>
+		<script type="text/javascript" src="js/nouislider.min.js"></script>
 		<script type="text/javascript" src="js/markov.js"></script>
     </body>
-	
 </html>

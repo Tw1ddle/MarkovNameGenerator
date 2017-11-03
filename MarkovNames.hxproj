@@ -39,14 +39,14 @@
     <hidden path="obj" />
   </hiddenPaths>
   <!-- Executed before build -->
-  <preBuildCommand>$(CompilerPath)\haxe.exe $(BuildConfig).hxml $(ProjectName).hxml</preBuildCommand>
+  <preBuildCommand>$(CompilerPath)\haxe.exe $(ProjectName).hxml</preBuildCommand>
   <!-- Executed after build -->
   <postBuildCommand alwaysRun="False" />
   <!-- Other project options -->
   <options>
     <option showHiddenPaths="False" />
     <option testMovie="Custom" />
-    <option testMovieCommand="bin\$(BuildConfig)\index.html" />
+    <option testMovieCommand="bin\index.html" />
   </options>
   <!-- Plugin storage -->
   <storage />

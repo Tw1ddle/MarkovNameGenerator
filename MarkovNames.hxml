@@ -1,3 +1,7 @@
+--no-traces
+
+-js bin/js/markov.js
+
 -main Main
 
 -lib sure

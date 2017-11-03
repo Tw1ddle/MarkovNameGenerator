@@ -14,5 +14,4 @@ install:
   - haxelib install Sure
 
 script:
-  - haxe MarkovNames.hxml debug.hxml
-  - haxe MarkovNames.hxml release.hxml
+  - haxe MarkovNames.hxml

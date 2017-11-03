@@ -14,12 +14,8 @@ import markov.util.PrefixTrie;
 using markov.util.StringExtensions;
 using StringTools;
 
-// Automatic HTML code completion, you need to point these to your debug/release HTML
-#if debug
-@:build(CodeCompletion.buildLocalFile("bin/debug/index.html"))
-#else
-@:build(CodeCompletion.buildLocalFile("bin/release/index.html"))
-#end
+// Automatic HTML code completion, you need to point these to your HTML
+@:build(CodeCompletion.buildLocalFile("bin/index.html"))
 //@:build(CodeCompletion.buildUrl("http://www.samcodes.co.uk/project/markov-namegen/"))
 class ID {}
 
@@ -30,42 +26,42 @@ class TrainingDatas {}
 
 // A set of name training data
 private class TrainingData {
-    public var value(default, null):String; // The "value" field in the select element
-    public var displayName(default, null):String; // The display name in the select element
-    public var data:Array<String>; // The training data itself
+	public var value(default, null):String; // The "value" field in the select element
+	public var displayName(default, null):String; // The display name in the select element
+	public var data:Array<String>; // The training data itself
 
-    public inline function new(value:String, displayName:String, data:Array<String>) {
-        this.value = value;
-        this.displayName = displayName;
-        this.data = data;
-    }
+	public inline function new(value:String, displayName:String, data:Array<String>) {
+		this.value = value;
+		this.displayName = displayName;
+		this.data = data;
+	}
 }
 
 // The keys for reading/writing preset settings in a URL query string
 // These settings keys concern the name generator parameters and result filtering
 @:enum abstract GeneratorSettingKey(String) from String to String {
-    var PRESET_WORD_KEY = "w";
-    var RESULT_WORD_KEY = "r";
-    var NAME_DATA_PRESET = "name_data_preset";
-    var NUMBER_TO_GENERATE = "number_to_generate";
-    var LENGTH_RANGE_MIN = "length_range_min";
-    var LENGTH_RANGE_MAX = "length_range_max";
-    var ORDER = "order";
-    var PRIOR = "prior";
+	var PRESET_WORD_KEY = "w";
+	var RESULT_WORD_KEY = "r";
+	var NAME_DATA_PRESET = "name_data_preset";
+	var NUMBER_TO_GENERATE = "number_to_generate";
+	var LENGTH_RANGE_MIN = "length_range_min";
+	var LENGTH_RANGE_MAX = "length_range_max";
+	var ORDER = "order";
+	var PRIOR = "prior";
 	var MAX_WORDS = "max_words";
-    var MAX_PROCESSING_TIME = "max_processing_time";
-    var STARTS_WITH = "starts_with";
-    var ENDS_WITH = "ends_width";
-    var INCLUDES = "includes";
-    var EXCLUDES = "excludes";
-    var SIMILAR_TO = "similar_to";
+	var MAX_PROCESSING_TIME = "max_processing_time";
+	var STARTS_WITH = "starts_with";
+	var ENDS_WITH = "ends_width";
+	var INCLUDES = "includes";
+	var EXCLUDES = "excludes";
+	var SIMILAR_TO = "similar_to";
 }
 
 // The data that should be saved into the custom query string
 // Note, should really use bitset/flags if more options are added
 private enum CustomQueryStringOption {
-    EVERYTHING;
-    NO_TRAINING_DATA;
+	EVERYTHING;
+	NO_TRAINING_DATA;
 }
 
 class Main {
@@ -454,35 +450,16 @@ class Main {
 			}
 		}, false);
 
-
 		trainingDataTextEdit.addEventListener("change", function() {
-
+			generateForCurrentSettings();
 		}, false);
 
 		generateElement.addEventListener("click", function() {
-			var data = trainingDataTextEdit.value;
-			if (data == null || data.length == 0) {
-				return;
-			}
-			var arr = data.split(" ");
-			if(arr.length > 0) {
-				generate(trainingDataKey, arr);
-			}
+			generateForCurrentSettings();
 		}, false);
 
 		randomThemeElement.addEventListener("click", function() {
-			var topics = Type.getClassFields(TrainingDatas);
-			var topic = topics[Std.random(topics.length)];
-			trainingDataKey = topic;
-			
-			var data = trainingDataTextEdit.value;
-			if (data == null || data.length == 0) {
-				return;
-			}
-			var arr = data.split(" ");
-			if(arr.length > 0) {
-				generate(trainingDataKey, arr);
-			}
+			generateForRandomPreset();
 		}, false);
 
 		startsWithElement.addEventListener("change", function() {
@@ -558,7 +535,7 @@ class Main {
 	}
 
 	/*
-	 * Runs when the "generate" button is pressed, creates a new batch of names and puts the new names in the "names" section
+	 * Runs the name generator, creating a new batch of names and puts the new names in the "names" section
 	 */
 	private inline function generate(presetName:String, data:Array<String>):Void {
 		namesTitleElement.innerHTML = presetName;
@@ -583,6 +560,38 @@ class Main {
 		}
 
 		setNames(names);
+	}
+	
+	/**
+	 * Helper method that runs the "generate" method for one of the random preset set of training data
+	 */
+	private inline function generateForRandomPreset():Void {
+		var topics = Type.getClassFields(TrainingDatas);
+		var topic = topics[Std.random(topics.length)];
+		trainingDataKey = topic;
+		
+		var data = trainingDataTextEdit.value;
+		if (data == null || data.length == 0) {
+			return;
+		}
+		var arr = data.split(" ");
+		if(arr.length > 0) {
+			generate(trainingDataKey, arr);
+		}
+	}
+	
+	/**
+	 * Helper method that runs the "generate" method using the current name generation settings
+	 */
+	private inline function generateForCurrentSettings():Void {
+		var data = trainingDataTextEdit.value;
+		if (data == null || data.length == 0) {
+			return;
+		}
+		var arr = data.split(" ");
+		if(arr.length > 0) {
+			generate(trainingDataKey, arr);
+		}
 	}
 
 	/*
@@ -609,7 +618,7 @@ class Main {
 		noNamesFoundElement.innerHTML = "";
 		currentNamesElement.innerHTML = "";
 		if (names.length == 0) {
-			noNamesFoundElement.textContent = "No names found, try again or change the settings.";
+			noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
 		}
 
 		for (name in names) {
