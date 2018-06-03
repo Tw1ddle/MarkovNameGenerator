@@ -55,6 +55,7 @@ private class TrainingData {
 	var INCLUDES = "includes";
 	var EXCLUDES = "excludes";
 	var SIMILAR_TO = "similar_to";
+	var REGEX_MATCH = "regex_match";
 }
 
 // The data that should be saved into the custom query string
@@ -95,6 +96,7 @@ class Main {
 	private var includesElement:InputElement = getElement(ID.includes);
 	private var excludesElement:InputElement = getElement(ID.excludes);
 	private var similarElement:InputElement = getElement(ID.similar);
+	private var regexMatchElement:InputElement = getElement(ID.regexmatch);
 	private var shareResultsAndSettingsElement:Element = getElement(ID.shareresultsandsettings);
 	private var shareResultsOnlyElement:Element = getElement(ID.shareresultsonly);
 	private var shareLinkTextEdit:InputElement = getElement(ID.shareedit);
@@ -178,6 +180,7 @@ class Main {
 	private var includes(get, set):String; // String that names must include
 	private var excludes(get, set):String; // String that names must include
 	private var similar(get, set):String; // String that names are sorted by their similarity to
+	private var regexMatch(get, set):String; // Regex string that names must match
 
 	private inline function isQueryStringEmpty():Bool {
 		var params = Browser.window.location.search.substring(1);
@@ -205,6 +208,7 @@ class Main {
 		includes = "";
 		excludes = "";
 		similar = "";
+		regexMatch = "";
 
 		// Apply custom settings
 		if (isQueryStringEmpty()) {
@@ -250,6 +254,8 @@ class Main {
 					excludes = v;
 				case GeneratorSettingKey.SIMILAR_TO:
 					similar = v;
+				case GeneratorSettingKey.REGEX_MATCH:
+					regexMatch = v;
 			}
 		}
 
@@ -289,6 +295,7 @@ class Main {
 		appendKv(GeneratorSettingKey.INCLUDES, includes);
 		appendKv(GeneratorSettingKey.EXCLUDES, excludes);
 		appendKv(GeneratorSettingKey.SIMILAR_TO, similar);
+		appendKv(GeneratorSettingKey.REGEX_MATCH, regexMatch);
 
 		if(mode != CustomQueryStringOption.NO_TRAINING_DATA) {
 			var data = trainingDataTextEdit.value.split(" ");
@@ -491,6 +498,12 @@ class Main {
 				similar = similarElement.value.toLowerCase();
 			}
 		}, false);
+		
+		regexMatchElement.addEventListener("change", function() {
+			if (regexMatchElement.value != null) {
+				regexMatch = regexMatchElement.value;
+			}
+		}, false);
 
 		shareResultsAndSettingsElement.addEventListener("click", function() {
 			shareLinkTextEdit.value = makeCustomQueryString(CustomQueryStringOption.EVERYTHING);
@@ -549,9 +562,11 @@ class Main {
 		var names = new Array<String>();
 		var startTime = Date.now().getTime();
 		var currentTime = Date.now().getTime();
+		
+		var regex:EReg = regexMatch == "" ? null : new EReg(regexMatch, "i");
 
 		while (names.length < maxWordsToGenerate && currentTime < startTime + maxProcessingTime) {
-			var name = generator.generateName(minLength, maxLength, startsWith, endsWith, includes, excludes);
+			var name = generator.generateName(minLength, maxLength, startsWith, endsWith, includes, excludes, regex);
 			if (name != null && !duplicateTrie.find(name)) {
 				names.push(name);
 				duplicateTrie.insert(name);
@@ -618,7 +633,7 @@ class Main {
 		noNamesFoundElement.innerHTML = "";
 		currentNamesElement.innerHTML = "";
 		if (names.length == 0) {
-			noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+			noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 		}
 
 		for (name in names) {
@@ -686,5 +701,11 @@ class Main {
 	}
 	private function set_similar(s:String):String {
 		return similarElement.value = s.toLowerCase();
+	}
+	private function get_regexMatch():String {
+		return regexMatchElement.value;
+	}
+	private function set_regexMatch(s:String):String {
+		return regexMatchElement.value = s;
 	}
 }

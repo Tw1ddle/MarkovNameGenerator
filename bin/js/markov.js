@@ -6,6 +6,20 @@ function $extend(from, fields) {
 	if( fields.toString !== Object.prototype.toString ) proto.toString = fields.toString;
 	return proto;
 }
+var EReg = function(r,opt) {
+	this.r = new RegExp(r,opt.split("u").join(""));
+};
+EReg.__name__ = true;
+EReg.prototype = {
+	match: function(s) {
+		if(this.r.global) {
+			this.r.lastIndex = 0;
+		}
+		this.r.m = this.r.exec(s);
+		this.r.s = s;
+		return this.r.m != null;
+	}
+};
 var HxOverrides = function() { };
 HxOverrides.__name__ = true;
 HxOverrides.cca = function(s,index) {
@@ -98,6 +112,7 @@ var Main = function() {
 	this.shareLinkTextEdit = window.document.getElementById("shareedit");
 	this.shareResultsOnlyElement = window.document.getElementById("shareresultsonly");
 	this.shareResultsAndSettingsElement = window.document.getElementById("shareresultsandsettings");
+	this.regexMatchElement = window.document.getElementById("regexmatch");
 	this.similarElement = window.document.getElementById("similar");
 	this.excludesElement = window.document.getElementById("excludes");
 	this.includesElement = window.document.getElementById("includes");
@@ -188,6 +203,7 @@ Main.prototype = {
 		this.set_includes("");
 		this.set_excludes("");
 		this.set_similar("");
+		this.set_regexMatch("");
 		var params = window.location.search.substring(1);
 		if(!(params == null || params == "")) {
 			var params1 = window.location.search.substring(1);
@@ -234,6 +250,9 @@ Main.prototype = {
 					break;
 				case "r":
 					sharedResultData.push(v);
+					break;
+				case "regex_match":
+					this.set_regexMatch(v);
 					break;
 				case "similar_to":
 					this.set_similar(v);
@@ -297,7 +316,7 @@ Main.prototype = {
 				this.noNamesFoundElement.innerHTML = "";
 				this.currentNamesElement.innerHTML = "";
 				if(names.length == 0) {
-					this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+					this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 				}
 				var _g3 = 0;
 				while(_g3 < names.length) {
@@ -394,8 +413,9 @@ Main.prototype = {
 					var names1 = [];
 					var startTime = new Date().getTime();
 					var currentTime = new Date().getTime();
+					var regex = _gthis2.get_regexMatch() == "" ? null : new EReg(_gthis2.get_regexMatch(),"i");
 					while(names1.length < _gthis2.maxWordsToGenerate && currentTime < startTime + _gthis2.maxProcessingTime) {
-						var name2 = _gthis2.generator.generateName(_gthis2.minLength,_gthis2.maxLength,_gthis2.get_startsWith(),_gthis2.get_endsWith(),_gthis2.get_includes(),_gthis2.get_excludes());
+						var name2 = _gthis2.generator.generateName(_gthis2.minLength,_gthis2.maxLength,_gthis2.get_startsWith(),_gthis2.get_endsWith(),_gthis2.get_includes(),_gthis2.get_excludes(),regex);
 						if(name2 != null && !_gthis2.duplicateTrie.find(name2)) {
 							names1.push(name2);
 							_gthis2.duplicateTrie.insert(name2);
@@ -450,7 +470,7 @@ Main.prototype = {
 					_gthis2.noNamesFoundElement.innerHTML = "";
 					_gthis2.currentNamesElement.innerHTML = "";
 					if(names1.length == 0) {
-						_gthis2.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+						_gthis2.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 					}
 					var _g5 = 0;
 					while(_g5 < names1.length) {
@@ -484,8 +504,9 @@ Main.prototype = {
 					var names2 = [];
 					var startTime1 = new Date().getTime();
 					var currentTime1 = new Date().getTime();
+					var regex1 = _gthis2.get_regexMatch() == "" ? null : new EReg(_gthis2.get_regexMatch(),"i");
 					while(names2.length < _gthis2.maxWordsToGenerate && currentTime1 < startTime1 + _gthis2.maxProcessingTime) {
-						var name5 = _gthis2.generator.generateName(_gthis2.minLength,_gthis2.maxLength,_gthis2.get_startsWith(),_gthis2.get_endsWith(),_gthis2.get_includes(),_gthis2.get_excludes());
+						var name5 = _gthis2.generator.generateName(_gthis2.minLength,_gthis2.maxLength,_gthis2.get_startsWith(),_gthis2.get_endsWith(),_gthis2.get_includes(),_gthis2.get_excludes(),regex1);
 						if(name5 != null && !_gthis2.duplicateTrie.find(name5)) {
 							names2.push(name5);
 							_gthis2.duplicateTrie.insert(name5);
@@ -540,7 +561,7 @@ Main.prototype = {
 					_gthis2.noNamesFoundElement.innerHTML = "";
 					_gthis2.currentNamesElement.innerHTML = "";
 					if(names2.length == 0) {
-						_gthis2.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+						_gthis2.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 					}
 					var _g7 = 0;
 					while(_g7 < names2.length) {
@@ -577,8 +598,9 @@ Main.prototype = {
 					var names3 = [];
 					var startTime2 = new Date().getTime();
 					var currentTime2 = new Date().getTime();
+					var regex2 = _gthis2.get_regexMatch() == "" ? null : new EReg(_gthis2.get_regexMatch(),"i");
 					while(names3.length < _gthis2.maxWordsToGenerate && currentTime2 < startTime2 + _gthis2.maxProcessingTime) {
-						var name8 = _gthis2.generator.generateName(_gthis2.minLength,_gthis2.maxLength,_gthis2.get_startsWith(),_gthis2.get_endsWith(),_gthis2.get_includes(),_gthis2.get_excludes());
+						var name8 = _gthis2.generator.generateName(_gthis2.minLength,_gthis2.maxLength,_gthis2.get_startsWith(),_gthis2.get_endsWith(),_gthis2.get_includes(),_gthis2.get_excludes(),regex2);
 						if(name8 != null && !_gthis2.duplicateTrie.find(name8)) {
 							names3.push(name8);
 							_gthis2.duplicateTrie.insert(name8);
@@ -633,7 +655,7 @@ Main.prototype = {
 					_gthis2.noNamesFoundElement.innerHTML = "";
 					_gthis2.currentNamesElement.innerHTML = "";
 					if(names3.length == 0) {
-						_gthis2.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+						_gthis2.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 					}
 					var _g9 = 0;
 					while(_g9 < names3.length) {
@@ -677,6 +699,11 @@ Main.prototype = {
 			if(_gthis2.similarElement.value != null) {
 				var tmp4 = _gthis2.similarElement.value.toLowerCase();
 				_gthis2.set_similar(tmp4);
+			}
+		},false);
+		this.regexMatchElement.addEventListener("change",function() {
+			if(_gthis2.regexMatchElement.value != null) {
+				_gthis2.set_regexMatch(_gthis2.regexMatchElement.value);
 			}
 		},false);
 		this.shareResultsAndSettingsElement.addEventListener("click",function() {
@@ -742,6 +769,7 @@ Main.prototype = {
 		this.set_includes("");
 		this.set_excludes("");
 		this.set_similar("");
+		this.set_regexMatch("");
 		var params = window.location.search.substring(1);
 		if(params == null || params == "") {
 			return;
@@ -790,6 +818,9 @@ Main.prototype = {
 				break;
 			case "r":
 				sharedResultData.push(v);
+				break;
+			case "regex_match":
+				this.set_regexMatch(v);
 				break;
 			case "similar_to":
 				this.set_similar(v);
@@ -853,7 +884,7 @@ Main.prototype = {
 			this.noNamesFoundElement.innerHTML = "";
 			this.currentNamesElement.innerHTML = "";
 			if(names.length == 0) {
-				this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+				this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 			}
 			var _g1 = 0;
 			while(_g1 < names.length) {
@@ -895,6 +926,7 @@ Main.prototype = {
 		appendKv("includes",this.get_includes());
 		appendKv("excludes",this.get_excludes());
 		appendKv("similar_to",this.get_similar());
+		appendKv("regex_match",this.get_regexMatch());
 		if(mode != _$Main_CustomQueryStringOption.NO_TRAINING_DATA) {
 			var data = this.trainingDataTextEdit.value.split(" ");
 			if(data.length > 1) {
@@ -1001,8 +1033,9 @@ Main.prototype = {
 					var names = [];
 					var startTime = new Date().getTime();
 					var currentTime = new Date().getTime();
+					var regex = _gthis.get_regexMatch() == "" ? null : new EReg(_gthis.get_regexMatch(),"i");
 					while(names.length < _gthis.maxWordsToGenerate && currentTime < startTime + _gthis.maxProcessingTime) {
-						var name1 = _gthis.generator.generateName(_gthis.minLength,_gthis.maxLength,_gthis.get_startsWith(),_gthis.get_endsWith(),_gthis.get_includes(),_gthis.get_excludes());
+						var name1 = _gthis.generator.generateName(_gthis.minLength,_gthis.maxLength,_gthis.get_startsWith(),_gthis.get_endsWith(),_gthis.get_includes(),_gthis.get_excludes(),regex);
 						if(name1 != null && !_gthis.duplicateTrie.find(name1)) {
 							names.push(name1);
 							_gthis.duplicateTrie.insert(name1);
@@ -1057,7 +1090,7 @@ Main.prototype = {
 					_gthis.noNamesFoundElement.innerHTML = "";
 					_gthis.currentNamesElement.innerHTML = "";
 					if(names.length == 0) {
-						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 					}
 					var _g1 = 0;
 					while(_g1 < names.length) {
@@ -1091,8 +1124,9 @@ Main.prototype = {
 					var names1 = [];
 					var startTime1 = new Date().getTime();
 					var currentTime1 = new Date().getTime();
+					var regex1 = _gthis.get_regexMatch() == "" ? null : new EReg(_gthis.get_regexMatch(),"i");
 					while(names1.length < _gthis.maxWordsToGenerate && currentTime1 < startTime1 + _gthis.maxProcessingTime) {
-						var name4 = _gthis.generator.generateName(_gthis.minLength,_gthis.maxLength,_gthis.get_startsWith(),_gthis.get_endsWith(),_gthis.get_includes(),_gthis.get_excludes());
+						var name4 = _gthis.generator.generateName(_gthis.minLength,_gthis.maxLength,_gthis.get_startsWith(),_gthis.get_endsWith(),_gthis.get_includes(),_gthis.get_excludes(),regex1);
 						if(name4 != null && !_gthis.duplicateTrie.find(name4)) {
 							names1.push(name4);
 							_gthis.duplicateTrie.insert(name4);
@@ -1147,7 +1181,7 @@ Main.prototype = {
 					_gthis.noNamesFoundElement.innerHTML = "";
 					_gthis.currentNamesElement.innerHTML = "";
 					if(names1.length == 0) {
-						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 					}
 					var _g3 = 0;
 					while(_g3 < names1.length) {
@@ -1184,8 +1218,9 @@ Main.prototype = {
 					var names2 = [];
 					var startTime2 = new Date().getTime();
 					var currentTime2 = new Date().getTime();
+					var regex2 = _gthis.get_regexMatch() == "" ? null : new EReg(_gthis.get_regexMatch(),"i");
 					while(names2.length < _gthis.maxWordsToGenerate && currentTime2 < startTime2 + _gthis.maxProcessingTime) {
-						var name7 = _gthis.generator.generateName(_gthis.minLength,_gthis.maxLength,_gthis.get_startsWith(),_gthis.get_endsWith(),_gthis.get_includes(),_gthis.get_excludes());
+						var name7 = _gthis.generator.generateName(_gthis.minLength,_gthis.maxLength,_gthis.get_startsWith(),_gthis.get_endsWith(),_gthis.get_includes(),_gthis.get_excludes(),regex2);
 						if(name7 != null && !_gthis.duplicateTrie.find(name7)) {
 							names2.push(name7);
 							_gthis.duplicateTrie.insert(name7);
@@ -1240,7 +1275,7 @@ Main.prototype = {
 					_gthis.noNamesFoundElement.innerHTML = "";
 					_gthis.currentNamesElement.innerHTML = "";
 					if(names2.length == 0) {
-						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 					}
 					var _g5 = 0;
 					while(_g5 < names2.length) {
@@ -1284,6 +1319,11 @@ Main.prototype = {
 			if(_gthis.similarElement.value != null) {
 				var tmp4 = _gthis.similarElement.value.toLowerCase();
 				_gthis.set_similar(tmp4);
+			}
+		},false);
+		this.regexMatchElement.addEventListener("change",function() {
+			if(_gthis.regexMatchElement.value != null) {
+				_gthis.set_regexMatch(_gthis.regexMatchElement.value);
 			}
 		},false);
 		this.shareResultsAndSettingsElement.addEventListener("click",function() {
@@ -1337,8 +1377,9 @@ Main.prototype = {
 		var names = [];
 		var startTime = new Date().getTime();
 		var currentTime = new Date().getTime();
+		var regex = this.get_regexMatch() == "" ? null : new EReg(this.get_regexMatch(),"i");
 		while(names.length < this.maxWordsToGenerate && currentTime < startTime + this.maxProcessingTime) {
-			var name1 = this.generator.generateName(this.minLength,this.maxLength,this.get_startsWith(),this.get_endsWith(),this.get_includes(),this.get_excludes());
+			var name1 = this.generator.generateName(this.minLength,this.maxLength,this.get_startsWith(),this.get_endsWith(),this.get_includes(),this.get_excludes(),regex);
 			if(name1 != null && !this.duplicateTrie.find(name1)) {
 				names.push(name1);
 				this.duplicateTrie.insert(name1);
@@ -1393,7 +1434,7 @@ Main.prototype = {
 		this.noNamesFoundElement.innerHTML = "";
 		this.currentNamesElement.innerHTML = "";
 		if(names.length == 0) {
-			this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+			this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 		}
 		var _g1 = 0;
 		while(_g1 < names.length) {
@@ -1430,8 +1471,9 @@ Main.prototype = {
 			var names = [];
 			var startTime = new Date().getTime();
 			var currentTime = new Date().getTime();
+			var regex = this.get_regexMatch() == "" ? null : new EReg(this.get_regexMatch(),"i");
 			while(names.length < this.maxWordsToGenerate && currentTime < startTime + this.maxProcessingTime) {
-				var name1 = this.generator.generateName(this.minLength,this.maxLength,this.get_startsWith(),this.get_endsWith(),this.get_includes(),this.get_excludes());
+				var name1 = this.generator.generateName(this.minLength,this.maxLength,this.get_startsWith(),this.get_endsWith(),this.get_includes(),this.get_excludes(),regex);
 				if(name1 != null && !this.duplicateTrie.find(name1)) {
 					names.push(name1);
 					this.duplicateTrie.insert(name1);
@@ -1486,7 +1528,7 @@ Main.prototype = {
 			this.noNamesFoundElement.innerHTML = "";
 			this.currentNamesElement.innerHTML = "";
 			if(names.length == 0) {
-				this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+				this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 			}
 			var _g1 = 0;
 			while(_g1 < names.length) {
@@ -1521,8 +1563,9 @@ Main.prototype = {
 			var names = [];
 			var startTime = new Date().getTime();
 			var currentTime = new Date().getTime();
+			var regex = this.get_regexMatch() == "" ? null : new EReg(this.get_regexMatch(),"i");
 			while(names.length < this.maxWordsToGenerate && currentTime < startTime + this.maxProcessingTime) {
-				var name1 = this.generator.generateName(this.minLength,this.maxLength,this.get_startsWith(),this.get_endsWith(),this.get_includes(),this.get_excludes());
+				var name1 = this.generator.generateName(this.minLength,this.maxLength,this.get_startsWith(),this.get_endsWith(),this.get_includes(),this.get_excludes(),regex);
 				if(name1 != null && !this.duplicateTrie.find(name1)) {
 					names.push(name1);
 					this.duplicateTrie.insert(name1);
@@ -1577,7 +1620,7 @@ Main.prototype = {
 			this.noNamesFoundElement.innerHTML = "";
 			this.currentNamesElement.innerHTML = "";
 			if(names.length == 0) {
-				this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+				this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 			}
 			var _g1 = 0;
 			while(_g1 < names.length) {
@@ -1641,7 +1684,7 @@ Main.prototype = {
 		this.noNamesFoundElement.innerHTML = "";
 		this.currentNamesElement.innerHTML = "";
 		if(names.length == 0) {
-			this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings.";
+			this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 		}
 		var _g = 0;
 		while(_g < names.length) {
@@ -1705,6 +1748,12 @@ Main.prototype = {
 	}
 	,set_similar: function(s) {
 		return this.similarElement.value = s.toLowerCase();
+	}
+	,get_regexMatch: function() {
+		return this.regexMatchElement.value;
+	}
+	,set_regexMatch: function(s) {
+		return this.regexMatchElement.value = s;
 	}
 };
 Math.__name__ = true;
@@ -2217,12 +2266,13 @@ var markov_namegen_NameGenerator = function(data,order,prior) {
 };
 markov_namegen_NameGenerator.__name__ = true;
 markov_namegen_NameGenerator.prototype = {
-	generateName: function(minLength,maxLength,startsWith,endsWith,includes,excludes) {
+	generateName: function(minLength,maxLength,startsWith,endsWith,includes,excludes,regexMatch) {
 		var name = "";
 		name = this.generator.generate();
 		name = StringTools.replace(name,"#","");
 		var tmp;
 		var tmp1;
+		var tmp2;
 		if(name.length >= minLength && name.length <= maxLength && StringTools.startsWith(name,startsWith) && StringTools.endsWith(name,endsWith)) {
 			if(includes.length != 0) {
 				if(!(name != null)) {
@@ -2231,14 +2281,14 @@ markov_namegen_NameGenerator.prototype = {
 				if(!(includes != null)) {
 					throw new js__$Boot_HaxeError("FAIL: substr != null");
 				}
-				tmp1 = name.indexOf(includes) >= 0;
+				tmp2 = name.indexOf(includes) >= 0;
 			} else {
-				tmp1 = true;
+				tmp2 = true;
 			}
 		} else {
-			tmp1 = false;
+			tmp2 = false;
 		}
-		if(tmp1) {
+		if(tmp2) {
 			if(excludes.length != 0) {
 				if(!(name != null)) {
 					throw new js__$Boot_HaxeError("FAIL: str != null");
@@ -2246,7 +2296,16 @@ markov_namegen_NameGenerator.prototype = {
 				if(!(excludes != null)) {
 					throw new js__$Boot_HaxeError("FAIL: substr != null");
 				}
-				tmp = name.indexOf(excludes) < 0;
+				tmp1 = name.indexOf(excludes) < 0;
+			} else {
+				tmp1 = true;
+			}
+		} else {
+			tmp1 = false;
+		}
+		if(tmp1) {
+			if(regexMatch != null) {
+				tmp = regexMatch.match(name);
 			} else {
 				tmp = true;
 			}
@@ -2258,7 +2317,7 @@ markov_namegen_NameGenerator.prototype = {
 		}
 		return null;
 	}
-	,generateNames: function(n,minLength,maxLength,startsWith,endsWith,includes,excludes,maxTimePerName) {
+	,generateNames: function(n,minLength,maxLength,startsWith,endsWith,includes,excludes,maxTimePerName,regexMatch) {
 		if(maxTimePerName == null) {
 			maxTimePerName = 0.02;
 		}
@@ -2266,7 +2325,7 @@ markov_namegen_NameGenerator.prototype = {
 		var startTime = new Date().getTime();
 		var currentTime = new Date().getTime();
 		while(names.length < n && currentTime > startTime + maxTimePerName * n) {
-			var name = this.generateName(minLength,maxLength,startsWith,endsWith,includes,excludes);
+			var name = this.generateName(minLength,maxLength,startsWith,endsWith,includes,excludes,regexMatch);
 			if(name != null) {
 				names.push(name);
 			}
@@ -2658,6 +2717,7 @@ ID.endswith = "endswith";
 ID.includes = "includes";
 ID.excludes = "excludes";
 ID.similar = "similar";
+ID.regexmatch = "regexmatch";
 ID.generate = "generate";
 ID.random = "random";
 ID.namestitle = "namestitle";

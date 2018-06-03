@@ -36,12 +36,16 @@ class NameGenerator {
      * @param   excludes    The text the word must exclude.
      * @return  A word that meets the specified constraints, or null if the generated word did not meet the constraints.
      */
-    public function generateName(minLength:Int, maxLength:Int, startsWith:String, endsWith:String, includes:String, excludes:String):String {
+    public function generateName(minLength:Int, maxLength:Int, startsWith:String, endsWith:String, includes:String, excludes:String, regexMatch:EReg = null):String {
         var name = "";
 
         name = generator.generate();
         name = name.replace("#", "");
-        if (name.length >= minLength && name.length <= maxLength && name.startsWith(startsWith) && name.endsWith(endsWith) && (includes.length == 0 || name.contains(includes)) && (excludes.length == 0 || !name.contains(excludes))) {
+        if (name.length >= minLength && name.length <= maxLength
+        && name.startsWith(startsWith) && name.endsWith(endsWith)
+        && (includes.length == 0 || name.contains(includes))
+        && (excludes.length == 0 || !name.contains(excludes))
+        && (regexMatch == null || regexMatch.match(name))) {
             return name;
         }
 
@@ -60,14 +64,14 @@ class NameGenerator {
      * @param   maxTimePerName  The maximum time in seconds to spend generating each name.
      * @return  A word that meets the specified constraints, or null if no word that met the constraints was generated in the time alotted.
      */
-    public function generateNames(n:Int, minLength:Int, maxLength:Int, startsWith:String, endsWith:String, includes:String, excludes:String, maxTimePerName:Float = 0.02):Array<String> {
+    public function generateNames(n:Int, minLength:Int, maxLength:Int, startsWith:String, endsWith:String, includes:String, excludes:String, maxTimePerName:Float = 0.02, regexMatch:EReg = null):Array<String> {
         var names = new Array<String>();
 
         var startTime = Date.now().getTime();
         var currentTime = Date.now().getTime();
 
         while (names.length < n && currentTime > startTime + (maxTimePerName * n)) {
-            var name = generateName(minLength, maxLength, startsWith, endsWith, includes, excludes);
+            var name = generateName(minLength, maxLength, startsWith, endsWith, includes, excludes, regexMatch);
             if (name != null) {
                 names.push(name);
             }

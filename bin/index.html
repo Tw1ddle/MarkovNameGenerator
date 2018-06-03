@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width,user-scalable=yes,initial-scale=1,maximum-scale=1">
-		<title>Procedural Name Generator - Markov Process Random Name And Word Generation</title>
+		<title>Procedural Name Generator - Markov Process Random Name And Word Generator</title>
 		<meta name="author" content="Sam Twidale">
         <meta name="description" content="This random name generator procedurally generates original names for animals, babies, characters, towns, or anything that needs a name.">
         <meta name="keywords" content="random name, name generator, name creator, procedural name generator, generator, procedural, markov, markov chain, names, boy names, girl names, baby names, list, dictionary">
@@ -35,7 +35,7 @@
 					<img class="logo" src="assets/images/markovnamegen_logo.png" alt="procedural name generation, name generator markov-namegen haxelib logo">
 				</a>
 				
-				<p><a href="https://github.com/Tw1ddle/MarkovNameGenerator" target="_blank">Markov Namegen</a> procedurally generates names using a <a href="https://en.wikipedia.org/wiki/Markov_process" target="_blank">Markov process</a>. A free and <a href="https://github.com/Tw1ddle/MarkovNameGenerator" target="_blank">open source</a> name generator, written in <a href="http://haxe.org/" target="_blank">Haxe</a> by <a href="https://twitter.com/Sam_Twidale" target="_blank">Sam Twidale</a>.</p>
+				<p><a href="https://github.com/Tw1ddle/MarkovNameGenerator" target="_blank">Markov Namegen</a> procedurally generates names with a <a href="https://en.wikipedia.org/wiki/Markov_process" target="_blank">Markov process</a>. Free and <a href="https://github.com/Tw1ddle/MarkovNameGenerator" target="_blank">open source</a> name generator, written by <a href="https://twitter.com/Sam_Twidale" target="_blank">Sam Twidale</a>.</p>
 			</div>
 		</section>
 		
@@ -90,6 +90,7 @@
 						<div class="container"> <h3>Includes</h3> <input type="text" id="includes" class="control"> </div>
 						<div class="container"> <h3>Excludes</h3> <input type="text" id="excludes" class="control"> </div>
 						<div class="container"> <h3>Similar To</h3> <input type="text" id="similar" class="control"> </div>
+						<div class="container"> <h3>Matches Regex</h3> <input type="text" id="regexmatch" class="control"> </div>
 					</div>
 					
 				</div>
@@ -130,13 +131,13 @@
 		
 		<div class="container stitched">
 			<h2>How It Works</h2>
-			<p>This site uses  <a href="https://en.wikipedia.org/wiki/Markov_chain" target="_blank">Markov chains</a> to <a href="https://en.wikipedia.org/wiki/Procedural_generation" target="_blank">procedurally generate</a> original names. Given a set of words as training data, the name generator calculates the conditional probability of a letter appearing after the sequence of letters chosen so far. There are dozens of training presets, and the corpus can also be manually edited through the settings dropdown section.</p>
-			<p>The generator maintains an array of models that look up to "n" characters back, where "n" is the maximum model order specified in the settings. The process starts by checking the highest order model, falling back to lower order models if necessary, using an approach called <a href="https://en.wikipedia.org/wiki/Katz%27s_back-off_model" target="_blank">Katz's back-off model</a>. As you increase the order setting, larger chunks of familiar words will appear in the generated output.</p>
-			<p>A Dirichlet prior is used to add a constant probability that any letter may be picked as the next letter. It acts like an additive smoothing factor, making the generated name content a bit more "random". In most cases it is best to keep this parameter small, but it can be useful to increase this if you aren't getting many results.</p>
-			<p>The generator generates as many names as possible, then filters and sorts the results according to tweakable criteria in the settings section. The length range parameter limits how many characters long the words are. The start, end, includes and excludes options limit the acceptable content of the word.</p>
-			<p>The similarity parameter allows you to sort the generated names by their similarity to the name that you enter. The similarity of the words is determined by the <a href="https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance" target="_blank">Damerau-Levenshtein</a> distance.</p>
-			<p>This generator is suitable for generating all sorts of names - be they funny names, fantasy names, Scottish names, German names, Irish names, names of towns, animal names, theological names, werewolf names, all kinds of names.</p>
-			<p>If you have any suggestions, requests or comments then feel free to <a href="http://samcodes.co.uk/contact/" target="_blank">contact me</a>.</p>
+			<p>This page uses  <a href="https://en.wikipedia.org/wiki/Markov_chain" target="_blank">Markov chains</a> to procedurally generate original names. Given a set of words as training data, the name generator calculates the probability of a letter appearing after the sequence of letters chosen so far. There are dozens of training presets, and the corpus can be manually edited through the "Settings" dropdown section above.</p>
+			<p>The generator maintains models that look up to "n" characters back, where "n" is the "Order" option value in the settings section. It starts by checking the highest order model, falling back to lower order models as necessary, using an approach called <a href="https://en.wikipedia.org/wiki/Katz%27s_back-off_model" target="_blank">Katz's back-off model</a>. As you increase the "Order" setting, larger chunks of the training words will appear in the generated output.</p>
+			<p>The Dirichlet "Prior" setting adds a constant probability that any letter may be picked as the next letter. It acts like an additive smoothing factor, making the generated name content a bit more "random". Keep this parameter small, it can be useful to increase this to get more results.</p>
+			<p>The generator generates as many names as possible, then filters and sorts the results according to tweakable criteria in the settings section. The "Length" range slider limits how many characters long the words are. The "Start", "End", "Includes", "Excludes" and "Regex" options are used to filter the generated words.</p>
+			<p>The "Similar To" parameter allows you to sort the generated names by their similarity to the name that you enter. The similarity of the words is determined by the <a href="https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance" target="_blank">Damerau-Levenshtein</a> distance.</p>
+			<p>This generator is suitable for generating all sorts of names. Hundreds of preset training datasets are embedded, and you can provide your own word data through the settings section. Presets include funny names, fantasy names, Scottish names, German names, Irish names, names of towns, animal names, theological names, werewolf names etc. </p>
+			<p>The name generator was written using <a href="https://haxe.org/" target="_blank">Haxe</a>. If you have any suggestions, requests or comments then <a href="https://twitter.com/Sam_Twidale" target="_blank">contact me</a> or open an <a href="https://github.com/Tw1ddle/MarkovNameGenerator" target="_blank">issue</a>.</p>
 		</div>
 		
 		<script type="text/javascript" src="js/wNumb.min.js"></script>
