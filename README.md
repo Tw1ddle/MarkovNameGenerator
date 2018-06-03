@@ -85,7 +85,7 @@ Or add it to your ```Project.xml```:
 ```
 
 ## Notes
-* Many of the concepts used for the generator were suggested in [this article](https://www.roguebasin.com/index.php?title=Names_from_a_high_order_Markov_Process_and_a_simplified_Katz_back-off_scheme) by [Jeffrey Lund](https://github.com/jlund3).
+* Many of the concepts used for the generator were suggested in [this article](http://www.roguebasin.com/index.php?title=Names_from_a_high_order_Markov_Process_and_a_simplified_Katz_back-off_scheme) by Jeffrey Lund.
 * If you have any questions or suggestions then [get in touch](https://twitter.com/Sam_Twidale) or open an issue.
 * Remember to read the [documentation](https://tw1ddle.github.io/MarkovNameGenerator/).
 
