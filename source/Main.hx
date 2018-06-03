@@ -15,12 +15,12 @@ using markov.util.StringExtensions;
 using StringTools;
 
 // Automatic HTML code completion, you need to point these to your HTML
-@:build(CodeCompletion.buildLocalFile("bin/index.html"))
+@:build(CodeCompletion.buildLocalFile("../bin/index.html"))
 //@:build(CodeCompletion.buildUrl("http://www.samcodes.co.uk/project/markov-namegen/"))
 class ID {}
 
 // Automatically reads training data from files into corresponding static arrays of strings in this class
-@:build(TrainingDataBuilder.build("embed"))
+@:build(TrainingDataBuilder.build("../embed"))
 @:keep
 class TrainingDatas {}
 
