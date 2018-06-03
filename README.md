@@ -1,4 +1,5 @@
-[![Project logo](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/markovnamegen_logo.png?raw=true "Markov Namegen Procedural Random Name Generator Project logo")](https://www.samcodes.co.uk/project/markov-namegen/)
+[![Markov Namegen logo](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/markovnamegen_logo.png?raw=true "Markov Namegen Procedural Random Name Generator Project logo")](https://www.samcodes.co.uk/project/markov-namegen/)
+[![License Badge](https://licensebuttons.net/l/by-nc/4.0/80x15.png)](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/LICENSE)
 
 [![Travis Build Status](https://img.shields.io/travis/Tw1ddle/MarkovNameGenerator.svg?style=flat-square)](https://travis-ci.org/Tw1ddle/MarkovNameGenerator)
 
@@ -48,27 +49,14 @@ Bradnincham
 
 Hit one of the sharing buttons to share results and settings via a generated URL. Note that large training data sets generate URLs too long for some browsers and servers - reduce the amount of training data to work around this.
 
-## Install
-
-Get the Haxe library from [GitHub](https://github.com/Tw1ddle/MarkovNameGenerator) or through [haxelib](https://lib.haxe.org/p/markov-namegen/).
-
-Include it in your ```.hxml```
-```
--lib markov-namegen
-```
-
-Or add it to your ```Project.xml```:
-```
-<haxelib name="markov-namegen" />
-```
-
 ## Screenshots
 Here is the demo in action:
 
 [![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot1.png?raw=true "Markov Namegen Procedural Random Name Generator screenshot 1")](https://www.samcodes.co.uk/project/markov-namegen/)
 
-
 [![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot2.png?raw=true "Markov Namegen Procedural Random Name Generator screenshot 2")](https://www.samcodes.co.uk/project/markov-namegen/)
+
+[![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot3.png?raw=true "Markov Namegen Procedural Random Name Generator screenshot 3")](https://www.samcodes.co.uk/project/markov-namegen/)
 
 ## How It Works
 
@@ -81,6 +69,20 @@ The generator can use several orders of models, each with memory n. Starting wit
 A [Dirichlet prior](https://en.wikipedia.org/wiki/Dirichlet_distribution#Special_cases) is used to add a constant probability that any letter may be picked as the next letter. This acts as an additive smoothing factor and adds a bit more "randomness" to the generated output.
 
 Countless words are generated, and are then filtered and sorted according to several tweakable criteria like length, start and end characters, [similarity to a target word](https://en.wikipedia.org/wiki/Levenshtein_distance), and so on.
+
+## Library Install
+
+Get the Markov Namegen library from [GitHub](https://github.com/Tw1ddle/MarkovNameGenerator/tree/master/lib) or through [haxelib](https://lib.haxe.org/p/markov-namegen/).
+
+Include it in your ```.hxml```
+```
+-lib markov-namegen
+```
+
+Or add it to your ```Project.xml```:
+```
+<haxelib name="markov-namegen" />
+```
 
 ## Notes
 * Many of the concepts used for the generator were suggested in [this article](https://www.roguebasin.com/index.php?title=Names_from_a_high_order_Markov_Process_and_a_simplified_Katz_back-off_scheme) by [Jeffrey Lund](https://github.com/jlund3).
