@@ -9,5 +9,6 @@ import markov.util.FileReader;
 import markov.util.IntExtensions;
 import markov.util.PrefixTrie;
 import markov.util.StringExtensions;
+import markov.util.TrainingDataBuilder;
 
 class Main {}

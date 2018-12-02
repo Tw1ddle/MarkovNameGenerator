@@ -15,3 +15,6 @@
 
 ## 1.0.5
 * Added regex matching option for filtering generated names.
+
+## 1.0.6
+* Added training data embedding helper macro to the library.

@@ -16,7 +16,7 @@ Demonstrates the [markov-namegen haxelib](https://lib.haxe.org/p/markov-namegen)
 
 ## Usage
 
-Try the [demo](https://www.samcodes.co.uk/project/markov-namegen/) to generate your own words. For example:
+Run the [demo](https://www.samcodes.co.uk/project/markov-namegen/) to generate your own words. For example:
 
 ```
 Training Dataset: English Towns
@@ -33,7 +33,7 @@ Similarity To: birmingham
 Matches Regex:
 ```
 
-A list of results will be displayed. Here are the first 10 results from this run:
+Click the "Generate" button and the results will be displayed. Here are the first 10 results with the settings above:
 ```
 Barkingham
 Basingham
@@ -46,8 +46,6 @@ Berwickham
 Botteringham
 Bradnincham
 ```
-
-Hit one of the sharing buttons to share results and settings via a generated URL. Note that large training data sets generate URLs too long for some browsers and servers - reduce the amount of training data to work around this.
 
 ## Screenshots
 Here is the demo in action:
@@ -87,7 +85,7 @@ Or add it to your ```Project.xml```:
 ## Notes
 * Many of the concepts used for the generator were suggested in [this article](http://www.roguebasin.com/index.php?title=Names_from_a_high_order_Markov_Process_and_a_simplified_Katz_back-off_scheme) by Jeffrey Lund.
 * If you have any questions or suggestions then [get in touch](https://twitter.com/Sam_Twidale) or open an issue.
-* Remember to read the [documentation](https://tw1ddle.github.io/MarkovNameGenerator/).
+* Read the [documentation](https://tw1ddle.github.io/MarkovNameGenerator/).
 
 ## License
-The website and demo code are licensed under CC BY-NC. The [haxelib library](https://lib.haxe.org/p/markov-namegen/) itself is MIT licensed. The noUiSlider settings sliders are WTFPL. Most of the training data was compiled from sites like Wikipedia and census data sources.
+The website and demo code are licensed under CC BY-NC. The [haxelib](https://lib.haxe.org/p/markov-namegen/) itself is provided under the MIT license. The noUiSlider settings sliders are WTFPL. Most of the training data is compiled from sites like Wikipedia and census data sources.
