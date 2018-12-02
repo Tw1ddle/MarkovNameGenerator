@@ -10,6 +10,7 @@ import js.wNumb.WNumb;
 import markov.namegen.NameGenerator;
 import markov.util.EditDistanceMetrics;
 import markov.util.PrefixTrie;
+import markov.util.TrainingDataBuilder;
 
 using markov.util.StringExtensions;
 using StringTools;
@@ -20,7 +21,7 @@ using StringTools;
 class ID {}
 
 // Automatically reads training data from files into corresponding static arrays of strings in this class
-@:build(TrainingDataBuilder.build("../embed"))
+@:build(markov.util.TrainingDataBuilder.build("../embed"))
 @:keep
 class TrainingDatas {}
 

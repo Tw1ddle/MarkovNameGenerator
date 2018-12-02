@@ -1,10 +1,14 @@
+package markov.util;
+
+#if macro
+
+import markov.util.FileReader;
+import sys.FileSystem;
 import haxe.macro.Context;
 import haxe.macro.Expr.Access.APublic;
 import haxe.macro.Expr.Access.AStatic;
 import haxe.macro.Expr.Field;
 import haxe.macro.Expr.FieldType.FVar;
-import markov.util.FileReader;
-import sys.FileSystem;
 
 using StringTools;
 
@@ -18,7 +22,7 @@ class TrainingDataBuilder {
 	 * @param directoryPath   File path to the directory to be scanned.
 	 * @return Array of string array fields containing the contents of the files in the directory.
 	 */
-	public static function build(directoryPath:String):Array<Field> {
+	public static macro function build(directoryPath:String):Array<Field> {
 		var fields = Context.getBuildFields();
 		
 		var splitter = new EReg("[\r\n]", "g");
@@ -61,3 +65,5 @@ class TrainingDataBuilder {
 		return fields;
 	}
 }
+
+#end
