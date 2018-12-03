@@ -10,4 +10,4 @@ rem Build the XML-format type information.
 haxe build.hxml
 
 rem Generate the documentation.
-haxelib run dox -i types.xml -theme ./themes/samcodes --title "Markov Namegen API" -D version 1.0.6 --include "(markov)" -o generated_docs
+haxelib run dox -i types.xml -theme ./themes/samcodes --title "Markov Namegen API" -D version 1.0.7 --include "(markov)" -o generated_docs

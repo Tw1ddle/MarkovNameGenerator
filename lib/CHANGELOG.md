@@ -18,3 +18,6 @@
 
 ## 1.0.6
 * Added training data embedding helper macro to the library.
+
+## 1.0.7
+* Added additional utility functions, code cleanup.
