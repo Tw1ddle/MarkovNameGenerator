@@ -59,7 +59,51 @@ class StringExtensions {
      * @return  A capitalized copy of the string.
      */
     public static inline function capitalize(str:String):String {
-        Sure.sure(str != null);
+        Sure.sure(str != null && str.length > 0);
         return Utf8.sub(str, 0, 1).toUpperCase() + Utf8.sub(str, 1, Utf8.length(str) - 1);
+    }
+
+    /**
+     * Creates a lowercased version of a string.
+     * @param   str The string to lowercase.
+     * @return  A lowercased copy of the string.
+     */
+    public static inline function lowercase(str:String):String {
+        Sure.sure(str != null && str.length > 0);
+        return Utf8.sub(str, 0, 1).toLowerCase() + Utf8.sub(str, 1, Utf8.length(str) - 1);
+    }
+
+    /**
+     * Capitalize the first letter of every word (separated by spaces) in the string.
+     * @param   str The string containing words to capitalize.
+     */
+    public static inline function capitalizeWords(str:String):String {
+        Sure.sure(str != null);
+        var parts = str.split(" ");
+        var results = "";
+        for(i in 0...parts.length) {
+            results += capitalize(parts[i]);
+            if(i <= parts.length - 1) {
+                 results += " ";
+            }
+        }
+        return results;
+    }
+
+    /**
+     * Lower cases the first letter of every word (separated by spaces) in the string.
+     * @param   str The string containing words to lower case.
+     */
+    public static inline function lowercaseWords(str:String):String {
+        Sure.sure(str != null);
+        var parts = str.split(" ");
+        var results = "";
+        for(i in 0...parts.length) {
+            results += lowercase(parts[i]);
+            if(i <= parts.length - 1) {
+                 results += " ";
+            }
+        }
+        return results;
     }
 }
