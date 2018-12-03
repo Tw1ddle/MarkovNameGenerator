@@ -8,7 +8,7 @@ Markov Namegen is a Markov chain-based procedural name generator written in Haxe
 Demonstrates the [markov-namegen haxelib](https://lib.haxe.org/p/markov-namegen). Read the docs [here](https://tw1ddle.github.io/MarkovNameGenerator/).
 
 ## Features
-* Hundreds of editable training data presets.
+* Hundreds of customizable training data presets.
 * Configurable corpus, order and prior model parameter settings.
 * Filter results by length, start, end, content and regex match.
 * Sort by Damerau-Levenshtein distance to list results by similarity.
@@ -16,7 +16,7 @@ Demonstrates the [markov-namegen haxelib](https://lib.haxe.org/p/markov-namegen)
 
 ## Usage
 
-Run the [demo](https://www.samcodes.co.uk/project/markov-namegen/) to generate your own words. For example:
+Run the [demo](https://www.samcodes.co.uk/project/markov-namegen/) to generate your own words. For example, use these settings:
 
 ```
 Training Dataset: English Towns
@@ -35,16 +35,7 @@ Matches Regex:
 
 Click the "Generate" button and the results will be displayed. Here are the first 10 results with the settings above:
 ```
-Barkingham
-Basingham
-Birkenham
-Bebingham
-Bollingham
-Bridlingham
-Billenham
-Berwickham
-Botteringham
-Bradnincham
+Barkingham Basingham Birkenham Bebingham Bollingham Bridlingham Billenham Berwickham Botteringham Bradnincham
 ```
 
 ## Screenshots
@@ -53,8 +44,6 @@ Here is the demo in action:
 [![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot1.png?raw=true "Markov Namegen Procedural Random Name Generator screenshot 1")](https://www.samcodes.co.uk/project/markov-namegen/)
 
 [![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot2.png?raw=true "Markov Namegen Procedural Random Name Generator screenshot 2")](https://www.samcodes.co.uk/project/markov-namegen/)
-
-[![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot3.png?raw=true "Markov Namegen Procedural Random Name Generator screenshot 3")](https://www.samcodes.co.uk/project/markov-namegen/)
 
 ## How It Works
 
