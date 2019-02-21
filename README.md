@@ -8,7 +8,8 @@ Markov Namegen is a Markov chain-based procedural name generator written in Haxe
 Demonstrates the [markov-namegen haxelib](https://lib.haxe.org/p/markov-namegen). Read the docs [here](https://tw1ddle.github.io/MarkovNameGenerator/).
 
 ## Features
-* Hundreds of customizable training data presets.
+* Comes with hundreds of training data presets.
+* Presets are customizable and can be combined with others.
 * Configurable corpus, order and prior model parameter settings.
 * Filter results by length, start, end, content and regex match.
 * Sort by Damerau-Levenshtein distance to list results by similarity.
