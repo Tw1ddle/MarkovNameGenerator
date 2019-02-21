@@ -562,14 +562,15 @@ class Main {
 		nameDataSearchBoxElement.value = keys[keys.length - 1];
 		
 		for (checkboxElement in nameDataPresetCheckboxElements) {
-			checkboxElement.checked = function() {
+			var isChecked = function() {
 				for (key in keys) {
 					if (checkboxElement.value == key) {
 						return true;
 					}
 				}
 				return false;
-			}();
+			};
+			checkboxElement.checked = isChecked();
 		}
 		
 		onNameDataPresetSelectionChanged(keys);

@@ -1756,7 +1756,7 @@ Main.prototype = {
 		while(_g < _g1.length) {
 			var checkboxElement = [_g1[_g]];
 			++_g;
-			var tmp = (function(checkboxElement1) {
+			var isChecked = (function(checkboxElement1) {
 				return function() {
 					var _g2 = 0;
 					while(_g2 < keys.length) {
@@ -1769,7 +1769,7 @@ Main.prototype = {
 					return false;
 				};
 			})(checkboxElement);
-			checkboxElement[0].checked = tmp();
+			checkboxElement[0].checked = isChecked();
 		}
 		this.onNameDataPresetSelectionChanged(keys);
 		return this.get_trainingDataKeys();
