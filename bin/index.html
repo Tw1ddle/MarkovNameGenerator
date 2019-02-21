@@ -42,12 +42,15 @@
 		<!-- Options and filters -->
 		<section id="accordion">
 			<div>
-				<input type="checkbox" id="check-1">
-				<h2><label for="check-1">Settings</label></h2>
+				<input type="checkbox" id="showsettingscheckbox">
+				<h2><label id="showsettingslabel" for="showsettingscheckbox">Settings</label></h2>
 				
 				<div class="settings">
 					<div class="stitched">
-						<h3>Name Data Preset</h3>
+						<h3>Name Data Presets</h3>
+					
+						<div id="trainingdataselectioncheckboxes">
+						</div>
 					
 						<select id="trainingdatalist">
 						</select>
@@ -60,7 +63,7 @@
 						</textarea>
 					</div>
 					
-					<div class="sliders stitched">
+					<div id="sliderscontainer" class="sliders stitched">
 						<div class="container">
 							<h3>Length Range</h3>
 							<div id="minmaxlength" class="black"></div>

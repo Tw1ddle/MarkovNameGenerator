@@ -4,7 +4,7 @@ body {
     color: #000000;
     font-size: 13px;
 }
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, legend, table, caption, tbody, tfoot, thead, tr, th, td {
     background: transparent;
     border: 0;
     margin: 0;
@@ -61,24 +61,30 @@ img {
     max-width:90%;
 }
 
+.noUi-base {
+	min-height: 16px;
+}
+.noUi-value {
+	display: none;
+}
 .red, .green, .blue, .black, .orange {
     margin: 20px;
     width: 200px;
     display: inline-block;
 }
-.red .noUi-base {
+.red .noUi-connect {
     background: #c0392b;
 }
-.green .noUi-base {
+.green .noUi-connect {
     background: #27ae60;
 }
-.blue .noUi-base {
+.blue .noUi-connect {
     background: #2980b9;
 }
 .black .noUi-connect {
     background: #000000;
 }
-.orange .noUi-base {
+.orange .noUi-connect {
     background: #ffa500;
 }
 .verticalslider {
@@ -100,7 +106,7 @@ img {
     display: inline-block;
 }
 
-input, textarea {
+textarea {
     padding: 9px;
     margin: 10px;
     border: solid 1px #E5E5E5;
@@ -113,13 +119,10 @@ input, textarea {
     -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px; 
     -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
 }
-input:hover, textarea:hover, input:focus, textarea:focus { 
+
+textarea:hover, textarea:focus { 
     border-color: #C9C9C9; 
     -webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 8px; 
-}
-label { 
-    margin-left: 10px; 
-    color: #999999; 
 }
 body {
     text-align: center;
@@ -185,10 +188,80 @@ select {
     margin: 20px;
 }
 
-#accordion #check-1 {
+#showsettingslabel { 
+    color: #999999; 
+    background: transparent;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+    outline: 0;
+}
+#showsettingslabel:hover {
+    color: #000000;
+}
+#showsettingscheckbox {
     display: none;
 }
-#accordion label {
+
+#trainingdataselectioncheckboxes {
+	display: inline-block;
+}
+
+#trainingdataselectioncheckboxes .presetcheckbox {
+	display:inline-block;
+}
+
+#trainingdataselectioncheckboxes .presetlabel {
+	display:inline-block;
+}
+
+#showsettingscheckbox:checked .settings {
+}
+#showsettingscheckbox:checked ~ .settings {
+    height: auto;
+}
+
+#accordion .settings {
+    background: #ffffff;
+    height:0px;
+    overflow:hidden;
+    z-index:10;
+}
+
+#sliderscontainer p {
+    padding: 1em;
+}
+
+#trainingdatasearchbox, #trainingdataedit, #minmaxlength, #startswith, #endswith, #includes, #excludes, #similar, #regexmatch, #shareedit {
+    padding: 9px;
+    margin: 10px;
+    border: solid 1px #E5E5E5;
+    outline: 0;
+    width: 150px; 
+    background: #FFFFFF url('bg_form.png') left top repeat-x; 
+    background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF)); 
+    background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px); 
+    box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px; 
+    -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px; 
+    -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+}
+input:hover, input:focus { 
+    border-color: #C9C9C9; 
+    -webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 8px; 
+}
+
+.presetcheckboxtext {
+    font-family: "Open Sans", sans-serif;
+    font-size: 10px;
+    line-height: 10px;
+    color: #888888;
+    margin: 1px 0;
+    margin: 0;
+    padding: 3px;
+}
+
+#sliderscontainer label {
     background: #ffffff;
     border-radius: .25em;
     cursor: pointer;
@@ -196,29 +269,15 @@ select {
     margin-bottom: .125em;
     padding: .25em 1em;
     z-index: 20;
+    margin: 0;
+    vertical-align: baseline;
+    outline: 0;
 }
-#accordion label:hover {
-    color: #000000;
-}
-#accordion input:checked + label {
+#sliderscontainer input:checked + label {
     background: #ffffff;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
     margin-bottom: 0;
-}
-#accordion .settings {
-    background: #ffffff;
-    height:0px;
-    overflow:hidden;
-    z-index:10;
-}
-#accordion .settings p {
-    padding: 1em;
-}
-#accordion input:checked .settings {
-}
-#accordion input:checked ~ .settings {
-    height: auto;
 }
 
 .container {

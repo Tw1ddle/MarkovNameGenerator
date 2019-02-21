@@ -104,6 +104,8 @@ var Main = function() {
 	this.priorElement = window.document.getElementById("prior");
 	this.orderElement = window.document.getElementById("order");
 	this.trainingDataTextEdit = window.document.getElementById("trainingdataedit");
+	this.nameDataPresetCheckboxElements = [];
+	this.nameDataPresetCheckboxContainer = window.document.getElementById("trainingdataselectioncheckboxes");
 	this.nameDataDataListElement = window.document.getElementById("namedatapresetslist");
 	this.nameDataSearchBoxElement = window.document.getElementById("trainingdatasearchbox");
 	this.nameDataPresetListElement = window.document.getElementById("trainingdatalist");
@@ -207,12 +209,10 @@ Main.prototype = {
 			})(displayName);
 			this.nameDataPresetListElement.appendChild(makeOption());
 			this.nameDataDataListElement.appendChild(makeOption());
+			this.addTrainingDataSelectionCheckboxes(displayName[0]);
 			this.topicSearchTrie.insert(displayName[0]);
 		}
-		if(!Object.prototype.hasOwnProperty.call(TrainingData,"animals")) {
-			throw new js__$Boot_HaxeError("FAIL: Reflect.hasField(TrainingData, \"animals\")");
-		}
-		this.set_trainingDataId("Animals");
+		this.set_trainingDataKeys(["Animals"]);
 		this.maxWordsToGenerate = 100;
 		this.minLength = 5;
 		this.maxLength = 11;
@@ -227,86 +227,100 @@ Main.prototype = {
 		this.set_regexMatch("");
 		ShareResults.applySettings(this);
 		var _gthis1 = this;
+		noUiSlider.create(this.lengthElement,{ start : [this.minLength,this.maxLength], connect : true, range : { "min" : [3,1], "max" : 21}, pips : { mode : "range", density : 10}});
+		this.createTooltips(this.lengthElement);
+		this.lengthElement.noUiSlider.on("change",function(values,handle,rawValues) {
+			if(handle == 0) {
+				_gthis1.minLength = values[handle] | 0;
+			} else if(handle == 1) {
+				_gthis1.maxLength = values[handle] | 0;
+			}
+		});
+		this.lengthElement.noUiSlider.on("update",function(values1,handle1,rawValues1) {
+			_gthis1.updateTooltips(_gthis1.lengthElement,handle1,values1[handle1] | 0);
+		});
 		noUiSlider.create(this.orderElement,{ start : [this.order], connect : "lower", range : { "min" : [1,1], "max" : [9]}, pips : { mode : "range", density : 10}});
 		this.createTooltips(this.orderElement);
-		this.orderElement.noUiSlider.on("change",function(values,handle,rawValues) {
-			return _gthis1.order = values[handle] | 0;
+		this.orderElement.noUiSlider.on("change",function(values2,handle2,rawValues2) {
+			return _gthis1.order = values2[handle2] | 0;
 		});
-		this.orderElement.noUiSlider.on("update",function(values1,handle1,rawValues1) {
-			_gthis1.updateTooltips(_gthis1.orderElement,handle1,values1[handle1] | 0);
+		this.orderElement.noUiSlider.on("update",function(values3,handle3,rawValues3) {
+			_gthis1.updateTooltips(_gthis1.orderElement,handle3,values3[handle3] | 0);
 			return;
 		});
 		noUiSlider.create(this.priorElement,{ start : [this.prior], connect : "lower", range : { "min" : 0.001, "50%" : 0.025, "max" : 0.05}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 3})}});
 		this.createTooltips(this.priorElement);
-		this.priorElement.noUiSlider.on("change",function(values2,handle2,rawValues2) {
-			return _gthis1.prior = parseFloat(values2[handle2]);
+		this.priorElement.noUiSlider.on("change",function(values4,handle4,rawValues4) {
+			return _gthis1.prior = parseFloat(values4[handle4]);
 		});
-		this.priorElement.noUiSlider.on("update",function(values3,handle3,rawValues3) {
-			_gthis1.updateTooltips(_gthis1.priorElement,handle3,values3[handle3]);
+		this.priorElement.noUiSlider.on("update",function(values5,handle5,rawValues5) {
+			_gthis1.updateTooltips(_gthis1.priorElement,handle5,values5[handle5]);
 			return;
 		});
 		noUiSlider.create(this.maxWordsToGenerateElement,{ start : [100], connect : "lower", range : { "min" : 20, "max" : 1000}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 0})}});
 		this.createTooltips(this.maxWordsToGenerateElement);
-		this.maxWordsToGenerateElement.noUiSlider.on("change",function(values4,handle4,rawValues4) {
-			return _gthis1.maxWordsToGenerate = parseFloat(values4[handle4]);
+		this.maxWordsToGenerateElement.noUiSlider.on("change",function(values6,handle6,rawValues6) {
+			return _gthis1.maxWordsToGenerate = parseFloat(values6[handle6]);
 		});
-		this.maxWordsToGenerateElement.noUiSlider.on("update",function(values5,handle5,rawValues5) {
-			_gthis1.updateTooltips(_gthis1.maxWordsToGenerateElement,handle5,values5[handle5] | 0);
+		this.maxWordsToGenerateElement.noUiSlider.on("update",function(values7,handle7,rawValues7) {
+			_gthis1.updateTooltips(_gthis1.maxWordsToGenerateElement,handle7,values7[handle7] | 0);
 			return;
 		});
 		noUiSlider.create(this.maxProcessingTimeElement,{ start : [this.maxProcessingTime], connect : "lower", range : { "min" : 50, "max" : 5000}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 0})}});
 		this.createTooltips(this.maxProcessingTimeElement);
-		this.maxProcessingTimeElement.noUiSlider.on("change",function(values6,handle6,rawValues6) {
-			return _gthis1.maxProcessingTime = parseFloat(values6[handle6]);
+		this.maxProcessingTimeElement.noUiSlider.on("change",function(values8,handle8,rawValues8) {
+			return _gthis1.maxProcessingTime = parseFloat(values8[handle8]);
 		});
-		this.maxProcessingTimeElement.noUiSlider.on("update",function(values7,handle7,rawValues7) {
-			_gthis1.updateTooltips(_gthis1.maxProcessingTimeElement,handle7,values7[handle7] | 0);
-			return;
-		});
-		noUiSlider.create(this.lengthElement,{ start : [this.minLength,this.maxLength], connect : true, range : { "min" : [3,1], "max" : 21}, pips : { mode : "range", density : 10}});
-		this.createTooltips(this.lengthElement);
-		this.lengthElement.noUiSlider.on("change",function(values8,handle8,rawValues8) {
-			if(handle8 == 0) {
-				return _gthis1.minLength = values8[handle8] | 0;
-			} else {
-				if(handle8 == 1) {
-					_gthis1.maxLength = values8[handle8] | 0;
-				}
-				return;
-			}
-		});
-		this.lengthElement.noUiSlider.on("update",function(values9,handle9,rawValues9) {
-			_gthis1.updateTooltips(_gthis1.lengthElement,handle9,values9[handle9] | 0);
+		this.maxProcessingTimeElement.noUiSlider.on("update",function(values9,handle9,rawValues9) {
+			_gthis1.updateTooltips(_gthis1.maxProcessingTimeElement,handle9,values9[handle9] | 0);
 			return;
 		});
 		var _gthis2 = this;
 		this.nameDataPresetListElement.addEventListener("change",function() {
-			return _gthis2.set_trainingDataId(_gthis2.nameDataPresetListElement.value);
+			_gthis2.set_trainingDataKeys([_gthis2.nameDataPresetListElement.value]);
 		},false);
 		this.nameDataSearchBoxElement.addEventListener("change",function() {
 			if(_gthis2.topicSearchTrie.find(_gthis2.nameDataSearchBoxElement.value)) {
-				_gthis2.set_trainingDataId(_gthis2.nameDataSearchBoxElement.value);
+				_gthis2.set_trainingDataKeys([_gthis2.nameDataSearchBoxElement.value]);
 			}
-			return;
 		},false);
 		this.nameDataSearchBoxElement.addEventListener("input",function() {
 			if(_gthis2.topicSearchTrie.find(_gthis2.nameDataSearchBoxElement.value)) {
-				_gthis2.set_trainingDataId(_gthis2.nameDataSearchBoxElement.value);
+				_gthis2.set_trainingDataKeys([_gthis2.nameDataSearchBoxElement.value]);
 			}
-			return;
 		},false);
+		var _g5 = 0;
+		var _g13 = this.nameDataPresetCheckboxElements;
+		while(_g5 < _g13.length) {
+			var nameDataPresetCheckbox = _g13[_g5];
+			++_g5;
+			nameDataPresetCheckbox.addEventListener("change",function() {
+				var tmp = _gthis2.get_trainingDataKeys();
+				_gthis2.set_trainingDataKeys(tmp);
+			},false);
+		}
 		this.trainingDataTextEdit.addEventListener("change",function() {
 			var data = _gthis2.trainingDataTextEdit.value;
 			if(!(data == null || data.length == 0)) {
 				var arr = data.split(" ");
 				if(arr.length > 0) {
-					var presetName = _gthis2.get_trainingDataId();
-					_gthis2.namesTitleElement.innerHTML = presetName;
+					var presetNames = _gthis2.get_trainingDataKeys();
+					var title = "";
+					var _g14 = 0;
+					var _g6 = presetNames.length;
+					while(_g14 < _g6) {
+						var i3 = _g14++;
+						title += presetNames[i3];
+						if(presetNames.length != 1 && i3 != presetNames.length - 1) {
+							title += " + ";
+						}
+					}
+					_gthis2.namesTitleElement.innerHTML = title;
 					_gthis2.duplicateTrie = new markov_util_PrefixTrie();
-					var _g5 = 0;
-					while(_g5 < arr.length) {
-						var name = arr[_g5];
-						++_g5;
+					var _g7 = 0;
+					while(_g7 < arr.length) {
+						var name = arr[_g7];
+						++_g7;
 						_gthis2.duplicateTrie.insert(name);
 					}
 					_gthis2.generator = new markov_namegen_NameGenerator(arr,_gthis2.order,_gthis2.prior);
@@ -372,10 +386,10 @@ Main.prototype = {
 					if(names.length == 0) {
 						_gthis2.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 					}
-					var _g6 = 0;
-					while(_g6 < names.length) {
-						var name2 = names[_g6];
-						++_g6;
+					var _g8 = 0;
+					while(_g8 < names.length) {
+						var name2 = names[_g8];
+						++_g8;
 						var li = window.document.createElement("li");
 						if(!(name2 != null && name2.length > 0)) {
 							throw new js__$Boot_HaxeError("FAIL: str != null && str.length > 0");
@@ -392,13 +406,23 @@ Main.prototype = {
 			if(!(data1 == null || data1.length == 0)) {
 				var arr1 = data1.split(" ");
 				if(arr1.length > 0) {
-					var presetName1 = _gthis2.get_trainingDataId();
-					_gthis2.namesTitleElement.innerHTML = presetName1;
+					var presetNames1 = _gthis2.get_trainingDataKeys();
+					var title1 = "";
+					var _g15 = 0;
+					var _g9 = presetNames1.length;
+					while(_g15 < _g9) {
+						var i4 = _g15++;
+						title1 += presetNames1[i4];
+						if(presetNames1.length != 1 && i4 != presetNames1.length - 1) {
+							title1 += " + ";
+						}
+					}
+					_gthis2.namesTitleElement.innerHTML = title1;
 					_gthis2.duplicateTrie = new markov_util_PrefixTrie();
-					var _g7 = 0;
-					while(_g7 < arr1.length) {
-						var name3 = arr1[_g7];
-						++_g7;
+					var _g10 = 0;
+					while(_g10 < arr1.length) {
+						var name3 = arr1[_g10];
+						++_g10;
 						_gthis2.duplicateTrie.insert(name3);
 					}
 					_gthis2.generator = new markov_namegen_NameGenerator(arr1,_gthis2.order,_gthis2.prior);
@@ -464,10 +488,10 @@ Main.prototype = {
 					if(names1.length == 0) {
 						_gthis2.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 					}
-					var _g8 = 0;
-					while(_g8 < names1.length) {
-						var name5 = names1[_g8];
-						++_g8;
+					var _g16 = 0;
+					while(_g16 < names1.length) {
+						var name5 = names1[_g16];
+						++_g16;
 						var li1 = window.document.createElement("li");
 						if(!(name5 != null && name5.length > 0)) {
 							throw new js__$Boot_HaxeError("FAIL: str != null && str.length > 0");
@@ -482,18 +506,48 @@ Main.prototype = {
 		this.randomThemeElement.addEventListener("click",function() {
 			var topics = Type.getClassFields(TrainingData);
 			var topic = topics[Std.random(topics.length)];
-			_gthis2.set_trainingDataId(topic);
+			var str6 = StringTools.replace(topic,"_"," ");
+			if(!(str6 != null)) {
+				throw new js__$Boot_HaxeError("FAIL: str != null");
+			}
+			var parts3 = str6.split(" ");
+			var results3 = "";
+			var _g17 = 0;
+			var _g18 = parts3.length;
+			while(_g17 < _g18) {
+				var i5 = _g17++;
+				var str7 = parts3[i5];
+				if(!(str7 != null && str7.length > 0)) {
+					throw new js__$Boot_HaxeError("FAIL: str != null && str.length > 0");
+				}
+				results3 += HxOverrides.substr(str7,0,1).toUpperCase() + HxOverrides.substr(str7,1,str7.length - 1);
+				if(i5 <= parts3.length - 1) {
+					results3 += " ";
+				}
+			}
+			var tmp1 = StringTools.trim(results3);
+			_gthis2.set_trainingDataKeys([tmp1]);
 			var data2 = _gthis2.trainingDataTextEdit.value;
 			if(!(data2 == null || data2.length == 0)) {
 				var arr2 = data2.split(" ");
 				if(arr2.length > 0) {
-					var presetName2 = _gthis2.get_trainingDataId();
-					_gthis2.namesTitleElement.innerHTML = presetName2;
+					var presetNames2 = _gthis2.get_trainingDataKeys();
+					var title2 = "";
+					var _g19 = 0;
+					var _g20 = presetNames2.length;
+					while(_g19 < _g20) {
+						var i6 = _g19++;
+						title2 += presetNames2[i6];
+						if(presetNames2.length != 1 && i6 != presetNames2.length - 1) {
+							title2 += " + ";
+						}
+					}
+					_gthis2.namesTitleElement.innerHTML = title2;
 					_gthis2.duplicateTrie = new markov_util_PrefixTrie();
-					var _g9 = 0;
-					while(_g9 < arr2.length) {
-						var name6 = arr2[_g9];
-						++_g9;
+					var _g21 = 0;
+					while(_g21 < arr2.length) {
+						var name6 = arr2[_g21];
+						++_g21;
 						_gthis2.duplicateTrie.insert(name6);
 					}
 					_gthis2.generator = new markov_namegen_NameGenerator(arr2,_gthis2.order,_gthis2.prior);
@@ -559,10 +613,10 @@ Main.prototype = {
 					if(names2.length == 0) {
 						_gthis2.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 					}
-					var _g10 = 0;
-					while(_g10 < names2.length) {
-						var name8 = names2[_g10];
-						++_g10;
+					var _g22 = 0;
+					while(_g22 < names2.length) {
+						var name8 = names2[_g22];
+						++_g22;
 						var li2 = window.document.createElement("li");
 						if(!(name8 != null && name8.length > 0)) {
 							throw new js__$Boot_HaxeError("FAIL: str != null && str.length > 0");
@@ -709,14 +763,12 @@ Main.prototype = {
 			})(displayName);
 			this.nameDataPresetListElement.appendChild(makeOption());
 			this.nameDataDataListElement.appendChild(makeOption());
+			this.addTrainingDataSelectionCheckboxes(displayName[0]);
 			this.topicSearchTrie.insert(displayName[0]);
 		}
 	}
 	,applySettings: function() {
-		if(!Object.prototype.hasOwnProperty.call(TrainingData,"animals")) {
-			throw new js__$Boot_HaxeError("FAIL: Reflect.hasField(TrainingData, \"animals\")");
-		}
-		this.set_trainingDataId("Animals");
+		this.set_trainingDataKeys(["Animals"]);
 		this.maxWordsToGenerate = 100;
 		this.minLength = 5;
 		this.maxLength = 11;
@@ -733,56 +785,52 @@ Main.prototype = {
 	}
 	,createSliders: function() {
 		var _gthis = this;
+		noUiSlider.create(this.lengthElement,{ start : [this.minLength,this.maxLength], connect : true, range : { "min" : [3,1], "max" : 21}, pips : { mode : "range", density : 10}});
+		this.createTooltips(this.lengthElement);
+		this.lengthElement.noUiSlider.on("change",function(values,handle,rawValues) {
+			if(handle == 0) {
+				_gthis.minLength = values[handle] | 0;
+			} else if(handle == 1) {
+				_gthis.maxLength = values[handle] | 0;
+			}
+		});
+		this.lengthElement.noUiSlider.on("update",function(values1,handle1,rawValues1) {
+			_gthis.updateTooltips(_gthis.lengthElement,handle1,values1[handle1] | 0);
+		});
 		noUiSlider.create(this.orderElement,{ start : [this.order], connect : "lower", range : { "min" : [1,1], "max" : [9]}, pips : { mode : "range", density : 10}});
 		this.createTooltips(this.orderElement);
-		this.orderElement.noUiSlider.on("change",function(values,handle,rawValues) {
-			return _gthis.order = values[handle] | 0;
+		this.orderElement.noUiSlider.on("change",function(values2,handle2,rawValues2) {
+			return _gthis.order = values2[handle2] | 0;
 		});
-		this.orderElement.noUiSlider.on("update",function(values1,handle1,rawValues1) {
-			_gthis.updateTooltips(_gthis.orderElement,handle1,values1[handle1] | 0);
+		this.orderElement.noUiSlider.on("update",function(values3,handle3,rawValues3) {
+			_gthis.updateTooltips(_gthis.orderElement,handle3,values3[handle3] | 0);
 			return;
 		});
 		noUiSlider.create(this.priorElement,{ start : [this.prior], connect : "lower", range : { "min" : 0.001, "50%" : 0.025, "max" : 0.05}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 3})}});
 		this.createTooltips(this.priorElement);
-		this.priorElement.noUiSlider.on("change",function(values2,handle2,rawValues2) {
-			return _gthis.prior = parseFloat(values2[handle2]);
+		this.priorElement.noUiSlider.on("change",function(values4,handle4,rawValues4) {
+			return _gthis.prior = parseFloat(values4[handle4]);
 		});
-		this.priorElement.noUiSlider.on("update",function(values3,handle3,rawValues3) {
-			_gthis.updateTooltips(_gthis.priorElement,handle3,values3[handle3]);
+		this.priorElement.noUiSlider.on("update",function(values5,handle5,rawValues5) {
+			_gthis.updateTooltips(_gthis.priorElement,handle5,values5[handle5]);
 			return;
 		});
 		noUiSlider.create(this.maxWordsToGenerateElement,{ start : [100], connect : "lower", range : { "min" : 20, "max" : 1000}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 0})}});
 		this.createTooltips(this.maxWordsToGenerateElement);
-		this.maxWordsToGenerateElement.noUiSlider.on("change",function(values4,handle4,rawValues4) {
-			return _gthis.maxWordsToGenerate = parseFloat(values4[handle4]);
+		this.maxWordsToGenerateElement.noUiSlider.on("change",function(values6,handle6,rawValues6) {
+			return _gthis.maxWordsToGenerate = parseFloat(values6[handle6]);
 		});
-		this.maxWordsToGenerateElement.noUiSlider.on("update",function(values5,handle5,rawValues5) {
-			_gthis.updateTooltips(_gthis.maxWordsToGenerateElement,handle5,values5[handle5] | 0);
+		this.maxWordsToGenerateElement.noUiSlider.on("update",function(values7,handle7,rawValues7) {
+			_gthis.updateTooltips(_gthis.maxWordsToGenerateElement,handle7,values7[handle7] | 0);
 			return;
 		});
 		noUiSlider.create(this.maxProcessingTimeElement,{ start : [this.maxProcessingTime], connect : "lower", range : { "min" : 50, "max" : 5000}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 0})}});
 		this.createTooltips(this.maxProcessingTimeElement);
-		this.maxProcessingTimeElement.noUiSlider.on("change",function(values6,handle6,rawValues6) {
-			return _gthis.maxProcessingTime = parseFloat(values6[handle6]);
+		this.maxProcessingTimeElement.noUiSlider.on("change",function(values8,handle8,rawValues8) {
+			return _gthis.maxProcessingTime = parseFloat(values8[handle8]);
 		});
-		this.maxProcessingTimeElement.noUiSlider.on("update",function(values7,handle7,rawValues7) {
-			_gthis.updateTooltips(_gthis.maxProcessingTimeElement,handle7,values7[handle7] | 0);
-			return;
-		});
-		noUiSlider.create(this.lengthElement,{ start : [this.minLength,this.maxLength], connect : true, range : { "min" : [3,1], "max" : 21}, pips : { mode : "range", density : 10}});
-		this.createTooltips(this.lengthElement);
-		this.lengthElement.noUiSlider.on("change",function(values8,handle8,rawValues8) {
-			if(handle8 == 0) {
-				return _gthis.minLength = values8[handle8] | 0;
-			} else {
-				if(handle8 == 1) {
-					_gthis.maxLength = values8[handle8] | 0;
-				}
-				return;
-			}
-		});
-		this.lengthElement.noUiSlider.on("update",function(values9,handle9,rawValues9) {
-			_gthis.updateTooltips(_gthis.lengthElement,handle9,values9[handle9] | 0);
+		this.maxProcessingTimeElement.noUiSlider.on("update",function(values9,handle9,rawValues9) {
+			_gthis.updateTooltips(_gthis.maxProcessingTimeElement,handle9,values9[handle9] | 0);
 			return;
 		});
 	}
@@ -805,32 +853,50 @@ Main.prototype = {
 	,addEventListeners: function() {
 		var _gthis = this;
 		this.nameDataPresetListElement.addEventListener("change",function() {
-			return _gthis.set_trainingDataId(_gthis.nameDataPresetListElement.value);
+			_gthis.set_trainingDataKeys([_gthis.nameDataPresetListElement.value]);
 		},false);
 		this.nameDataSearchBoxElement.addEventListener("change",function() {
 			if(_gthis.topicSearchTrie.find(_gthis.nameDataSearchBoxElement.value)) {
-				_gthis.set_trainingDataId(_gthis.nameDataSearchBoxElement.value);
+				_gthis.set_trainingDataKeys([_gthis.nameDataSearchBoxElement.value]);
 			}
-			return;
 		},false);
 		this.nameDataSearchBoxElement.addEventListener("input",function() {
 			if(_gthis.topicSearchTrie.find(_gthis.nameDataSearchBoxElement.value)) {
-				_gthis.set_trainingDataId(_gthis.nameDataSearchBoxElement.value);
+				_gthis.set_trainingDataKeys([_gthis.nameDataSearchBoxElement.value]);
 			}
-			return;
 		},false);
+		var _g = 0;
+		var _g1 = this.nameDataPresetCheckboxElements;
+		while(_g < _g1.length) {
+			var nameDataPresetCheckbox = _g1[_g];
+			++_g;
+			nameDataPresetCheckbox.addEventListener("change",function() {
+				var tmp = _gthis.get_trainingDataKeys();
+				_gthis.set_trainingDataKeys(tmp);
+			},false);
+		}
 		this.trainingDataTextEdit.addEventListener("change",function() {
 			var data = _gthis.trainingDataTextEdit.value;
 			if(!(data == null || data.length == 0)) {
 				var arr = data.split(" ");
 				if(arr.length > 0) {
-					var presetName = _gthis.get_trainingDataId();
-					_gthis.namesTitleElement.innerHTML = presetName;
+					var presetNames = _gthis.get_trainingDataKeys();
+					var title = "";
+					var _g11 = 0;
+					var _g2 = presetNames.length;
+					while(_g11 < _g2) {
+						var i = _g11++;
+						title += presetNames[i];
+						if(presetNames.length != 1 && i != presetNames.length - 1) {
+							title += " + ";
+						}
+					}
+					_gthis.namesTitleElement.innerHTML = title;
 					_gthis.duplicateTrie = new markov_util_PrefixTrie();
-					var _g = 0;
-					while(_g < arr.length) {
-						var name = arr[_g];
-						++_g;
+					var _g3 = 0;
+					while(_g3 < arr.length) {
+						var name = arr[_g3];
+						++_g3;
 						_gthis.duplicateTrie.insert(name);
 					}
 					_gthis.generator = new markov_namegen_NameGenerator(arr,_gthis.order,_gthis.prior);
@@ -896,10 +962,10 @@ Main.prototype = {
 					if(names.length == 0) {
 						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 					}
-					var _g1 = 0;
-					while(_g1 < names.length) {
-						var name2 = names[_g1];
-						++_g1;
+					var _g4 = 0;
+					while(_g4 < names.length) {
+						var name2 = names[_g4];
+						++_g4;
 						var li = window.document.createElement("li");
 						if(!(name2 != null && name2.length > 0)) {
 							throw new js__$Boot_HaxeError("FAIL: str != null && str.length > 0");
@@ -916,13 +982,23 @@ Main.prototype = {
 			if(!(data1 == null || data1.length == 0)) {
 				var arr1 = data1.split(" ");
 				if(arr1.length > 0) {
-					var presetName1 = _gthis.get_trainingDataId();
-					_gthis.namesTitleElement.innerHTML = presetName1;
+					var presetNames1 = _gthis.get_trainingDataKeys();
+					var title1 = "";
+					var _g12 = 0;
+					var _g5 = presetNames1.length;
+					while(_g12 < _g5) {
+						var i1 = _g12++;
+						title1 += presetNames1[i1];
+						if(presetNames1.length != 1 && i1 != presetNames1.length - 1) {
+							title1 += " + ";
+						}
+					}
+					_gthis.namesTitleElement.innerHTML = title1;
 					_gthis.duplicateTrie = new markov_util_PrefixTrie();
-					var _g2 = 0;
-					while(_g2 < arr1.length) {
-						var name3 = arr1[_g2];
-						++_g2;
+					var _g6 = 0;
+					while(_g6 < arr1.length) {
+						var name3 = arr1[_g6];
+						++_g6;
 						_gthis.duplicateTrie.insert(name3);
 					}
 					_gthis.generator = new markov_namegen_NameGenerator(arr1,_gthis.order,_gthis.prior);
@@ -988,10 +1064,10 @@ Main.prototype = {
 					if(names1.length == 0) {
 						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 					}
-					var _g3 = 0;
-					while(_g3 < names1.length) {
-						var name5 = names1[_g3];
-						++_g3;
+					var _g7 = 0;
+					while(_g7 < names1.length) {
+						var name5 = names1[_g7];
+						++_g7;
 						var li1 = window.document.createElement("li");
 						if(!(name5 != null && name5.length > 0)) {
 							throw new js__$Boot_HaxeError("FAIL: str != null && str.length > 0");
@@ -1006,18 +1082,48 @@ Main.prototype = {
 		this.randomThemeElement.addEventListener("click",function() {
 			var topics = Type.getClassFields(TrainingData);
 			var topic = topics[Std.random(topics.length)];
-			_gthis.set_trainingDataId(topic);
+			var str = StringTools.replace(topic,"_"," ");
+			if(!(str != null)) {
+				throw new js__$Boot_HaxeError("FAIL: str != null");
+			}
+			var parts = str.split(" ");
+			var results = "";
+			var _g13 = 0;
+			var _g8 = parts.length;
+			while(_g13 < _g8) {
+				var i2 = _g13++;
+				var str1 = parts[i2];
+				if(!(str1 != null && str1.length > 0)) {
+					throw new js__$Boot_HaxeError("FAIL: str != null && str.length > 0");
+				}
+				results += HxOverrides.substr(str1,0,1).toUpperCase() + HxOverrides.substr(str1,1,str1.length - 1);
+				if(i2 <= parts.length - 1) {
+					results += " ";
+				}
+			}
+			var tmp1 = StringTools.trim(results);
+			_gthis.set_trainingDataKeys([tmp1]);
 			var data2 = _gthis.trainingDataTextEdit.value;
 			if(!(data2 == null || data2.length == 0)) {
 				var arr2 = data2.split(" ");
 				if(arr2.length > 0) {
-					var presetName2 = _gthis.get_trainingDataId();
-					_gthis.namesTitleElement.innerHTML = presetName2;
+					var presetNames2 = _gthis.get_trainingDataKeys();
+					var title2 = "";
+					var _g14 = 0;
+					var _g9 = presetNames2.length;
+					while(_g14 < _g9) {
+						var i3 = _g14++;
+						title2 += presetNames2[i3];
+						if(presetNames2.length != 1 && i3 != presetNames2.length - 1) {
+							title2 += " + ";
+						}
+					}
+					_gthis.namesTitleElement.innerHTML = title2;
 					_gthis.duplicateTrie = new markov_util_PrefixTrie();
-					var _g4 = 0;
-					while(_g4 < arr2.length) {
-						var name6 = arr2[_g4];
-						++_g4;
+					var _g10 = 0;
+					while(_g10 < arr2.length) {
+						var name6 = arr2[_g10];
+						++_g10;
 						_gthis.duplicateTrie.insert(name6);
 					}
 					_gthis.generator = new markov_namegen_NameGenerator(arr2,_gthis.order,_gthis.prior);
@@ -1083,10 +1189,10 @@ Main.prototype = {
 					if(names2.length == 0) {
 						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 					}
-					var _g5 = 0;
-					while(_g5 < names2.length) {
-						var name8 = names2[_g5];
-						++_g5;
+					var _g15 = 0;
+					while(_g15 < names2.length) {
+						var name8 = names2[_g15];
+						++_g15;
 						var li2 = window.document.createElement("li");
 						if(!(name8 != null && name8.length > 0)) {
 							throw new js__$Boot_HaxeError("FAIL: str != null && str.length > 0");
@@ -1143,13 +1249,77 @@ Main.prototype = {
 			return _gthis.shareLinkTextEdit.style.display = "block";
 		},false);
 	}
-	,generate: function(presetName,data) {
-		this.namesTitleElement.innerHTML = presetName;
-		this.duplicateTrie = new markov_util_PrefixTrie();
+	,addTrainingDataSelectionCheckboxes: function(displayName) {
+		var label = window.document.createElement("label");
+		label.className = "presetlabel";
+		var labelTextContent = window.document.createElement("p");
+		labelTextContent.className = "presetcheckboxtext";
+		labelTextContent.innerHTML = displayName;
+		var selectionCheckbox = window.document.createElement("input");
+		selectionCheckbox.type = "checkbox";
+		selectionCheckbox.className = "presetcheckbox";
+		selectionCheckbox.innerHTML = displayName;
+		selectionCheckbox.value = displayName;
+		label.appendChild(selectionCheckbox);
+		label.appendChild(labelTextContent);
+		this.nameDataPresetCheckboxContainer.appendChild(label);
+		this.nameDataPresetCheckboxElements.push(selectionCheckbox);
+	}
+	,onNameDataPresetSelectionChanged: function(keys) {
+		var s = "";
 		var _g = 0;
-		while(_g < data.length) {
-			var name = data[_g];
+		while(_g < keys.length) {
+			var key = keys[_g];
 			++_g;
+			if(!(key != null)) {
+				throw new js__$Boot_HaxeError("FAIL: str != null");
+			}
+			var parts = key.split(" ");
+			var results = "";
+			var _g1 = 0;
+			var _g2 = parts.length;
+			while(_g1 < _g2) {
+				var i = _g1++;
+				var str = parts[i];
+				if(!(str != null && str.length > 0)) {
+					throw new js__$Boot_HaxeError("FAIL: str != null && str.length > 0");
+				}
+				results += HxOverrides.substr(str,0,1).toLowerCase() + HxOverrides.substr(str,1,str.length - 1);
+				if(i <= parts.length - 1) {
+					results += " ";
+				}
+			}
+			var data = Reflect.getProperty(TrainingData,StringTools.replace(StringTools.trim(results)," ","_"));
+			if(data == null) {
+				continue;
+			}
+			var _g11 = 0;
+			while(_g11 < data.length) {
+				var i1 = data[_g11];
+				++_g11;
+				s += i1 + " ";
+			}
+			s = StringTools.rtrim(s);
+		}
+		this.trainingDataTextEdit.value = s;
+	}
+	,generate: function(presetNames,data) {
+		var title = "";
+		var _g1 = 0;
+		var _g = presetNames.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			title += presetNames[i];
+			if(presetNames.length != 1 && i != presetNames.length - 1) {
+				title += " + ";
+			}
+		}
+		this.namesTitleElement.innerHTML = title;
+		this.duplicateTrie = new markov_util_PrefixTrie();
+		var _g2 = 0;
+		while(_g2 < data.length) {
+			var name = data[_g2];
+			++_g2;
 			this.duplicateTrie.insert(name);
 		}
 		this.generator = new markov_namegen_NameGenerator(data,this.order,this.prior);
@@ -1215,10 +1385,10 @@ Main.prototype = {
 		if(names.length == 0) {
 			this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 		}
-		var _g1 = 0;
-		while(_g1 < names.length) {
-			var name2 = names[_g1];
-			++_g1;
+		var _g3 = 0;
+		while(_g3 < names.length) {
+			var name2 = names[_g3];
+			++_g3;
 			var li = window.document.createElement("li");
 			if(!(name2 != null && name2.length > 0)) {
 				throw new js__$Boot_HaxeError("FAIL: str != null && str.length > 0");
@@ -1230,20 +1400,49 @@ Main.prototype = {
 	,generateForRandomPreset: function() {
 		var topics = Type.getClassFields(TrainingData);
 		var topic = topics[Std.random(topics.length)];
-		this.set_trainingDataId(topic);
+		var str = StringTools.replace(topic,"_"," ");
+		if(!(str != null)) {
+			throw new js__$Boot_HaxeError("FAIL: str != null");
+		}
+		var parts = str.split(" ");
+		var results = "";
+		var _g1 = 0;
+		var _g = parts.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			var str1 = parts[i];
+			if(!(str1 != null && str1.length > 0)) {
+				throw new js__$Boot_HaxeError("FAIL: str != null && str.length > 0");
+			}
+			results += HxOverrides.substr(str1,0,1).toUpperCase() + HxOverrides.substr(str1,1,str1.length - 1);
+			if(i <= parts.length - 1) {
+				results += " ";
+			}
+		}
+		this.set_trainingDataKeys([StringTools.trim(results)]);
 		var data = this.trainingDataTextEdit.value;
 		if(data == null || data.length == 0) {
 			return;
 		}
 		var arr = data.split(" ");
 		if(arr.length > 0) {
-			var presetName = this.get_trainingDataId();
-			this.namesTitleElement.innerHTML = presetName;
+			var presetNames = this.get_trainingDataKeys();
+			var title = "";
+			var _g11 = 0;
+			var _g2 = presetNames.length;
+			while(_g11 < _g2) {
+				var i1 = _g11++;
+				title += presetNames[i1];
+				if(presetNames.length != 1 && i1 != presetNames.length - 1) {
+					title += " + ";
+				}
+			}
+			this.namesTitleElement.innerHTML = title;
 			this.duplicateTrie = new markov_util_PrefixTrie();
-			var _g = 0;
-			while(_g < arr.length) {
-				var name = arr[_g];
-				++_g;
+			var _g3 = 0;
+			while(_g3 < arr.length) {
+				var name = arr[_g3];
+				++_g3;
 				this.duplicateTrie.insert(name);
 			}
 			this.generator = new markov_namegen_NameGenerator(arr,this.order,this.prior);
@@ -1309,10 +1508,10 @@ Main.prototype = {
 			if(names.length == 0) {
 				this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 			}
-			var _g1 = 0;
-			while(_g1 < names.length) {
-				var name2 = names[_g1];
-				++_g1;
+			var _g4 = 0;
+			while(_g4 < names.length) {
+				var name2 = names[_g4];
+				++_g4;
 				var li = window.document.createElement("li");
 				if(!(name2 != null && name2.length > 0)) {
 					throw new js__$Boot_HaxeError("FAIL: str != null && str.length > 0");
@@ -1329,13 +1528,23 @@ Main.prototype = {
 		}
 		var arr = data.split(" ");
 		if(arr.length > 0) {
-			var presetName = this.get_trainingDataId();
-			this.namesTitleElement.innerHTML = presetName;
+			var presetNames = this.get_trainingDataKeys();
+			var title = "";
+			var _g1 = 0;
+			var _g = presetNames.length;
+			while(_g1 < _g) {
+				var i = _g1++;
+				title += presetNames[i];
+				if(presetNames.length != 1 && i != presetNames.length - 1) {
+					title += " + ";
+				}
+			}
+			this.namesTitleElement.innerHTML = title;
 			this.duplicateTrie = new markov_util_PrefixTrie();
-			var _g = 0;
-			while(_g < arr.length) {
-				var name = arr[_g];
-				++_g;
+			var _g2 = 0;
+			while(_g2 < arr.length) {
+				var name = arr[_g2];
+				++_g2;
 				this.duplicateTrie.insert(name);
 			}
 			this.generator = new markov_namegen_NameGenerator(arr,this.order,this.prior);
@@ -1401,10 +1610,10 @@ Main.prototype = {
 			if(names.length == 0) {
 				this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
 			}
-			var _g1 = 0;
-			while(_g1 < names.length) {
-				var name2 = names[_g1];
-				++_g1;
+			var _g3 = 0;
+			while(_g3 < names.length) {
+				var name2 = names[_g3];
+				++_g3;
 				var li = window.document.createElement("li");
 				if(!(name2 != null && name2.length > 0)) {
 					throw new js__$Boot_HaxeError("FAIL: str != null && str.length > 0");
@@ -1520,80 +1729,50 @@ Main.prototype = {
 		}
 		return StringTools.replace(StringTools.trim(results)," ","_");
 	}
+	,get_trainingDataKeys: function() {
+		var keys = [];
+		var _g = 0;
+		var _g1 = this.nameDataPresetCheckboxElements;
+		while(_g < _g1.length) {
+			var checkboxElement = _g1[_g];
+			++_g;
+			if(checkboxElement.checked) {
+				keys.push(checkboxElement.value);
+			}
+		}
+		if(keys.length == 0) {
+			return ["Animals"];
+		}
+		return keys;
+	}
 	,get_trainingDataId: function() {
 		return this.nameDataPresetListElement.value;
 	}
-	,set_trainingDataId: function(key) {
-		var str = StringTools.replace(key,"_"," ");
-		if(!(str != null)) {
-			throw new js__$Boot_HaxeError("FAIL: str != null");
+	,set_trainingDataKeys: function(keys) {
+		this.nameDataPresetListElement.value = keys[keys.length - 1];
+		this.nameDataSearchBoxElement.value = keys[keys.length - 1];
+		var _g = 0;
+		var _g1 = this.nameDataPresetCheckboxElements;
+		while(_g < _g1.length) {
+			var checkboxElement = [_g1[_g]];
+			++_g;
+			var tmp = (function(checkboxElement1) {
+				return function() {
+					var _g2 = 0;
+					while(_g2 < keys.length) {
+						var key = keys[_g2];
+						++_g2;
+						if(checkboxElement1[0].value == key) {
+							return true;
+						}
+					}
+					return false;
+				};
+			})(checkboxElement);
+			checkboxElement[0].checked = tmp();
 		}
-		var parts = str.split(" ");
-		var results = "";
-		var _g1 = 0;
-		var _g = parts.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			var str1 = parts[i];
-			if(!(str1 != null && str1.length > 0)) {
-				throw new js__$Boot_HaxeError("FAIL: str != null && str.length > 0");
-			}
-			results += HxOverrides.substr(str1,0,1).toUpperCase() + HxOverrides.substr(str1,1,str1.length - 1);
-			if(i <= parts.length - 1) {
-				results += " ";
-			}
-		}
-		this.nameDataPresetListElement.value = StringTools.trim(results);
-		var str2 = StringTools.replace(key,"_"," ");
-		if(!(str2 != null)) {
-			throw new js__$Boot_HaxeError("FAIL: str != null");
-		}
-		var parts1 = str2.split(" ");
-		var results1 = "";
-		var _g11 = 0;
-		var _g2 = parts1.length;
-		while(_g11 < _g2) {
-			var i1 = _g11++;
-			var str3 = parts1[i1];
-			if(!(str3 != null && str3.length > 0)) {
-				throw new js__$Boot_HaxeError("FAIL: str != null && str.length > 0");
-			}
-			results1 += HxOverrides.substr(str3,0,1).toUpperCase() + HxOverrides.substr(str3,1,str3.length - 1);
-			if(i1 <= parts1.length - 1) {
-				results1 += " ";
-			}
-		}
-		this.nameDataSearchBoxElement.value = StringTools.trim(results1);
-		if(!(key != null)) {
-			throw new js__$Boot_HaxeError("FAIL: str != null");
-		}
-		var parts2 = key.split(" ");
-		var results2 = "";
-		var _g12 = 0;
-		var _g3 = parts2.length;
-		while(_g12 < _g3) {
-			var i2 = _g12++;
-			var str4 = parts2[i2];
-			if(!(str4 != null && str4.length > 0)) {
-				throw new js__$Boot_HaxeError("FAIL: str != null && str.length > 0");
-			}
-			results2 += HxOverrides.substr(str4,0,1).toLowerCase() + HxOverrides.substr(str4,1,str4.length - 1);
-			if(i2 <= parts2.length - 1) {
-				results2 += " ";
-			}
-		}
-		var id = StringTools.replace(StringTools.trim(results2)," ","_");
-		var data = Reflect.field(TrainingData,id);
-		var s = "";
-		var _g4 = 0;
-		while(_g4 < data.length) {
-			var i3 = data[_g4];
-			++_g4;
-			s += i3 + " ";
-		}
-		s = StringTools.rtrim(s);
-		this.trainingDataTextEdit.value = s;
-		return this.nameDataPresetListElement.value;
+		this.onNameDataPresetSelectionChanged(keys);
+		return this.get_trainingDataKeys();
 	}
 	,get_startsWith: function() {
 		return this.startsWithElement.value.toLowerCase();
@@ -1631,16 +1810,28 @@ Main.prototype = {
 	,set_regexMatch: function(s) {
 		return this.regexMatchElement.value = s;
 	}
+	,__properties__: {set_trainingDataKeys:"set_trainingDataKeys",get_trainingDataKeys:"get_trainingDataKeys",set_regexMatch:"set_regexMatch",get_regexMatch:"get_regexMatch",set_similar:"set_similar",get_similar:"get_similar",set_excludes:"set_excludes",get_excludes:"get_excludes",set_includes:"set_includes",get_includes:"get_includes",set_endsWith:"set_endsWith",get_endsWith:"get_endsWith",set_startsWith:"set_startsWith",get_startsWith:"get_startsWith"}
 };
 Math.__name__ = true;
 var Reflect = function() { };
 Reflect.__name__ = true;
-Reflect.field = function(o,field) {
-	try {
-		return o[field];
-	} catch( e ) {
-		var e1 = (e instanceof js__$Boot_HaxeError) ? e.val : e;
+Reflect.getProperty = function(o,field) {
+	var tmp;
+	if(o == null) {
 		return null;
+	} else {
+		var tmp1;
+		if(o.__properties__) {
+			tmp = o.__properties__["get_" + field];
+			tmp1 = tmp;
+		} else {
+			tmp1 = false;
+		}
+		if(tmp1) {
+			return o[tmp]();
+		} else {
+			return o[field];
+		}
 	}
 };
 Reflect.fields = function(o) {
@@ -1797,11 +1988,11 @@ ShareResults.applySettings = function(m) {
 	}
 	if(customTrainingData.length > 3) {
 		TrainingData["custom"] = customTrainingData;
-		m.set_trainingDataId("custom");
+		m.set_trainingDataKeys(["custom"]);
 	}
 };
 ShareResults.makeCustomQueryString = function(m,mode) {
-	var s = "https://www.samcodes.co.uk/project/markov-namegen/";
+	var s = "https://www.samcodes.co.uk/project/markov-namegen";
 	var appendKv = function(k,v,sep) {
 		if(sep == null) {
 			sep = "&";
@@ -2865,10 +3056,14 @@ Object.defineProperty(js__$Boot_HaxeError.prototype,"message",{ get : function()
 }});
 ID.header = "header";
 ID.accordion = "accordion";
+ID.showsettingscheckbox = "showsettingscheckbox";
+ID.showsettingslabel = "showsettingslabel";
+ID.trainingdataselectioncheckboxes = "trainingdataselectioncheckboxes";
 ID.trainingdatalist = "trainingdatalist";
 ID.trainingdatasearchbox = "trainingdatasearchbox";
 ID.namedatapresetslist = "namedatapresetslist";
 ID.trainingdataedit = "trainingdataedit";
+ID.sliderscontainer = "sliderscontainer";
 ID.minmaxlength = "minmaxlength";
 ID.order = "order";
 ID.prior = "prior";
@@ -2888,7 +3083,7 @@ ID.currentnames = "currentnames";
 ID.shareresultsonly = "shareresultsonly";
 ID.shareresultsandsettings = "shareresultsandsettings";
 ID.shareedit = "shareedit";
-Main.WEBSITE_URL = "https://www.samcodes.co.uk/project/markov-namegen/";
+Main.WEBSITE_URL = "https://www.samcodes.co.uk/project/markov-namegen";
 TrainingData.american_cities = ["abilene","akron","albuquerque","alexandria","allentown","amarillo","anaheim","anchorage","annarbor","antioch","arvada","athens","atlanta","augusta","aurora","aurora","austin","bakersfield","baltimore","batonrouge","beaumont","bellevue","berkeley","billings","boise","boston","boulder","bridgeport","brokenarrow","brownsville","buffalo","burbank","cambridge","capecoral","carlsbad","carrollton","cary","centennial","chandler","charleston","charlotte","chattanooga","chesapeake","chicago","chulavista","cincinnati","clarksville","clearwater","cleveland","clovis","collegestation","columbia","columbia","columbus","columbus","concord","corona","corpuschristi","costamesa","dallas","davenport","dayton","denver","detroit","downey","durham","edison","elmonte","elgin","elkgrove","eugene","evansville","everett","fairfield","fargo","fortcollins","fortlauderdale","fortwayne","fortworth","fremont","fresno","frisco","fullerton","garland","gilbert","glendale","glendale","grandprairie","grandrapids","greenbay","greensboro","gresham","hampton","henderson","hillsboro","hollywood","honolulu","houston","huntingtonbeach","huntsville","independence","indianapolis","inglewood","irvine","irving","jackson","jacksonville","jerseycity","joliet","kansascity","kansascity","kent","killeen","knoxville","lafayette","lakeland","lakewood","lancaster","lansing","laredo","lascruces","lasvegas","lewisville","lexington","lincoln","littlerock","longbeach","losangeles","lowell","lubbock","macon","madison","manchester","mcallen","mckinney","memphis","mesa","mesquite","miami","miamigardens","midland","milwaukee","minneapolis","mobile","montgomery","murfreesboro","murrieta","naperville","nashville","neworleans","newyork","newportnews","norfolk","norman","northcharleston","northlasvegas","norwalk","oakland","oceanside","oklahomacity","olathe","omaha","ontario","orange","orlando","overlandpark","palmbay","palmdale","pasadena","pasadena","paterson","pearland","pembrokepines","peoria","peoria","philadelphia","phoenix","pittsburgh","plano","pomona","pompanobeach","portland","providence","pueblo","raleigh","ranchocucamonga","reno","rialto","richardson","richmond","riverside","rockford","roundrock","sacramento","saintpaul","salem","salinas","saltlakecity","sanantonio","sandiego","sanfrancisco","sanmateo","sandysprings","santaana","santaclara","santaclarita","santamaria","santarosa","scottsdale","seattle","simivalley","siouxfalls","southbend","springfield","springfield","stamford","stockton","sunnyvale","surprise","syracuse","tallahassee","tampa","temecula","tempe","thornton","toledo","topeka","torrance","tucson","tulsa","tyler","vallejo","vancouver","victorville","virginiabeach","vista","warren","washington","waterbury","westjordan","westpalmbeach","westvalleycity","westminster","wichita","wichitfalls","wilmington","winstonsalem","woodbridge","yonkers"];
 TrainingData.american_companies = ["","abbottlaboratories","abbvieinc","accenture","activisionblizzard","acuitybrands","adobesystems","advanceautoparts","advancedmicrodevices","aescorp","aetnainc","agilenttechnologies","akamaitechnologies","alaskaairgroupinc","albemarlecorp","alexionpharmaceuticals","allerganplc","alliancedatasystems","alliantenergycorp","allstatecorp","alphabetincclassa","alphabetincclassc","altriagroupinc","amazoncominc","amerencorp","americanairlinesgroup","americanelectricpower","americanexpressco","americaninternationalgroup","americantowercorpa","americanwaterworkscompanyinc","ameriprisefinancial","amerisourcebergencorp","ametekinc","amgeninc","amphenolcorp","anadarkopetroleumcorp","analogdevicesinc","antheminc","aonplc","apachecorporation","apartmentinvestmentandmanagement","appleinc","appliedmaterialsinc","arconicinc","arthurjgallagherandco","assetmanagementandcustodybanks","assurantinc","atandtinc","autodeskinc","automaticdataprocessing","autonationinc","autozoneinc","avalonbaycommunitiesinc","averydennisoncorp","bakerhughesinc","ballcorp","bankofamericacorp","bardcrinc","baxterinternationalinc","bbandtcorporation","bectondickinson","bedbathandbeyond","bestbuycoinc","bfb","biogeninc","blockhandr","boeingcompany","bostonproperties","bostonscientific","bristolmyerssquibb","brkb","buildingproducts","cabotoilandgas","cainc","campbellsoup","capitalonefinancial","cardinalhealthinc","carmaxinc","carnivalcorp","caterpillarinc","cboeholdings","cbregroup","cbscorp","celgenecorp","centenecorporation","centerpointenergy","centurylinkinc","cfindustriesholdingsinc","charlesschwabcorporation","chartercommunications","chesapeakeenergy","chevroncorp","chipotlemexicangrill","chrobinsonworldwide","chubblimited","churchanddwight","cignacorp","cimarexenergy","cincinnatifinancial","cintascorporation","ciscosystems","citigroupinc","citizensfinancialgroup","citrixsystems","cmegroupinc","cmsenergy","coachinc","cocacolacompanythe","cognizanttechnologysolutions","colgatepalmolive","comcastcorp","comericainc","conagrabrands","conchoresources","consolidatededison","constellationbrands","consumerfinance","corninginc","costcowholesalecorp","cotyinc","crowncastleinternationalcorp","csrainc","csxcorp","cumminsinc","cvshealth","danahercorp","dardenrestaurants","davitainc","deereandco","delphiautomotive","deltaairlines","dentsplysirona","devonenergycorp","digitalrealtytrust","discoverfinancialservices","discoverycommunications","dishnetwork","dollargeneral","dollartree","dominionresources","dovercorp","dowchemical","drhorton","drpeppersnapplegroup","dteenergyco","dukeenergy","dupontei","dxctechnology","e*trade","eastmanchemical","eatoncorporation","ebayinc","ecolabinc","edisonintl","edwardslifesciences","electronicarts","emersonelectriccompany","entergycorp","envisionhealthcare","eogresources","eqtcorporation","equifaxinc","equityresidential","essexpropertytrustinc","esteelaudercos","eversourceenergy","exeloncorp","expediainc","expeditorsinternational","expressscripts","extraspacestorage","exxonmobilcorp","f5networks","facebookinc","fastenalco","federalrealtyinvestmenttrust","fedexcorporation","fidelitynationalinformationservices","fifththirdbancorp","firstenergycorp","fiservinc","flirsystems","flowservecorporation","fluorcorp","fmccorporation","footlockerinc","fordmotor","fortivecorp","fortunebrandshomeandsecurity","franklinresources","freeportmcmoraninc","gapinc","garminltd","gartnerinc","generaldynamics","generalelectric","generalgrowthpropertiesinc","generalmills","generalmotors","genuineparts","gileadsciences","globalpaymentsinc","goldmansachsgroup","goodyeartireandrubber","graingerwwinc","halliburtonco","hanesbrandsinc","harleydavidson","harriscorporation","hartfordfinancialsvcgp","hasbroinc","hcaholdings","hcpinc","healthcare","helmerichandpayne","henryschein","hesscorporation","hewlettpackardenterprise","homedepot","honeywellintlinc","hormelfoodscorp","hosthotelsandresorts","hpinc","humanainc","huntingtonbancshares","idexxlaboratories","illinoistoolworks","illuminainc","informationtechnology","ingersollrandplc","intelcorp","intercontinentalexchange","internationalbusinessmachines","internationalpaper","interpublicgroup","intlflavorsandfragrances","intuitinc","intuitivesurgicalinc","invescoltd","ironmountainincorporated","jacobsengineeringgroup","jbhunttransportservices","jmsmucker","johnsonandjohnson","johnsoncontrolsinternational","jpmorganchaseandco","junipernetworks","kansascitysouthern","kelloggco","kimberlyclark","kimcorealty","kindermorgan","klatencorcorp","kohlscorp","kraftheinzco","krogerco","l3communicationsholdings","laboratorycorpofamericaholding","lamresearch","lbrandsinc","leggettandplatt","lennarcorp","leucadianationalcorp","level3communications","lillyeliandco","lincolnnational","lkqcorporation","lockheedmartincorp","loewscorp","lowescos","macysinc","mallinckrodtplc","mandtbankcorp","marathonoilcorp","marathonpetroleum","marriottintl","marshandmclennan","martinmariettamaterials","mascocorp","mastercardinc","mattelinc","mccormickandco","mcdonaldscorp","mckessoncorp","meadjohnson","medtronicplc","merckandco","metlifeinc","mettlertoledo","michaelkorsholdings","microchiptechnology","microntechnology","microsoftcorp","midamericaapartments","mohawkindustries","molsoncoorsbrewingcompany","mondelezinternational","monsantoco","monsterbeverage","moodyscorp","morganstanley","motorolasolutionsinc","murphyoil","mylannv","nasdaqinc","nationaloilwellvarcoinc","netflixinc","newellbrands","newfieldexplorationco","newmontminingcorphldgco","newscorp","nexteraenergy","nielsenholdings","nisourceinc","nobleenergyinc","norfolksoutherncorp","northerntrustcorp","northropgrummancorp","nrgenergy","nucorcorp","nvidiacorporation","oreillyautomotive","occidentalpetroleum","oilandgasdrilling","oilandgasequipmentandservices","oilandgasexplorationandproduction","oilandgasstorageandtransportation","omnicomgroup","oraclecorp","paccarinc","parkerhannifin","pattersoncompanies","paychexinc","pentairltd","peoplesunitedfinancial","pepsicoinc","pfizerinc","pgandecorp","philipmorrisinternational","phillips66","pinnaclewestcapital","pioneernaturalresources","pncfinancialservices","poloralphlaurencorp","ppgindustries","pplcorp","praxairinc","pricelinecominc","principalfinancialgroup","procterandgamble","progressivecorp","prudentialfinancial","publicserventerpriseinc","publicstorage","pultehomesinc","pvhcorp","qualcomminc","quantaservicesinc","questdiagnostics","rangeresourcescorp","raymondjamesfinancialinc","raytheonco","realestate","realtyincomecorporation","redhatinc","regencycenterscorporation","regionalbanks","regionsfinancialcorp","republicservicesinc","reynoldsamericaninc","roberthalfinternational","rockwellautomationinc","rockwellcollins","ropertechnologies","rossstores","royalcaribbeancruisesltd","rydersystem","salesforcecom","sandpglobalinc","scanacorp","schlumbergerltd","scrippsnetworksinteractiveinc","seagatetechnology","sealedair","sempraenergy","sherwinwilliams","signetjewelers","simonpropertygroupinc","skyworkssolutions","slgreenrealty","snaponinc","southernco","southwestairlines","specialtychemicals","stanleyblackanddecker","staplesinc","starbuckscorp","statestreetcorp","stericycleinc","strykercorp","suntrustbanks","symanteccorp","synchronyfinancial","synopsysinc","syscocorp","targetcorp","teconnectivityltd","tegnainc","teradatacorp","tesoropetroleumco","texasinstruments","textroninc","thebankofnewyorkmelloncorp","thecloroxcompany","thecoopercompanies","thehersheycompany","themosaiccompany","thermofisherscientific","thetravelerscompaniesinc","thewaltdisneycompany","tiffanyandco","timewarnerinc","tjxcompaniesinc","torchmarkcorp","totalsystemservices","tractorsupplycompany","transdigmgroup","trowepricegroup","twentyfirstcenturyfox","tysonfoods","udrinc","ultasaloncosmeticsandfragranceinc","underarmour","underarmour","unionpacific","unitedcontinentalholdings","unitedhealthgroupinc","unitedparcelservice","unitedrentalsinc","unitedtechnologies","universalhealthservicesinc","unumgroup","usbancorp","valeroenergy","varianmedicalsystems","ventasinc","verisigninc","veriskanalytics","verizoncommunications","vertexpharmaceuticalsinc","vfcorp","viacominc","visainc","vornadorealtytrust","vulcanmaterials","walgreensbootsalliance","walmartstores","wastemanagementinc","waterscorporation","wecenergygroupinc","wellsfargo","welltowerinc","westerndigital","westernunionco","westrockcompany","weyerhaeusercorp","whirlpoolcorp","wholefoodsmarket","williamscos","willistowerswatson","wyndhamworldwide","wynnresortsltd","xcelenergyinc","xeroxcorp","xilinxinc","xlcapital","xyleminc","yahooinc","yumbrandsinc","zimmerbiometholdings","zionsbancorp"];
 TrainingData.american_desserts = ["ambrosia","angelcake","applecrisp","appledumpling","applepie","bananapudding","bananasplit","beanpie","blackberrypie","blackbottompie","blondie","blueberrypie","bostoncreampie","brownbetty","brownie","bundtcake","buttermilkpie","butterscotch","caramel","checkerboardcake","cheesecake","cherrypie","chiffonpie","chocolatebrownie","chocolatechipcookie","chocolatepudding","cobbler","coconutcake","congobar","corncookie","creampie","cupcake","cupcone","derbypie","dessertbar","dirtcake","dobergecake","doughnut","frieddough","friedicecream","friedpie","frozenyogurt","fudge","funnelcake","gooeybuttercake","grapepie","grasshopperpie","grasshopperpie","hastypudding","hermitcookies","hotmilkcake","huckleberrypie","hummingbirdcake","iceboxcake","icecreamcake","icecreamcone","jamcake","jello","jellybean","jellycreampie","keylimepie","kingcake","lanecake","lemonsquares","maracapie","marshmallowcreme","moltenchocolatecake","mudpie","oreo","panocha","parfait","pastryhearts","pecanpie","persimmonpudding","pistachiopudding","potpie","pumpkinpie","redvelvetcake","rhubarbpie","ricepudding","scotcheroos","shooflypie","snackcake","snickerdoodles","snickerssalad","stackcake","strawberryshortcake","sundae","sweetpotatopie","tapiocapudding","tipsycake","twinkie","waldorfpudding","watergatesalad","whoopiepie"];

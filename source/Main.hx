@@ -1,9 +1,12 @@
 package;
 
+import haxe.ds.ArraySort;
 import js.Browser;
 import js.html.DataListElement;
+import js.html.DivElement;
 import js.html.Element;
 import js.html.InputElement;
+import js.html.LabelElement;
 import js.html.SelectElement;
 import js.nouislider.NoUiSlider;
 import js.wNumb.WNumb;
@@ -20,14 +23,16 @@ using StringTools;
 class ID {}
 
 class Main {
-	public static inline var WEBSITE_URL:String = "https://www.samcodes.co.uk/project/markov-namegen/"; // Hosted demo URL used for building custom query string when sharing results
-
+	private static inline var WEBSITE_URL:String = "https://www.samcodes.co.uk/project/markov-namegen"; // Hosted demo URL for building the custom query string
+	
 	private static inline function getElement(id:String):Dynamic {
 		return Browser.document.getElementById(id); // Helper to get references to page elements
 	}
 	private var nameDataPresetListElement:SelectElement = getElement(ID.trainingdatalist);
 	private var nameDataSearchBoxElement:InputElement = getElement(ID.trainingdatasearchbox);
 	private var nameDataDataListElement:DataListElement = getElement(ID.namedatapresetslist);
+	private var nameDataPresetCheckboxContainer:DivElement = getElement(ID.trainingdataselectioncheckboxes);
+	private var nameDataPresetCheckboxElements:Array<InputElement> = [];
 	private var trainingDataTextEdit:InputElement = getElement(ID.trainingdataedit);
 	private var orderElement:Element = getElement(ID.order);
 	private var priorElement:Element = getElement(ID.prior);
@@ -54,7 +59,6 @@ class Main {
 	private var topicSearchTrie:PrefixTrie; // Prefix trie for finding matching topic when the user searches for them in the search text box
 
 	private var lastGeneratedNames:Array<String> = []; // The last lot of generated names
-	private var trainingDataId(get, set):String; // The currently selected training data id/field name
 
 	private var maxWordsToGenerate:Int; // Number of names to try to generate
 	private var minLength:Int; // Minimum name length
@@ -69,6 +73,8 @@ class Main {
 	private var similar(get, set):String; // String that names are sorted by their similarity to
 	private var regexMatch(get, set):String; // Regex string that names must match
 
+	private var trainingDataKeys(get, set):Array<String>; // The selected training data keys
+	
 	private static inline function main():Void {
 		var main = new Main();
 	}
@@ -120,14 +126,17 @@ class Main {
 			}
 			nameDataPresetListElement.appendChild(makeOption());
 			nameDataDataListElement.appendChild(makeOption());
+			
+			addTrainingDataSelectionCheckboxes(displayName);
+
 			topicSearchTrie.insert(displayName);
 		}
 	}
 
 	private inline function applySettings():Void {
 		// Apply the default settings for name generation, filtering, sorting etc
-		Sure.sure(Reflect.hasField(TrainingData, "animals"));
-		trainingDataId = "Animals";
+		trainingDataKeys = [ "Animals" ];
+
 		maxWordsToGenerate = 100;
 		minLength = 5;
 		maxLength = 11;
@@ -149,6 +158,30 @@ class Main {
 	 * Create the settings sliders that go on the page
 	 */
 	private inline function createSliders():Void {
+		NoUiSlider.create(lengthElement, {
+			start: [ minLength, maxLength ],
+			connect: true,
+			range: {
+				'min': [ 3, 1 ],
+				'max': 21
+			},
+			pips: {
+				mode: 'range',
+				density: 10,
+			}
+		});
+		createTooltips(lengthElement);
+		untyped lengthElement.noUiSlider.on(UiSliderEvent.CHANGE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
+			if (handle == 0) {
+				minLength = Std.int(values[handle]);
+			} else if (handle == 1) {
+				maxLength = Std.int(values[handle]);
+			}
+		});
+		untyped lengthElement.noUiSlider.on(UiSliderEvent.UPDATE, function(values:Array<Float>, handle:Int, rawValues:Array<Float>):Void {
+			updateTooltips(lengthElement, handle, Std.int(values[handle]));
+		});
+		
 		NoUiSlider.create(orderElement, {
 			start: [ order ],
 			connect: 'lower',
@@ -238,30 +271,6 @@ class Main {
 		untyped maxProcessingTimeElement.noUiSlider.on(UiSliderEvent.UPDATE, (values:Array<Float>, handle:Int, rawValues:Array<Float>)-> {
 			updateTooltips(maxProcessingTimeElement, handle, Std.int(values[handle]));
 		});
-
-		NoUiSlider.create(lengthElement, {
-			start: [ minLength, maxLength ],
-			connect: true,
-			range: {
-				'min': [ 3, 1 ],
-				'max': 21
-			},
-			pips: {
-				mode: 'range',
-				density: 10,
-			}
-		});
-		createTooltips(lengthElement);
-		untyped lengthElement.noUiSlider.on(UiSliderEvent.CHANGE, (values:Array<Float>, handle:Int, rawValues:Array<Float>)-> {
-			if (handle == 0) {
-				minLength = Std.int(values[handle]);
-			} else if (handle == 1) {
-				maxLength = Std.int(values[handle]);
-			}
-		});
-		untyped lengthElement.noUiSlider.on(UiSliderEvent.UPDATE, (values:Array<Float>, handle:Int, rawValues:Array<Float>)-> {
-			updateTooltips(lengthElement, handle, Std.int(values[handle]));
-		});
 	}
 
 	/*
@@ -289,20 +298,26 @@ class Main {
 	 * Add event listeners to the input elements, in order to update the values we feed the model when "generate" is pressed
 	 */
 	private inline function addEventListeners():Void {
-		nameDataPresetListElement.addEventListener("change", ()-> {
-			trainingDataId = nameDataPresetListElement.value;
+		nameDataPresetListElement.addEventListener("change", function() {
+			trainingDataKeys = [ nameDataPresetListElement.value ];
 		}, false);
-
-		nameDataSearchBoxElement.addEventListener("change", ()-> {
+		
+		nameDataSearchBoxElement.addEventListener("change", function() {
 			if (topicSearchTrie.find(nameDataSearchBoxElement.value)) {
-				trainingDataId = nameDataSearchBoxElement.value;
+				trainingDataKeys = [ nameDataSearchBoxElement.value ];
 			}
 		}, false);
-		nameDataSearchBoxElement.addEventListener("input", ()-> {
+		nameDataSearchBoxElement.addEventListener("input", function() {
 			if (topicSearchTrie.find(nameDataSearchBoxElement.value)) {
-				trainingDataId = nameDataSearchBoxElement.value;
+				trainingDataKeys = [ nameDataSearchBoxElement.value ];
 			}
 		}, false);
+		
+		for (nameDataPresetCheckbox in nameDataPresetCheckboxElements) {
+			nameDataPresetCheckbox.addEventListener("change", function() {
+				trainingDataKeys = trainingDataKeys;
+			}, false);
+		}
 
 		trainingDataTextEdit.addEventListener("change", ()-> {
 			generateForCurrentSettings();
@@ -362,13 +377,62 @@ class Main {
 			shareLinkTextEdit.style.display = "block";
 		}, false);
 	}
+	
+	/*
+     * Helper method that adds checkable/toggle boxes for enabling/disabling presets
+	 */
+	private function addTrainingDataSelectionCheckboxes(displayName:String):Void {
+		var label:LabelElement = Browser.document.createLabelElement();
+		label.className = "presetlabel";
+		
+		var labelTextContent = Browser.document.createParagraphElement();
+		labelTextContent.className = "presetcheckboxtext";
+		labelTextContent.innerHTML = displayName;
+		
+		var selectionCheckbox:InputElement = Browser.document.createInputElement();
+		selectionCheckbox.type = "checkbox";
+		selectionCheckbox.className = "presetcheckbox";
+		selectionCheckbox.innerHTML = displayName;
+		selectionCheckbox.value = displayName;
+		
+		label.appendChild(selectionCheckbox);
+		label.appendChild(labelTextContent);
+		
+		nameDataPresetCheckboxContainer.appendChild(label);
+		
+		nameDataPresetCheckboxElements.push(selectionCheckbox);
+	}
+
+	private function onNameDataPresetSelectionChanged(keys:Array<String>):Void {
+		var s:String = "";
+		
+		for (key in keys) {
+			var data:Array<String> = Reflect.getProperty(TrainingData, displayNameToTrainingDataField(key));
+			if (data == null) {
+				continue;
+			}
+			for (i in data) {
+				s += i + " ";
+			}
+			s = s.rtrim();
+		}
+
+		trainingDataTextEdit.value = s;
+	}
 
 	/*
 	 * Runs the name generator, creating a new batch of names and puts the new names in the "names" section
 	 */
-	private inline function generate(presetName:String, data:Array<String>):Void {
-		namesTitleElement.innerHTML = presetName;
-
+	private inline function generate(presetNames:Array<String>, data:Array<String>):Void {
+		var title = "";
+		for (i in 0...presetNames.length) {
+			title += presetNames[i];
+			if (presetNames.length != 1 && i != presetNames.length - 1) {
+				title += " + ";
+			}
+		}
+		namesTitleElement.innerHTML = title;
+		
 		duplicateTrie = new PrefixTrie();
 		for (name in data) {
 			duplicateTrie.insert(name);
@@ -399,7 +463,8 @@ class Main {
 	private inline function generateForRandomPreset():Void {
 		var topics = Type.getClassFields(TrainingData);
 		var topic = topics[Std.random(topics.length)];
-		trainingDataId = topic;
+
+		trainingDataKeys = [ trainingDataFieldToDisplayName(topic) ];
 
 		var data = trainingDataTextEdit.value;
 		if (data == null || data.length == 0) {
@@ -407,7 +472,7 @@ class Main {
 		}
 		var arr = data.split(" ");
 		if(arr.length > 0) {
-			generate(trainingDataId, arr);
+			generate(trainingDataKeys, arr);
 		}
 	}
 
@@ -421,7 +486,7 @@ class Main {
 		}
 		var arr = data.split(" ");
 		if(arr.length > 0) {
-			generate(trainingDataId, arr);
+			generate(trainingDataKeys, arr);
 		}
 	}
 
@@ -472,27 +537,44 @@ class Main {
 	private inline function displayNameToTrainingDataField(name:String):String {
 		return name.lowercaseWords().trim().replace(" ", "_");
 	}
+	
+	private function get_trainingDataKeys():Array<String> {
+		var keys:Array<String> = [];
+		for (checkboxElement in nameDataPresetCheckboxElements) {
+			if(checkboxElement.checked) {
+				keys.push(checkboxElement.value);
+			}
+		}
+		
+		if (keys.length == 0) {
+			return [ "Animals" ]; // Default to animals if all the checkboxes are unchecked
+		}
+		
+		return keys;
+	}
 
 	private function get_trainingDataId():String {
 		return nameDataPresetListElement.value;
 	}
-	/*
-	 * Updates the selected preset item when the training data key is changed programatically
-	 */
-	private function set_trainingDataId(key:String):String {
-		nameDataPresetListElement.value = trainingDataFieldToDisplayName(key);
-		nameDataSearchBoxElement.value = trainingDataFieldToDisplayName(key);
 
-		var id:String = displayNameToTrainingDataField(key);
-		var data:Array<String> = Reflect.field(TrainingData, id);
-		var s:String = "";
-		for (i in data) {
-			s += i + " ";
+	private function set_trainingDataKeys(keys:Array<String>):Array<String> {
+		nameDataPresetListElement.value = keys[keys.length - 1];
+		nameDataSearchBoxElement.value = keys[keys.length - 1];
+		
+		for (checkboxElement in nameDataPresetCheckboxElements) {
+			checkboxElement.checked = function() {
+				for (key in keys) {
+					if (checkboxElement.value == key) {
+						return true;
+					}
+				}
+				return false;
+			}();
 		}
-		s = s.rtrim();
-		trainingDataTextEdit.value = s;
-
-		return nameDataPresetListElement.value;
+		
+		onNameDataPresetSelectionChanged(keys);
+		
+		return trainingDataKeys;
 	}
 
 	/*

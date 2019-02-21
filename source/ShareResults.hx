@@ -104,7 +104,7 @@ class ShareResults
 
 		if (customTrainingData.length > 3) { // Arbitrary minimum, just in case something goes a bit wrong when reading the query string
 			Reflect.setField(TrainingData, "custom", customTrainingData);
-			m.trainingDataId = "custom";
+			m.trainingDataKeys = [ "custom" ];
 		}
 	}
 
