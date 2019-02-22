@@ -41,7 +41,8 @@ class Main {
 	private var noNamesFoundElement:Element = getElement(ID.nonamesfound);
 	private var currentNamesElement:Element = getElement(ID.currentnames);
 	private var generateElement:Element = getElement(ID.generate);
-	private var randomThemeElement:Element = getElement(ID.random);
+	private var singleRandomThemeElement:Element = getElement(ID.randomthemeone);
+	private var doubleRandomThemeElement:Element = getElement(ID.randomthemetwo);
 	private var namesTitleElement:Element = getElement(ID.namestitle);
 	private var lengthElement:InputElement = getElement(ID.minmaxlength);
 	private var startsWithElement:InputElement = getElement(ID.startswith);
@@ -327,8 +328,12 @@ class Main {
 			generateForCurrentSettings();
 		}, false);
 
-		randomThemeElement.addEventListener("click", ()-> {
-			generateForRandomPreset();
+		singleRandomThemeElement.addEventListener("click", ()-> {
+			generateForRandomPresets(1);
+		}, false);
+
+		doubleRandomThemeElement.addEventListener("click", ()-> {
+			generateForRandomPresets(2);
 		}, false);
 
 		startsWithElement.addEventListener("change", ()-> {
@@ -458,13 +463,18 @@ class Main {
 	}
 
 	/**
-	 * Helper method that runs the "generate" method for one of the random preset set of training data
+	 * Helper method that runs the "generate" method for a number of random preset sets of training data
 	 */
-	private inline function generateForRandomPreset():Void {
+	private inline function generateForRandomPresets(numPresets:Int):Void {
 		var topics = Type.getClassFields(TrainingData);
-		var topic = topics[Std.random(topics.length)];
+		
+		var keys:Array<String> = [];
+		
+		for (i in 0...numPresets) {
+			keys.push(trainingDataFieldToDisplayName(topics[Std.random(topics.length)]));
+		}
 
-		trainingDataKeys = [ trainingDataFieldToDisplayName(topic) ];
+		trainingDataKeys = keys;
 
 		var data = trainingDataTextEdit.value;
 		if (data == null || data.length == 0) {
