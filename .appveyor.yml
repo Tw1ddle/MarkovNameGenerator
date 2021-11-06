@@ -1,3 +1,7 @@
+branches:
+  only:
+    - master
+
 image: Ubuntu2004
 
 environment:
@@ -25,5 +29,6 @@ build_script:
   - haxe MarkovNames.hxml
   - popd
   - pushd lib/dox
+  - chmod +x generate_docs.sh
   - ./generate_docs.sh
   - popd
