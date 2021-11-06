@@ -15,6 +15,7 @@ using StringTools;
 	var LENGTH_RANGE_MAX = "length_range_max";
 	var ORDER = "order";
 	var PRIOR = "prior";
+	var BACKOFF = "backoff";
 	var MAX_WORDS = "max_words";
 	var MAX_PROCESSING_TIME = "max_processing_time";
 	var STARTS_WITH = "starts_with";
@@ -79,6 +80,8 @@ class ShareResults
 					m.order = Std.parseInt(v);
 				case GeneratorSettingKey.PRIOR:
 					m.prior = Std.parseFloat(v);
+				case GeneratorSettingKey.BACKOFF:
+					m.backoff = Std.parseInt(v);
 				case GeneratorSettingKey.MAX_WORDS:
 					m.maxWordsToGenerate = Std.parseInt(v);
 				case GeneratorSettingKey.MAX_PROCESSING_TIME:
@@ -125,6 +128,7 @@ class ShareResults
 		appendKv(GeneratorSettingKey.LENGTH_RANGE_MAX, Std.string(m.maxLength));
 		appendKv(GeneratorSettingKey.ORDER, Std.string(m.order));
 		appendKv(GeneratorSettingKey.PRIOR, Std.string(m.prior));
+		appendKv(GeneratorSettingKey.BACKOFF, Std.string(m.backoff));
 		appendKv(GeneratorSettingKey.MAX_WORDS, Std.string(m.maxWordsToGenerate));
 		appendKv(GeneratorSettingKey.MAX_PROCESSING_TIME, Std.string(m.maxProcessingTime));
 		appendKv(GeneratorSettingKey.STARTS_WITH, m.startsWith);
