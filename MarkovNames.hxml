@@ -1,7 +1,8 @@
 --no-traces
 
--js ../bin/js/markov.js
+-js bin/js/markov.js
 
+-cp source
 -main Main
 
 -lib sure
@@ -10,4 +11,4 @@
 #-lib markov-namegen
 
 # Uncomment to use markov namegen as a git submodule
--cp ../lib
+-cp lib
