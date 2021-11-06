@@ -79,8 +79,8 @@ class Generator {
         // Create models
         models = new Array<Model>();
         if(this.backoff) {
-            for (i in order...0) { // From highest to lowest order
-                models.push(new Model(data.copy(), i, prior, domain));
+            for (i in 0...order) {
+                models.push(new Model(data.copy(), order - i, prior, domain)); // From highest to lowest order
             }
         } else {
             models.push(new Model(data.copy(), order, prior, domain));
