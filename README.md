@@ -59,7 +59,7 @@ A [Dirichlet prior](https://en.wikipedia.org/wiki/Dirichlet_distribution#Special
 
 Countless words are generated, and are then filtered and sorted according to several tweakable criteria like length, start and end characters, [similarity to a target word](https://en.wikipedia.org/wiki/Levenshtein_distance), and so on.
 
-## Library Install
+## Library Setup
 
 Get the Markov Namegen library from [GitHub](https://github.com/Tw1ddle/MarkovNameGenerator/tree/master/lib) or through [haxelib](https://lib.haxe.org/p/markov-namegen/).
 
@@ -72,6 +72,16 @@ Or add it to your ```Project.xml```:
 ```
 <haxelib name="markov-namegen" />
 ```
+
+## Demo Setup
+
+To run the [demo](https://www.samcodes.co.uk/project/markov-namegen/) locally, clone the repository and run the following in your console in the root folder of the repository:
+
+```
+haxe MarkovNames.hxml
+```
+
+Then navigate to the [bin](https://github.com/Tw1ddle/MarkovNameGenerator/tree/master/bin) directory and open [index.html](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/bin/index.html) in a web browser to use the name generator.
 
 ## Markov Namegen Ports
 
