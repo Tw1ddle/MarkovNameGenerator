@@ -32,14 +32,14 @@ class Generator {
     public var prior(default, null):Float;
 
     /**
+     * Whether to fall back to lower orders of models when a higher-order model fails to generate a letter.
+     */
+     private var backoff(default, null):Bool;
+
+    /**
      * The array of Markov models used by this generator, starting from highest order to lowest order.
      */
     private var models:Array<Model>;
-
-    /**
-     * Whether to fall back to lower orders of models when a higher-order model fails to generate a letter.
-     */
-    private var backoff:Bool;
 
     /**
      * Creates a new procedural word Generator.
