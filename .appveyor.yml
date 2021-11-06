@@ -43,6 +43,10 @@ deploy_script:
   # Important: this goes one level above the original build folder to avoid accidentally trashing the master branch
   # Then clones the gh-pages repo, resets the history, copies the newly-generated docs and pushes back to gh-pages
   
+  # Configure CI bot git email/username
+  - git config --global user.name "AppVeyor CI Bot"
+  - git config --global user.email "appveyor@appveyor.org"
+  
   - cd $APPVEYOR_BUILD_FOLDER
   - cd ..
   
