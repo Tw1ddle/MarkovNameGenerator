@@ -2090,6 +2090,9 @@ ShareResults.applySettings = function(m) {
 		var k = decodeURIComponent(kv[0].split("+").join(" "));
 		var v = decodeURIComponent(kv[1].split("+").join(" "));
 		switch(k) {
+		case "backoff":
+			m.backoff = Std.parseInt(v);
+			break;
 		case "ends_width":
 			m.set_endsWith(v);
 			break;
@@ -2217,6 +2220,7 @@ ShareResults.makeCustomQueryString = function(m,mode) {
 	appendKv("length_range_max",m.maxLength == null ? "null" : "" + m.maxLength);
 	appendKv("order",m.order == null ? "null" : "" + m.order);
 	appendKv("prior",m.prior == null ? "null" : "" + m.prior);
+	appendKv("backoff",m.backoff == null ? "null" : "" + m.backoff);
 	appendKv("max_words",m.maxWordsToGenerate == null ? "null" : "" + m.maxWordsToGenerate);
 	appendKv("max_processing_time",m.maxProcessingTime == null ? "null" : "" + m.maxProcessingTime);
 	appendKv("starts_with",m.get_startsWith());
