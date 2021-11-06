@@ -5,6 +5,9 @@ branches:
 image: Ubuntu2004
 
 environment:
+  GITHUB_API_KEY:
+    secure: w1zaTUARBAuhkAKUke5sBvSkVtlDGL8YfQxROzv5oGIynVJImn+KWGFVDxyjQore
+    
   global:
     HAXELIB_ROOT: /home/appveyor/haxelib
     HAXE_INSTALLDIR: /home/appveyor/haxe
@@ -34,3 +37,33 @@ build_script:
   - chmod +x generate_docs.sh
   - ./generate_docs.sh
   - popd
+
+# Deploy the documentation to the GitHub pages branch
+deploy_script:
+  # Important: this goes one level above the original build folder to avoid accidentally trashing the master branch
+  # Then clones the gh-pages repo, resets the history, copies the newly-generated docs and pushes back to gh-pages
+  
+  - cd $APPVEYOR_BUILD_FOLDER
+  - cd ..
+  
+  - mkdir gh-pages
+
+  # Get the gh-pages branch as a separate repo
+  - git clone -b gh-pages "https://${GITHUB_API_KEY}@github.com/Tw1ddle/MarkovNameGenerator.git" gh-pages
+  
+  - pushd gh-pages
+  
+  # Reset the gh-pages branch to nothing, discarding history and all
+  - treeHash=$(git hash-object -t tree /dev/null)
+  - firstCommitHash=$(git commit-tree -m "Empty commit" "$treeHash")
+  - git reset --hard "$firstCommitHash"
+  
+  # Move the newly-generated docs to the gh-pages folder
+  - cd $APPVEYOR_BUILD_FOLDER/lib/dox/generated_docs
+  - (shopt -s dotglob && mv * ../../../../gh-pages)
+  - cd ../../../../gh-pages
+
+  # Note that when there is nothing to commit, git commit exits with 1 (but that should never happen here)
+  - git add -A
+  - git commit -m "Build bot updating documentation"
+  - git push -f origin gh-pages
