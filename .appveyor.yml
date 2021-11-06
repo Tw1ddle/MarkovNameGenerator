@@ -7,6 +7,9 @@ environment:
 
 install:
   - cd /home/appveyor
+  - sudo add-apt-repository ppa:haxe/releases -y
+  - sudo apt update
+  - sudo apt install neko tar -y
   - wget https://github.com/HaxeFoundation/haxe/releases/download/4.2.4/haxe-4.2.4-linux64.tar.gz
   - mkdir $HAXE_INSTALLDIR
   - tar -xf haxe-4.2.4-linux64.tar.gz -C $HAXE_INSTALLDIR
