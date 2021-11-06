@@ -36,6 +36,7 @@ class Main {
 	private var trainingDataTextEdit:InputElement = getElement(ID.trainingdataedit);
 	private var orderElement:Element = getElement(ID.order);
 	private var priorElement:Element = getElement(ID.prior);
+	private var backoffElement:Element = getElement(ID.backoff);
 	private var maxWordsToGenerateElement:Element = getElement(ID.maxwordstogenerate);
 	private var maxProcessingTimeElement:Element = getElement(ID.maxtime);
 	private var noNamesFoundElement:Element = getElement(ID.nonamesfound);
@@ -66,6 +67,7 @@ class Main {
 	private var maxLength:Int; // Maximum name length
 	private var order:Int; // Maximum order model that the name generator should use
 	private var prior:Float; // Value of the Dirichlet prior that the name generator should use
+	private var backoff:Int; // Whether to back off/use lower-order models when a higher order model runs out of characters
 	private var maxProcessingTime:Int; // Maximum time the name generator should spend generating a batch of names
 	private var startsWith(get, set):String; // String that names must start with
 	private var endsWith(get, set):String; // String that names must end with
@@ -143,6 +145,7 @@ class Main {
 		maxLength = 11;
 		order = 3;
 		prior = 0.0;
+		backoff = 0;
 		maxProcessingTime = 800;
 		startsWith = "";
 		endsWith = "";
@@ -226,6 +229,25 @@ class Main {
 		untyped priorElement.noUiSlider.on(UiSliderEvent.UPDATE, (values:Array<Float>, handle:Int, rawValues:Array<Float>)-> {
 			updateTooltips(priorElement, handle, values[handle]);
 		});
+
+		NoUiSlider.create(backoffElement, {
+			start: [ backoff ],
+			connect: 'lower',
+			range: {
+				'min': [ 0, 1 ],
+				'max': [ 1 ]
+			},
+			format: new WNumb( {
+				decimals: 0
+			})
+		});
+		createTooltips(backoffElement);
+		untyped backoffElement.noUiSlider.on(UiSliderEvent.CHANGE, (values:Array<Float>, handle:Int, rawValues:Array<Float>)-> {
+			backoff = Std.parseInt(untyped values[handle]);
+		});
+		untyped backoffElement.noUiSlider.on(UiSliderEvent.UPDATE, (values:Array<Float>, handle:Int, rawValues:Array<Float>)-> {
+			updateTooltips(backoffElement, handle, values[handle]);
+		});
 		
 		NoUiSlider.create(maxWordsToGenerateElement, {
 			start: [ 100 ],
@@ -244,7 +266,7 @@ class Main {
 		});
 		createTooltips(maxWordsToGenerateElement);
 		untyped maxWordsToGenerateElement.noUiSlider.on(UiSliderEvent.CHANGE, (values:Array<Float>, handle:Int, rawValues:Array<Float>)-> {
-			maxWordsToGenerate = Std.parseFloat(untyped values[handle]);
+			maxWordsToGenerate = Std.parseInt(untyped values[handle]);
 		});
 		untyped maxWordsToGenerateElement.noUiSlider.on(UiSliderEvent.UPDATE, (values:Array<Float>, handle:Int, rawValues:Array<Float>)-> {
 			updateTooltips(maxWordsToGenerateElement, handle, Std.int(values[handle]));
@@ -267,7 +289,7 @@ class Main {
 		});
 		createTooltips(maxProcessingTimeElement);
 		untyped maxProcessingTimeElement.noUiSlider.on(UiSliderEvent.CHANGE, (values:Array<Float>, handle:Int, rawValues:Array<Float>)-> {
-			maxProcessingTime = Std.parseFloat(untyped values[handle]);
+			maxProcessingTime = Std.parseInt(untyped values[handle]);
 		});
 		untyped maxProcessingTimeElement.noUiSlider.on(UiSliderEvent.UPDATE, (values:Array<Float>, handle:Int, rawValues:Array<Float>)-> {
 			updateTooltips(maxProcessingTimeElement, handle, Std.int(values[handle]));
@@ -443,7 +465,7 @@ class Main {
 			duplicateTrie.insert(name);
 		}
 
-		generator = new NameGenerator(data, order, prior);
+		generator = new NameGenerator(data, order, prior, backoff == 0 ? false : true);
 		var names = new Array<String>();
 		var startTime = Date.now().getTime();
 		var currentTime = Date.now().getTime();

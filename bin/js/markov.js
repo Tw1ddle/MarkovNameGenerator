@@ -74,6 +74,7 @@ var Main = function() {
 	this.noNamesFoundElement = window.document.getElementById("nonamesfound");
 	this.maxProcessingTimeElement = window.document.getElementById("maxtime");
 	this.maxWordsToGenerateElement = window.document.getElementById("maxwordstogenerate");
+	this.backoffElement = window.document.getElementById("backoff");
 	this.priorElement = window.document.getElementById("prior");
 	this.orderElement = window.document.getElementById("order");
 	this.trainingDataTextEdit = window.document.getElementById("trainingdataedit");
@@ -190,6 +191,7 @@ Main.prototype = {
 		this.maxLength = 11;
 		this.order = 3;
 		this.prior = 0.0;
+		this.backoff = 0;
 		this.maxProcessingTime = 800;
 		this.set_startsWith("");
 		this.set_endsWith("");
@@ -227,10 +229,18 @@ Main.prototype = {
 		this.priorElement.noUiSlider.on("update",function(values,handle,rawValues) {
 			_gthis.updateTooltips(_gthis.priorElement,handle,values[handle]);
 		});
+		noUiSlider.create(this.backoffElement,{ start : [this.backoff], connect : "lower", range : { "min" : [0,1], "max" : [1]}, format : new wNumb({ decimals : 0})});
+		this.createTooltips(this.backoffElement);
+		this.backoffElement.noUiSlider.on("change",function(values,handle,rawValues) {
+			return _gthis.backoff = Std.parseInt(values[handle]);
+		});
+		this.backoffElement.noUiSlider.on("update",function(values,handle,rawValues) {
+			_gthis.updateTooltips(_gthis.backoffElement,handle,values[handle]);
+		});
 		noUiSlider.create(this.maxWordsToGenerateElement,{ start : [100], connect : "lower", range : { "min" : 20, "max" : 1000}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 0})}});
 		this.createTooltips(this.maxWordsToGenerateElement);
 		this.maxWordsToGenerateElement.noUiSlider.on("change",function(values,handle,rawValues) {
-			return _gthis.maxWordsToGenerate = parseFloat(values[handle]);
+			return _gthis.maxWordsToGenerate = Std.parseInt(values[handle]);
 		});
 		this.maxWordsToGenerateElement.noUiSlider.on("update",function(values,handle,rawValues) {
 			_gthis.updateTooltips(_gthis.maxWordsToGenerateElement,handle,values[handle] | 0);
@@ -238,7 +248,7 @@ Main.prototype = {
 		noUiSlider.create(this.maxProcessingTimeElement,{ start : [this.maxProcessingTime], connect : "lower", range : { "min" : 50, "max" : 5000}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 0})}});
 		this.createTooltips(this.maxProcessingTimeElement);
 		this.maxProcessingTimeElement.noUiSlider.on("change",function(values,handle,rawValues) {
-			return _gthis.maxProcessingTime = parseFloat(values[handle]);
+			return _gthis.maxProcessingTime = Std.parseInt(values[handle]);
 		});
 		this.maxProcessingTimeElement.noUiSlider.on("update",function(values,handle,rawValues) {
 			_gthis.updateTooltips(_gthis.maxProcessingTimeElement,handle,values[handle] | 0);
@@ -288,7 +298,7 @@ Main.prototype = {
 					++_g;
 					_gthis1.duplicateTrie.insert(name);
 				}
-				_gthis1.generator = new markov_namegen_NameGenerator(arr,_gthis1.order,_gthis1.prior);
+				_gthis1.generator = new markov_namegen_NameGenerator(arr,_gthis1.order,_gthis1.prior,_gthis1.backoff == 0 ? false : true);
 				var names = [];
 				var startTime = new Date().getTime();
 				var currentTime = new Date().getTime();
@@ -386,7 +396,7 @@ Main.prototype = {
 					++_g;
 					_gthis1.duplicateTrie.insert(name);
 				}
-				_gthis1.generator = new markov_namegen_NameGenerator(arr,_gthis1.order,_gthis1.prior);
+				_gthis1.generator = new markov_namegen_NameGenerator(arr,_gthis1.order,_gthis1.prior,_gthis1.backoff == 0 ? false : true);
 				var names = [];
 				var startTime = new Date().getTime();
 				var currentTime = new Date().getTime();
@@ -512,7 +522,7 @@ Main.prototype = {
 					++_g;
 					_gthis1.duplicateTrie.insert(name);
 				}
-				_gthis1.generator = new markov_namegen_NameGenerator(arr,_gthis1.order,_gthis1.prior);
+				_gthis1.generator = new markov_namegen_NameGenerator(arr,_gthis1.order,_gthis1.prior,_gthis1.backoff == 0 ? false : true);
 				var names = [];
 				var startTime = new Date().getTime();
 				var currentTime = new Date().getTime();
@@ -638,7 +648,7 @@ Main.prototype = {
 					++_g;
 					_gthis1.duplicateTrie.insert(name);
 				}
-				_gthis1.generator = new markov_namegen_NameGenerator(arr,_gthis1.order,_gthis1.prior);
+				_gthis1.generator = new markov_namegen_NameGenerator(arr,_gthis1.order,_gthis1.prior,_gthis1.backoff == 0 ? false : true);
 				var names = [];
 				var startTime = new Date().getTime();
 				var currentTime = new Date().getTime();
@@ -854,6 +864,7 @@ Main.prototype = {
 		this.maxLength = 11;
 		this.order = 3;
 		this.prior = 0.0;
+		this.backoff = 0;
 		this.maxProcessingTime = 800;
 		this.set_startsWith("");
 		this.set_endsWith("");
@@ -893,10 +904,18 @@ Main.prototype = {
 		this.priorElement.noUiSlider.on("update",function(values,handle,rawValues) {
 			_gthis.updateTooltips(_gthis.priorElement,handle,values[handle]);
 		});
+		noUiSlider.create(this.backoffElement,{ start : [this.backoff], connect : "lower", range : { "min" : [0,1], "max" : [1]}, format : new wNumb({ decimals : 0})});
+		this.createTooltips(this.backoffElement);
+		this.backoffElement.noUiSlider.on("change",function(values,handle,rawValues) {
+			return _gthis.backoff = Std.parseInt(values[handle]);
+		});
+		this.backoffElement.noUiSlider.on("update",function(values,handle,rawValues) {
+			_gthis.updateTooltips(_gthis.backoffElement,handle,values[handle]);
+		});
 		noUiSlider.create(this.maxWordsToGenerateElement,{ start : [100], connect : "lower", range : { "min" : 20, "max" : 1000}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 0})}});
 		this.createTooltips(this.maxWordsToGenerateElement);
 		this.maxWordsToGenerateElement.noUiSlider.on("change",function(values,handle,rawValues) {
-			return _gthis.maxWordsToGenerate = parseFloat(values[handle]);
+			return _gthis.maxWordsToGenerate = Std.parseInt(values[handle]);
 		});
 		this.maxWordsToGenerateElement.noUiSlider.on("update",function(values,handle,rawValues) {
 			_gthis.updateTooltips(_gthis.maxWordsToGenerateElement,handle,values[handle] | 0);
@@ -904,7 +923,7 @@ Main.prototype = {
 		noUiSlider.create(this.maxProcessingTimeElement,{ start : [this.maxProcessingTime], connect : "lower", range : { "min" : 50, "max" : 5000}, pips : { mode : "range", density : 10, format : new wNumb({ decimals : 0})}});
 		this.createTooltips(this.maxProcessingTimeElement);
 		this.maxProcessingTimeElement.noUiSlider.on("change",function(values,handle,rawValues) {
-			return _gthis.maxProcessingTime = parseFloat(values[handle]);
+			return _gthis.maxProcessingTime = Std.parseInt(values[handle]);
 		});
 		this.maxProcessingTimeElement.noUiSlider.on("update",function(values,handle,rawValues) {
 			_gthis.updateTooltips(_gthis.maxProcessingTimeElement,handle,values[handle] | 0);
@@ -972,7 +991,7 @@ Main.prototype = {
 					++_g;
 					_gthis.duplicateTrie.insert(name);
 				}
-				_gthis.generator = new markov_namegen_NameGenerator(arr,_gthis.order,_gthis.prior);
+				_gthis.generator = new markov_namegen_NameGenerator(arr,_gthis.order,_gthis.prior,_gthis.backoff == 0 ? false : true);
 				var names = [];
 				var startTime = new Date().getTime();
 				var currentTime = new Date().getTime();
@@ -1070,7 +1089,7 @@ Main.prototype = {
 					++_g;
 					_gthis.duplicateTrie.insert(name);
 				}
-				_gthis.generator = new markov_namegen_NameGenerator(arr,_gthis.order,_gthis.prior);
+				_gthis.generator = new markov_namegen_NameGenerator(arr,_gthis.order,_gthis.prior,_gthis.backoff == 0 ? false : true);
 				var names = [];
 				var startTime = new Date().getTime();
 				var currentTime = new Date().getTime();
@@ -1196,7 +1215,7 @@ Main.prototype = {
 					++_g;
 					_gthis.duplicateTrie.insert(name);
 				}
-				_gthis.generator = new markov_namegen_NameGenerator(arr,_gthis.order,_gthis.prior);
+				_gthis.generator = new markov_namegen_NameGenerator(arr,_gthis.order,_gthis.prior,_gthis.backoff == 0 ? false : true);
 				var names = [];
 				var startTime = new Date().getTime();
 				var currentTime = new Date().getTime();
@@ -1322,7 +1341,7 @@ Main.prototype = {
 					++_g;
 					_gthis.duplicateTrie.insert(name);
 				}
-				_gthis.generator = new markov_namegen_NameGenerator(arr,_gthis.order,_gthis.prior);
+				_gthis.generator = new markov_namegen_NameGenerator(arr,_gthis.order,_gthis.prior,_gthis.backoff == 0 ? false : true);
 				var names = [];
 				var startTime = new Date().getTime();
 				var currentTime = new Date().getTime();
@@ -1510,7 +1529,7 @@ Main.prototype = {
 			++_g;
 			this.duplicateTrie.insert(name);
 		}
-		this.generator = new markov_namegen_NameGenerator(data,this.order,this.prior);
+		this.generator = new markov_namegen_NameGenerator(data,this.order,this.prior,this.backoff == 0 ? false : true);
 		var names = [];
 		var startTime = new Date().getTime();
 		var currentTime = new Date().getTime();
@@ -1637,7 +1656,7 @@ Main.prototype = {
 			++_g;
 			this.duplicateTrie.insert(name);
 		}
-		this.generator = new markov_namegen_NameGenerator(arr,this.order,this.prior);
+		this.generator = new markov_namegen_NameGenerator(arr,this.order,this.prior,this.backoff == 0 ? false : true);
 		var names = [];
 		var startTime = new Date().getTime();
 		var currentTime = new Date().getTime();
@@ -1736,7 +1755,7 @@ Main.prototype = {
 			++_g;
 			this.duplicateTrie.insert(name);
 		}
-		this.generator = new markov_namegen_NameGenerator(arr,this.order,this.prior);
+		this.generator = new markov_namegen_NameGenerator(arr,this.order,this.prior,this.backoff == 0 ? false : true);
 		var names = [];
 		var startTime = new Date().getTime();
 		var currentTime = new Date().getTime();
@@ -3225,6 +3244,7 @@ ID.sliderscontainer = "sliderscontainer";
 ID.minmaxlength = "minmaxlength";
 ID.order = "order";
 ID.prior = "prior";
+ID.backoff = "backoff";
 ID.maxwordstogenerate = "maxwordstogenerate";
 ID.maxtime = "maxtime";
 ID.startswith = "startswith";
