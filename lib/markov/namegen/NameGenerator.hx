@@ -23,7 +23,7 @@ class NameGenerator {
      * @param   backoff Whether to fall back to lower order models when the highest order model fails to generate a letter (defaults to false).
      */
     public function new(data:Array<String>, order:Int, prior:Float, backoff:Bool = false) {
-        generator = new Generator(data, order, prior, true);
+        generator = new Generator(data, order, prior, backoff);
     }
 
     /**

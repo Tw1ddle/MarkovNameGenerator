@@ -80,7 +80,7 @@ class Generator {
         models = new Array<Model>();
         if(this.backoff) {
             for (i in order...0) { // From highest to lowest order
-                models.push(new Model(data.copy(), order, prior, domain));
+                models.push(new Model(data.copy(), i, prior, domain));
             }
         } else {
             models.push(new Model(data.copy(), order, prior, domain));
