@@ -476,28 +476,22 @@ class Main {
 
 		trainingDataKeys = keys;
 
-		var data = trainingDataTextEdit.value;
-		if (data == null || data.length == 0) {
+		var arr = sanitizeTrainingData(trainingDataTextEdit.value);
+		if (arr == null || arr.length == 0) {
 			return;
 		}
-		var arr = data.split(" ");
-		if(arr.length > 0) {
-			generate(trainingDataKeys, arr);
-		}
+		generate(trainingDataKeys, arr);
 	}
 
 	/**
 	 * Helper method that runs the "generate" method using the current name generation settings
 	 */
 	private inline function generateForCurrentSettings():Void {
-		var data = trainingDataTextEdit.value;
-		if (data == null || data.length == 0) {
+		var arr = sanitizeTrainingData(trainingDataTextEdit.value);
+		if (arr == null || arr.length == 0) {
 			return;
 		}
-		var arr = data.split(" ");
-		if(arr.length > 0) {
-			generate(trainingDataKeys, arr);
-		}
+		generate(trainingDataKeys, arr);
 	}
 
 	/*
@@ -532,6 +526,13 @@ class Main {
 			li.textContent = name.capitalize();
 			currentNamesElement.appendChild(li);
 		}
+	}
+
+	/*
+	 * Sanitizes training data provided by the end user e.g. replace newlines with spaces
+	 */
+	private inline function sanitizeTrainingData(data:String):Array<String> {
+		return data.replace("\r\n", " ").replace("\n", " ").split(" ");
 	}
 
 	/*
