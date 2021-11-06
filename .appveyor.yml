@@ -1,0 +1,22 @@
+image: Ubuntu2004
+
+environment:
+  global:
+    HAXELIB_ROOT: /home/appveyor/haxelib
+    HAXE_INSTALLDIR: /home/appveyor/haxe
+
+install:
+  - cd /home/appveyor
+  - wget https://github.com/HaxeFoundation/haxe/releases/download/4.2.4/haxe-4.2.4-linux64.tar.gz
+  - mkdir $HAXE_INSTALLDIR
+  - tar -xf haxe-4.2.4-linux64.tar.gz -C $HAXE_INSTALLDIR
+  - export PATH=$PATH:$HAXE_INSTALLDIR/haxe_20211022152000_ab0c054
+  - mkdir $HAXELIB_ROOT && haxelib setup $HAXELIB_ROOT
+  - haxelib install Sure
+  - haxelib list
+
+build_script:
+  - cd $APPVEYOR_BUILD_FOLDER
+  - pushd source
+  - haxe MarkovNames.hxml
+  - popd
