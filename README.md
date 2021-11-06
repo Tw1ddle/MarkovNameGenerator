@@ -77,8 +77,8 @@ Or add it to your ```Project.xml```:
 
 Some users have ported and extended the Markov Namegen library to different programming languages. See:
 
-* [pyMarkovNameGenerator](https://github.com/bicobus/pyMarkovNameGenerator) by [bicobus](https://github.com/bicobus).
-* [ProceduralNameGenerator](https://github.com/MagicMau/ProceduralNameGenerator) by [MagicMau](https://github.com/MagicMau). 
+* Python - [pyMarkovNameGenerator](https://github.com/bicobus/pyMarkovNameGenerator) by [bicobus](https://github.com/bicobus).
+* C# - [ProceduralNameGenerator](https://github.com/MagicMau/ProceduralNameGenerator) by [MagicMau](https://github.com/MagicMau). 
 
 ## Notes
 * Many of the concepts used for the generator were suggested in [this article](http://www.roguebasin.com/index.php?title=Names_from_a_high_order_Markov_Process_and_a_simplified_Katz_back-off_scheme) by Jeffrey Lund.
