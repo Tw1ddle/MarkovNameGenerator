@@ -1,1 +1,1 @@
-zip -0r markov-namegen.zip markov haxelib.json include.xml README.md LICENSE CHANGELOG.md package_haxelib.bat
+tar -a -c -f markov-namegen.zip markov haxelib.json include.xml README.md LICENSE CHANGELOG.md package_haxelib.bat
