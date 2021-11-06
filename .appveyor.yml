@@ -25,9 +25,11 @@ install:
 
 build_script:
   - cd $APPVEYOR_BUILD_FOLDER
-  - pushd source
+  
+  # Build the name generator
   - haxe MarkovNames.hxml
-  - popd
+  
+  # Build the documentation
   - pushd lib/dox
   - chmod +x generate_docs.sh
   - ./generate_docs.sh

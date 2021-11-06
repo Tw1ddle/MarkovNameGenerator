@@ -37,18 +37,25 @@ class Generator {
     private var models:Array<Model>;
 
     /**
+     * Whether to fall back to lower orders of models when a higher-order model fails to generate a letter.
+     */
+    private var backoff:Bool;
+
+    /**
      * Creates a new procedural word Generator.
      * @param   data    Training data for the generator, an array of words.
-     * @param   order   Highest order of model to use - models 1 to order will be generated.
+     * @param   order   Highest order of model to use - models of order 1 through order will be generated.
      * @param   prior   The dirichlet prior/additive smoothing "randomness" factor.
+     * @param   backoff Whether to fall back to lower order models when the highest order model fails to generate a letter.
      */
-    public function new(data:Array<String>, order:UInt, prior:Float) {
+    public function new(data:Array<String>, order:UInt, prior:Float, backoff:Bool) {
         Sure.sure(data != null);
         Sure.sure(order >= 1);
         Sure.sure(prior >= 0);
 
         this.order = order;
         this.prior = prior;
+        this.backoff = backoff;
 
         // Identify and sort the alphabet used in the training data
         var letters = ArraySet.create();
@@ -71,8 +78,12 @@ class Generator {
 
         // Create models
         models = new Array<Model>();
-        for (i in 0...order) {
-            models.push(new Model(data.copy(), order - i, prior, domain));
+        if(this.backoff) {
+            for (i in order...0) { // From highest to lowest order
+                models.push(new Model(data.copy(), order, prior, domain));
+            }
+        } else {
+            models.push(new Model(data.copy(), order, prior, domain));
         }
     }
 

@@ -20,9 +20,10 @@ class NameGenerator {
      * @param   data    Training data for the generator, an array of words.
      * @param   order   Highest order of model to use - models 1 to order will be generated.
      * @param   prior   The dirichlet prior/additive smoothing "randomness" factor.
+     * @param   backoff Whether to fall back to lower order models when the highest order model fails to generate a letter (defaults to false).
      */
-    public function new(data:Array<String>, order:Int, prior:Float) {
-        generator = new Generator(data, order, prior);
+    public function new(data:Array<String>, order:Int, prior:Float, backoff:Bool = false) {
+        generator = new Generator(data, order, prior, true);
     }
 
     /**
