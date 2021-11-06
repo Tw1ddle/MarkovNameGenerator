@@ -108,15 +108,15 @@ class Generator {
      * @param   context The context the model will use for generating the next letter.
      * @return  The generated letter, or null if no model could generate one.
      */
-    private function getLetter(context:String):String {
-        Sure.sure(context != null);
-        Sure.sure(context.length > 0);
+    private function getLetter(word:String):String {
+        Sure.sure(word != null);
+        Sure.sure(word.length > 0);
 
         var letter:String = null;
-        var context:String = context.substring(context.length - order, context.length);
+        var context:String = word.substring(word.length - order, word.length);
         for (model in models) {
             letter = model.generate(context);
-            if (letter == null) {
+            if (letter == null || letter == "#") {
                 context = context.substring(1);
             } else {
                 break;
