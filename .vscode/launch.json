@@ -1,0 +1,30 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Demo-Chrome",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "url": "http://localhost:8080",
+            "file": "${workspaceFolder}/bin/index.html"
+        },
+        {
+            "name": "Demo-Edge",
+            "request": "launch",
+            "type": "pwa-msedge",
+            "url": "http://localhost:8080",
+            "file": "${workspaceFolder}/bin/index.html"
+        },
+        {
+            "name": "Demo-Firefox",
+            "request": "launch",
+            "type": "firefox",
+            "reAttach": true,
+            "url": "http://localhost:8080",
+            "file": "${workspaceFolder}/bin/index.html"
+        },
+    ]
+}
