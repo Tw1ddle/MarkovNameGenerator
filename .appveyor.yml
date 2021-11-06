@@ -16,10 +16,14 @@ install:
   - export PATH=$PATH:$HAXE_INSTALLDIR/haxe_20211022152000_ab0c054
   - mkdir $HAXELIB_ROOT && haxelib setup $HAXELIB_ROOT
   - haxelib install Sure
+  - haxelib install dox # For documentation generation
   - haxelib list
 
 build_script:
   - cd $APPVEYOR_BUILD_FOLDER
   - pushd source
   - haxe MarkovNames.hxml
+  - popd
+  - pushd lib/dox
+  - ./generate_docs.sh
   - popd
