@@ -21,3 +21,6 @@
 
 ## 1.0.7
 * Added additional utility functions, code cleanup.
+
+## 1.0.8
+* Fixed issue with backoff/fallback to lower-order models, code cleanup.

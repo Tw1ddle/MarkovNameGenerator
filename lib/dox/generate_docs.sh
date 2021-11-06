@@ -6,7 +6,7 @@
 rm -rf "generated_docs"
 
 # Delete any existing generated XML-format type information.
-rm types.xml
+rm -f types.xml
 
 # Build the XML-format type information.
 haxe build.hxml
