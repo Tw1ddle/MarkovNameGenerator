@@ -5,7 +5,7 @@
 -cp source
 -main Main
 
--lib sure
+-lib Sure
 
 # Uncomment to use the markov namegen haxelib
 #-lib markov-namegen
