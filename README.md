@@ -16,34 +16,31 @@ Demonstrates the [markov-namegen haxelib](https://lib.haxe.org/p/markov-namegen)
 
 ## Usage
 
-Run the [demo](https://www.samcodes.co.uk/project/markov-namegen/) to generate your own words. For example, use these settings:
+Run the [demo](https://www.samcodes.co.uk/project/markov-namegen/) to generate your own words. Press the "Generate" button to begin, or select "Settings" to configure advanced options.
+
+For example, enter the settings:
 
 ```
 Training Dataset: English Towns
 Order: 5
-Prior: 0.01
-Words To Generate: 100
-Max Processing Time: 500ms
+Backoff: 1 (on)
 Length: 8-12
 Starts with: b
-Ends with:
 Include: ham
-Exclude:
 Similarity To: birmingham
-Matches Regex:
 ```
 
-Click the "Generate" button and the results will be displayed. Here are the first 10 results with the settings above:
+Click the "Generate" button and the results will be displayed on the page. Here are my first 10 results when using the settings above:
 ```
 Barkingham Basingham Birkenham Bebingham Bollingham Bridlingham Billenham Berwickham Botteringham Bradnincham
 ```
 
 ## Screenshots
-Here is the demo in action. Using a single data set:
+Here is the demo in action using a single data set:
 
 [![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot2.png?raw=true "Markov Namegen Procedural Random Name Generator screenshot 2")](https://www.samcodes.co.uk/project/markov-namegen/)
 
-Combining multiple preset datasets:
+Appending two data presets:
 
 [![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot4.png?raw=true "Markov Namegen Procedural Random Name Generator screenshot 4")](https://www.samcodes.co.uk/project/markov-namegen/)
 
@@ -75,7 +72,7 @@ Or add it to your ```Project.xml```:
 
 ## Demo Setup
 
-To run the [demo](https://www.samcodes.co.uk/project/markov-namegen/) locally, clone the repository and run the following in your console in the root folder of the repository:
+To run the [demo](https://www.samcodes.co.uk/project/markov-namegen/) locally, clone the repository and run the following in your console within the root folder of the repository:
 
 ```
 haxe MarkovNames.hxml
