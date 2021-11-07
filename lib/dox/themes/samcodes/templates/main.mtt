@@ -72,7 +72,7 @@
 		<div class="copyright">
 			<p ::cond api.isDefined("version")::>This documentation is generated for version ::api.getValue('version')::</p>
 			<p>
-			<a href="http://www.samcodes.co.uk/project/markov-namegen/" title="Markov Namegen Demo" class="hf-link">Markov Namegen Website</a> |&nbsp;
+			<a href="https://www.samcodes.co.uk/project/markov-namegen/" title="Markov Namegen Demo" class="hf-link">Markov Namegen Website</a> |&nbsp;
 			<a href="https://github.com/Tw1ddle/MarkovNameGenerator" title="Markov Namegen on Github">Contribute to Markov Namegen</a> |&nbsp;
 			<a href="https://twitter.com/Sam_Twidale" title="Contact Sam">Contact Sam</a>
 			</p>
