@@ -36,13 +36,17 @@ Barkingham Basingham Birkenham Bebingham Bollingham Bridlingham Billenham Berwic
 ```
 
 ## Screenshots
-Here is the demo in action using a single data set:
+Here is the demo in action. Using a single data set:
 
 [![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot2.png?raw=true "Markov Namegen Procedural Random Name Generator screenshot 2")](https://www.samcodes.co.uk/project/markov-namegen/)
 
-Appending two data presets:
+Appending two presets:
 
 [![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot4.png?raw=true "Markov Namegen Procedural Random Name Generator screenshot 4")](https://www.samcodes.co.uk/project/markov-namegen/)
+
+Joining the individual words from two presets:
+
+[![Screenshot](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/screenshots/screenshot5.png?raw=true "Markov Namegen Procedural Random Name Generator screenshot 5")](https://www.samcodes.co.uk/project/markov-namegen/)
 
 ## How It Works
 
