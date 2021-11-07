@@ -14,6 +14,7 @@ import markov.namegen.NameGenerator;
 import markov.util.EditDistanceMetrics;
 import markov.util.PrefixTrie;
 
+using Lambda;
 using markov.util.StringExtensions;
 using StringTools;
 
@@ -30,6 +31,7 @@ class Main {
 	}
 	private var nameDataPresetListElement:SelectElement = getElement(ID.trainingdatalist);
 	private var nameDataSearchBoxElement:InputElement = getElement(ID.trainingdatasearchbox);
+	private var nameDataCombinationModeListElement:SelectElement = getElement(ID.trainingdatacombinationmodelist);
 	private var nameDataDataListElement:DataListElement = getElement(ID.namedatapresetslist);
 	private var nameDataPresetCheckboxContainer:DivElement = getElement(ID.trainingdataselectioncheckboxes);
 	private var nameDataPresetCheckboxElements:Array<InputElement> = [];
@@ -85,6 +87,7 @@ class Main {
 	}
 
 	private inline function onWindowLoaded():Void {
+		populateTrainingDataSetCombinationModeList();
 		buildTrainingDataList();
 		applySettings();
 		createSliders();
@@ -132,6 +135,21 @@ class Main {
 
 			topicSearchTrie.insert(displayName);
 		}
+	}
+
+	/*
+	 * Populate training dataset combination mode dropdown
+	 */
+	private inline function populateTrainingDataSetCombinationModeList():Void {
+		var makeOption = (displayName:String)-> {
+			var option = Browser.document.createOptionElement();
+			option.appendChild(Browser.document.createTextNode(displayName));
+			option.value = displayName;
+			return option;
+		}
+		
+		nameDataCombinationModeListElement.appendChild(makeOption(DatasetCombinationMode.AppendEntireDatasets));
+		nameDataCombinationModeListElement.appendChild(makeOption(DatasetCombinationMode.JoinIndividualWords));
 	}
 
 	private inline function applySettings():Void {
@@ -333,6 +351,9 @@ class Main {
 				trainingDataKeys = [ nameDataSearchBoxElement.value ];
 			}
 		}, false);
+		nameDataCombinationModeListElement.addEventListener("change", function() {
+			trainingDataKeys = trainingDataKeys;
+		}, false);
 		
 		for (nameDataPresetCheckbox in nameDataPresetCheckboxElements) {
 			nameDataPresetCheckbox.addEventListener("change", function() {
@@ -430,16 +451,36 @@ class Main {
 
 	private function onNameDataPresetSelectionChanged(keys:Array<String>):Void {
 		var s:String = "";
-		
-		for (key in keys) {
-			var data:Array<String> = Reflect.getProperty(TrainingData, displayNameToTrainingDataField(key));
-			if (data == null) {
-				continue;
-			}
-			for (i in data) {
-				s += i + " ";
-			}
-			s = s.rtrim();
+
+		// Collect the training data to use and combine it based on the data combination mode, if more than one dataset is collected
+		var keyCombinationMode:DatasetCombinationMode = nameDataCombinationModeListElement.value;
+		switch(keyCombinationMode) {
+			case AppendEntireDatasets:
+				for (key in keys) {
+					var data:Array<String> = Reflect.getProperty(TrainingData, displayNameToTrainingDataField(key));
+					if (data == null) {
+						continue;
+					}
+					for (i in data) {
+						s += i + " ";
+					}
+					s = s.rtrim();
+				}
+			case JoinIndividualWords:
+				var joinedWords = new Array<String>();
+				var minLength:Int = keys.map((a) -> return Reflect.getProperty(TrainingData, displayNameToTrainingDataField(a)).length).fold((x, y) -> return cast(Math.min(cast(x, Int), cast(y, Int)), Int), 0x0FFFFFF);
+				for(i in 0...minLength) {
+					var joinedWord:String = "";
+					for(k in 0...keys.length) {
+						var data:Array<String> = Reflect.getProperty(TrainingData, displayNameToTrainingDataField(keys[k]));
+						joinedWord += data[i];
+						if(k != keys.length - 1) {
+							joinedWord += "_";
+						}
+					}
+					joinedWords.push(joinedWord);
+				}
+				s += joinedWords.join(" ");
 		}
 
 		trainingDataTextEdit.value = s;
@@ -453,7 +494,7 @@ class Main {
 		for (i in 0...presetNames.length) {
 			title += presetNames[i];
 			if (presetNames.length != 1 && i != presetNames.length - 1) {
-				title += " + ";
+				title += " & ";
 			}
 		}
 		namesTitleElement.innerHTML = title;
@@ -532,7 +573,7 @@ class Main {
 		return names;
 	}
 
-	/**
+	/*
 	 * Helper method that runs the "generateAndRecombine" method for a number of random preset sets of training data
 	 */
 	private inline function generateForRandomPresets(numPresets:Int):Void {
@@ -553,7 +594,7 @@ class Main {
 		generateAndRecombine(trainingDataKeys, arr);
 	}
 
-	/**
+	/*
 	 * Helper method that runs the "generate" method using the current name generation settings
 	 */
 	private inline function generateForCurrentSettings():Void {

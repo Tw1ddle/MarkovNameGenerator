@@ -19,6 +19,7 @@ EReg.prototype = {
 		this.r.s = s;
 		return this.r.m != null;
 	}
+	,__class__: EReg
 };
 var HxOverrides = function() { };
 HxOverrides.__name__ = true;
@@ -52,6 +53,16 @@ HxOverrides.remove = function(a,obj) {
 HxOverrides.now = function() {
 	return Date.now();
 };
+var Lambda = function() { };
+Lambda.__name__ = true;
+Lambda.fold = function(it,f,first) {
+	var x = $getIterator(it);
+	while(x.hasNext()) {
+		var x1 = x.next();
+		first = f(x1,first);
+	}
+	return first;
+};
 var ID = function() { };
 ID.__name__ = true;
 var Main = function() {
@@ -81,6 +92,7 @@ var Main = function() {
 	this.nameDataPresetCheckboxElements = [];
 	this.nameDataPresetCheckboxContainer = window.document.getElementById("trainingdataselectioncheckboxes");
 	this.nameDataDataListElement = window.document.getElementById("namedatapresetslist");
+	this.nameDataCombinationModeListElement = window.document.getElementById("trainingdatacombinationmodelist");
 	this.nameDataSearchBoxElement = window.document.getElementById("trainingdatasearchbox");
 	this.nameDataPresetListElement = window.document.getElementById("trainingdatalist");
 	window.onload = $bind(this,this.onWindowLoaded);
@@ -94,6 +106,14 @@ Main.main = function() {
 };
 Main.prototype = {
 	onWindowLoaded: function() {
+		var makeOption = function(displayName) {
+			var option = window.document.createElement("option");
+			option.appendChild(window.document.createTextNode(displayName));
+			option.value = displayName;
+			return option;
+		};
+		this.nameDataCombinationModeListElement.appendChild(makeOption("Append Entire Datasets"));
+		this.nameDataCombinationModeListElement.appendChild(makeOption("Join Individual Words"));
 		var params = window.location.search.substring(1);
 		if(!(params == null || params == "")) {
 			TrainingData["custom"] = [];
@@ -267,6 +287,9 @@ Main.prototype = {
 				_gthis1.set_trainingDataKeys([_gthis1.nameDataSearchBoxElement.value]);
 			}
 		},false);
+		this.nameDataCombinationModeListElement.addEventListener("change",function() {
+			_gthis1.set_trainingDataKeys(_gthis1.get_trainingDataKeys());
+		},false);
 		var _g = 0;
 		var _g1 = this.nameDataPresetCheckboxElements;
 		while(_g < _g1.length) {
@@ -287,7 +310,7 @@ Main.prototype = {
 					var i = _g++;
 					title += presetNames[i];
 					if(presetNames.length != 1 && i != presetNames.length - 1) {
-						title += " + ";
+						title += " & ";
 					}
 				}
 				_gthis1.namesTitleElement.innerHTML = title;
@@ -503,7 +526,7 @@ Main.prototype = {
 					var i = _g++;
 					title += presetNames[i];
 					if(presetNames.length != 1 && i != presetNames.length - 1) {
-						title += " + ";
+						title += " & ";
 					}
 				}
 				_gthis1.namesTitleElement.innerHTML = title;
@@ -747,7 +770,7 @@ Main.prototype = {
 					var i = _g++;
 					title += presetNames[i];
 					if(presetNames.length != 1 && i != presetNames.length - 1) {
-						title += " + ";
+						title += " & ";
 					}
 				}
 				_gthis1.namesTitleElement.innerHTML = title;
@@ -991,7 +1014,7 @@ Main.prototype = {
 					var i = _g++;
 					title += presetNames[i];
 					if(presetNames.length != 1 && i != presetNames.length - 1) {
-						title += " + ";
+						title += " & ";
 					}
 				}
 				_gthis1.namesTitleElement.innerHTML = title;
@@ -1329,6 +1352,16 @@ Main.prototype = {
 			this.topicSearchTrie.insert(displayName[0]);
 		}
 	}
+	,populateTrainingDataSetCombinationModeList: function() {
+		var makeOption = function(displayName) {
+			var option = window.document.createElement("option");
+			option.appendChild(window.document.createTextNode(displayName));
+			option.value = displayName;
+			return option;
+		};
+		this.nameDataCombinationModeListElement.appendChild(makeOption("Append Entire Datasets"));
+		this.nameDataCombinationModeListElement.appendChild(makeOption("Join Individual Words"));
+	}
 	,applySettings: function() {
 		this.set_trainingDataKeys(["Animals"]);
 		this.maxWordsToGenerate = 100;
@@ -1432,6 +1465,9 @@ Main.prototype = {
 				_gthis.set_trainingDataKeys([_gthis.nameDataSearchBoxElement.value]);
 			}
 		},false);
+		this.nameDataCombinationModeListElement.addEventListener("change",function() {
+			_gthis.set_trainingDataKeys(_gthis.get_trainingDataKeys());
+		},false);
 		var _g = 0;
 		var _g1 = this.nameDataPresetCheckboxElements;
 		while(_g < _g1.length) {
@@ -1452,7 +1488,7 @@ Main.prototype = {
 					var i = _g++;
 					title += presetNames[i];
 					if(presetNames.length != 1 && i != presetNames.length - 1) {
-						title += " + ";
+						title += " & ";
 					}
 				}
 				_gthis.namesTitleElement.innerHTML = title;
@@ -1668,7 +1704,7 @@ Main.prototype = {
 					var i = _g++;
 					title += presetNames[i];
 					if(presetNames.length != 1 && i != presetNames.length - 1) {
-						title += " + ";
+						title += " & ";
 					}
 				}
 				_gthis.namesTitleElement.innerHTML = title;
@@ -1912,7 +1948,7 @@ Main.prototype = {
 					var i = _g++;
 					title += presetNames[i];
 					if(presetNames.length != 1 && i != presetNames.length - 1) {
-						title += " + ";
+						title += " & ";
 					}
 				}
 				_gthis.namesTitleElement.innerHTML = title;
@@ -2156,7 +2192,7 @@ Main.prototype = {
 					var i = _g++;
 					title += presetNames[i];
 					if(presetNames.length != 1 && i != presetNames.length - 1) {
-						title += " + ";
+						title += " & ";
 					}
 				}
 				_gthis.namesTitleElement.innerHTML = title;
@@ -2417,40 +2453,115 @@ Main.prototype = {
 		this.nameDataPresetCheckboxElements.push(selectionCheckbox);
 	}
 	,onNameDataPresetSelectionChanged: function(keys) {
+		var _gthis = this;
 		var s = "";
-		var _g = 0;
-		while(_g < keys.length) {
-			var key = keys[_g];
-			++_g;
-			if(key == null) {
-				throw haxe_Exception.thrown("FAIL: str != null");
-			}
-			var parts = key.split(" ");
-			var results = "";
-			var _g1 = 0;
-			var _g2 = parts.length;
-			while(_g1 < _g2) {
-				var i = _g1++;
-				var str = parts[i];
-				if(!(str != null && str.length > 0)) {
-					throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+		var keyCombinationMode = this.nameDataCombinationModeListElement.value;
+		switch(keyCombinationMode) {
+		case "Append Entire Datasets":
+			var _g = 0;
+			while(_g < keys.length) {
+				var key = keys[_g];
+				++_g;
+				if(key == null) {
+					throw haxe_Exception.thrown("FAIL: str != null");
 				}
-				results += HxOverrides.substr(str,0,1).toLowerCase() + HxOverrides.substr(str,1,str.length - 1);
-				if(i <= parts.length - 1) {
-					results += " ";
+				var parts = key.split(" ");
+				var results = "";
+				var _g1 = 0;
+				var _g2 = parts.length;
+				while(_g1 < _g2) {
+					var i = _g1++;
+					var str = parts[i];
+					if(!(str != null && str.length > 0)) {
+						throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+					}
+					results += HxOverrides.substr(str,0,1).toLowerCase() + HxOverrides.substr(str,1,str.length - 1);
+					if(i <= parts.length - 1) {
+						results += " ";
+					}
 				}
+				var data = Reflect.getProperty(TrainingData,StringTools.replace(StringTools.trim(results)," ","_"));
+				if(data == null) {
+					continue;
+				}
+				var _g3 = 0;
+				while(_g3 < data.length) {
+					var i1 = data[_g3];
+					++_g3;
+					s += i1 + " ";
+				}
+				s = StringTools.rtrim(s);
 			}
-			var data = Reflect.getProperty(TrainingData,StringTools.replace(StringTools.trim(results)," ","_"));
-			if(data == null) {
-				continue;
+			break;
+		case "Join Individual Words":
+			var joinedWords = [];
+			var result = new Array(keys.length);
+			var _g = 0;
+			var _g1 = keys.length;
+			while(_g < _g1) {
+				var i = _g++;
+				var a = keys[i];
+				if(a == null) {
+					throw haxe_Exception.thrown("FAIL: str != null");
+				}
+				var parts = a.split(" ");
+				var results = "";
+				var _g2 = 0;
+				var _g3 = parts.length;
+				while(_g2 < _g3) {
+					var i1 = _g2++;
+					var str = parts[i1];
+					if(!(str != null && str.length > 0)) {
+						throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+					}
+					results += HxOverrides.substr(str,0,1).toLowerCase() + HxOverrides.substr(str,1,str.length - 1);
+					if(i1 <= parts.length - 1) {
+						results += " ";
+					}
+				}
+				result[i] = Reflect.getProperty(TrainingData,StringTools.replace(StringTools.trim(results)," ","_")).length;
 			}
-			var _g3 = 0;
-			while(_g3 < data.length) {
-				var i1 = data[_g3];
-				++_g3;
-				s += i1 + " ";
+			var minLength = Lambda.fold(result,function(x,y) {
+				return js_Boot.__cast(Math.min(js_Boot.__cast(x , Int),js_Boot.__cast(y , Int)) , Int);
+			},16777215);
+			var _g = 0;
+			var _g1 = minLength;
+			while(_g < _g1) {
+				var i = _g++;
+				var joinedWord = "";
+				var _g2 = 0;
+				var _g3 = keys.length;
+				while(_g2 < _g3) {
+					var k = _g2++;
+					var name = keys[k];
+					if(name == null) {
+						throw haxe_Exception.thrown("FAIL: str != null");
+					}
+					var parts = name.split(" ");
+					var results = "";
+					var _g4 = 0;
+					var _g5 = parts.length;
+					while(_g4 < _g5) {
+						var i1 = _g4++;
+						var str = parts[i1];
+						if(!(str != null && str.length > 0)) {
+							throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						}
+						results += HxOverrides.substr(str,0,1).toLowerCase() + HxOverrides.substr(str,1,str.length - 1);
+						if(i1 <= parts.length - 1) {
+							results += " ";
+						}
+					}
+					var data = Reflect.getProperty(TrainingData,StringTools.replace(StringTools.trim(results)," ","_"));
+					joinedWord += data[i];
+					if(k != keys.length - 1) {
+						joinedWord += "_";
+					}
+				}
+				joinedWords.push(joinedWord);
 			}
-			s = StringTools.rtrim(s);
+			s += joinedWords.join(" ");
+			break;
 		}
 		this.trainingDataTextEdit.value = s;
 	}
@@ -2462,7 +2573,7 @@ Main.prototype = {
 			var i = _g++;
 			title += presetNames[i];
 			if(presetNames.length != 1 && i != presetNames.length - 1) {
-				title += " + ";
+				title += " & ";
 			}
 		}
 		this.namesTitleElement.innerHTML = title;
@@ -2733,7 +2844,7 @@ Main.prototype = {
 			var i = _g++;
 			title += presetNames[i];
 			if(presetNames.length != 1 && i != presetNames.length - 1) {
-				title += " + ";
+				title += " & ";
 			}
 		}
 		this.namesTitleElement.innerHTML = title;
@@ -2950,7 +3061,7 @@ Main.prototype = {
 			var i = _g++;
 			title += presetNames[i];
 			if(presetNames.length != 1 && i != presetNames.length - 1) {
-				title += " + ";
+				title += " & ";
 			}
 		}
 		this.namesTitleElement.innerHTML = title;
@@ -3344,6 +3455,7 @@ Main.prototype = {
 	,set_regexMatch: function(s) {
 		return this.regexMatchElement.value = s;
 	}
+	,__class__: Main
 	,__properties__: {set_trainingDataKeys:"set_trainingDataKeys",get_trainingDataKeys:"get_trainingDataKeys",set_regexMatch:"set_regexMatch",get_regexMatch:"get_regexMatch",set_similar:"set_similar",get_similar:"get_similar",set_excludes:"set_excludes",get_excludes:"get_excludes",set_includes:"set_includes",get_includes:"get_includes",set_endsWith:"set_endsWith",get_endsWith:"get_endsWith",set_startsWith:"set_startsWith",get_startsWith:"get_startsWith"}
 };
 Math.__name__ = true;
@@ -3581,6 +3693,9 @@ ShareResults.makeCustomQueryString = function(m,mode) {
 };
 var Std = function() { };
 Std.__name__ = true;
+Std.string = function(s) {
+	return js_Boot.__string_rec(s,"");
+};
 Std.parseInt = function(x) {
 	if(x != null) {
 		var _g = 0;
@@ -3684,6 +3799,9 @@ UInt.gte = function(a,b) {
 		return a >= b;
 	}
 };
+var haxe_IMap = function() { };
+haxe_IMap.__name__ = true;
+haxe_IMap.__isInterface__ = true;
 var haxe_Exception = function(message,previous,native) {
 	Error.call(this,message);
 	this.message = message;
@@ -3706,6 +3824,7 @@ haxe_Exception.prototype = $extend(Error.prototype,{
 	get_native: function() {
 		return this.__nativeException;
 	}
+	,__class__: haxe_Exception
 	,__properties__: {get_native:"get_native"}
 });
 var haxe_ValueException = function(value,previous,native) {
@@ -3715,11 +3834,13 @@ var haxe_ValueException = function(value,previous,native) {
 haxe_ValueException.__name__ = true;
 haxe_ValueException.__super__ = haxe_Exception;
 haxe_ValueException.prototype = $extend(haxe_Exception.prototype,{
+	__class__: haxe_ValueException
 });
 var haxe_ds_IntMap = function() {
 	this.h = { };
 };
 haxe_ds_IntMap.__name__ = true;
+haxe_ds_IntMap.__interfaces__ = [haxe_IMap];
 haxe_ds_IntMap.prototype = {
 	keys: function() {
 		var a = [];
@@ -3734,6 +3855,7 @@ haxe_ds_IntMap.prototype = {
 			return this.ref[i];
 		}};
 	}
+	,__class__: haxe_ds_IntMap
 };
 var haxe_ds_List = function() {
 	this.length = 0;
@@ -3765,16 +3887,24 @@ haxe_ds_List.prototype = {
 	,isEmpty: function() {
 		return this.h == null;
 	}
+	,__class__: haxe_ds_List
 };
 var haxe_ds__$List_ListNode = function(item,next) {
 	this.item = item;
 	this.next = next;
 };
 haxe_ds__$List_ListNode.__name__ = true;
+haxe_ds__$List_ListNode.prototype = {
+	__class__: haxe_ds__$List_ListNode
+};
 var haxe_ds_StringMap = function() {
 	this.h = Object.create(null);
 };
 haxe_ds_StringMap.__name__ = true;
+haxe_ds_StringMap.__interfaces__ = [haxe_IMap];
+haxe_ds_StringMap.prototype = {
+	__class__: haxe_ds_StringMap
+};
 var haxe_iterators_ArrayIterator = function(array) {
 	this.current = 0;
 	this.array = array;
@@ -3787,9 +3917,27 @@ haxe_iterators_ArrayIterator.prototype = {
 	,next: function() {
 		return this.array[this.current++];
 	}
+	,__class__: haxe_iterators_ArrayIterator
 };
 var js_Boot = function() { };
 js_Boot.__name__ = true;
+js_Boot.getClass = function(o) {
+	if(o == null) {
+		return null;
+	} else if(((o) instanceof Array)) {
+		return Array;
+	} else {
+		var cl = o.__class__;
+		if(cl != null) {
+			return cl;
+		}
+		var name = js_Boot.__nativeClassName(o);
+		if(name != null) {
+			return js_Boot.__resolveNativeClass(name);
+		}
+		return null;
+	}
+};
 js_Boot.__string_rec = function(o,s) {
 	if(o == null) {
 		return "null";
@@ -3882,7 +4030,104 @@ js_Boot.__string_rec = function(o,s) {
 		return String(o);
 	}
 };
+js_Boot.__interfLoop = function(cc,cl) {
+	if(cc == null) {
+		return false;
+	}
+	if(cc == cl) {
+		return true;
+	}
+	var intf = cc.__interfaces__;
+	if(intf != null) {
+		var _g = 0;
+		var _g1 = intf.length;
+		while(_g < _g1) {
+			var i = _g++;
+			var i1 = intf[i];
+			if(i1 == cl || js_Boot.__interfLoop(i1,cl)) {
+				return true;
+			}
+		}
+	}
+	return js_Boot.__interfLoop(cc.__super__,cl);
+};
+js_Boot.__instanceof = function(o,cl) {
+	if(cl == null) {
+		return false;
+	}
+	switch(cl) {
+	case Array:
+		return ((o) instanceof Array);
+	case Bool:
+		return typeof(o) == "boolean";
+	case Dynamic:
+		return o != null;
+	case Float:
+		return typeof(o) == "number";
+	case Int:
+		if(typeof(o) == "number") {
+			return ((o | 0) === o);
+		} else {
+			return false;
+		}
+		break;
+	case String:
+		return typeof(o) == "string";
+	default:
+		if(o != null) {
+			if(typeof(cl) == "function") {
+				if(js_Boot.__downcastCheck(o,cl)) {
+					return true;
+				}
+			} else if(typeof(cl) == "object" && js_Boot.__isNativeObj(cl)) {
+				if(((o) instanceof cl)) {
+					return true;
+				}
+			}
+		} else {
+			return false;
+		}
+		if(cl == Class ? o.__name__ != null : false) {
+			return true;
+		}
+		if(cl == Enum ? o.__ename__ != null : false) {
+			return true;
+		}
+		return o.__enum__ != null ? $hxEnums[o.__enum__] == cl : false;
+	}
+};
+js_Boot.__downcastCheck = function(o,cl) {
+	if(!((o) instanceof cl)) {
+		if(cl.__isInterface__) {
+			return js_Boot.__interfLoop(js_Boot.getClass(o),cl);
+		} else {
+			return false;
+		}
+	} else {
+		return true;
+	}
+};
+js_Boot.__cast = function(o,t) {
+	if(o == null || js_Boot.__instanceof(o,t)) {
+		return o;
+	} else {
+		throw haxe_Exception.thrown("Cannot cast " + Std.string(o) + " to " + Std.string(t));
+	}
+};
 js_Boot.__toStr = null;
+js_Boot.__nativeClassName = function(o) {
+	var name = js_Boot.__toStr.call(o).slice(8,-1);
+	if(name == "Object" || name == "Function" || name == "Math" || name == "JSON") {
+		return null;
+	}
+	return name;
+};
+js_Boot.__isNativeObj = function(o) {
+	return js_Boot.__nativeClassName(o) != null;
+};
+js_Boot.__resolveNativeClass = function(name) {
+	return $global[name];
+};
 var markov_namegen_Generator = function(data,order,prior,backoff) {
 	if(data == null) {
 		throw haxe_Exception.thrown("FAIL: data != null");
@@ -3978,6 +4223,7 @@ markov_namegen_Generator.prototype = {
 		}
 		return letter;
 	}
+	,__class__: markov_namegen_Generator
 };
 var markov_namegen_Model = function(data,order,prior,alphabet) {
 	if(!(alphabet != null && data != null)) {
@@ -4124,6 +4370,7 @@ markov_namegen_Model.prototype = {
 			}
 		}
 	}
+	,__class__: markov_namegen_Model
 };
 var markov_namegen_NameGenerator = function(data,order,prior,backoff) {
 	if(backoff == null) {
@@ -4158,6 +4405,7 @@ markov_namegen_NameGenerator.prototype = {
 		}
 		return names;
 	}
+	,__class__: markov_namegen_NameGenerator
 };
 var markov_util_ArraySet = {};
 markov_util_ArraySet.create = function(array) {
@@ -4467,6 +4715,7 @@ markov_util_PrefixTrie.prototype = {
 		}
 		return words;
 	}
+	,__class__: markov_util_PrefixTrie
 };
 var markov_util_PrefixNode = function(parent,letter,depth) {
 	if(!(letter.length == 1 || parent == null && depth == 0)) {
@@ -4480,6 +4729,9 @@ var markov_util_PrefixNode = function(parent,letter,depth) {
 	this.word = false;
 };
 markov_util_PrefixNode.__name__ = true;
+markov_util_PrefixNode.prototype = {
+	__class__: markov_util_PrefixNode
+};
 var markov_util_StringExtensions = function() { };
 markov_util_StringExtensions.__name__ = true;
 markov_util_StringExtensions.reverse = function(str) {
@@ -4569,14 +4821,23 @@ markov_util_StringExtensions.lowercaseWords = function(str) {
 	}
 	return results;
 };
+function $getIterator(o) { if( o instanceof Array ) return new haxe_iterators_ArrayIterator(o); else return o.iterator(); }
 function $bind(o,m) { if( m == null ) return null; if( m.__id__ == null ) m.__id__ = $global.$haxeUID++; var f; if( o.hx__closures__ == null ) o.hx__closures__ = {}; else f = o.hx__closures__[m.__id__]; if( f == null ) { f = m.bind(o); o.hx__closures__[m.__id__] = f; } return f; }
 $global.$haxeUID |= 0;
 if(typeof(performance) != "undefined" ? typeof(performance.now) == "function" : false) {
 	HxOverrides.now = performance.now.bind(performance);
 }
+String.prototype.__class__ = String;
 String.__name__ = true;
 Array.__name__ = true;
+Date.prototype.__class__ = Date;
 Date.__name__ = "Date";
+var Int = { };
+var Dynamic = { };
+var Float = Number;
+var Bool = Boolean;
+var Class = { };
+var Enum = { };
 js_Boot.__toStr = ({ }).toString;
 ID.header = "header";
 ID.accordion = "accordion";
@@ -4585,6 +4846,7 @@ ID.showsettingslabel = "showsettingslabel";
 ID.trainingdataselectioncheckboxes = "trainingdataselectioncheckboxes";
 ID.trainingdatalist = "trainingdatalist";
 ID.trainingdatasearchbox = "trainingdatasearchbox";
+ID.trainingdatacombinationmodelist = "trainingdatacombinationmodelist";
 ID.namedatapresetslist = "namedatapresetslist";
 ID.trainingdataedit = "trainingdataedit";
 ID.sliderscontainer = "sliderscontainer";
@@ -4625,7 +4887,6 @@ TrainingData.birds_common_names = ["abbottsbooby","abdimsstork","acaciapiedbarbe
 TrainingData.board_games = ["abalone","acronymble","agricola","alias","articulate","backgammon","balderdash","battleship","blockade","buckaroo","checkers","chess","clue","diamond","diplomacy","dominion","dominos","downfall","draughts","go","guesswho","hex","isola","jenga","kerplunk","kropki","ludo","mahjong","mastermind","monopoly","mousetrap","obsession","operation","othello","pandemic","pictionary","risk","scattergories","scrabble","senet","shogi","stratego","trivialpursuit","twister","ubongo","uno","upwords","yahtzee"];
 TrainingData.boat_types = ["airboat","bananaboat","barge","bassboat","boita","bowrider","bracera","cabincruiser","cableferry","canoe","capeislander","captainsgig","carboat","carfloat","catamaran","centerconsole","coble","coracle","cornishpilotgig","crashrescueboat","cruiseship","cuddyboat","cutter","dhow","dinghy","dory","dragger","dragonboat","driftboat","drifter","dugout","durhamboat","electricboat","expresscruiser","ferry","fireboat","fishingboat","floattube","flyak","flyingboat","foldingboat","friendshipsloop","fullriggedpinnace","garbagescow","gofastboat","gondola","greatlakesfreighter","gundalow","houseboat","hovercraft","hydrofoil","hydroplane","iceboat","inflatableboat","jetboat","jetski","jonboat","jukung","junk","ketch","landingcraft","langschiff","launch","lifeboat","lighter","logboat","longboat","longship","longtail","lugger","luxuryyacht","mackinawboat","masulaboat","missileboat","monitor","motorboat","motorlaunch","narrowboat","nordland","norfolkwherry","oiltanker","optimist","outriggercanoe","paddlesteamer","patrolboat","personalwatercraft","pinnace","pirogue","pleasurebarge","pleasurecraft","policewatercraft","pontoon","powerboat","proa","pumpboat","punt","raft","reactionferry","recreationaltrawler","reedboat","rigidhulledinflatable","riverboat","rodneyboat","rowboat","runabout","sailboat","sampan","schooner","scow","seakayak","seakayak","shadboat","shallop","sharpie","shikara","ship","shipstender","skiboat","skiff","skipjack","slipperlaunch","sloop","speedboat","steamboat","submarine","supertanker","surfboat","swiftboat","torpedoboat","towboat","trainferry","trawler","trimaran","tugboat","wakeboardboat","walkaround","waterambulance","watertaxi","weidling","whaleboat","yacht","yawl","zille"];
 TrainingData.body_parts = ["abdomen","adamsapple","ankle","anus","arm","belly","bellybutton","bigtoe","breast","buttocks","calf","calf","calves","canines","cheeks","chest","chin","clavicles","collarbone","diaphragm","ear","earlobes","elbow","elbows","esophagus","eye","eyebrows","eyelashes","eyelids","feet","finger","fingernail","foot","forehead","forehead","gallbladder","groin","gums","hair","hand","head","hips","intestines","jaw","kidney","knee","kneecap","kneecap","larynx","leg","lips","liver","molars","mouth","muscles","nails","navel","nipples","nose","nostril","palms","penis","penvis","pupils","rectum","ribs","scalp","scrotum","shinbone","shoulderblades","shoulders","skin","skull","soles","spine","spleen","sternum","teeth","tendons","thigh","thighs","throat","thumb","tibia","toes","tongue","tooth","torso","trachea","vulva","waist","wrist"];
-TrainingData.book_names = ["a_brief_history_of_time","a_childs_first_library_of_learning","a_message_to_garcia","a_series_of_unfortunate_events","a_song_of_ice_and_fire","a_wrinkle_in_time","adventures_of_huckleberry_finn","alcoholics_anonymous_big_book","alex_cross","all_quiet_on_the_western_front","american_girl","american_spelling_book","and_then_there_were_none","andromeda_nebula","angelas_ashes","angels_&_demons","animal_farm","anne_of_green_gables","anpanman","artemis_fowl","autobiography_of_a_yogi","becoming","benhur_a_tale_of_the_christ","berenstain_bears","better_homes_and_gardens_new_cook_book","betty_crocker_cookbook","black_beauty","brain_quest","bridget_jones","bridget_joness_diary","captain_underpants","catch_22","catching_fire","charlie_and_the_chocolate_factory","charlottes_web","chicken_soup_for_the_soul","choose_your_own_adventure","clifford_the_big_red_dog","confucius_from_the_heart","cosmos","curious_george","der_regenbogenfisch","diana_her_true_story","diary_of_a_wimpy_kid","dirk_pitt","discworld","divergent_trilogy","doc_savage","dork_diaries","dragonlance","dragonriders_of_pern","dream_of_the_red_chamber","dune","decouvertes_gallimard","earths_children","english_grammar","erast_fandorin_series","eye_of_the_needle","fahrenheit_451","fear_of_flying","fear_street","fifty_shades","fifty_shades_darker","fifty_shades_of_grey","flowers_in_the_attic","follow_your_heart","frank_merriwell","geronimo_stilton","gods_little_acre","gone_girl","gone_with_the_wind","goodnight_moon","goosebumps","guess_how_much_i_love_you","guinness_world_records","hammonds_pocket_atlas","harry_bosch","harry_hole","harry_potter","harry_potter_and_the_chamber_of_secrets","harry_potter_and_the_deathly_hallows","harry_potter_and_the_goblet_of_fire","harry_potter_and_the_half-blood_prince","harry_potter_and_the_order_of_the_phoenix","harry_potter_and_the_philosophers_stone","harry_potter_and_the_prisoner_of_azkaban","heidi","his_dark_materials","horrible_histories","how_the_steel_was_tempered","how_to_win_friends_and_influence_people","i_survived","interpreter_of_maladies","jack_reacher","james_and_the_giant_peach","james_bond","jaws","jonathan_livingston_seagull","kane_and_abel","kaori_hosoki","kitchen","knowledge_value_revolution","kon-tiki_across_the_pacific_in_a_raft","kurt_wallander","le_guide_michelin_france","left_behind","life_after_life","life_of_pi","little_critter","little_house_on_the_prairie","lolita","long_walk_to_freedom","love_story","love_you_forever","lust_for_life","magic_tree_house_series","maisy","mans_search_for_meaning","martine","matilda","me_before_you","men_are_from_mars_women_are_from_venus","merriam-webster_pocket_dictionary","merriam-websters_collegiate_dictionary","millennium","mockingjay","morgan_kane","mr_men","nancy_drew","night","nijntje","nineteen_eighty-four","no_longer_human","noddy","norwegian_wood","one_hundred_years_of_solitude","outlander","oxford_advanced_learners_dictionary","paddington_bear","paul_et_virginie","percy_jackson_&_the_olympians","perfume","perry_mason","peter_rabbit","peyton_place","pippi_langstrump","pride_and_prejudice","problems_in_chinas_socialist_economy","rainbow_magic","ramona","rebecca","redwall","rich_dad_poor_dad","robert_langdon","rogets_thesaurus","ronia_the_robbers_daughter","sagan_om_isfolket","san-antonio","santa_evita","scouting_for_boys","shannara","she_a_history_of_adventure","shōgun","sophies_world","south_beach_diet","star_wars","sweet_valley_high","tarzan","the_7_habits_of_highly_effective_people","the_adventures_of_pinocchio","the_alchemist","the_baby-sitters_club","the_bermuda_triangle","the_bobbsey_twins","the_book_thief","the_bridges_of_madison_county","the_cat_in_the_hat","the_catcher_in_the_rye","the_celestine_prophecy","the_chronicles_of_narnia","the_common_sense_book_of_baby_and_child_care","the_da_vinci_code","the_dark_tower","the_destroyer","the_diary_of_anne_frank","the_divine_comedy","the_dukan_diet","the_eagle_has_landed","the_exorcist","the_fault_in_our_stars","the_foundation_trilogy","the_front_runner","the_ginger_man","the_girl_on_the_train","the_girl_with_the_dragon_tattoo","the_giver","the_goal","the_godfather","the_good_soldier_švejk","the_gospel_according_to_peanuts","the_grapes_of_wrath","the_great_gatsby","the_gruffalo","the_happy_hooker_my_own_story","the_hardy_boys","the_help","the_hitchhikers_guide_to_the_galaxy","the_hite_report","the_hobbit","the_horse_whisperer","the_hunger_games","the_hunger_games_trilogy","the_inheritance_cycle","the_joy_of_cooking","the_joy_of_sex","the_kite_runner","the_lion_the_witch_and_the_wardrobe","the_little_prince","the_lost_symbol","the_lovely_bones","the_magic_school_bus","the_mcguffey_readers","the_naked_ape","the_name_of_the_rose","the_neverending_story","the_no._1_ladies_detective_agency","the_old_man_and_the_sea","the_outsiders","the_pillars_of_the_earth","the_plague","the_poky_little_puppy","the_power_of_positive_thinking","the_prophet","the_purpose_driven_life","the_railway_series","the_revolt_of_mamie_stover","the_riftwar_cycle","the_secret","the_secret_diary_of_adrian_mole_aged_13¾","the_shack","the_shadow_of_the_wind","the_shadowhunter_chronicles","the_southern_vampire_mysteries","the_story_of_my_experiments_with_truth","the_stranger","the_sword_of_truth","the_tale_of_peter_rabbit","the_thorn_birds","the_total_woman","the_vampire_chronicles","the_very_hungry_caterpillar","the_wheel_of_time","the_wind_in_the_willows","the_womens_room","the_young_guard","things_fall_apart","to_kill_a_mockingbird","totto-chan_the_little_girl_at_the_window","tuesdays_with_morrie","twilight","uncle_styopa","valley_of_the_dolls","virgin_soil_upturned","war_and_peace","warriors","watership_down","what_color_is_your_parachute","what_to_expect_when_youre_expecting","where_the_wild_things_are","wheres_wally","who_moved_my_cheese","wild_swans","winnie-the-pooh","wolf_totem","world_almanac","you_can_heal_your_life","your_erroneous_zones"];
 TrainingData.breads = ["aniseedbread","bananabread","banburycake","bannock","bathbun","beatenbiscuit","beerbread","belgianbun","biscuit","bostonbun","brownbread","bun","cardamombread","carrotbread","chelseabun","cinnamonroll","cocktailbun","coffeecake","cornbread","currantbun","danishpastry","drippingcake","eggwaffle","farl","fruitbun","frybread","gingerbread","griddlescone","honeybun","hotcrossbun","hushpuppy","icedbun","kingcake","lardycake","londonbun","longevitypeach","lotusseedbun","mantecadas","melonpan","muffin","muffin","pancake","parisbuns","peanutbutterbun","pineapplebun","pumpkinbread","pumpkinbread","raisinbread","saffronbun","scone","shortcake","soboro","sodabread","sopaipilla","stickybun","stollen","sweetroll","tahiniroll","teacake","waffle","welshcake","zucchinibread"];
 TrainingData.breakfast_cereals = ["addamsfamilycereal","allbran","almonddelight","alpen","alphabits","applecinnamoncheerios","appleclones","applejacks","applejacksgliders","appleraisincrisp","applezingaroos","applezings","bakedapplelife","bananafrostedflakes","banananutcheerios","berrryluckycharms","berryberrykix","berryburstcheerios","berrykrispies","booberry","capncrunch","captainplanetcereal","caramelcrunchfuls","ceccettios","cheerios","chocapic","chococrunch","chocolatecheerios","chocolatechex","chocolatecrunchfuls","chocolatedonutz","chocolateflake","chocolatekrave","chocolateoatcrunchlife","chocolatetoastcrunch","chrebetcrunch","christmascrunch","cinnabon","cinnamoncheerios","cinnamonchex","cinnamoncrunch","cinnamongrahams","cinnamonjacks","cinnamonlife","cinnamonnutcheerios","cinnamontoastcrunch","cinnamontoasters","cinnasaryapplejacks","circusfun","clackers","clusters","cocoafrostedflakes","cocoahoots","cocoakrispies","cocoapebbles","cocoapuffs","cocopops","cocoroos","cocowheats","colossalcrunch","cometballs","cookiecrisp","cookiecrispbrownie","cookiecrispcereal","cornbran","cornbransquares","cornbursts","cornchex","cornflakes","cornpops","cornsoya","cornysnaps","countchocula","cranberryalmondcrunch","cranberrywheats","crazycow","crazyflakes","crispix","crispix","crispycritters","crispyrice","crispywheats","croonchystars","crunchberries","cruncheroos","crunchybran","crunchycornbran","crunchynutcornflakes","cupcakepebbles","diamondshreddies","dinersaurs","dinkydonuts","dinopebbles","doublechex","doubledipcrunch","dynobites","eggocereal","fantuzflakes","fiberone","flutieflakes","fortifiedoatflakes","frankenberry","freakies","frenchtoastcrunch","frootloops","frootloops","frostedcheerios","frostedflakes","frostedflakesgold","frostedminichex","frostedminiwheats","frosties","fruitbrute","fruitharvest","fruitycheerios","fruitypebbles","fruitypebbles","goldencrisp","goldengoals","goldengrahams","goldennuggets","goldenpuffs","goleancereal","gorillamunch","grahamchex","granola","granola","granolove","granula","grapenutflakes","grapenuts","halfsies","harvestcrunch","honeybunny","honeybuzzers","honeycomb","honeycomb","honeycrisps","honeycups","honeygrahamchex","honeykix","honeynutcheerios","honeypuffs","honeyricekrispies","honeysmacks","honeysmacks","hulkcereal","iceberrypebbles","jets","jif","jumbokrispies","jurassicparkcrunch","kaboom","kingvitaman","kix","kokokrunch","krispykritters","krunchios","krustyos","littlebites","luckycharms","luckycharms","magicpuffscereal","mallowoats","marshmallowpebbles","millenios","milocereal","miniwheats","moonstones","muesli","mueslix","muffets","multigraincheerios","nestlenesquik","nutrigrain","oatbake","oatbransquares","oatcrisp","oatibix","oatkrunchies","oatmealcookiecrisp","oatmealcrisp","oatmealsquares","optivita","orangeblossom","peanutbuttercrunch","pebblesboulders","pebblescereal","pinkpantherflakes","pokemoncereal","powdereddonutz","pronutro","prostarz","puffapuffarice","puffedrice","puffedwheat","puffins","puffkins","punchcrunch","quakequangaroos","quakerohs","quisp","railroadtracks","raisinbran","raisinbran","raisinbranccrunch","raisincrisps","raisinlife","raisinnutbran","raisinsquares","raisinwheats","razzledazzlericekrispies","readybrek","reesespuffs","reptarcrunch","ricebubbles","ricechex","ricehoneys","ricekrinkles","ricekrispies","rockyroad","scoobydoo","sesamestreetcereal","shredddspoonfuls","shreddedoats","shreddedwheat","shreddies","shreddies","shreks","sirgrapefellow","smartbbran","smartstart","smorz","smurfberrycrunch","snowflakes","spidermancereal","sprinklespangles","stars","starwarscereal","strawberryblastedhoneycomb","strawberryricekrispies","strawberryshortcake","strawberrysquares","sugarcrisp","sugarjets","sugarpuffs","sugarsmacks","sugarsprinkledtwinkles","sultanabran","suncrunchers","sunflakes","supermanstars","sweetenedwheatfuls","teamflakes","tigerpower","toastedcinnamonsquares","toastedwheatfuls","toasties","totalcinnamoncrunch","totalcorn","totalcranberrycrunch","totalhoneyclusters","triples","triplesnack","turbocereal","twinkles","unclesamcereal","undercoverbears","vanillycrunch","veggieos","vive","wackies","waffelos","wafflecrisp","weetabix","weetabixminis","weetbix","weetbix","weetos","wheatena","wheathoneys","wheaties","wheatstax","wildanimalcrunch","winterfruitypebbles","yogactive","zanyfruits"];
 TrainingData.british_desserts = ["angelcake","angeldelight","applecake","applepie","arcticroll","bakewelltart","banburycake","banoffeepie","battenbergcake","blackbun","blancmange","brandysnaps","breadpudding","cabinetpudding","carawayseedcake","carrotcake","chelseabun","chorleycake","christmaspudding","clootie","cobbler","cranachan","crumble","custardtart ","dundeecake","ecclescake","empirebiscuit","etonmess","fatrascal","figgypudding","flummery","fruitfool","fruithat","fudgedoughnut","gypsytart","happyfaces","icecream","jaffacakes","jamrolypoly","knickerbockerglory","lardycake","lardycake","liverpooltart","madeiracake","maltloaf","malvernpudding","manchestertart","mincepie","parkin","penguin","pinkwafer","poundcake","raspberryripple","rhubarbpie","ricepudding","rockcake","scone","shortcake","shrewsburycake","spongecake","spoom","spotteddick","suetpudding","summerpudding","tottenhamcake","treaclespong","treacletart","trifle","welshcake"];
