@@ -1,8 +1,6 @@
 package;
 
-import haxe.display.Display.FieldResolution;
 import markov.util.ArraySet;
-import haxe.ds.ArraySort;
 import js.Browser;
 import js.html.DataListElement;
 import js.html.DivElement;
