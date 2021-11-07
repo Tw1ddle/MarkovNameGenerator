@@ -3947,7 +3947,7 @@ markov_namegen_Generator.prototype = {
 		}
 		var word = output;
 		var letter = this.getLetter(word);
-		while(letter != "#") {
+		while(letter != "#" && letter != null) {
 			if(letter != null) {
 				word += letter;
 			}

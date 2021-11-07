@@ -93,19 +93,21 @@ class Generator {
      */
     public function generate():String {
         var word = "#".repeat(order);
+
         var letter = getLetter(word);
-        while (letter != "#") {
+        while (letter != "#" && letter != null) {
             if(letter != null) {
                 word += letter;
             }
             letter = getLetter(word);
         }
+
         return word;
     }
 
     /**
      * Generates the next letter in a word.
-     * @param   context The context the model will use for generating the next letter.
+     * @param   context The context the models will use for generating the next letter.
      * @return  The generated letter, or null if no model could generate one.
      */
     private function getLetter(word:String):String {
