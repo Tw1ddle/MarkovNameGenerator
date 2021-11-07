@@ -1,0 +1,23 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+        {
+            "type": "haxe",
+            "args": "active configuration",
+            "problemMatcher": [
+                "$haxe-absolute",
+                "$haxe",
+                "$haxe-error",
+                "$haxe-trace"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "label": "haxe: active configuration"
+        }
+    ]
+}

@@ -15,16 +15,23 @@
             "name": "Demo-Edge",
             "request": "launch",
             "type": "pwa-msedge",
-            "url": "http://localhost:8080",
+            "url": "http://localhost:8081",
             "file": "${workspaceFolder}/bin/index.html"
         },
         {
             "name": "Demo-Firefox",
             "request": "launch",
             "type": "firefox",
-            "reAttach": true,
-            "url": "http://localhost:8080",
+            "reAttach": false,
+            "url": "http://localhost:8082",
             "file": "${workspaceFolder}/bin/index.html"
         },
+    ],
+    "compounds": [
+        {
+            "name": "Build-And-Run-Demo",
+            "configurations": ["Demo-Chrome"],
+            "preLaunchTask": "haxe: active configuration"
+        }
     ]
 }
