@@ -291,86 +291,204 @@ Main.prototype = {
 					}
 				}
 				_gthis1.namesTitleElement.innerHTML = title;
-				_gthis1.duplicateTrie = new markov_util_PrefixTrie();
+				var dataSets = new haxe_ds_IntMap();
+				var dataSetCount = 0;
 				var _g = 0;
 				while(_g < arr.length) {
-					var name = arr[_g];
+					var item = arr[_g];
 					++_g;
-					_gthis1.duplicateTrie.insert(name);
-				}
-				_gthis1.generator = new markov_namegen_NameGenerator(arr,_gthis1.order,_gthis1.prior,_gthis1.backoff == 0 ? false : true);
-				var names = [];
-				var startTime = new Date().getTime();
-				var currentTime = new Date().getTime();
-				var regex = _gthis1.get_regexMatch() == "" ? null : new EReg(_gthis1.get_regexMatch(),"i");
-				while(names.length < _gthis1.maxWordsToGenerate && currentTime < startTime + _gthis1.maxProcessingTime) {
-					var name = _gthis1.generator.generateName(_gthis1.minLength,_gthis1.maxLength,_gthis1.get_startsWith(),_gthis1.get_endsWith(),_gthis1.get_includes(),_gthis1.get_excludes(),regex);
-					if(name != null && !_gthis1.duplicateTrie.find(name)) {
-						names.push(name);
-						_gthis1.duplicateTrie.insert(name);
+					var parts = item.split("_");
+					var _g1 = 0;
+					var _g2 = parts.length;
+					while(_g1 < _g2) {
+						var i = _g1++;
+						if(!dataSets.h.hasOwnProperty(i)) {
+							var value = markov_util_ArraySet.create();
+							dataSets.h[i] = value;
+							++dataSetCount;
+						}
+						markov_util_ArraySet.add(dataSets.h[i],parts[i]);
 					}
-					currentTime = new Date().getTime();
 				}
-				var _gthis = _gthis1;
-				_gthis1.lastGeneratedNames = names;
-				if(_gthis1.get_similar().length > 0) {
-					names.sort(function(x,y) {
-						var target = _gthis.get_similar();
-						if(x == null) {
-							throw haxe_Exception.thrown("FAIL: source != null");
+				var processingTimePerSet = dataSetCount > 0 ? _gthis1.maxProcessingTime / dataSetCount : 0;
+				var generatedNameSets = [];
+				var dataSet = dataSets.iterator();
+				while(dataSet.hasNext()) {
+					var dataSet1 = dataSet.next();
+					var data = markov_util_ArraySet.toArray(dataSet1);
+					var tmp;
+					if(data == null || data.length == 0) {
+						tmp = [];
+					} else {
+						var duplicateTrie = new markov_util_PrefixTrie();
+						var _g = 0;
+						while(_g < data.length) {
+							var name = data[_g];
+							++_g;
+							duplicateTrie.insert(name);
 						}
-						if(target == null) {
-							throw haxe_Exception.thrown("FAIL: target != null");
+						var generator = new markov_namegen_NameGenerator(data,_gthis1.order,_gthis1.prior,_gthis1.backoff == 0 ? false : true);
+						var names = [];
+						var startTime = new Date().getTime();
+						var currentTime = new Date().getTime();
+						var regex = _gthis1.get_regexMatch() == "" ? null : new EReg(_gthis1.get_regexMatch(),"i");
+						while(names.length < _gthis1.maxWordsToGenerate && currentTime < startTime + processingTimePerSet) {
+							var name1 = generator.generateName(_gthis1.minLength,_gthis1.maxLength,_gthis1.get_startsWith(),_gthis1.get_endsWith(),_gthis1.get_includes(),_gthis1.get_excludes(),regex);
+							if(name1 != null && !duplicateTrie.find(name1)) {
+								names.push(name1);
+								duplicateTrie.insert(name1);
+							}
+							currentTime = new Date().getTime();
 						}
-						var xSimilarity;
-						if(x.length == 0) {
-							xSimilarity = target.length;
-						} else if(target.length == 0) {
-							xSimilarity = x.length;
-						} else {
-							var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
-							xSimilarity = table[table.length - 1];
-						}
-						var target = _gthis.get_similar();
-						if(y == null) {
-							throw haxe_Exception.thrown("FAIL: source != null");
-						}
-						if(target == null) {
-							throw haxe_Exception.thrown("FAIL: target != null");
-						}
-						var ySimilarity;
-						if(y.length == 0) {
-							ySimilarity = target.length;
-						} else if(target.length == 0) {
-							ySimilarity = y.length;
-						} else {
-							var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
-							ySimilarity = table[table.length - 1];
-						}
-						if(xSimilarity > ySimilarity) {
-							return 1;
-						} else if(xSimilarity < ySimilarity) {
-							return -1;
-						} else {
-							return 0;
-						}
-					});
-				}
-				_gthis1.noNamesFoundElement.innerHTML = "";
-				_gthis1.currentNamesElement.innerHTML = "";
-				if(names.length == 0) {
-					_gthis1.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
-				}
-				var _g = 0;
-				while(_g < names.length) {
-					var name = names[_g];
-					++_g;
-					var li = window.document.createElement("li");
-					if(!(name != null && name.length > 0)) {
-						throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						tmp = names;
 					}
-					li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
-					_gthis1.currentNamesElement.appendChild(li);
+					generatedNameSets.push(tmp);
+				}
+				if(generatedNameSets.length == 1) {
+					var names = generatedNameSets[0];
+					var _gthis = _gthis1;
+					_gthis1.lastGeneratedNames = names;
+					if(_gthis1.get_similar().length > 0) {
+						names.sort(function(x,y) {
+							var target = _gthis.get_similar();
+							if(x == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var xSimilarity;
+							if(x.length == 0) {
+								xSimilarity = target.length;
+							} else if(target.length == 0) {
+								xSimilarity = x.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+								xSimilarity = table[table.length - 1];
+							}
+							var target = _gthis.get_similar();
+							if(y == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var ySimilarity;
+							if(y.length == 0) {
+								ySimilarity = target.length;
+							} else if(target.length == 0) {
+								ySimilarity = y.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+								ySimilarity = table[table.length - 1];
+							}
+							if(xSimilarity > ySimilarity) {
+								return 1;
+							} else if(xSimilarity < ySimilarity) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis1.noNamesFoundElement.innerHTML = "";
+					_gthis1.currentNamesElement.innerHTML = "";
+					if(names.length == 0) {
+						_gthis1.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+					}
+					var _g = 0;
+					while(_g < names.length) {
+						var name = names[_g];
+						++_g;
+						var li = window.document.createElement("li");
+						if(!(name != null && name.length > 0)) {
+							throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						}
+						li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+						_gthis1.currentNamesElement.appendChild(li);
+					}
+				} else {
+					var recombinedNames = [];
+					var _g = 0;
+					var _g1 = _gthis1.maxWordsToGenerate;
+					while(_g < _g1) {
+						var wordIdx = _g++;
+						var name = "";
+						var _g2 = 0;
+						while(_g2 < generatedNameSets.length) {
+							var set = generatedNameSets[_g2];
+							++_g2;
+							if(wordIdx < set.length) {
+								name += set[wordIdx];
+								name += " ";
+							}
+						}
+						name = StringTools.trim(name);
+						if(name.length > 0) {
+							recombinedNames.push(name);
+						}
+					}
+					var _gthis2 = _gthis1;
+					_gthis1.lastGeneratedNames = recombinedNames;
+					if(_gthis1.get_similar().length > 0) {
+						recombinedNames.sort(function(x,y) {
+							var target = _gthis2.get_similar();
+							if(x == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var xSimilarity;
+							if(x.length == 0) {
+								xSimilarity = target.length;
+							} else if(target.length == 0) {
+								xSimilarity = x.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+								xSimilarity = table[table.length - 1];
+							}
+							var target = _gthis2.get_similar();
+							if(y == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var ySimilarity;
+							if(y.length == 0) {
+								ySimilarity = target.length;
+							} else if(target.length == 0) {
+								ySimilarity = y.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+								ySimilarity = table[table.length - 1];
+							}
+							if(xSimilarity > ySimilarity) {
+								return 1;
+							} else if(xSimilarity < ySimilarity) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis1.noNamesFoundElement.innerHTML = "";
+					_gthis1.currentNamesElement.innerHTML = "";
+					if(recombinedNames.length == 0) {
+						_gthis1.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+					}
+					var _g = 0;
+					while(_g < recombinedNames.length) {
+						var name = recombinedNames[_g];
+						++_g;
+						var li = window.document.createElement("li");
+						if(!(name != null && name.length > 0)) {
+							throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						}
+						li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+						_gthis1.currentNamesElement.appendChild(li);
+					}
 				}
 			}
 		},false);
@@ -389,86 +507,204 @@ Main.prototype = {
 					}
 				}
 				_gthis1.namesTitleElement.innerHTML = title;
-				_gthis1.duplicateTrie = new markov_util_PrefixTrie();
+				var dataSets = new haxe_ds_IntMap();
+				var dataSetCount = 0;
 				var _g = 0;
 				while(_g < arr.length) {
-					var name = arr[_g];
+					var item = arr[_g];
 					++_g;
-					_gthis1.duplicateTrie.insert(name);
-				}
-				_gthis1.generator = new markov_namegen_NameGenerator(arr,_gthis1.order,_gthis1.prior,_gthis1.backoff == 0 ? false : true);
-				var names = [];
-				var startTime = new Date().getTime();
-				var currentTime = new Date().getTime();
-				var regex = _gthis1.get_regexMatch() == "" ? null : new EReg(_gthis1.get_regexMatch(),"i");
-				while(names.length < _gthis1.maxWordsToGenerate && currentTime < startTime + _gthis1.maxProcessingTime) {
-					var name = _gthis1.generator.generateName(_gthis1.minLength,_gthis1.maxLength,_gthis1.get_startsWith(),_gthis1.get_endsWith(),_gthis1.get_includes(),_gthis1.get_excludes(),regex);
-					if(name != null && !_gthis1.duplicateTrie.find(name)) {
-						names.push(name);
-						_gthis1.duplicateTrie.insert(name);
+					var parts = item.split("_");
+					var _g1 = 0;
+					var _g2 = parts.length;
+					while(_g1 < _g2) {
+						var i = _g1++;
+						if(!dataSets.h.hasOwnProperty(i)) {
+							var value = markov_util_ArraySet.create();
+							dataSets.h[i] = value;
+							++dataSetCount;
+						}
+						markov_util_ArraySet.add(dataSets.h[i],parts[i]);
 					}
-					currentTime = new Date().getTime();
 				}
-				var _gthis = _gthis1;
-				_gthis1.lastGeneratedNames = names;
-				if(_gthis1.get_similar().length > 0) {
-					names.sort(function(x,y) {
-						var target = _gthis.get_similar();
-						if(x == null) {
-							throw haxe_Exception.thrown("FAIL: source != null");
+				var processingTimePerSet = dataSetCount > 0 ? _gthis1.maxProcessingTime / dataSetCount : 0;
+				var generatedNameSets = [];
+				var dataSet = dataSets.iterator();
+				while(dataSet.hasNext()) {
+					var dataSet1 = dataSet.next();
+					var data = markov_util_ArraySet.toArray(dataSet1);
+					var tmp;
+					if(data == null || data.length == 0) {
+						tmp = [];
+					} else {
+						var duplicateTrie = new markov_util_PrefixTrie();
+						var _g = 0;
+						while(_g < data.length) {
+							var name = data[_g];
+							++_g;
+							duplicateTrie.insert(name);
 						}
-						if(target == null) {
-							throw haxe_Exception.thrown("FAIL: target != null");
+						var generator = new markov_namegen_NameGenerator(data,_gthis1.order,_gthis1.prior,_gthis1.backoff == 0 ? false : true);
+						var names = [];
+						var startTime = new Date().getTime();
+						var currentTime = new Date().getTime();
+						var regex = _gthis1.get_regexMatch() == "" ? null : new EReg(_gthis1.get_regexMatch(),"i");
+						while(names.length < _gthis1.maxWordsToGenerate && currentTime < startTime + processingTimePerSet) {
+							var name1 = generator.generateName(_gthis1.minLength,_gthis1.maxLength,_gthis1.get_startsWith(),_gthis1.get_endsWith(),_gthis1.get_includes(),_gthis1.get_excludes(),regex);
+							if(name1 != null && !duplicateTrie.find(name1)) {
+								names.push(name1);
+								duplicateTrie.insert(name1);
+							}
+							currentTime = new Date().getTime();
 						}
-						var xSimilarity;
-						if(x.length == 0) {
-							xSimilarity = target.length;
-						} else if(target.length == 0) {
-							xSimilarity = x.length;
-						} else {
-							var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
-							xSimilarity = table[table.length - 1];
-						}
-						var target = _gthis.get_similar();
-						if(y == null) {
-							throw haxe_Exception.thrown("FAIL: source != null");
-						}
-						if(target == null) {
-							throw haxe_Exception.thrown("FAIL: target != null");
-						}
-						var ySimilarity;
-						if(y.length == 0) {
-							ySimilarity = target.length;
-						} else if(target.length == 0) {
-							ySimilarity = y.length;
-						} else {
-							var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
-							ySimilarity = table[table.length - 1];
-						}
-						if(xSimilarity > ySimilarity) {
-							return 1;
-						} else if(xSimilarity < ySimilarity) {
-							return -1;
-						} else {
-							return 0;
-						}
-					});
-				}
-				_gthis1.noNamesFoundElement.innerHTML = "";
-				_gthis1.currentNamesElement.innerHTML = "";
-				if(names.length == 0) {
-					_gthis1.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
-				}
-				var _g = 0;
-				while(_g < names.length) {
-					var name = names[_g];
-					++_g;
-					var li = window.document.createElement("li");
-					if(!(name != null && name.length > 0)) {
-						throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						tmp = names;
 					}
-					li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
-					_gthis1.currentNamesElement.appendChild(li);
+					generatedNameSets.push(tmp);
+				}
+				if(generatedNameSets.length == 1) {
+					var names = generatedNameSets[0];
+					var _gthis = _gthis1;
+					_gthis1.lastGeneratedNames = names;
+					if(_gthis1.get_similar().length > 0) {
+						names.sort(function(x,y) {
+							var target = _gthis.get_similar();
+							if(x == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var xSimilarity;
+							if(x.length == 0) {
+								xSimilarity = target.length;
+							} else if(target.length == 0) {
+								xSimilarity = x.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+								xSimilarity = table[table.length - 1];
+							}
+							var target = _gthis.get_similar();
+							if(y == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var ySimilarity;
+							if(y.length == 0) {
+								ySimilarity = target.length;
+							} else if(target.length == 0) {
+								ySimilarity = y.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+								ySimilarity = table[table.length - 1];
+							}
+							if(xSimilarity > ySimilarity) {
+								return 1;
+							} else if(xSimilarity < ySimilarity) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis1.noNamesFoundElement.innerHTML = "";
+					_gthis1.currentNamesElement.innerHTML = "";
+					if(names.length == 0) {
+						_gthis1.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+					}
+					var _g = 0;
+					while(_g < names.length) {
+						var name = names[_g];
+						++_g;
+						var li = window.document.createElement("li");
+						if(!(name != null && name.length > 0)) {
+							throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						}
+						li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+						_gthis1.currentNamesElement.appendChild(li);
+					}
+				} else {
+					var recombinedNames = [];
+					var _g = 0;
+					var _g1 = _gthis1.maxWordsToGenerate;
+					while(_g < _g1) {
+						var wordIdx = _g++;
+						var name = "";
+						var _g2 = 0;
+						while(_g2 < generatedNameSets.length) {
+							var set = generatedNameSets[_g2];
+							++_g2;
+							if(wordIdx < set.length) {
+								name += set[wordIdx];
+								name += " ";
+							}
+						}
+						name = StringTools.trim(name);
+						if(name.length > 0) {
+							recombinedNames.push(name);
+						}
+					}
+					var _gthis2 = _gthis1;
+					_gthis1.lastGeneratedNames = recombinedNames;
+					if(_gthis1.get_similar().length > 0) {
+						recombinedNames.sort(function(x,y) {
+							var target = _gthis2.get_similar();
+							if(x == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var xSimilarity;
+							if(x.length == 0) {
+								xSimilarity = target.length;
+							} else if(target.length == 0) {
+								xSimilarity = x.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+								xSimilarity = table[table.length - 1];
+							}
+							var target = _gthis2.get_similar();
+							if(y == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var ySimilarity;
+							if(y.length == 0) {
+								ySimilarity = target.length;
+							} else if(target.length == 0) {
+								ySimilarity = y.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+								ySimilarity = table[table.length - 1];
+							}
+							if(xSimilarity > ySimilarity) {
+								return 1;
+							} else if(xSimilarity < ySimilarity) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis1.noNamesFoundElement.innerHTML = "";
+					_gthis1.currentNamesElement.innerHTML = "";
+					if(recombinedNames.length == 0) {
+						_gthis1.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+					}
+					var _g = 0;
+					while(_g < recombinedNames.length) {
+						var name = recombinedNames[_g];
+						++_g;
+						var li = window.document.createElement("li");
+						if(!(name != null && name.length > 0)) {
+							throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						}
+						li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+						_gthis1.currentNamesElement.appendChild(li);
+					}
 				}
 			}
 		},false);
@@ -515,86 +751,204 @@ Main.prototype = {
 					}
 				}
 				_gthis1.namesTitleElement.innerHTML = title;
-				_gthis1.duplicateTrie = new markov_util_PrefixTrie();
+				var dataSets = new haxe_ds_IntMap();
+				var dataSetCount = 0;
 				var _g = 0;
 				while(_g < arr.length) {
-					var name = arr[_g];
+					var item = arr[_g];
 					++_g;
-					_gthis1.duplicateTrie.insert(name);
-				}
-				_gthis1.generator = new markov_namegen_NameGenerator(arr,_gthis1.order,_gthis1.prior,_gthis1.backoff == 0 ? false : true);
-				var names = [];
-				var startTime = new Date().getTime();
-				var currentTime = new Date().getTime();
-				var regex = _gthis1.get_regexMatch() == "" ? null : new EReg(_gthis1.get_regexMatch(),"i");
-				while(names.length < _gthis1.maxWordsToGenerate && currentTime < startTime + _gthis1.maxProcessingTime) {
-					var name = _gthis1.generator.generateName(_gthis1.minLength,_gthis1.maxLength,_gthis1.get_startsWith(),_gthis1.get_endsWith(),_gthis1.get_includes(),_gthis1.get_excludes(),regex);
-					if(name != null && !_gthis1.duplicateTrie.find(name)) {
-						names.push(name);
-						_gthis1.duplicateTrie.insert(name);
+					var parts = item.split("_");
+					var _g1 = 0;
+					var _g2 = parts.length;
+					while(_g1 < _g2) {
+						var i = _g1++;
+						if(!dataSets.h.hasOwnProperty(i)) {
+							var value = markov_util_ArraySet.create();
+							dataSets.h[i] = value;
+							++dataSetCount;
+						}
+						markov_util_ArraySet.add(dataSets.h[i],parts[i]);
 					}
-					currentTime = new Date().getTime();
 				}
-				var _gthis = _gthis1;
-				_gthis1.lastGeneratedNames = names;
-				if(_gthis1.get_similar().length > 0) {
-					names.sort(function(x,y) {
-						var target = _gthis.get_similar();
-						if(x == null) {
-							throw haxe_Exception.thrown("FAIL: source != null");
+				var processingTimePerSet = dataSetCount > 0 ? _gthis1.maxProcessingTime / dataSetCount : 0;
+				var generatedNameSets = [];
+				var dataSet = dataSets.iterator();
+				while(dataSet.hasNext()) {
+					var dataSet1 = dataSet.next();
+					var data = markov_util_ArraySet.toArray(dataSet1);
+					var tmp;
+					if(data == null || data.length == 0) {
+						tmp = [];
+					} else {
+						var duplicateTrie = new markov_util_PrefixTrie();
+						var _g = 0;
+						while(_g < data.length) {
+							var name = data[_g];
+							++_g;
+							duplicateTrie.insert(name);
 						}
-						if(target == null) {
-							throw haxe_Exception.thrown("FAIL: target != null");
+						var generator = new markov_namegen_NameGenerator(data,_gthis1.order,_gthis1.prior,_gthis1.backoff == 0 ? false : true);
+						var names = [];
+						var startTime = new Date().getTime();
+						var currentTime = new Date().getTime();
+						var regex = _gthis1.get_regexMatch() == "" ? null : new EReg(_gthis1.get_regexMatch(),"i");
+						while(names.length < _gthis1.maxWordsToGenerate && currentTime < startTime + processingTimePerSet) {
+							var name1 = generator.generateName(_gthis1.minLength,_gthis1.maxLength,_gthis1.get_startsWith(),_gthis1.get_endsWith(),_gthis1.get_includes(),_gthis1.get_excludes(),regex);
+							if(name1 != null && !duplicateTrie.find(name1)) {
+								names.push(name1);
+								duplicateTrie.insert(name1);
+							}
+							currentTime = new Date().getTime();
 						}
-						var xSimilarity;
-						if(x.length == 0) {
-							xSimilarity = target.length;
-						} else if(target.length == 0) {
-							xSimilarity = x.length;
-						} else {
-							var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
-							xSimilarity = table[table.length - 1];
-						}
-						var target = _gthis.get_similar();
-						if(y == null) {
-							throw haxe_Exception.thrown("FAIL: source != null");
-						}
-						if(target == null) {
-							throw haxe_Exception.thrown("FAIL: target != null");
-						}
-						var ySimilarity;
-						if(y.length == 0) {
-							ySimilarity = target.length;
-						} else if(target.length == 0) {
-							ySimilarity = y.length;
-						} else {
-							var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
-							ySimilarity = table[table.length - 1];
-						}
-						if(xSimilarity > ySimilarity) {
-							return 1;
-						} else if(xSimilarity < ySimilarity) {
-							return -1;
-						} else {
-							return 0;
-						}
-					});
-				}
-				_gthis1.noNamesFoundElement.innerHTML = "";
-				_gthis1.currentNamesElement.innerHTML = "";
-				if(names.length == 0) {
-					_gthis1.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
-				}
-				var _g = 0;
-				while(_g < names.length) {
-					var name = names[_g];
-					++_g;
-					var li = window.document.createElement("li");
-					if(!(name != null && name.length > 0)) {
-						throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						tmp = names;
 					}
-					li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
-					_gthis1.currentNamesElement.appendChild(li);
+					generatedNameSets.push(tmp);
+				}
+				if(generatedNameSets.length == 1) {
+					var names = generatedNameSets[0];
+					var _gthis = _gthis1;
+					_gthis1.lastGeneratedNames = names;
+					if(_gthis1.get_similar().length > 0) {
+						names.sort(function(x,y) {
+							var target = _gthis.get_similar();
+							if(x == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var xSimilarity;
+							if(x.length == 0) {
+								xSimilarity = target.length;
+							} else if(target.length == 0) {
+								xSimilarity = x.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+								xSimilarity = table[table.length - 1];
+							}
+							var target = _gthis.get_similar();
+							if(y == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var ySimilarity;
+							if(y.length == 0) {
+								ySimilarity = target.length;
+							} else if(target.length == 0) {
+								ySimilarity = y.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+								ySimilarity = table[table.length - 1];
+							}
+							if(xSimilarity > ySimilarity) {
+								return 1;
+							} else if(xSimilarity < ySimilarity) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis1.noNamesFoundElement.innerHTML = "";
+					_gthis1.currentNamesElement.innerHTML = "";
+					if(names.length == 0) {
+						_gthis1.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+					}
+					var _g = 0;
+					while(_g < names.length) {
+						var name = names[_g];
+						++_g;
+						var li = window.document.createElement("li");
+						if(!(name != null && name.length > 0)) {
+							throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						}
+						li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+						_gthis1.currentNamesElement.appendChild(li);
+					}
+				} else {
+					var recombinedNames = [];
+					var _g = 0;
+					var _g1 = _gthis1.maxWordsToGenerate;
+					while(_g < _g1) {
+						var wordIdx = _g++;
+						var name = "";
+						var _g2 = 0;
+						while(_g2 < generatedNameSets.length) {
+							var set = generatedNameSets[_g2];
+							++_g2;
+							if(wordIdx < set.length) {
+								name += set[wordIdx];
+								name += " ";
+							}
+						}
+						name = StringTools.trim(name);
+						if(name.length > 0) {
+							recombinedNames.push(name);
+						}
+					}
+					var _gthis2 = _gthis1;
+					_gthis1.lastGeneratedNames = recombinedNames;
+					if(_gthis1.get_similar().length > 0) {
+						recombinedNames.sort(function(x,y) {
+							var target = _gthis2.get_similar();
+							if(x == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var xSimilarity;
+							if(x.length == 0) {
+								xSimilarity = target.length;
+							} else if(target.length == 0) {
+								xSimilarity = x.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+								xSimilarity = table[table.length - 1];
+							}
+							var target = _gthis2.get_similar();
+							if(y == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var ySimilarity;
+							if(y.length == 0) {
+								ySimilarity = target.length;
+							} else if(target.length == 0) {
+								ySimilarity = y.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+								ySimilarity = table[table.length - 1];
+							}
+							if(xSimilarity > ySimilarity) {
+								return 1;
+							} else if(xSimilarity < ySimilarity) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis1.noNamesFoundElement.innerHTML = "";
+					_gthis1.currentNamesElement.innerHTML = "";
+					if(recombinedNames.length == 0) {
+						_gthis1.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+					}
+					var _g = 0;
+					while(_g < recombinedNames.length) {
+						var name = recombinedNames[_g];
+						++_g;
+						var li = window.document.createElement("li");
+						if(!(name != null && name.length > 0)) {
+							throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						}
+						li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+						_gthis1.currentNamesElement.appendChild(li);
+					}
 				}
 			}
 		},false);
@@ -641,86 +995,204 @@ Main.prototype = {
 					}
 				}
 				_gthis1.namesTitleElement.innerHTML = title;
-				_gthis1.duplicateTrie = new markov_util_PrefixTrie();
+				var dataSets = new haxe_ds_IntMap();
+				var dataSetCount = 0;
 				var _g = 0;
 				while(_g < arr.length) {
-					var name = arr[_g];
+					var item = arr[_g];
 					++_g;
-					_gthis1.duplicateTrie.insert(name);
-				}
-				_gthis1.generator = new markov_namegen_NameGenerator(arr,_gthis1.order,_gthis1.prior,_gthis1.backoff == 0 ? false : true);
-				var names = [];
-				var startTime = new Date().getTime();
-				var currentTime = new Date().getTime();
-				var regex = _gthis1.get_regexMatch() == "" ? null : new EReg(_gthis1.get_regexMatch(),"i");
-				while(names.length < _gthis1.maxWordsToGenerate && currentTime < startTime + _gthis1.maxProcessingTime) {
-					var name = _gthis1.generator.generateName(_gthis1.minLength,_gthis1.maxLength,_gthis1.get_startsWith(),_gthis1.get_endsWith(),_gthis1.get_includes(),_gthis1.get_excludes(),regex);
-					if(name != null && !_gthis1.duplicateTrie.find(name)) {
-						names.push(name);
-						_gthis1.duplicateTrie.insert(name);
+					var parts = item.split("_");
+					var _g1 = 0;
+					var _g2 = parts.length;
+					while(_g1 < _g2) {
+						var i = _g1++;
+						if(!dataSets.h.hasOwnProperty(i)) {
+							var value = markov_util_ArraySet.create();
+							dataSets.h[i] = value;
+							++dataSetCount;
+						}
+						markov_util_ArraySet.add(dataSets.h[i],parts[i]);
 					}
-					currentTime = new Date().getTime();
 				}
-				var _gthis = _gthis1;
-				_gthis1.lastGeneratedNames = names;
-				if(_gthis1.get_similar().length > 0) {
-					names.sort(function(x,y) {
-						var target = _gthis.get_similar();
-						if(x == null) {
-							throw haxe_Exception.thrown("FAIL: source != null");
+				var processingTimePerSet = dataSetCount > 0 ? _gthis1.maxProcessingTime / dataSetCount : 0;
+				var generatedNameSets = [];
+				var dataSet = dataSets.iterator();
+				while(dataSet.hasNext()) {
+					var dataSet1 = dataSet.next();
+					var data = markov_util_ArraySet.toArray(dataSet1);
+					var tmp;
+					if(data == null || data.length == 0) {
+						tmp = [];
+					} else {
+						var duplicateTrie = new markov_util_PrefixTrie();
+						var _g = 0;
+						while(_g < data.length) {
+							var name = data[_g];
+							++_g;
+							duplicateTrie.insert(name);
 						}
-						if(target == null) {
-							throw haxe_Exception.thrown("FAIL: target != null");
+						var generator = new markov_namegen_NameGenerator(data,_gthis1.order,_gthis1.prior,_gthis1.backoff == 0 ? false : true);
+						var names = [];
+						var startTime = new Date().getTime();
+						var currentTime = new Date().getTime();
+						var regex = _gthis1.get_regexMatch() == "" ? null : new EReg(_gthis1.get_regexMatch(),"i");
+						while(names.length < _gthis1.maxWordsToGenerate && currentTime < startTime + processingTimePerSet) {
+							var name1 = generator.generateName(_gthis1.minLength,_gthis1.maxLength,_gthis1.get_startsWith(),_gthis1.get_endsWith(),_gthis1.get_includes(),_gthis1.get_excludes(),regex);
+							if(name1 != null && !duplicateTrie.find(name1)) {
+								names.push(name1);
+								duplicateTrie.insert(name1);
+							}
+							currentTime = new Date().getTime();
 						}
-						var xSimilarity;
-						if(x.length == 0) {
-							xSimilarity = target.length;
-						} else if(target.length == 0) {
-							xSimilarity = x.length;
-						} else {
-							var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
-							xSimilarity = table[table.length - 1];
-						}
-						var target = _gthis.get_similar();
-						if(y == null) {
-							throw haxe_Exception.thrown("FAIL: source != null");
-						}
-						if(target == null) {
-							throw haxe_Exception.thrown("FAIL: target != null");
-						}
-						var ySimilarity;
-						if(y.length == 0) {
-							ySimilarity = target.length;
-						} else if(target.length == 0) {
-							ySimilarity = y.length;
-						} else {
-							var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
-							ySimilarity = table[table.length - 1];
-						}
-						if(xSimilarity > ySimilarity) {
-							return 1;
-						} else if(xSimilarity < ySimilarity) {
-							return -1;
-						} else {
-							return 0;
-						}
-					});
-				}
-				_gthis1.noNamesFoundElement.innerHTML = "";
-				_gthis1.currentNamesElement.innerHTML = "";
-				if(names.length == 0) {
-					_gthis1.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
-				}
-				var _g = 0;
-				while(_g < names.length) {
-					var name = names[_g];
-					++_g;
-					var li = window.document.createElement("li");
-					if(!(name != null && name.length > 0)) {
-						throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						tmp = names;
 					}
-					li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
-					_gthis1.currentNamesElement.appendChild(li);
+					generatedNameSets.push(tmp);
+				}
+				if(generatedNameSets.length == 1) {
+					var names = generatedNameSets[0];
+					var _gthis = _gthis1;
+					_gthis1.lastGeneratedNames = names;
+					if(_gthis1.get_similar().length > 0) {
+						names.sort(function(x,y) {
+							var target = _gthis.get_similar();
+							if(x == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var xSimilarity;
+							if(x.length == 0) {
+								xSimilarity = target.length;
+							} else if(target.length == 0) {
+								xSimilarity = x.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+								xSimilarity = table[table.length - 1];
+							}
+							var target = _gthis.get_similar();
+							if(y == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var ySimilarity;
+							if(y.length == 0) {
+								ySimilarity = target.length;
+							} else if(target.length == 0) {
+								ySimilarity = y.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+								ySimilarity = table[table.length - 1];
+							}
+							if(xSimilarity > ySimilarity) {
+								return 1;
+							} else if(xSimilarity < ySimilarity) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis1.noNamesFoundElement.innerHTML = "";
+					_gthis1.currentNamesElement.innerHTML = "";
+					if(names.length == 0) {
+						_gthis1.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+					}
+					var _g = 0;
+					while(_g < names.length) {
+						var name = names[_g];
+						++_g;
+						var li = window.document.createElement("li");
+						if(!(name != null && name.length > 0)) {
+							throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						}
+						li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+						_gthis1.currentNamesElement.appendChild(li);
+					}
+				} else {
+					var recombinedNames = [];
+					var _g = 0;
+					var _g1 = _gthis1.maxWordsToGenerate;
+					while(_g < _g1) {
+						var wordIdx = _g++;
+						var name = "";
+						var _g2 = 0;
+						while(_g2 < generatedNameSets.length) {
+							var set = generatedNameSets[_g2];
+							++_g2;
+							if(wordIdx < set.length) {
+								name += set[wordIdx];
+								name += " ";
+							}
+						}
+						name = StringTools.trim(name);
+						if(name.length > 0) {
+							recombinedNames.push(name);
+						}
+					}
+					var _gthis2 = _gthis1;
+					_gthis1.lastGeneratedNames = recombinedNames;
+					if(_gthis1.get_similar().length > 0) {
+						recombinedNames.sort(function(x,y) {
+							var target = _gthis2.get_similar();
+							if(x == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var xSimilarity;
+							if(x.length == 0) {
+								xSimilarity = target.length;
+							} else if(target.length == 0) {
+								xSimilarity = x.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+								xSimilarity = table[table.length - 1];
+							}
+							var target = _gthis2.get_similar();
+							if(y == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var ySimilarity;
+							if(y.length == 0) {
+								ySimilarity = target.length;
+							} else if(target.length == 0) {
+								ySimilarity = y.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+								ySimilarity = table[table.length - 1];
+							}
+							if(xSimilarity > ySimilarity) {
+								return 1;
+							} else if(xSimilarity < ySimilarity) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis1.noNamesFoundElement.innerHTML = "";
+					_gthis1.currentNamesElement.innerHTML = "";
+					if(recombinedNames.length == 0) {
+						_gthis1.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+					}
+					var _g = 0;
+					while(_g < recombinedNames.length) {
+						var name = recombinedNames[_g];
+						++_g;
+						var li = window.document.createElement("li");
+						if(!(name != null && name.length > 0)) {
+							throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						}
+						li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+						_gthis1.currentNamesElement.appendChild(li);
+					}
 				}
 			}
 		},false);
@@ -984,86 +1456,204 @@ Main.prototype = {
 					}
 				}
 				_gthis.namesTitleElement.innerHTML = title;
-				_gthis.duplicateTrie = new markov_util_PrefixTrie();
+				var dataSets = new haxe_ds_IntMap();
+				var dataSetCount = 0;
 				var _g = 0;
 				while(_g < arr.length) {
-					var name = arr[_g];
+					var item = arr[_g];
 					++_g;
-					_gthis.duplicateTrie.insert(name);
-				}
-				_gthis.generator = new markov_namegen_NameGenerator(arr,_gthis.order,_gthis.prior,_gthis.backoff == 0 ? false : true);
-				var names = [];
-				var startTime = new Date().getTime();
-				var currentTime = new Date().getTime();
-				var regex = _gthis.get_regexMatch() == "" ? null : new EReg(_gthis.get_regexMatch(),"i");
-				while(names.length < _gthis.maxWordsToGenerate && currentTime < startTime + _gthis.maxProcessingTime) {
-					var name = _gthis.generator.generateName(_gthis.minLength,_gthis.maxLength,_gthis.get_startsWith(),_gthis.get_endsWith(),_gthis.get_includes(),_gthis.get_excludes(),regex);
-					if(name != null && !_gthis.duplicateTrie.find(name)) {
-						names.push(name);
-						_gthis.duplicateTrie.insert(name);
+					var parts = item.split("_");
+					var _g1 = 0;
+					var _g2 = parts.length;
+					while(_g1 < _g2) {
+						var i = _g1++;
+						if(!dataSets.h.hasOwnProperty(i)) {
+							var value = markov_util_ArraySet.create();
+							dataSets.h[i] = value;
+							++dataSetCount;
+						}
+						markov_util_ArraySet.add(dataSets.h[i],parts[i]);
 					}
-					currentTime = new Date().getTime();
 				}
-				var _gthis1 = _gthis;
-				_gthis.lastGeneratedNames = names;
-				if(_gthis.get_similar().length > 0) {
-					names.sort(function(x,y) {
-						var target = _gthis1.get_similar();
-						if(x == null) {
-							throw haxe_Exception.thrown("FAIL: source != null");
+				var processingTimePerSet = dataSetCount > 0 ? _gthis.maxProcessingTime / dataSetCount : 0;
+				var generatedNameSets = [];
+				var dataSet = dataSets.iterator();
+				while(dataSet.hasNext()) {
+					var dataSet1 = dataSet.next();
+					var data = markov_util_ArraySet.toArray(dataSet1);
+					var tmp;
+					if(data == null || data.length == 0) {
+						tmp = [];
+					} else {
+						var duplicateTrie = new markov_util_PrefixTrie();
+						var _g = 0;
+						while(_g < data.length) {
+							var name = data[_g];
+							++_g;
+							duplicateTrie.insert(name);
 						}
-						if(target == null) {
-							throw haxe_Exception.thrown("FAIL: target != null");
+						var generator = new markov_namegen_NameGenerator(data,_gthis.order,_gthis.prior,_gthis.backoff == 0 ? false : true);
+						var names = [];
+						var startTime = new Date().getTime();
+						var currentTime = new Date().getTime();
+						var regex = _gthis.get_regexMatch() == "" ? null : new EReg(_gthis.get_regexMatch(),"i");
+						while(names.length < _gthis.maxWordsToGenerate && currentTime < startTime + processingTimePerSet) {
+							var name1 = generator.generateName(_gthis.minLength,_gthis.maxLength,_gthis.get_startsWith(),_gthis.get_endsWith(),_gthis.get_includes(),_gthis.get_excludes(),regex);
+							if(name1 != null && !duplicateTrie.find(name1)) {
+								names.push(name1);
+								duplicateTrie.insert(name1);
+							}
+							currentTime = new Date().getTime();
 						}
-						var xSimilarity;
-						if(x.length == 0) {
-							xSimilarity = target.length;
-						} else if(target.length == 0) {
-							xSimilarity = x.length;
-						} else {
-							var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
-							xSimilarity = table[table.length - 1];
-						}
-						var target = _gthis1.get_similar();
-						if(y == null) {
-							throw haxe_Exception.thrown("FAIL: source != null");
-						}
-						if(target == null) {
-							throw haxe_Exception.thrown("FAIL: target != null");
-						}
-						var ySimilarity;
-						if(y.length == 0) {
-							ySimilarity = target.length;
-						} else if(target.length == 0) {
-							ySimilarity = y.length;
-						} else {
-							var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
-							ySimilarity = table[table.length - 1];
-						}
-						if(xSimilarity > ySimilarity) {
-							return 1;
-						} else if(xSimilarity < ySimilarity) {
-							return -1;
-						} else {
-							return 0;
-						}
-					});
-				}
-				_gthis.noNamesFoundElement.innerHTML = "";
-				_gthis.currentNamesElement.innerHTML = "";
-				if(names.length == 0) {
-					_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
-				}
-				var _g = 0;
-				while(_g < names.length) {
-					var name = names[_g];
-					++_g;
-					var li = window.document.createElement("li");
-					if(!(name != null && name.length > 0)) {
-						throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						tmp = names;
 					}
-					li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
-					_gthis.currentNamesElement.appendChild(li);
+					generatedNameSets.push(tmp);
+				}
+				if(generatedNameSets.length == 1) {
+					var names = generatedNameSets[0];
+					var _gthis1 = _gthis;
+					_gthis.lastGeneratedNames = names;
+					if(_gthis.get_similar().length > 0) {
+						names.sort(function(x,y) {
+							var target = _gthis1.get_similar();
+							if(x == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var xSimilarity;
+							if(x.length == 0) {
+								xSimilarity = target.length;
+							} else if(target.length == 0) {
+								xSimilarity = x.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+								xSimilarity = table[table.length - 1];
+							}
+							var target = _gthis1.get_similar();
+							if(y == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var ySimilarity;
+							if(y.length == 0) {
+								ySimilarity = target.length;
+							} else if(target.length == 0) {
+								ySimilarity = y.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+								ySimilarity = table[table.length - 1];
+							}
+							if(xSimilarity > ySimilarity) {
+								return 1;
+							} else if(xSimilarity < ySimilarity) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis.noNamesFoundElement.innerHTML = "";
+					_gthis.currentNamesElement.innerHTML = "";
+					if(names.length == 0) {
+						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+					}
+					var _g = 0;
+					while(_g < names.length) {
+						var name = names[_g];
+						++_g;
+						var li = window.document.createElement("li");
+						if(!(name != null && name.length > 0)) {
+							throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						}
+						li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+						_gthis.currentNamesElement.appendChild(li);
+					}
+				} else {
+					var recombinedNames = [];
+					var _g = 0;
+					var _g1 = _gthis.maxWordsToGenerate;
+					while(_g < _g1) {
+						var wordIdx = _g++;
+						var name = "";
+						var _g2 = 0;
+						while(_g2 < generatedNameSets.length) {
+							var set = generatedNameSets[_g2];
+							++_g2;
+							if(wordIdx < set.length) {
+								name += set[wordIdx];
+								name += " ";
+							}
+						}
+						name = StringTools.trim(name);
+						if(name.length > 0) {
+							recombinedNames.push(name);
+						}
+					}
+					var _gthis2 = _gthis;
+					_gthis.lastGeneratedNames = recombinedNames;
+					if(_gthis.get_similar().length > 0) {
+						recombinedNames.sort(function(x,y) {
+							var target = _gthis2.get_similar();
+							if(x == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var xSimilarity;
+							if(x.length == 0) {
+								xSimilarity = target.length;
+							} else if(target.length == 0) {
+								xSimilarity = x.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+								xSimilarity = table[table.length - 1];
+							}
+							var target = _gthis2.get_similar();
+							if(y == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var ySimilarity;
+							if(y.length == 0) {
+								ySimilarity = target.length;
+							} else if(target.length == 0) {
+								ySimilarity = y.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+								ySimilarity = table[table.length - 1];
+							}
+							if(xSimilarity > ySimilarity) {
+								return 1;
+							} else if(xSimilarity < ySimilarity) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis.noNamesFoundElement.innerHTML = "";
+					_gthis.currentNamesElement.innerHTML = "";
+					if(recombinedNames.length == 0) {
+						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+					}
+					var _g = 0;
+					while(_g < recombinedNames.length) {
+						var name = recombinedNames[_g];
+						++_g;
+						var li = window.document.createElement("li");
+						if(!(name != null && name.length > 0)) {
+							throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						}
+						li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+						_gthis.currentNamesElement.appendChild(li);
+					}
 				}
 			}
 		},false);
@@ -1082,86 +1672,204 @@ Main.prototype = {
 					}
 				}
 				_gthis.namesTitleElement.innerHTML = title;
-				_gthis.duplicateTrie = new markov_util_PrefixTrie();
+				var dataSets = new haxe_ds_IntMap();
+				var dataSetCount = 0;
 				var _g = 0;
 				while(_g < arr.length) {
-					var name = arr[_g];
+					var item = arr[_g];
 					++_g;
-					_gthis.duplicateTrie.insert(name);
-				}
-				_gthis.generator = new markov_namegen_NameGenerator(arr,_gthis.order,_gthis.prior,_gthis.backoff == 0 ? false : true);
-				var names = [];
-				var startTime = new Date().getTime();
-				var currentTime = new Date().getTime();
-				var regex = _gthis.get_regexMatch() == "" ? null : new EReg(_gthis.get_regexMatch(),"i");
-				while(names.length < _gthis.maxWordsToGenerate && currentTime < startTime + _gthis.maxProcessingTime) {
-					var name = _gthis.generator.generateName(_gthis.minLength,_gthis.maxLength,_gthis.get_startsWith(),_gthis.get_endsWith(),_gthis.get_includes(),_gthis.get_excludes(),regex);
-					if(name != null && !_gthis.duplicateTrie.find(name)) {
-						names.push(name);
-						_gthis.duplicateTrie.insert(name);
+					var parts = item.split("_");
+					var _g1 = 0;
+					var _g2 = parts.length;
+					while(_g1 < _g2) {
+						var i = _g1++;
+						if(!dataSets.h.hasOwnProperty(i)) {
+							var value = markov_util_ArraySet.create();
+							dataSets.h[i] = value;
+							++dataSetCount;
+						}
+						markov_util_ArraySet.add(dataSets.h[i],parts[i]);
 					}
-					currentTime = new Date().getTime();
 				}
-				var _gthis1 = _gthis;
-				_gthis.lastGeneratedNames = names;
-				if(_gthis.get_similar().length > 0) {
-					names.sort(function(x,y) {
-						var target = _gthis1.get_similar();
-						if(x == null) {
-							throw haxe_Exception.thrown("FAIL: source != null");
+				var processingTimePerSet = dataSetCount > 0 ? _gthis.maxProcessingTime / dataSetCount : 0;
+				var generatedNameSets = [];
+				var dataSet = dataSets.iterator();
+				while(dataSet.hasNext()) {
+					var dataSet1 = dataSet.next();
+					var data = markov_util_ArraySet.toArray(dataSet1);
+					var tmp;
+					if(data == null || data.length == 0) {
+						tmp = [];
+					} else {
+						var duplicateTrie = new markov_util_PrefixTrie();
+						var _g = 0;
+						while(_g < data.length) {
+							var name = data[_g];
+							++_g;
+							duplicateTrie.insert(name);
 						}
-						if(target == null) {
-							throw haxe_Exception.thrown("FAIL: target != null");
+						var generator = new markov_namegen_NameGenerator(data,_gthis.order,_gthis.prior,_gthis.backoff == 0 ? false : true);
+						var names = [];
+						var startTime = new Date().getTime();
+						var currentTime = new Date().getTime();
+						var regex = _gthis.get_regexMatch() == "" ? null : new EReg(_gthis.get_regexMatch(),"i");
+						while(names.length < _gthis.maxWordsToGenerate && currentTime < startTime + processingTimePerSet) {
+							var name1 = generator.generateName(_gthis.minLength,_gthis.maxLength,_gthis.get_startsWith(),_gthis.get_endsWith(),_gthis.get_includes(),_gthis.get_excludes(),regex);
+							if(name1 != null && !duplicateTrie.find(name1)) {
+								names.push(name1);
+								duplicateTrie.insert(name1);
+							}
+							currentTime = new Date().getTime();
 						}
-						var xSimilarity;
-						if(x.length == 0) {
-							xSimilarity = target.length;
-						} else if(target.length == 0) {
-							xSimilarity = x.length;
-						} else {
-							var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
-							xSimilarity = table[table.length - 1];
-						}
-						var target = _gthis1.get_similar();
-						if(y == null) {
-							throw haxe_Exception.thrown("FAIL: source != null");
-						}
-						if(target == null) {
-							throw haxe_Exception.thrown("FAIL: target != null");
-						}
-						var ySimilarity;
-						if(y.length == 0) {
-							ySimilarity = target.length;
-						} else if(target.length == 0) {
-							ySimilarity = y.length;
-						} else {
-							var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
-							ySimilarity = table[table.length - 1];
-						}
-						if(xSimilarity > ySimilarity) {
-							return 1;
-						} else if(xSimilarity < ySimilarity) {
-							return -1;
-						} else {
-							return 0;
-						}
-					});
-				}
-				_gthis.noNamesFoundElement.innerHTML = "";
-				_gthis.currentNamesElement.innerHTML = "";
-				if(names.length == 0) {
-					_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
-				}
-				var _g = 0;
-				while(_g < names.length) {
-					var name = names[_g];
-					++_g;
-					var li = window.document.createElement("li");
-					if(!(name != null && name.length > 0)) {
-						throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						tmp = names;
 					}
-					li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
-					_gthis.currentNamesElement.appendChild(li);
+					generatedNameSets.push(tmp);
+				}
+				if(generatedNameSets.length == 1) {
+					var names = generatedNameSets[0];
+					var _gthis1 = _gthis;
+					_gthis.lastGeneratedNames = names;
+					if(_gthis.get_similar().length > 0) {
+						names.sort(function(x,y) {
+							var target = _gthis1.get_similar();
+							if(x == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var xSimilarity;
+							if(x.length == 0) {
+								xSimilarity = target.length;
+							} else if(target.length == 0) {
+								xSimilarity = x.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+								xSimilarity = table[table.length - 1];
+							}
+							var target = _gthis1.get_similar();
+							if(y == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var ySimilarity;
+							if(y.length == 0) {
+								ySimilarity = target.length;
+							} else if(target.length == 0) {
+								ySimilarity = y.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+								ySimilarity = table[table.length - 1];
+							}
+							if(xSimilarity > ySimilarity) {
+								return 1;
+							} else if(xSimilarity < ySimilarity) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis.noNamesFoundElement.innerHTML = "";
+					_gthis.currentNamesElement.innerHTML = "";
+					if(names.length == 0) {
+						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+					}
+					var _g = 0;
+					while(_g < names.length) {
+						var name = names[_g];
+						++_g;
+						var li = window.document.createElement("li");
+						if(!(name != null && name.length > 0)) {
+							throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						}
+						li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+						_gthis.currentNamesElement.appendChild(li);
+					}
+				} else {
+					var recombinedNames = [];
+					var _g = 0;
+					var _g1 = _gthis.maxWordsToGenerate;
+					while(_g < _g1) {
+						var wordIdx = _g++;
+						var name = "";
+						var _g2 = 0;
+						while(_g2 < generatedNameSets.length) {
+							var set = generatedNameSets[_g2];
+							++_g2;
+							if(wordIdx < set.length) {
+								name += set[wordIdx];
+								name += " ";
+							}
+						}
+						name = StringTools.trim(name);
+						if(name.length > 0) {
+							recombinedNames.push(name);
+						}
+					}
+					var _gthis2 = _gthis;
+					_gthis.lastGeneratedNames = recombinedNames;
+					if(_gthis.get_similar().length > 0) {
+						recombinedNames.sort(function(x,y) {
+							var target = _gthis2.get_similar();
+							if(x == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var xSimilarity;
+							if(x.length == 0) {
+								xSimilarity = target.length;
+							} else if(target.length == 0) {
+								xSimilarity = x.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+								xSimilarity = table[table.length - 1];
+							}
+							var target = _gthis2.get_similar();
+							if(y == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var ySimilarity;
+							if(y.length == 0) {
+								ySimilarity = target.length;
+							} else if(target.length == 0) {
+								ySimilarity = y.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+								ySimilarity = table[table.length - 1];
+							}
+							if(xSimilarity > ySimilarity) {
+								return 1;
+							} else if(xSimilarity < ySimilarity) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis.noNamesFoundElement.innerHTML = "";
+					_gthis.currentNamesElement.innerHTML = "";
+					if(recombinedNames.length == 0) {
+						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+					}
+					var _g = 0;
+					while(_g < recombinedNames.length) {
+						var name = recombinedNames[_g];
+						++_g;
+						var li = window.document.createElement("li");
+						if(!(name != null && name.length > 0)) {
+							throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						}
+						li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+						_gthis.currentNamesElement.appendChild(li);
+					}
 				}
 			}
 		},false);
@@ -1208,86 +1916,204 @@ Main.prototype = {
 					}
 				}
 				_gthis.namesTitleElement.innerHTML = title;
-				_gthis.duplicateTrie = new markov_util_PrefixTrie();
+				var dataSets = new haxe_ds_IntMap();
+				var dataSetCount = 0;
 				var _g = 0;
 				while(_g < arr.length) {
-					var name = arr[_g];
+					var item = arr[_g];
 					++_g;
-					_gthis.duplicateTrie.insert(name);
-				}
-				_gthis.generator = new markov_namegen_NameGenerator(arr,_gthis.order,_gthis.prior,_gthis.backoff == 0 ? false : true);
-				var names = [];
-				var startTime = new Date().getTime();
-				var currentTime = new Date().getTime();
-				var regex = _gthis.get_regexMatch() == "" ? null : new EReg(_gthis.get_regexMatch(),"i");
-				while(names.length < _gthis.maxWordsToGenerate && currentTime < startTime + _gthis.maxProcessingTime) {
-					var name = _gthis.generator.generateName(_gthis.minLength,_gthis.maxLength,_gthis.get_startsWith(),_gthis.get_endsWith(),_gthis.get_includes(),_gthis.get_excludes(),regex);
-					if(name != null && !_gthis.duplicateTrie.find(name)) {
-						names.push(name);
-						_gthis.duplicateTrie.insert(name);
+					var parts = item.split("_");
+					var _g1 = 0;
+					var _g2 = parts.length;
+					while(_g1 < _g2) {
+						var i = _g1++;
+						if(!dataSets.h.hasOwnProperty(i)) {
+							var value = markov_util_ArraySet.create();
+							dataSets.h[i] = value;
+							++dataSetCount;
+						}
+						markov_util_ArraySet.add(dataSets.h[i],parts[i]);
 					}
-					currentTime = new Date().getTime();
 				}
-				var _gthis1 = _gthis;
-				_gthis.lastGeneratedNames = names;
-				if(_gthis.get_similar().length > 0) {
-					names.sort(function(x,y) {
-						var target = _gthis1.get_similar();
-						if(x == null) {
-							throw haxe_Exception.thrown("FAIL: source != null");
+				var processingTimePerSet = dataSetCount > 0 ? _gthis.maxProcessingTime / dataSetCount : 0;
+				var generatedNameSets = [];
+				var dataSet = dataSets.iterator();
+				while(dataSet.hasNext()) {
+					var dataSet1 = dataSet.next();
+					var data = markov_util_ArraySet.toArray(dataSet1);
+					var tmp;
+					if(data == null || data.length == 0) {
+						tmp = [];
+					} else {
+						var duplicateTrie = new markov_util_PrefixTrie();
+						var _g = 0;
+						while(_g < data.length) {
+							var name = data[_g];
+							++_g;
+							duplicateTrie.insert(name);
 						}
-						if(target == null) {
-							throw haxe_Exception.thrown("FAIL: target != null");
+						var generator = new markov_namegen_NameGenerator(data,_gthis.order,_gthis.prior,_gthis.backoff == 0 ? false : true);
+						var names = [];
+						var startTime = new Date().getTime();
+						var currentTime = new Date().getTime();
+						var regex = _gthis.get_regexMatch() == "" ? null : new EReg(_gthis.get_regexMatch(),"i");
+						while(names.length < _gthis.maxWordsToGenerate && currentTime < startTime + processingTimePerSet) {
+							var name1 = generator.generateName(_gthis.minLength,_gthis.maxLength,_gthis.get_startsWith(),_gthis.get_endsWith(),_gthis.get_includes(),_gthis.get_excludes(),regex);
+							if(name1 != null && !duplicateTrie.find(name1)) {
+								names.push(name1);
+								duplicateTrie.insert(name1);
+							}
+							currentTime = new Date().getTime();
 						}
-						var xSimilarity;
-						if(x.length == 0) {
-							xSimilarity = target.length;
-						} else if(target.length == 0) {
-							xSimilarity = x.length;
-						} else {
-							var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
-							xSimilarity = table[table.length - 1];
-						}
-						var target = _gthis1.get_similar();
-						if(y == null) {
-							throw haxe_Exception.thrown("FAIL: source != null");
-						}
-						if(target == null) {
-							throw haxe_Exception.thrown("FAIL: target != null");
-						}
-						var ySimilarity;
-						if(y.length == 0) {
-							ySimilarity = target.length;
-						} else if(target.length == 0) {
-							ySimilarity = y.length;
-						} else {
-							var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
-							ySimilarity = table[table.length - 1];
-						}
-						if(xSimilarity > ySimilarity) {
-							return 1;
-						} else if(xSimilarity < ySimilarity) {
-							return -1;
-						} else {
-							return 0;
-						}
-					});
-				}
-				_gthis.noNamesFoundElement.innerHTML = "";
-				_gthis.currentNamesElement.innerHTML = "";
-				if(names.length == 0) {
-					_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
-				}
-				var _g = 0;
-				while(_g < names.length) {
-					var name = names[_g];
-					++_g;
-					var li = window.document.createElement("li");
-					if(!(name != null && name.length > 0)) {
-						throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						tmp = names;
 					}
-					li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
-					_gthis.currentNamesElement.appendChild(li);
+					generatedNameSets.push(tmp);
+				}
+				if(generatedNameSets.length == 1) {
+					var names = generatedNameSets[0];
+					var _gthis1 = _gthis;
+					_gthis.lastGeneratedNames = names;
+					if(_gthis.get_similar().length > 0) {
+						names.sort(function(x,y) {
+							var target = _gthis1.get_similar();
+							if(x == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var xSimilarity;
+							if(x.length == 0) {
+								xSimilarity = target.length;
+							} else if(target.length == 0) {
+								xSimilarity = x.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+								xSimilarity = table[table.length - 1];
+							}
+							var target = _gthis1.get_similar();
+							if(y == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var ySimilarity;
+							if(y.length == 0) {
+								ySimilarity = target.length;
+							} else if(target.length == 0) {
+								ySimilarity = y.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+								ySimilarity = table[table.length - 1];
+							}
+							if(xSimilarity > ySimilarity) {
+								return 1;
+							} else if(xSimilarity < ySimilarity) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis.noNamesFoundElement.innerHTML = "";
+					_gthis.currentNamesElement.innerHTML = "";
+					if(names.length == 0) {
+						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+					}
+					var _g = 0;
+					while(_g < names.length) {
+						var name = names[_g];
+						++_g;
+						var li = window.document.createElement("li");
+						if(!(name != null && name.length > 0)) {
+							throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						}
+						li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+						_gthis.currentNamesElement.appendChild(li);
+					}
+				} else {
+					var recombinedNames = [];
+					var _g = 0;
+					var _g1 = _gthis.maxWordsToGenerate;
+					while(_g < _g1) {
+						var wordIdx = _g++;
+						var name = "";
+						var _g2 = 0;
+						while(_g2 < generatedNameSets.length) {
+							var set = generatedNameSets[_g2];
+							++_g2;
+							if(wordIdx < set.length) {
+								name += set[wordIdx];
+								name += " ";
+							}
+						}
+						name = StringTools.trim(name);
+						if(name.length > 0) {
+							recombinedNames.push(name);
+						}
+					}
+					var _gthis2 = _gthis;
+					_gthis.lastGeneratedNames = recombinedNames;
+					if(_gthis.get_similar().length > 0) {
+						recombinedNames.sort(function(x,y) {
+							var target = _gthis2.get_similar();
+							if(x == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var xSimilarity;
+							if(x.length == 0) {
+								xSimilarity = target.length;
+							} else if(target.length == 0) {
+								xSimilarity = x.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+								xSimilarity = table[table.length - 1];
+							}
+							var target = _gthis2.get_similar();
+							if(y == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var ySimilarity;
+							if(y.length == 0) {
+								ySimilarity = target.length;
+							} else if(target.length == 0) {
+								ySimilarity = y.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+								ySimilarity = table[table.length - 1];
+							}
+							if(xSimilarity > ySimilarity) {
+								return 1;
+							} else if(xSimilarity < ySimilarity) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis.noNamesFoundElement.innerHTML = "";
+					_gthis.currentNamesElement.innerHTML = "";
+					if(recombinedNames.length == 0) {
+						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+					}
+					var _g = 0;
+					while(_g < recombinedNames.length) {
+						var name = recombinedNames[_g];
+						++_g;
+						var li = window.document.createElement("li");
+						if(!(name != null && name.length > 0)) {
+							throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						}
+						li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+						_gthis.currentNamesElement.appendChild(li);
+					}
 				}
 			}
 		},false);
@@ -1334,86 +2160,204 @@ Main.prototype = {
 					}
 				}
 				_gthis.namesTitleElement.innerHTML = title;
-				_gthis.duplicateTrie = new markov_util_PrefixTrie();
+				var dataSets = new haxe_ds_IntMap();
+				var dataSetCount = 0;
 				var _g = 0;
 				while(_g < arr.length) {
-					var name = arr[_g];
+					var item = arr[_g];
 					++_g;
-					_gthis.duplicateTrie.insert(name);
-				}
-				_gthis.generator = new markov_namegen_NameGenerator(arr,_gthis.order,_gthis.prior,_gthis.backoff == 0 ? false : true);
-				var names = [];
-				var startTime = new Date().getTime();
-				var currentTime = new Date().getTime();
-				var regex = _gthis.get_regexMatch() == "" ? null : new EReg(_gthis.get_regexMatch(),"i");
-				while(names.length < _gthis.maxWordsToGenerate && currentTime < startTime + _gthis.maxProcessingTime) {
-					var name = _gthis.generator.generateName(_gthis.minLength,_gthis.maxLength,_gthis.get_startsWith(),_gthis.get_endsWith(),_gthis.get_includes(),_gthis.get_excludes(),regex);
-					if(name != null && !_gthis.duplicateTrie.find(name)) {
-						names.push(name);
-						_gthis.duplicateTrie.insert(name);
+					var parts = item.split("_");
+					var _g1 = 0;
+					var _g2 = parts.length;
+					while(_g1 < _g2) {
+						var i = _g1++;
+						if(!dataSets.h.hasOwnProperty(i)) {
+							var value = markov_util_ArraySet.create();
+							dataSets.h[i] = value;
+							++dataSetCount;
+						}
+						markov_util_ArraySet.add(dataSets.h[i],parts[i]);
 					}
-					currentTime = new Date().getTime();
 				}
-				var _gthis1 = _gthis;
-				_gthis.lastGeneratedNames = names;
-				if(_gthis.get_similar().length > 0) {
-					names.sort(function(x,y) {
-						var target = _gthis1.get_similar();
-						if(x == null) {
-							throw haxe_Exception.thrown("FAIL: source != null");
+				var processingTimePerSet = dataSetCount > 0 ? _gthis.maxProcessingTime / dataSetCount : 0;
+				var generatedNameSets = [];
+				var dataSet = dataSets.iterator();
+				while(dataSet.hasNext()) {
+					var dataSet1 = dataSet.next();
+					var data = markov_util_ArraySet.toArray(dataSet1);
+					var tmp;
+					if(data == null || data.length == 0) {
+						tmp = [];
+					} else {
+						var duplicateTrie = new markov_util_PrefixTrie();
+						var _g = 0;
+						while(_g < data.length) {
+							var name = data[_g];
+							++_g;
+							duplicateTrie.insert(name);
 						}
-						if(target == null) {
-							throw haxe_Exception.thrown("FAIL: target != null");
+						var generator = new markov_namegen_NameGenerator(data,_gthis.order,_gthis.prior,_gthis.backoff == 0 ? false : true);
+						var names = [];
+						var startTime = new Date().getTime();
+						var currentTime = new Date().getTime();
+						var regex = _gthis.get_regexMatch() == "" ? null : new EReg(_gthis.get_regexMatch(),"i");
+						while(names.length < _gthis.maxWordsToGenerate && currentTime < startTime + processingTimePerSet) {
+							var name1 = generator.generateName(_gthis.minLength,_gthis.maxLength,_gthis.get_startsWith(),_gthis.get_endsWith(),_gthis.get_includes(),_gthis.get_excludes(),regex);
+							if(name1 != null && !duplicateTrie.find(name1)) {
+								names.push(name1);
+								duplicateTrie.insert(name1);
+							}
+							currentTime = new Date().getTime();
 						}
-						var xSimilarity;
-						if(x.length == 0) {
-							xSimilarity = target.length;
-						} else if(target.length == 0) {
-							xSimilarity = x.length;
-						} else {
-							var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
-							xSimilarity = table[table.length - 1];
-						}
-						var target = _gthis1.get_similar();
-						if(y == null) {
-							throw haxe_Exception.thrown("FAIL: source != null");
-						}
-						if(target == null) {
-							throw haxe_Exception.thrown("FAIL: target != null");
-						}
-						var ySimilarity;
-						if(y.length == 0) {
-							ySimilarity = target.length;
-						} else if(target.length == 0) {
-							ySimilarity = y.length;
-						} else {
-							var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
-							ySimilarity = table[table.length - 1];
-						}
-						if(xSimilarity > ySimilarity) {
-							return 1;
-						} else if(xSimilarity < ySimilarity) {
-							return -1;
-						} else {
-							return 0;
-						}
-					});
-				}
-				_gthis.noNamesFoundElement.innerHTML = "";
-				_gthis.currentNamesElement.innerHTML = "";
-				if(names.length == 0) {
-					_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
-				}
-				var _g = 0;
-				while(_g < names.length) {
-					var name = names[_g];
-					++_g;
-					var li = window.document.createElement("li");
-					if(!(name != null && name.length > 0)) {
-						throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						tmp = names;
 					}
-					li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
-					_gthis.currentNamesElement.appendChild(li);
+					generatedNameSets.push(tmp);
+				}
+				if(generatedNameSets.length == 1) {
+					var names = generatedNameSets[0];
+					var _gthis1 = _gthis;
+					_gthis.lastGeneratedNames = names;
+					if(_gthis.get_similar().length > 0) {
+						names.sort(function(x,y) {
+							var target = _gthis1.get_similar();
+							if(x == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var xSimilarity;
+							if(x.length == 0) {
+								xSimilarity = target.length;
+							} else if(target.length == 0) {
+								xSimilarity = x.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+								xSimilarity = table[table.length - 1];
+							}
+							var target = _gthis1.get_similar();
+							if(y == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var ySimilarity;
+							if(y.length == 0) {
+								ySimilarity = target.length;
+							} else if(target.length == 0) {
+								ySimilarity = y.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+								ySimilarity = table[table.length - 1];
+							}
+							if(xSimilarity > ySimilarity) {
+								return 1;
+							} else if(xSimilarity < ySimilarity) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis.noNamesFoundElement.innerHTML = "";
+					_gthis.currentNamesElement.innerHTML = "";
+					if(names.length == 0) {
+						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+					}
+					var _g = 0;
+					while(_g < names.length) {
+						var name = names[_g];
+						++_g;
+						var li = window.document.createElement("li");
+						if(!(name != null && name.length > 0)) {
+							throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						}
+						li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+						_gthis.currentNamesElement.appendChild(li);
+					}
+				} else {
+					var recombinedNames = [];
+					var _g = 0;
+					var _g1 = _gthis.maxWordsToGenerate;
+					while(_g < _g1) {
+						var wordIdx = _g++;
+						var name = "";
+						var _g2 = 0;
+						while(_g2 < generatedNameSets.length) {
+							var set = generatedNameSets[_g2];
+							++_g2;
+							if(wordIdx < set.length) {
+								name += set[wordIdx];
+								name += " ";
+							}
+						}
+						name = StringTools.trim(name);
+						if(name.length > 0) {
+							recombinedNames.push(name);
+						}
+					}
+					var _gthis2 = _gthis;
+					_gthis.lastGeneratedNames = recombinedNames;
+					if(_gthis.get_similar().length > 0) {
+						recombinedNames.sort(function(x,y) {
+							var target = _gthis2.get_similar();
+							if(x == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var xSimilarity;
+							if(x.length == 0) {
+								xSimilarity = target.length;
+							} else if(target.length == 0) {
+								xSimilarity = x.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+								xSimilarity = table[table.length - 1];
+							}
+							var target = _gthis2.get_similar();
+							if(y == null) {
+								throw haxe_Exception.thrown("FAIL: source != null");
+							}
+							if(target == null) {
+								throw haxe_Exception.thrown("FAIL: target != null");
+							}
+							var ySimilarity;
+							if(y.length == 0) {
+								ySimilarity = target.length;
+							} else if(target.length == 0) {
+								ySimilarity = y.length;
+							} else {
+								var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+								ySimilarity = table[table.length - 1];
+							}
+							if(xSimilarity > ySimilarity) {
+								return 1;
+							} else if(xSimilarity < ySimilarity) {
+								return -1;
+							} else {
+								return 0;
+							}
+						});
+					}
+					_gthis.noNamesFoundElement.innerHTML = "";
+					_gthis.currentNamesElement.innerHTML = "";
+					if(recombinedNames.length == 0) {
+						_gthis.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+					}
+					var _g = 0;
+					while(_g < recombinedNames.length) {
+						var name = recombinedNames[_g];
+						++_g;
+						var li = window.document.createElement("li");
+						if(!(name != null && name.length > 0)) {
+							throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+						}
+						li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+						_gthis.currentNamesElement.appendChild(li);
+					}
 				}
 			}
 		},false);
@@ -1510,7 +2454,7 @@ Main.prototype = {
 		}
 		this.trainingDataTextEdit.value = s;
 	}
-	,generate: function(presetNames,data) {
+	,generateAndRecombine: function(presetNames,data) {
 		var title = "";
 		var _g = 0;
 		var _g1 = presetNames.length;
@@ -1522,87 +2466,231 @@ Main.prototype = {
 			}
 		}
 		this.namesTitleElement.innerHTML = title;
-		this.duplicateTrie = new markov_util_PrefixTrie();
+		var dataSets = new haxe_ds_IntMap();
+		var dataSetCount = 0;
+		var _g = 0;
+		while(_g < data.length) {
+			var item = data[_g];
+			++_g;
+			var parts = item.split("_");
+			var _g1 = 0;
+			var _g2 = parts.length;
+			while(_g1 < _g2) {
+				var i = _g1++;
+				if(!dataSets.h.hasOwnProperty(i)) {
+					var value = markov_util_ArraySet.create();
+					dataSets.h[i] = value;
+					++dataSetCount;
+				}
+				markov_util_ArraySet.add(dataSets.h[i],parts[i]);
+			}
+		}
+		var processingTimePerSet = dataSetCount > 0 ? this.maxProcessingTime / dataSetCount : 0;
+		var generatedNameSets = [];
+		var dataSet = dataSets.iterator();
+		while(dataSet.hasNext()) {
+			var dataSet1 = dataSet.next();
+			var data = markov_util_ArraySet.toArray(dataSet1);
+			var tmp;
+			if(data == null || data.length == 0) {
+				tmp = [];
+			} else {
+				var duplicateTrie = new markov_util_PrefixTrie();
+				var _g = 0;
+				while(_g < data.length) {
+					var name = data[_g];
+					++_g;
+					duplicateTrie.insert(name);
+				}
+				var generator = new markov_namegen_NameGenerator(data,this.order,this.prior,this.backoff == 0 ? false : true);
+				var names = [];
+				var startTime = new Date().getTime();
+				var currentTime = new Date().getTime();
+				var regex = this.get_regexMatch() == "" ? null : new EReg(this.get_regexMatch(),"i");
+				while(names.length < this.maxWordsToGenerate && currentTime < startTime + processingTimePerSet) {
+					var name1 = generator.generateName(this.minLength,this.maxLength,this.get_startsWith(),this.get_endsWith(),this.get_includes(),this.get_excludes(),regex);
+					if(name1 != null && !duplicateTrie.find(name1)) {
+						names.push(name1);
+						duplicateTrie.insert(name1);
+					}
+					currentTime = new Date().getTime();
+				}
+				tmp = names;
+			}
+			generatedNameSets.push(tmp);
+		}
+		if(generatedNameSets.length == 1) {
+			var names = generatedNameSets[0];
+			var _gthis = this;
+			this.lastGeneratedNames = names;
+			if(this.get_similar().length > 0) {
+				names.sort(function(x,y) {
+					var target = _gthis.get_similar();
+					if(x == null) {
+						throw haxe_Exception.thrown("FAIL: source != null");
+					}
+					if(target == null) {
+						throw haxe_Exception.thrown("FAIL: target != null");
+					}
+					var xSimilarity;
+					if(x.length == 0) {
+						xSimilarity = target.length;
+					} else if(target.length == 0) {
+						xSimilarity = x.length;
+					} else {
+						var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+						xSimilarity = table[table.length - 1];
+					}
+					var target = _gthis.get_similar();
+					if(y == null) {
+						throw haxe_Exception.thrown("FAIL: source != null");
+					}
+					if(target == null) {
+						throw haxe_Exception.thrown("FAIL: target != null");
+					}
+					var ySimilarity;
+					if(y.length == 0) {
+						ySimilarity = target.length;
+					} else if(target.length == 0) {
+						ySimilarity = y.length;
+					} else {
+						var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+						ySimilarity = table[table.length - 1];
+					}
+					if(xSimilarity > ySimilarity) {
+						return 1;
+					} else if(xSimilarity < ySimilarity) {
+						return -1;
+					} else {
+						return 0;
+					}
+				});
+			}
+			this.noNamesFoundElement.innerHTML = "";
+			this.currentNamesElement.innerHTML = "";
+			if(names.length == 0) {
+				this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+			}
+			var _g = 0;
+			while(_g < names.length) {
+				var name = names[_g];
+				++_g;
+				var li = window.document.createElement("li");
+				if(!(name != null && name.length > 0)) {
+					throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+				}
+				li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+				this.currentNamesElement.appendChild(li);
+			}
+		} else {
+			var recombinedNames = [];
+			var _g = 0;
+			var _g1 = this.maxWordsToGenerate;
+			while(_g < _g1) {
+				var wordIdx = _g++;
+				var name = "";
+				var _g2 = 0;
+				while(_g2 < generatedNameSets.length) {
+					var set = generatedNameSets[_g2];
+					++_g2;
+					if(wordIdx < set.length) {
+						name += set[wordIdx];
+						name += " ";
+					}
+				}
+				name = StringTools.trim(name);
+				if(name.length > 0) {
+					recombinedNames.push(name);
+				}
+			}
+			var _gthis1 = this;
+			this.lastGeneratedNames = recombinedNames;
+			if(this.get_similar().length > 0) {
+				recombinedNames.sort(function(x,y) {
+					var target = _gthis1.get_similar();
+					if(x == null) {
+						throw haxe_Exception.thrown("FAIL: source != null");
+					}
+					if(target == null) {
+						throw haxe_Exception.thrown("FAIL: target != null");
+					}
+					var xSimilarity;
+					if(x.length == 0) {
+						xSimilarity = target.length;
+					} else if(target.length == 0) {
+						xSimilarity = x.length;
+					} else {
+						var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+						xSimilarity = table[table.length - 1];
+					}
+					var target = _gthis1.get_similar();
+					if(y == null) {
+						throw haxe_Exception.thrown("FAIL: source != null");
+					}
+					if(target == null) {
+						throw haxe_Exception.thrown("FAIL: target != null");
+					}
+					var ySimilarity;
+					if(y.length == 0) {
+						ySimilarity = target.length;
+					} else if(target.length == 0) {
+						ySimilarity = y.length;
+					} else {
+						var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+						ySimilarity = table[table.length - 1];
+					}
+					if(xSimilarity > ySimilarity) {
+						return 1;
+					} else if(xSimilarity < ySimilarity) {
+						return -1;
+					} else {
+						return 0;
+					}
+				});
+			}
+			this.noNamesFoundElement.innerHTML = "";
+			this.currentNamesElement.innerHTML = "";
+			if(recombinedNames.length == 0) {
+				this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+			}
+			var _g = 0;
+			while(_g < recombinedNames.length) {
+				var name = recombinedNames[_g];
+				++_g;
+				var li = window.document.createElement("li");
+				if(!(name != null && name.length > 0)) {
+					throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+				}
+				li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+				this.currentNamesElement.appendChild(li);
+			}
+		}
+	}
+	,generate: function(data,maxProcessingTime) {
+		if(data == null || data.length == 0) {
+			return [];
+		}
+		var duplicateTrie = new markov_util_PrefixTrie();
 		var _g = 0;
 		while(_g < data.length) {
 			var name = data[_g];
 			++_g;
-			this.duplicateTrie.insert(name);
+			duplicateTrie.insert(name);
 		}
-		this.generator = new markov_namegen_NameGenerator(data,this.order,this.prior,this.backoff == 0 ? false : true);
+		var generator = new markov_namegen_NameGenerator(data,this.order,this.prior,this.backoff == 0 ? false : true);
 		var names = [];
 		var startTime = new Date().getTime();
 		var currentTime = new Date().getTime();
 		var regex = this.get_regexMatch() == "" ? null : new EReg(this.get_regexMatch(),"i");
-		while(names.length < this.maxWordsToGenerate && currentTime < startTime + this.maxProcessingTime) {
-			var name = this.generator.generateName(this.minLength,this.maxLength,this.get_startsWith(),this.get_endsWith(),this.get_includes(),this.get_excludes(),regex);
-			if(name != null && !this.duplicateTrie.find(name)) {
+		while(names.length < this.maxWordsToGenerate && currentTime < startTime + maxProcessingTime) {
+			var name = generator.generateName(this.minLength,this.maxLength,this.get_startsWith(),this.get_endsWith(),this.get_includes(),this.get_excludes(),regex);
+			if(name != null && !duplicateTrie.find(name)) {
 				names.push(name);
-				this.duplicateTrie.insert(name);
+				duplicateTrie.insert(name);
 			}
 			currentTime = new Date().getTime();
 		}
-		var _gthis = this;
-		this.lastGeneratedNames = names;
-		if(this.get_similar().length > 0) {
-			names.sort(function(x,y) {
-				var target = _gthis.get_similar();
-				if(x == null) {
-					throw haxe_Exception.thrown("FAIL: source != null");
-				}
-				if(target == null) {
-					throw haxe_Exception.thrown("FAIL: target != null");
-				}
-				var xSimilarity;
-				if(x.length == 0) {
-					xSimilarity = target.length;
-				} else if(target.length == 0) {
-					xSimilarity = x.length;
-				} else {
-					var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
-					xSimilarity = table[table.length - 1];
-				}
-				var target = _gthis.get_similar();
-				if(y == null) {
-					throw haxe_Exception.thrown("FAIL: source != null");
-				}
-				if(target == null) {
-					throw haxe_Exception.thrown("FAIL: target != null");
-				}
-				var ySimilarity;
-				if(y.length == 0) {
-					ySimilarity = target.length;
-				} else if(target.length == 0) {
-					ySimilarity = y.length;
-				} else {
-					var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
-					ySimilarity = table[table.length - 1];
-				}
-				if(xSimilarity > ySimilarity) {
-					return 1;
-				} else if(xSimilarity < ySimilarity) {
-					return -1;
-				} else {
-					return 0;
-				}
-			});
-		}
-		this.noNamesFoundElement.innerHTML = "";
-		this.currentNamesElement.innerHTML = "";
-		if(names.length == 0) {
-			this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
-		}
-		var _g = 0;
-		while(_g < names.length) {
-			var name = names[_g];
-			++_g;
-			var li = window.document.createElement("li");
-			if(!(name != null && name.length > 0)) {
-				throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
-			}
-			li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
-			this.currentNamesElement.appendChild(li);
-		}
+		return names;
 	}
 	,generateForRandomPresets: function(numPresets) {
 		var topics = Type.getClassFields(TrainingData);
@@ -1649,86 +2737,204 @@ Main.prototype = {
 			}
 		}
 		this.namesTitleElement.innerHTML = title;
-		this.duplicateTrie = new markov_util_PrefixTrie();
+		var dataSets = new haxe_ds_IntMap();
+		var dataSetCount = 0;
 		var _g = 0;
 		while(_g < arr.length) {
-			var name = arr[_g];
+			var item = arr[_g];
 			++_g;
-			this.duplicateTrie.insert(name);
-		}
-		this.generator = new markov_namegen_NameGenerator(arr,this.order,this.prior,this.backoff == 0 ? false : true);
-		var names = [];
-		var startTime = new Date().getTime();
-		var currentTime = new Date().getTime();
-		var regex = this.get_regexMatch() == "" ? null : new EReg(this.get_regexMatch(),"i");
-		while(names.length < this.maxWordsToGenerate && currentTime < startTime + this.maxProcessingTime) {
-			var name = this.generator.generateName(this.minLength,this.maxLength,this.get_startsWith(),this.get_endsWith(),this.get_includes(),this.get_excludes(),regex);
-			if(name != null && !this.duplicateTrie.find(name)) {
-				names.push(name);
-				this.duplicateTrie.insert(name);
+			var parts = item.split("_");
+			var _g1 = 0;
+			var _g2 = parts.length;
+			while(_g1 < _g2) {
+				var i = _g1++;
+				if(!dataSets.h.hasOwnProperty(i)) {
+					var value = markov_util_ArraySet.create();
+					dataSets.h[i] = value;
+					++dataSetCount;
+				}
+				markov_util_ArraySet.add(dataSets.h[i],parts[i]);
 			}
-			currentTime = new Date().getTime();
 		}
-		var _gthis = this;
-		this.lastGeneratedNames = names;
-		if(this.get_similar().length > 0) {
-			names.sort(function(x,y) {
-				var target = _gthis.get_similar();
-				if(x == null) {
-					throw haxe_Exception.thrown("FAIL: source != null");
+		var processingTimePerSet = dataSetCount > 0 ? this.maxProcessingTime / dataSetCount : 0;
+		var generatedNameSets = [];
+		var dataSet = dataSets.iterator();
+		while(dataSet.hasNext()) {
+			var dataSet1 = dataSet.next();
+			var data = markov_util_ArraySet.toArray(dataSet1);
+			var tmp;
+			if(data == null || data.length == 0) {
+				tmp = [];
+			} else {
+				var duplicateTrie = new markov_util_PrefixTrie();
+				var _g = 0;
+				while(_g < data.length) {
+					var name = data[_g];
+					++_g;
+					duplicateTrie.insert(name);
 				}
-				if(target == null) {
-					throw haxe_Exception.thrown("FAIL: target != null");
+				var generator = new markov_namegen_NameGenerator(data,this.order,this.prior,this.backoff == 0 ? false : true);
+				var names = [];
+				var startTime = new Date().getTime();
+				var currentTime = new Date().getTime();
+				var regex = this.get_regexMatch() == "" ? null : new EReg(this.get_regexMatch(),"i");
+				while(names.length < this.maxWordsToGenerate && currentTime < startTime + processingTimePerSet) {
+					var name1 = generator.generateName(this.minLength,this.maxLength,this.get_startsWith(),this.get_endsWith(),this.get_includes(),this.get_excludes(),regex);
+					if(name1 != null && !duplicateTrie.find(name1)) {
+						names.push(name1);
+						duplicateTrie.insert(name1);
+					}
+					currentTime = new Date().getTime();
 				}
-				var xSimilarity;
-				if(x.length == 0) {
-					xSimilarity = target.length;
-				} else if(target.length == 0) {
-					xSimilarity = x.length;
-				} else {
-					var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
-					xSimilarity = table[table.length - 1];
-				}
-				var target = _gthis.get_similar();
-				if(y == null) {
-					throw haxe_Exception.thrown("FAIL: source != null");
-				}
-				if(target == null) {
-					throw haxe_Exception.thrown("FAIL: target != null");
-				}
-				var ySimilarity;
-				if(y.length == 0) {
-					ySimilarity = target.length;
-				} else if(target.length == 0) {
-					ySimilarity = y.length;
-				} else {
-					var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
-					ySimilarity = table[table.length - 1];
-				}
-				if(xSimilarity > ySimilarity) {
-					return 1;
-				} else if(xSimilarity < ySimilarity) {
-					return -1;
-				} else {
-					return 0;
-				}
-			});
-		}
-		this.noNamesFoundElement.innerHTML = "";
-		this.currentNamesElement.innerHTML = "";
-		if(names.length == 0) {
-			this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
-		}
-		var _g = 0;
-		while(_g < names.length) {
-			var name = names[_g];
-			++_g;
-			var li = window.document.createElement("li");
-			if(!(name != null && name.length > 0)) {
-				throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+				tmp = names;
 			}
-			li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
-			this.currentNamesElement.appendChild(li);
+			generatedNameSets.push(tmp);
+		}
+		if(generatedNameSets.length == 1) {
+			var names = generatedNameSets[0];
+			var _gthis = this;
+			this.lastGeneratedNames = names;
+			if(this.get_similar().length > 0) {
+				names.sort(function(x,y) {
+					var target = _gthis.get_similar();
+					if(x == null) {
+						throw haxe_Exception.thrown("FAIL: source != null");
+					}
+					if(target == null) {
+						throw haxe_Exception.thrown("FAIL: target != null");
+					}
+					var xSimilarity;
+					if(x.length == 0) {
+						xSimilarity = target.length;
+					} else if(target.length == 0) {
+						xSimilarity = x.length;
+					} else {
+						var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+						xSimilarity = table[table.length - 1];
+					}
+					var target = _gthis.get_similar();
+					if(y == null) {
+						throw haxe_Exception.thrown("FAIL: source != null");
+					}
+					if(target == null) {
+						throw haxe_Exception.thrown("FAIL: target != null");
+					}
+					var ySimilarity;
+					if(y.length == 0) {
+						ySimilarity = target.length;
+					} else if(target.length == 0) {
+						ySimilarity = y.length;
+					} else {
+						var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+						ySimilarity = table[table.length - 1];
+					}
+					if(xSimilarity > ySimilarity) {
+						return 1;
+					} else if(xSimilarity < ySimilarity) {
+						return -1;
+					} else {
+						return 0;
+					}
+				});
+			}
+			this.noNamesFoundElement.innerHTML = "";
+			this.currentNamesElement.innerHTML = "";
+			if(names.length == 0) {
+				this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+			}
+			var _g = 0;
+			while(_g < names.length) {
+				var name = names[_g];
+				++_g;
+				var li = window.document.createElement("li");
+				if(!(name != null && name.length > 0)) {
+					throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+				}
+				li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+				this.currentNamesElement.appendChild(li);
+			}
+		} else {
+			var recombinedNames = [];
+			var _g = 0;
+			var _g1 = this.maxWordsToGenerate;
+			while(_g < _g1) {
+				var wordIdx = _g++;
+				var name = "";
+				var _g2 = 0;
+				while(_g2 < generatedNameSets.length) {
+					var set = generatedNameSets[_g2];
+					++_g2;
+					if(wordIdx < set.length) {
+						name += set[wordIdx];
+						name += " ";
+					}
+				}
+				name = StringTools.trim(name);
+				if(name.length > 0) {
+					recombinedNames.push(name);
+				}
+			}
+			var _gthis1 = this;
+			this.lastGeneratedNames = recombinedNames;
+			if(this.get_similar().length > 0) {
+				recombinedNames.sort(function(x,y) {
+					var target = _gthis1.get_similar();
+					if(x == null) {
+						throw haxe_Exception.thrown("FAIL: source != null");
+					}
+					if(target == null) {
+						throw haxe_Exception.thrown("FAIL: target != null");
+					}
+					var xSimilarity;
+					if(x.length == 0) {
+						xSimilarity = target.length;
+					} else if(target.length == 0) {
+						xSimilarity = x.length;
+					} else {
+						var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+						xSimilarity = table[table.length - 1];
+					}
+					var target = _gthis1.get_similar();
+					if(y == null) {
+						throw haxe_Exception.thrown("FAIL: source != null");
+					}
+					if(target == null) {
+						throw haxe_Exception.thrown("FAIL: target != null");
+					}
+					var ySimilarity;
+					if(y.length == 0) {
+						ySimilarity = target.length;
+					} else if(target.length == 0) {
+						ySimilarity = y.length;
+					} else {
+						var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+						ySimilarity = table[table.length - 1];
+					}
+					if(xSimilarity > ySimilarity) {
+						return 1;
+					} else if(xSimilarity < ySimilarity) {
+						return -1;
+					} else {
+						return 0;
+					}
+				});
+			}
+			this.noNamesFoundElement.innerHTML = "";
+			this.currentNamesElement.innerHTML = "";
+			if(recombinedNames.length == 0) {
+				this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+			}
+			var _g = 0;
+			while(_g < recombinedNames.length) {
+				var name = recombinedNames[_g];
+				++_g;
+				var li = window.document.createElement("li");
+				if(!(name != null && name.length > 0)) {
+					throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+				}
+				li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+				this.currentNamesElement.appendChild(li);
+			}
 		}
 	}
 	,generateForCurrentSettings: function() {
@@ -1748,86 +2954,204 @@ Main.prototype = {
 			}
 		}
 		this.namesTitleElement.innerHTML = title;
-		this.duplicateTrie = new markov_util_PrefixTrie();
+		var dataSets = new haxe_ds_IntMap();
+		var dataSetCount = 0;
 		var _g = 0;
 		while(_g < arr.length) {
-			var name = arr[_g];
+			var item = arr[_g];
 			++_g;
-			this.duplicateTrie.insert(name);
-		}
-		this.generator = new markov_namegen_NameGenerator(arr,this.order,this.prior,this.backoff == 0 ? false : true);
-		var names = [];
-		var startTime = new Date().getTime();
-		var currentTime = new Date().getTime();
-		var regex = this.get_regexMatch() == "" ? null : new EReg(this.get_regexMatch(),"i");
-		while(names.length < this.maxWordsToGenerate && currentTime < startTime + this.maxProcessingTime) {
-			var name = this.generator.generateName(this.minLength,this.maxLength,this.get_startsWith(),this.get_endsWith(),this.get_includes(),this.get_excludes(),regex);
-			if(name != null && !this.duplicateTrie.find(name)) {
-				names.push(name);
-				this.duplicateTrie.insert(name);
+			var parts = item.split("_");
+			var _g1 = 0;
+			var _g2 = parts.length;
+			while(_g1 < _g2) {
+				var i = _g1++;
+				if(!dataSets.h.hasOwnProperty(i)) {
+					var value = markov_util_ArraySet.create();
+					dataSets.h[i] = value;
+					++dataSetCount;
+				}
+				markov_util_ArraySet.add(dataSets.h[i],parts[i]);
 			}
-			currentTime = new Date().getTime();
 		}
-		var _gthis = this;
-		this.lastGeneratedNames = names;
-		if(this.get_similar().length > 0) {
-			names.sort(function(x,y) {
-				var target = _gthis.get_similar();
-				if(x == null) {
-					throw haxe_Exception.thrown("FAIL: source != null");
+		var processingTimePerSet = dataSetCount > 0 ? this.maxProcessingTime / dataSetCount : 0;
+		var generatedNameSets = [];
+		var dataSet = dataSets.iterator();
+		while(dataSet.hasNext()) {
+			var dataSet1 = dataSet.next();
+			var data = markov_util_ArraySet.toArray(dataSet1);
+			var tmp;
+			if(data == null || data.length == 0) {
+				tmp = [];
+			} else {
+				var duplicateTrie = new markov_util_PrefixTrie();
+				var _g = 0;
+				while(_g < data.length) {
+					var name = data[_g];
+					++_g;
+					duplicateTrie.insert(name);
 				}
-				if(target == null) {
-					throw haxe_Exception.thrown("FAIL: target != null");
+				var generator = new markov_namegen_NameGenerator(data,this.order,this.prior,this.backoff == 0 ? false : true);
+				var names = [];
+				var startTime = new Date().getTime();
+				var currentTime = new Date().getTime();
+				var regex = this.get_regexMatch() == "" ? null : new EReg(this.get_regexMatch(),"i");
+				while(names.length < this.maxWordsToGenerate && currentTime < startTime + processingTimePerSet) {
+					var name1 = generator.generateName(this.minLength,this.maxLength,this.get_startsWith(),this.get_endsWith(),this.get_includes(),this.get_excludes(),regex);
+					if(name1 != null && !duplicateTrie.find(name1)) {
+						names.push(name1);
+						duplicateTrie.insert(name1);
+					}
+					currentTime = new Date().getTime();
 				}
-				var xSimilarity;
-				if(x.length == 0) {
-					xSimilarity = target.length;
-				} else if(target.length == 0) {
-					xSimilarity = x.length;
-				} else {
-					var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
-					xSimilarity = table[table.length - 1];
-				}
-				var target = _gthis.get_similar();
-				if(y == null) {
-					throw haxe_Exception.thrown("FAIL: source != null");
-				}
-				if(target == null) {
-					throw haxe_Exception.thrown("FAIL: target != null");
-				}
-				var ySimilarity;
-				if(y.length == 0) {
-					ySimilarity = target.length;
-				} else if(target.length == 0) {
-					ySimilarity = y.length;
-				} else {
-					var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
-					ySimilarity = table[table.length - 1];
-				}
-				if(xSimilarity > ySimilarity) {
-					return 1;
-				} else if(xSimilarity < ySimilarity) {
-					return -1;
-				} else {
-					return 0;
-				}
-			});
-		}
-		this.noNamesFoundElement.innerHTML = "";
-		this.currentNamesElement.innerHTML = "";
-		if(names.length == 0) {
-			this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
-		}
-		var _g = 0;
-		while(_g < names.length) {
-			var name = names[_g];
-			++_g;
-			var li = window.document.createElement("li");
-			if(!(name != null && name.length > 0)) {
-				throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+				tmp = names;
 			}
-			li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
-			this.currentNamesElement.appendChild(li);
+			generatedNameSets.push(tmp);
+		}
+		if(generatedNameSets.length == 1) {
+			var names = generatedNameSets[0];
+			var _gthis = this;
+			this.lastGeneratedNames = names;
+			if(this.get_similar().length > 0) {
+				names.sort(function(x,y) {
+					var target = _gthis.get_similar();
+					if(x == null) {
+						throw haxe_Exception.thrown("FAIL: source != null");
+					}
+					if(target == null) {
+						throw haxe_Exception.thrown("FAIL: target != null");
+					}
+					var xSimilarity;
+					if(x.length == 0) {
+						xSimilarity = target.length;
+					} else if(target.length == 0) {
+						xSimilarity = x.length;
+					} else {
+						var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+						xSimilarity = table[table.length - 1];
+					}
+					var target = _gthis.get_similar();
+					if(y == null) {
+						throw haxe_Exception.thrown("FAIL: source != null");
+					}
+					if(target == null) {
+						throw haxe_Exception.thrown("FAIL: target != null");
+					}
+					var ySimilarity;
+					if(y.length == 0) {
+						ySimilarity = target.length;
+					} else if(target.length == 0) {
+						ySimilarity = y.length;
+					} else {
+						var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+						ySimilarity = table[table.length - 1];
+					}
+					if(xSimilarity > ySimilarity) {
+						return 1;
+					} else if(xSimilarity < ySimilarity) {
+						return -1;
+					} else {
+						return 0;
+					}
+				});
+			}
+			this.noNamesFoundElement.innerHTML = "";
+			this.currentNamesElement.innerHTML = "";
+			if(names.length == 0) {
+				this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+			}
+			var _g = 0;
+			while(_g < names.length) {
+				var name = names[_g];
+				++_g;
+				var li = window.document.createElement("li");
+				if(!(name != null && name.length > 0)) {
+					throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+				}
+				li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+				this.currentNamesElement.appendChild(li);
+			}
+		} else {
+			var recombinedNames = [];
+			var _g = 0;
+			var _g1 = this.maxWordsToGenerate;
+			while(_g < _g1) {
+				var wordIdx = _g++;
+				var name = "";
+				var _g2 = 0;
+				while(_g2 < generatedNameSets.length) {
+					var set = generatedNameSets[_g2];
+					++_g2;
+					if(wordIdx < set.length) {
+						name += set[wordIdx];
+						name += " ";
+					}
+				}
+				name = StringTools.trim(name);
+				if(name.length > 0) {
+					recombinedNames.push(name);
+				}
+			}
+			var _gthis1 = this;
+			this.lastGeneratedNames = recombinedNames;
+			if(this.get_similar().length > 0) {
+				recombinedNames.sort(function(x,y) {
+					var target = _gthis1.get_similar();
+					if(x == null) {
+						throw haxe_Exception.thrown("FAIL: source != null");
+					}
+					if(target == null) {
+						throw haxe_Exception.thrown("FAIL: target != null");
+					}
+					var xSimilarity;
+					if(x.length == 0) {
+						xSimilarity = target.length;
+					} else if(target.length == 0) {
+						xSimilarity = x.length;
+					} else {
+						var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(x,target,true);
+						xSimilarity = table[table.length - 1];
+					}
+					var target = _gthis1.get_similar();
+					if(y == null) {
+						throw haxe_Exception.thrown("FAIL: source != null");
+					}
+					if(target == null) {
+						throw haxe_Exception.thrown("FAIL: target != null");
+					}
+					var ySimilarity;
+					if(y.length == 0) {
+						ySimilarity = target.length;
+					} else if(target.length == 0) {
+						ySimilarity = y.length;
+					} else {
+						var table = markov_util_EditDistanceMetrics.damerauLevenshteinMatrix(y,target,true);
+						ySimilarity = table[table.length - 1];
+					}
+					if(xSimilarity > ySimilarity) {
+						return 1;
+					} else if(xSimilarity < ySimilarity) {
+						return -1;
+					} else {
+						return 0;
+					}
+				});
+			}
+			this.noNamesFoundElement.innerHTML = "";
+			this.currentNamesElement.innerHTML = "";
+			if(recombinedNames.length == 0) {
+				this.noNamesFoundElement.textContent = "No names found, try again or change the name generation settings. Reducing the model order, adjusting the allowed word length, increasing the prior or removing the filters may help.";
+			}
+			var _g = 0;
+			while(_g < recombinedNames.length) {
+				var name = recombinedNames[_g];
+				++_g;
+				var li = window.document.createElement("li");
+				if(!(name != null && name.length > 0)) {
+					throw haxe_Exception.thrown("FAIL: str != null && str.length > 0");
+				}
+				li.textContent = HxOverrides.substr(name,0,1).toUpperCase() + HxOverrides.substr(name,1,name.length - 1);
+				this.currentNamesElement.appendChild(li);
+			}
 		}
 	}
 	,setNames: function(names) {
@@ -2392,6 +3716,25 @@ haxe_ValueException.__name__ = true;
 haxe_ValueException.__super__ = haxe_Exception;
 haxe_ValueException.prototype = $extend(haxe_Exception.prototype,{
 });
+var haxe_ds_IntMap = function() {
+	this.h = { };
+};
+haxe_ds_IntMap.__name__ = true;
+haxe_ds_IntMap.prototype = {
+	keys: function() {
+		var a = [];
+		for( var key in this.h ) if(this.h.hasOwnProperty(key)) a.push(+key);
+		return new haxe_iterators_ArrayIterator(a);
+	}
+	,iterator: function() {
+		return { ref : this.h, it : this.keys(), hasNext : function() {
+			return this.it.hasNext();
+		}, next : function() {
+			var i = this.it.next();
+			return this.ref[i];
+		}};
+	}
+};
 var haxe_ds_List = function() {
 	this.length = 0;
 };
@@ -3282,6 +4625,7 @@ TrainingData.birds_common_names = ["abbottsbooby","abdimsstork","acaciapiedbarbe
 TrainingData.board_games = ["abalone","acronymble","agricola","alias","articulate","backgammon","balderdash","battleship","blockade","buckaroo","checkers","chess","clue","diamond","diplomacy","dominion","dominos","downfall","draughts","go","guesswho","hex","isola","jenga","kerplunk","kropki","ludo","mahjong","mastermind","monopoly","mousetrap","obsession","operation","othello","pandemic","pictionary","risk","scattergories","scrabble","senet","shogi","stratego","trivialpursuit","twister","ubongo","uno","upwords","yahtzee"];
 TrainingData.boat_types = ["airboat","bananaboat","barge","bassboat","boita","bowrider","bracera","cabincruiser","cableferry","canoe","capeislander","captainsgig","carboat","carfloat","catamaran","centerconsole","coble","coracle","cornishpilotgig","crashrescueboat","cruiseship","cuddyboat","cutter","dhow","dinghy","dory","dragger","dragonboat","driftboat","drifter","dugout","durhamboat","electricboat","expresscruiser","ferry","fireboat","fishingboat","floattube","flyak","flyingboat","foldingboat","friendshipsloop","fullriggedpinnace","garbagescow","gofastboat","gondola","greatlakesfreighter","gundalow","houseboat","hovercraft","hydrofoil","hydroplane","iceboat","inflatableboat","jetboat","jetski","jonboat","jukung","junk","ketch","landingcraft","langschiff","launch","lifeboat","lighter","logboat","longboat","longship","longtail","lugger","luxuryyacht","mackinawboat","masulaboat","missileboat","monitor","motorboat","motorlaunch","narrowboat","nordland","norfolkwherry","oiltanker","optimist","outriggercanoe","paddlesteamer","patrolboat","personalwatercraft","pinnace","pirogue","pleasurebarge","pleasurecraft","policewatercraft","pontoon","powerboat","proa","pumpboat","punt","raft","reactionferry","recreationaltrawler","reedboat","rigidhulledinflatable","riverboat","rodneyboat","rowboat","runabout","sailboat","sampan","schooner","scow","seakayak","seakayak","shadboat","shallop","sharpie","shikara","ship","shipstender","skiboat","skiff","skipjack","slipperlaunch","sloop","speedboat","steamboat","submarine","supertanker","surfboat","swiftboat","torpedoboat","towboat","trainferry","trawler","trimaran","tugboat","wakeboardboat","walkaround","waterambulance","watertaxi","weidling","whaleboat","yacht","yawl","zille"];
 TrainingData.body_parts = ["abdomen","adamsapple","ankle","anus","arm","belly","bellybutton","bigtoe","breast","buttocks","calf","calf","calves","canines","cheeks","chest","chin","clavicles","collarbone","diaphragm","ear","earlobes","elbow","elbows","esophagus","eye","eyebrows","eyelashes","eyelids","feet","finger","fingernail","foot","forehead","forehead","gallbladder","groin","gums","hair","hand","head","hips","intestines","jaw","kidney","knee","kneecap","kneecap","larynx","leg","lips","liver","molars","mouth","muscles","nails","navel","nipples","nose","nostril","palms","penis","penvis","pupils","rectum","ribs","scalp","scrotum","shinbone","shoulderblades","shoulders","skin","skull","soles","spine","spleen","sternum","teeth","tendons","thigh","thighs","throat","thumb","tibia","toes","tongue","tooth","torso","trachea","vulva","waist","wrist"];
+TrainingData.book_names = ["a_brief_history_of_time","a_childs_first_library_of_learning","a_message_to_garcia","a_series_of_unfortunate_events","a_song_of_ice_and_fire","a_wrinkle_in_time","adventures_of_huckleberry_finn","alcoholics_anonymous_big_book","alex_cross","all_quiet_on_the_western_front","american_girl","american_spelling_book","and_then_there_were_none","andromeda_nebula","angelas_ashes","angels_&_demons","animal_farm","anne_of_green_gables","anpanman","artemis_fowl","autobiography_of_a_yogi","becoming","benhur_a_tale_of_the_christ","berenstain_bears","better_homes_and_gardens_new_cook_book","betty_crocker_cookbook","black_beauty","brain_quest","bridget_jones","bridget_joness_diary","captain_underpants","catch_22","catching_fire","charlie_and_the_chocolate_factory","charlottes_web","chicken_soup_for_the_soul","choose_your_own_adventure","clifford_the_big_red_dog","confucius_from_the_heart","cosmos","curious_george","der_regenbogenfisch","diana_her_true_story","diary_of_a_wimpy_kid","dirk_pitt","discworld","divergent_trilogy","doc_savage","dork_diaries","dragonlance","dragonriders_of_pern","dream_of_the_red_chamber","dune","decouvertes_gallimard","earths_children","english_grammar","erast_fandorin_series","eye_of_the_needle","fahrenheit_451","fear_of_flying","fear_street","fifty_shades","fifty_shades_darker","fifty_shades_of_grey","flowers_in_the_attic","follow_your_heart","frank_merriwell","geronimo_stilton","gods_little_acre","gone_girl","gone_with_the_wind","goodnight_moon","goosebumps","guess_how_much_i_love_you","guinness_world_records","hammonds_pocket_atlas","harry_bosch","harry_hole","harry_potter","harry_potter_and_the_chamber_of_secrets","harry_potter_and_the_deathly_hallows","harry_potter_and_the_goblet_of_fire","harry_potter_and_the_half-blood_prince","harry_potter_and_the_order_of_the_phoenix","harry_potter_and_the_philosophers_stone","harry_potter_and_the_prisoner_of_azkaban","heidi","his_dark_materials","horrible_histories","how_the_steel_was_tempered","how_to_win_friends_and_influence_people","i_survived","interpreter_of_maladies","jack_reacher","james_and_the_giant_peach","james_bond","jaws","jonathan_livingston_seagull","kane_and_abel","kaori_hosoki","kitchen","knowledge_value_revolution","kon-tiki_across_the_pacific_in_a_raft","kurt_wallander","le_guide_michelin_france","left_behind","life_after_life","life_of_pi","little_critter","little_house_on_the_prairie","lolita","long_walk_to_freedom","love_story","love_you_forever","lust_for_life","magic_tree_house_series","maisy","mans_search_for_meaning","martine","matilda","me_before_you","men_are_from_mars_women_are_from_venus","merriam-webster_pocket_dictionary","merriam-websters_collegiate_dictionary","millennium","mockingjay","morgan_kane","mr_men","nancy_drew","night","nijntje","nineteen_eighty-four","no_longer_human","noddy","norwegian_wood","one_hundred_years_of_solitude","outlander","oxford_advanced_learners_dictionary","paddington_bear","paul_et_virginie","percy_jackson_&_the_olympians","perfume","perry_mason","peter_rabbit","peyton_place","pippi_langstrump","pride_and_prejudice","problems_in_chinas_socialist_economy","rainbow_magic","ramona","rebecca","redwall","rich_dad_poor_dad","robert_langdon","rogets_thesaurus","ronia_the_robbers_daughter","sagan_om_isfolket","san-antonio","santa_evita","scouting_for_boys","shannara","she_a_history_of_adventure","shōgun","sophies_world","south_beach_diet","star_wars","sweet_valley_high","tarzan","the_7_habits_of_highly_effective_people","the_adventures_of_pinocchio","the_alchemist","the_baby-sitters_club","the_bermuda_triangle","the_bobbsey_twins","the_book_thief","the_bridges_of_madison_county","the_cat_in_the_hat","the_catcher_in_the_rye","the_celestine_prophecy","the_chronicles_of_narnia","the_common_sense_book_of_baby_and_child_care","the_da_vinci_code","the_dark_tower","the_destroyer","the_diary_of_anne_frank","the_divine_comedy","the_dukan_diet","the_eagle_has_landed","the_exorcist","the_fault_in_our_stars","the_foundation_trilogy","the_front_runner","the_ginger_man","the_girl_on_the_train","the_girl_with_the_dragon_tattoo","the_giver","the_goal","the_godfather","the_good_soldier_švejk","the_gospel_according_to_peanuts","the_grapes_of_wrath","the_great_gatsby","the_gruffalo","the_happy_hooker_my_own_story","the_hardy_boys","the_help","the_hitchhikers_guide_to_the_galaxy","the_hite_report","the_hobbit","the_horse_whisperer","the_hunger_games","the_hunger_games_trilogy","the_inheritance_cycle","the_joy_of_cooking","the_joy_of_sex","the_kite_runner","the_lion_the_witch_and_the_wardrobe","the_little_prince","the_lost_symbol","the_lovely_bones","the_magic_school_bus","the_mcguffey_readers","the_naked_ape","the_name_of_the_rose","the_neverending_story","the_no._1_ladies_detective_agency","the_old_man_and_the_sea","the_outsiders","the_pillars_of_the_earth","the_plague","the_poky_little_puppy","the_power_of_positive_thinking","the_prophet","the_purpose_driven_life","the_railway_series","the_revolt_of_mamie_stover","the_riftwar_cycle","the_secret","the_secret_diary_of_adrian_mole_aged_13¾","the_shack","the_shadow_of_the_wind","the_shadowhunter_chronicles","the_southern_vampire_mysteries","the_story_of_my_experiments_with_truth","the_stranger","the_sword_of_truth","the_tale_of_peter_rabbit","the_thorn_birds","the_total_woman","the_vampire_chronicles","the_very_hungry_caterpillar","the_wheel_of_time","the_wind_in_the_willows","the_womens_room","the_young_guard","things_fall_apart","to_kill_a_mockingbird","totto-chan_the_little_girl_at_the_window","tuesdays_with_morrie","twilight","uncle_styopa","valley_of_the_dolls","virgin_soil_upturned","war_and_peace","warriors","watership_down","what_color_is_your_parachute","what_to_expect_when_youre_expecting","where_the_wild_things_are","wheres_wally","who_moved_my_cheese","wild_swans","winnie-the-pooh","wolf_totem","world_almanac","you_can_heal_your_life","your_erroneous_zones"];
 TrainingData.breads = ["aniseedbread","bananabread","banburycake","bannock","bathbun","beatenbiscuit","beerbread","belgianbun","biscuit","bostonbun","brownbread","bun","cardamombread","carrotbread","chelseabun","cinnamonroll","cocktailbun","coffeecake","cornbread","currantbun","danishpastry","drippingcake","eggwaffle","farl","fruitbun","frybread","gingerbread","griddlescone","honeybun","hotcrossbun","hushpuppy","icedbun","kingcake","lardycake","londonbun","longevitypeach","lotusseedbun","mantecadas","melonpan","muffin","muffin","pancake","parisbuns","peanutbutterbun","pineapplebun","pumpkinbread","pumpkinbread","raisinbread","saffronbun","scone","shortcake","soboro","sodabread","sopaipilla","stickybun","stollen","sweetroll","tahiniroll","teacake","waffle","welshcake","zucchinibread"];
 TrainingData.breakfast_cereals = ["addamsfamilycereal","allbran","almonddelight","alpen","alphabits","applecinnamoncheerios","appleclones","applejacks","applejacksgliders","appleraisincrisp","applezingaroos","applezings","bakedapplelife","bananafrostedflakes","banananutcheerios","berrryluckycharms","berryberrykix","berryburstcheerios","berrykrispies","booberry","capncrunch","captainplanetcereal","caramelcrunchfuls","ceccettios","cheerios","chocapic","chococrunch","chocolatecheerios","chocolatechex","chocolatecrunchfuls","chocolatedonutz","chocolateflake","chocolatekrave","chocolateoatcrunchlife","chocolatetoastcrunch","chrebetcrunch","christmascrunch","cinnabon","cinnamoncheerios","cinnamonchex","cinnamoncrunch","cinnamongrahams","cinnamonjacks","cinnamonlife","cinnamonnutcheerios","cinnamontoastcrunch","cinnamontoasters","cinnasaryapplejacks","circusfun","clackers","clusters","cocoafrostedflakes","cocoahoots","cocoakrispies","cocoapebbles","cocoapuffs","cocopops","cocoroos","cocowheats","colossalcrunch","cometballs","cookiecrisp","cookiecrispbrownie","cookiecrispcereal","cornbran","cornbransquares","cornbursts","cornchex","cornflakes","cornpops","cornsoya","cornysnaps","countchocula","cranberryalmondcrunch","cranberrywheats","crazycow","crazyflakes","crispix","crispix","crispycritters","crispyrice","crispywheats","croonchystars","crunchberries","cruncheroos","crunchybran","crunchycornbran","crunchynutcornflakes","cupcakepebbles","diamondshreddies","dinersaurs","dinkydonuts","dinopebbles","doublechex","doubledipcrunch","dynobites","eggocereal","fantuzflakes","fiberone","flutieflakes","fortifiedoatflakes","frankenberry","freakies","frenchtoastcrunch","frootloops","frootloops","frostedcheerios","frostedflakes","frostedflakesgold","frostedminichex","frostedminiwheats","frosties","fruitbrute","fruitharvest","fruitycheerios","fruitypebbles","fruitypebbles","goldencrisp","goldengoals","goldengrahams","goldennuggets","goldenpuffs","goleancereal","gorillamunch","grahamchex","granola","granola","granolove","granula","grapenutflakes","grapenuts","halfsies","harvestcrunch","honeybunny","honeybuzzers","honeycomb","honeycomb","honeycrisps","honeycups","honeygrahamchex","honeykix","honeynutcheerios","honeypuffs","honeyricekrispies","honeysmacks","honeysmacks","hulkcereal","iceberrypebbles","jets","jif","jumbokrispies","jurassicparkcrunch","kaboom","kingvitaman","kix","kokokrunch","krispykritters","krunchios","krustyos","littlebites","luckycharms","luckycharms","magicpuffscereal","mallowoats","marshmallowpebbles","millenios","milocereal","miniwheats","moonstones","muesli","mueslix","muffets","multigraincheerios","nestlenesquik","nutrigrain","oatbake","oatbransquares","oatcrisp","oatibix","oatkrunchies","oatmealcookiecrisp","oatmealcrisp","oatmealsquares","optivita","orangeblossom","peanutbuttercrunch","pebblesboulders","pebblescereal","pinkpantherflakes","pokemoncereal","powdereddonutz","pronutro","prostarz","puffapuffarice","puffedrice","puffedwheat","puffins","puffkins","punchcrunch","quakequangaroos","quakerohs","quisp","railroadtracks","raisinbran","raisinbran","raisinbranccrunch","raisincrisps","raisinlife","raisinnutbran","raisinsquares","raisinwheats","razzledazzlericekrispies","readybrek","reesespuffs","reptarcrunch","ricebubbles","ricechex","ricehoneys","ricekrinkles","ricekrispies","rockyroad","scoobydoo","sesamestreetcereal","shredddspoonfuls","shreddedoats","shreddedwheat","shreddies","shreddies","shreks","sirgrapefellow","smartbbran","smartstart","smorz","smurfberrycrunch","snowflakes","spidermancereal","sprinklespangles","stars","starwarscereal","strawberryblastedhoneycomb","strawberryricekrispies","strawberryshortcake","strawberrysquares","sugarcrisp","sugarjets","sugarpuffs","sugarsmacks","sugarsprinkledtwinkles","sultanabran","suncrunchers","sunflakes","supermanstars","sweetenedwheatfuls","teamflakes","tigerpower","toastedcinnamonsquares","toastedwheatfuls","toasties","totalcinnamoncrunch","totalcorn","totalcranberrycrunch","totalhoneyclusters","triples","triplesnack","turbocereal","twinkles","unclesamcereal","undercoverbears","vanillycrunch","veggieos","vive","wackies","waffelos","wafflecrisp","weetabix","weetabixminis","weetbix","weetbix","weetos","wheatena","wheathoneys","wheaties","wheatstax","wildanimalcrunch","winterfruitypebbles","yogactive","zanyfruits"];
 TrainingData.british_desserts = ["angelcake","angeldelight","applecake","applepie","arcticroll","bakewelltart","banburycake","banoffeepie","battenbergcake","blackbun","blancmange","brandysnaps","breadpudding","cabinetpudding","carawayseedcake","carrotcake","chelseabun","chorleycake","christmaspudding","clootie","cobbler","cranachan","crumble","custardtart ","dundeecake","ecclescake","empirebiscuit","etonmess","fatrascal","figgypudding","flummery","fruitfool","fruithat","fudgedoughnut","gypsytart","happyfaces","icecream","jaffacakes","jamrolypoly","knickerbockerglory","lardycake","lardycake","liverpooltart","madeiracake","maltloaf","malvernpudding","manchestertart","mincepie","parkin","penguin","pinkwafer","poundcake","raspberryripple","rhubarbpie","ricepudding","rockcake","scone","shortcake","shrewsburycake","spongecake","spoom","spotteddick","suetpudding","summerpudding","tottenhamcake","treaclespong","treacletart","trifle","welshcake"];

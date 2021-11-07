@@ -1,5 +1,7 @@
 package;
 
+import haxe.display.Display.FieldResolution;
+import markov.util.ArraySet;
 import haxe.ds.ArraySort;
 import js.Browser;
 import js.html.DataListElement;
@@ -56,8 +58,6 @@ class Main {
 	private var shareResultsOnlyElement:Element = getElement(ID.shareresultsonly);
 	private var shareLinkTextEdit:InputElement = getElement(ID.shareedit);
 
-	private var generator:NameGenerator; // The Markov-chain based name generator
-	private var duplicateTrie:PrefixTrie; // Prefix trie to avoid displaying duplicate generated words
 	private var topicSearchTrie:PrefixTrie; // Prefix trie for finding matching topic when the user searches for them in the search text box
 
 	private var lastGeneratedNames:Array<String> = []; // The last lot of generated names
@@ -448,9 +448,9 @@ class Main {
 	}
 
 	/*
-	 * Runs the name generator, creating a new batch of names and puts the new names in the "names" section
+	 * Runs the name generator, creating a new batch of names. Puts the new names in the "names" section and updates the user interface
 	 */
-	private inline function generate(presetNames:Array<String>, data:Array<String>):Void {
+	private inline function generateAndRecombine(presetNames:Array<String>, data:Array<String>):Void {
 		var title = "";
 		for (i in 0...presetNames.length) {
 			title += presetNames[i];
@@ -459,19 +459,69 @@ class Main {
 			}
 		}
 		namesTitleElement.innerHTML = title;
-		
-		duplicateTrie = new PrefixTrie();
+
+		// Split words containing underscores ("_")s and build separate datasets out of these 
+		// We will generate names from each dataset and recombine them later
+		// For example: training data formatted forename_surname will be split to create two sets of names
+		// The forenames and surnames will be generated separately, and then recombined in the final output
+		var dataSets:Map<Int, ArraySet<String>> = new Map();
+		var dataSetCount:Int = 0;
+		for(item in data) {
+			var parts = item.split("_");
+			for(i in 0...parts.length) {
+				if(!dataSets.exists(i)) {
+					dataSets.set(i, ArraySet.create());
+					dataSetCount++;
+				}
+				dataSets.get(i).add(parts[i]);
+			}
+		}
+
+		var processingTimePerSet:Float = dataSetCount > 0 ? maxProcessingTime / dataSetCount : 0;
+		var generatedNameSets:Array<Array<String>> = new Array<Array<String>>();
+		for(dataSet in dataSets) {
+			generatedNameSets.push(generate(dataSet, processingTimePerSet));
+		}
+
+		if(generatedNameSets.length == 1) {
+			setNames(generatedNameSets[0]);
+		} else {
+			var recombinedNames = new Array<String>();
+			for(wordIdx in 0...maxWordsToGenerate) {
+				var name:String = "";
+				for(set in generatedNameSets) {
+					if(wordIdx < set.length) {
+						name += set[wordIdx];
+						name += " ";
+					}
+				}
+				name = name.trim();
+				if(name.length > 0) {
+					recombinedNames.push(name);
+				}
+			}
+			setNames(recombinedNames);
+		}
+	}
+
+	/*
+	 * Helper method that generates a set of names for the given training data and parameters
+	 */
+	private inline function generate(data:Array<String>, maxProcessingTime:Float):Array<String> {
+		if(data == null || data.length == 0) {
+			return [];
+		}
+
+		var duplicateTrie = new PrefixTrie();
 		for (name in data) {
 			duplicateTrie.insert(name);
 		}
 
-		generator = new NameGenerator(data, order, prior, backoff == 0 ? false : true);
+		var generator:NameGenerator = new NameGenerator(data, order, prior, backoff == 0 ? false : true);
 		var names = new Array<String>();
 		var startTime = Date.now().getTime();
 		var currentTime = Date.now().getTime();
-
 		var regex:EReg = regexMatch == "" ? null : new EReg(regexMatch, "i");
-
 		while (names.length < maxWordsToGenerate && currentTime < startTime + maxProcessingTime) {
 			var name = generator.generateName(minLength, maxLength, startsWith, endsWith, includes, excludes, regex);
 			if (name != null && !duplicateTrie.find(name)) {
@@ -481,11 +531,11 @@ class Main {
 			currentTime = Date.now().getTime();
 		}
 
-		setNames(names);
+		return names;
 	}
 
 	/**
-	 * Helper method that runs the "generate" method for a number of random preset sets of training data
+	 * Helper method that runs the "generateAndRecombine" method for a number of random preset sets of training data
 	 */
 	private inline function generateForRandomPresets(numPresets:Int):Void {
 		var topics = Type.getClassFields(TrainingData);
@@ -502,7 +552,7 @@ class Main {
 		if (arr == null || arr.length == 0) {
 			return;
 		}
-		generate(trainingDataKeys, arr);
+		generateAndRecombine(trainingDataKeys, arr);
 	}
 
 	/**
@@ -513,7 +563,7 @@ class Main {
 		if (arr == null || arr.length == 0) {
 			return;
 		}
-		generate(trainingDataKeys, arr);
+		generateAndRecombine(trainingDataKeys, arr);
 	}
 
 	/*
