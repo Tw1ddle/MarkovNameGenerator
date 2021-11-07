@@ -24,3 +24,6 @@
 
 ## 1.0.8
 * Bug fix for backoff functionality, code cleanup.
+
+## 1.0.9
+* Bug fix to avoid endless loop when prior is greater than 0, code cleanup.
