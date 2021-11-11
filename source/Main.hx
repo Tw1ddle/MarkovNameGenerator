@@ -182,8 +182,8 @@ class Main {
 			start: [ minLength, maxLength ],
 			connect: true,
 			range: {
-				'min': [ 3, 1 ],
-				'max': 21
+				'min': [ 2, 1 ],
+				'max': 25
 			},
 			pips: {
 				mode: 'range',
