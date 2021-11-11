@@ -20,7 +20,7 @@ using StringTools;
 
 // Automatic HTML code completion, you need to point these to your HTML
 @:build(CodeCompletion.buildLocalFile("../bin/index.html"))
-//@:build(CodeCompletion.buildUrl("http://www.samcodes.co.uk/project/markov-namegen/"))
+//@:build(CodeCompletion.buildUrl("https://www.samcodes.co.uk/project/markov-namegen/"))
 class ID {}
 
 class Main {
