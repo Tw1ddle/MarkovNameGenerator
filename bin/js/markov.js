@@ -179,8 +179,8 @@ Main.prototype = {
 			var parts = str.split(" ");
 			var results = "";
 			var _g1 = 0;
-			var _g11 = parts.length;
-			while(_g1 < _g11) {
+			var _g2 = parts.length;
+			while(_g1 < _g2) {
 				var i = _g1++;
 				var str1 = parts[i];
 				if(!(str1 != null && str1.length > 0)) {
@@ -745,8 +745,8 @@ Main.prototype = {
 				var parts = str.split(" ");
 				var results = "";
 				var _g2 = 0;
-				var _g11 = parts.length;
-				while(_g2 < _g11) {
+				var _g3 = parts.length;
+				while(_g2 < _g3) {
 					var i1 = _g2++;
 					var str1 = parts[i1];
 					if(!(str1 != null && str1.length > 0)) {
@@ -989,8 +989,8 @@ Main.prototype = {
 				var parts = str.split(" ");
 				var results = "";
 				var _g2 = 0;
-				var _g11 = parts.length;
-				while(_g2 < _g11) {
+				var _g3 = parts.length;
+				while(_g2 < _g3) {
 					var i1 = _g2++;
 					var str1 = parts[i1];
 					if(!(str1 != null && str1.length > 0)) {
@@ -1325,8 +1325,8 @@ Main.prototype = {
 			var parts = str.split(" ");
 			var results = "";
 			var _g1 = 0;
-			var _g11 = parts.length;
-			while(_g1 < _g11) {
+			var _g2 = parts.length;
+			while(_g1 < _g2) {
 				var i = _g1++;
 				var str1 = parts[i];
 				if(!(str1 != null && str1.length > 0)) {
@@ -1923,8 +1923,8 @@ Main.prototype = {
 				var parts = str.split(" ");
 				var results = "";
 				var _g2 = 0;
-				var _g11 = parts.length;
-				while(_g2 < _g11) {
+				var _g3 = parts.length;
+				while(_g2 < _g3) {
 					var i1 = _g2++;
 					var str1 = parts[i1];
 					if(!(str1 != null && str1.length > 0)) {
@@ -2167,8 +2167,8 @@ Main.prototype = {
 				var parts = str.split(" ");
 				var results = "";
 				var _g2 = 0;
-				var _g11 = parts.length;
-				while(_g2 < _g11) {
+				var _g3 = parts.length;
+				while(_g2 < _g3) {
 					var i1 = _g2++;
 					var str1 = parts[i1];
 					if(!(str1 != null && str1.length > 0)) {
@@ -2468,8 +2468,8 @@ Main.prototype = {
 				var parts = key.split(" ");
 				var results = "";
 				var _g1 = 0;
-				var _g11 = parts.length;
-				while(_g1 < _g11) {
+				var _g2 = parts.length;
+				while(_g1 < _g2) {
 					var i = _g1++;
 					var str = parts[i];
 					if(!(str != null && str.length > 0)) {
@@ -2484,10 +2484,10 @@ Main.prototype = {
 				if(data == null) {
 					continue;
 				}
-				var _g2 = 0;
-				while(_g2 < data.length) {
-					var i1 = data[_g2];
-					++_g2;
+				var _g3 = 0;
+				while(_g3 < data.length) {
+					var i1 = data[_g3];
+					++_g3;
 					s += i1 + " ";
 				}
 				s = StringTools.rtrim(s);
@@ -2507,8 +2507,8 @@ Main.prototype = {
 				var parts = a.split(" ");
 				var results = "";
 				var _g2 = 0;
-				var _g11 = parts.length;
-				while(_g2 < _g11) {
+				var _g3 = parts.length;
+				while(_g2 < _g3) {
 					var i1 = _g2++;
 					var str = parts[i1];
 					if(!(str != null && str.length > 0)) {
@@ -2540,8 +2540,8 @@ Main.prototype = {
 					var parts = name.split(" ");
 					var results = "";
 					var _g4 = 0;
-					var _g11 = parts.length;
-					while(_g4 < _g11) {
+					var _g5 = parts.length;
+					while(_g4 < _g5) {
 						var i1 = _g4++;
 						var str = parts[i1];
 						if(!(str != null && str.length > 0)) {
@@ -2817,8 +2817,8 @@ Main.prototype = {
 			var parts = str.split(" ");
 			var results = "";
 			var _g2 = 0;
-			var _g11 = parts.length;
-			while(_g2 < _g11) {
+			var _g3 = parts.length;
+			while(_g2 < _g3) {
 				var i1 = _g2++;
 				var str1 = parts[i1];
 				if(!(str1 != null && str1.length > 0)) {
@@ -4985,6 +4985,7 @@ TrainingData.snakes_common_names = ["adder","anaconda","asp","aspviper","ballpyt
 TrainingData.spanish_forenames = ["aaron","ababa","abigail","abrahan","absalon","abundio","adalberto","adan","adela","adelaida","adelia","adisoda","adolfo","adrian","adriana","adriano","africa","agapito","agueda","agustina","aida","aimar","ainara","ainhoa","aitor","alba","albano","alberto","alejandra","alejandro","alfonso","alfredo","alicia","alma","almudena","alodia","alondra","altagracia","alvara","alvaro","amalia","amanda","amaya","amelia","amparo","ana","andrea","andres","angel","angela","angeles","angelica","anibal","aniceto","anita","antero","antonia","antonieta","antonio","araceli","arantxa","ariel","armando","arturo","ascension","asuncion","augustin","aurelia","aurelio","aurora","azucena","barbara","bartolome","basilio","beatriz","begona","belen","beltran","beneharo","benita","benito","benjamin","bernardino","bernardo","berta","blanca","blas","bonifacio","braulio","brunilda","calixto","camila","candida","candido","canuto","caridad","carla","carlos","carlota","carmen","carolina","casimiro","catalina","catrina","cayetano","cecilia","celia","cesar","chaxiraxi","chema","citlali","clara","claudia","claudio","clotilde","cobura","concepcion","consolacion","consuelo","cornelio","covadonga","cristina","cristobal","cruz","cruz","dalila","damaso","damian","daniel","daniela","daritza","david","dayana","debora","delia","derque","desamparados","diana","diego","dionisia","dionisio","dolores","dominga","domingo","dorotea","echedey","edgar","edgardo","edmundo","eduardo","efren","egidio","elena","elias","elisa","eliseo","eloy","elvira","emanuel","emelda","emilia","emilio","encarnacion","enka","enrique","enriqueta","ernestina","ernesto","esperanza","estanislao","esteban","estefania","estela","ester","esther","eufemia","eugenia","eugenio","eulalia","eva","ezequiel","fabian","fabiana","fabio","fabricia","fabricio","facunda","facundo","fadrique","federico","feliciana","feliciano","felicidad","felipa","felipe","felisa","fermin","fermina","fernan","fernanda","fernando","ferrando","fidel","filomena","firjas","flavia","flora","florencia","floria","florio","floro","francisco","franco","frida","froila","froilan","froilana","fulberta","fulberto","fulca","fulco","gabriel","gabriela","gara","gema","genaro","german","gershu","gilberto","ginebra","gines","gonzalo","graciela","gregorio","guadalupe","guadalupe","guillermina","guillermo","gustavo","hanagua","haydee","hector","hernando","hilda","hipolito","hortensia","hugo","humberto","ignacio","ilda","imelda","inaki","ines","inigo","inmaculada","irene","ireneo","isaac","isabel","isidoro","isidro","ismael","itahisa","ivan","jacinta","jacinto","jacobo","jacqueline","jaime","jairo","javier","javiera","jesus","jimena","joaquin","joaquina","jonay","jorge","jorgelina","jose","josefa","josefina","josue","juan","juana","juanca","juanfran","juano","julian","juliana","julieta","julio","justin","justo","karina","kebehi","ladislao","laura","lea","leandro","leire","leon","leonardo","leonor","leopoldo","leticia","lia","lidia","lilia","liliana","lope","lorena","lorenza","lorenzo","lourdes","lucas","lucia","luciana","luciano","luis","luisa","luna","luz","macarena","magdalena","maite","manuel","manuela","marcela","marcelina","marcelino","marcelo","marcial","marcos","margarita","maria","mariana","mariano","maribel","marina","mario","marta","martin","martina","mateo","matias","matilde","maximo","mayte","meagens","mercedes","micaela","miguel","miguela","milagros","mireia","mirella","mireya","modesta","modesto","moises","monica","montserrat","murillo","narcisa","narciso","natalia","natalio","natan","natan","natividad","nerea","nicolas","nicolau","nieves","nilda","noelia","noemi","nuria","ofelia","olga","ordono","oriol","oscar","oswaldo","pablito","pablo","paqui","pascual","pascuala","patricia","patricio","paula","paulette","paulina","paulito","paz","pedro","pelayo","piedad","pilar","pio","purificacion","rafael","rafaela","raimunda","raimundo","ramira","ramiro","ramon","ramona","raquel","raul","rebeca","remedios","renato","ricarda","ricardo","roberto","rocio","rodolfa","rodolfo","rodrigo","rogelio","rosa","rosalia","rosario","roxana","ruben","rut","ruth","ruy","salomon","salvador","samuel","sancho","sandra","santi","santiago","sara","saul","sebastian","segundo","selena","serafina","sergio","silvia","silvio","simon","sofia","soledad","sonia","soraya","susana","tadeo","tania","teodora","teodoro","teofilo","teresa","thiare","tiare","timoteo","tito","tomas","tomasa","triana","trinidad","tristan","trysta","ulises","ulrica","unai","ursula","valentin","valentina","vane","vanesa","veronica","vicenta","vicente","victoria","violeta","virginia","vito","ximena","yago","yesenia","yolanda","zulma"];
 TrainingData.sports = ["abseiling","aerobatics","aikido","air acing","airsoft","angling","archery","autocross","autograss","axethrowing","backpacking","backstroke","badminton","bagatelle","balancebeam","ball","ballooning","bando","bandy","bangerracing","barbilliards","barrelracing","bartitsu","baseball","basejumping","basketball","batontwirling","beachsoccer","beachtennis","beachvolleyball","beagling","billiards","biribol","blackball","bobsleigh","bodyboarding","bodybuilding","bottlepool","bouldering","bowlliards","boxing","breaststroke","broomball","bucketball","bullriding","bushwhacking","campdrafting","canoeing","canyoneering","cardstacking","casterboarding","casting","catchwrestling","coastalrowing","coasteering","cockfighting","corkball","cowboy","creeking","cribbage","cricket","crosscountry","curling","cutting","cycling","cyclocross","deerhunting","desertracing","dicestacking","dinghysailing","dirtjumping","discdog","discgolf","diving","dodgeball","dodgedisc","dragracing","drifting","eightball","fastnet","fencing","figureskating","fistball","fivepins","fives","floor","floorball","flutterguts","flyfishing","flyingtrapeze","folkrace","folkwrestling","football","footvolley","formularacing","foxhunting","freeboarding","freeboating","freediving","freerunning","freestyle","geocaching","gigracing","gliding","goalball","grasstrack","greekwrestling","gymnastics","handball","handball","hanggliding","harecoursing","harnessracing","highbar","hiking","hillclimbing","hockey","hoop","hooverball","horseracing","iceclimbing","icefishing","icehockey","iceracing","icespeedway","iceyachting","jousting","judo","juggling","jujutsu","karate","kartracing","kendo","kenjutsu","kickball","kickboxing","kilikiti","kiteboarding","kitebuggying","kitefighting","kitelandboarding","kitesurfing","kneeboarding","kungfu","lacrosse","landsailing","lasertag","letterboxing","longball","longboarding","luge","matball","matchplay","medleyrelay","miniaturegolf","motocross","mountainboarding","mountaineering","mudbogging","netball","ninjutsu","offroading","orienteering","paintball","parachuting","paragliding","paramotoring","parasailing","parkour","poleclimbing","polo","polocrosse","pool","powerlifting","punchball","racewalking","racketlon","racquetball","racquets","rafting","rallycross","rallying","reining","ribbon","ringball","ringette","ringo","riverboarding","rodeo","rope","ropeclimbing","ropejumping","roping","rundown","sailing","sandboarding","sanshou","scootering","scubadiving","seakayaking","shootboxing","shootfighting","showjumping","skateboarding","skibobbing","skijumping","skimboarding","skitouring","skydiving","skysurfing","slacklining","slamball","snooker","snooker","snorkelling","snowboarding","snowkiting","softball","softball","softtennis","spearfishing","speedball","speedgolf","speedminton","speedpool","speedskiing","squash","steeplechase","streetball","streetboarding","streetracing","sumowrestling","supercross","supermoto","surfboat","surfing","swordfighting","tennis","testcricket","throwball","tobogganing","trackcycling","trackracing","trampolining","trapeze","truckracing","ultimate","unicycling","vault","volleyball","wakeboarding","wakesurfing","walking","wallyball","waterpolo","watervolleyball","windsurfing","wireball","wrestling"];
 TrainingData.stars_proper_names = ["acamar","achernar","achird","acrab","acrux","acubens","adhafera","adhara","ain","aladfar","alamak","alathfar","alaraph","albaldah","albali","albireo","alchiba","alcor","alcyone","aldebaran","alderamin","aldhafera","aldhibah","aldib","alfirk","algedi","algenib","algenib","algieba","algol","algorab","alhajoth","alhena","alioth","alkaid","alkalurops","alkes","alkurah","almach","alnasl","alnilam","alnitak","alniyat","alphard","alphecca","alpheratz","alrai","alrakis","alrami","alrischa","alsafi","alsciaukat","alshain","alshat","altair","altais","altarf","alterf","aludra","alwaid","alya","alzir","ancha","angetenar","ankaa","antares","arcturus","arich","arided","arkab","armus","arneb","arrakis","ascella","asellus","ashlesha","askella","aspidiske","asterion","asterope","atik","atlas","atria","auva","avior","azaleh","azelfafage","azha","azimech","azmidiske","baham","baten","becrux","beid","bellatrix","benetnasch","betelgeuse","botein","brachium","canopus","capella","caph","caphir","castor","castula","celbalrai","celaeno","chara","chara","cheleb","chertan","coxa","caiam","cursa","cynosura","dabih","decrux","deneb","denebola","dheneb","diadem","diphda","dnoces","dschubba","dubhe","duhr","edasich","electra","elmuthalleth","elnath","eltanin","enif","errai","etamin","fomalhaut","furud","gacrux","gatria","gemma","gianfar","giedi","giennah","girtab","gomeisa","gorgonea","graffias","grafias","grassias","grumium","hadar","hadir","haedus","haldus","hamal","hassaleh","hydrus","heka","heze","hoedus","homam","hyadum","hydrobius","izar","jabbah","jih","kabdhilinan","kaffaljidhma","kajam","kastra","keid","kitalpha","kleeia","kochab","kornephoros","kraz","ksora","kuma","lesath","maasym","mahasim","maia","marfark","marfik","markab","matar","mebsuta","media","megrez","meissa","mekbuda","menchib","menkab","menkalinan","menkar","menkent","menkib","merak","merga","merope","mesarthim","miaplacidus","mimosa","minchir","minelava","minkar","mintaka","mira","mirach","miram","mirfak","mirzam","misam","mizar","mothallah","muliphein","muphrid","murzim","naos","nash","nashira","navi","nekkar","nembus","neshmet","nihal","nunki","nusakan","okul","peacock","phact","phad","pherkad","pherkard","pleione","pollux","porrima","praecipua","procyon","propus","proximacentauri","pulcherrim","rana","rasalas","rastaban","regor","regulus","rigel","rotanev","ruchba","ruchbah","rukbat","sabik","sadachbia","sadalbari","sadalmelik","sadalsuud","sadatoni","sadira","sadr","sadlamulk","saiph","saiph","salm","sargas","sarin","sceptrum","scheat","scheddi","schedar","segin","seginus","sham","shaula","sheliak","sheratan","sinistra","sirius","situla","skat","spica","sterope","sualocin","subra","suhail","suhel","sulafat","sol","syrma","tabit","tarazet","taygeta","terebellum","thabit","theemin","unukalhai","vega","vindemiatrix","wasat","wei","wezen","wezn","yildun","zaniah","zaurak","zavijava","zedaron","zelphah","zibal","zosma","zubenelgenubi","zubenelgubi","zubeneschemali","zubenhakrabi"];
+TrainingData.superlatives = ["angriest","","best","","biggest","","bitterer","","bitterest","","blackest","","blandest","","bloodiest","","bluest","","boldest","","bossiest","","bravest","","briefest","","brightest","","broadest","","busiest","","calmest","","cheapest","","chewiest","","chubbiest","","classiest","","cleanest","","clearest","","cleverer","","cleverest","","closest","","cloudiest","","clumsiest","","coarsest","","coldest","","coolest","","craziest","","creamiest","","creepiest","","crispiest","","cruelest","","crunchiest","","curliest","","curviest","","cutest","","dampest","","darkest","","deadliest","","deepest","","densest","","dirtiest","","driest","","dullest","","dumbest","","dustiest","","earliest","","easiest","","eldest","","faintest","","fairest","","fanciest","","farthest","","fastest","","fattest","","fewest","","fiercest","","filthiest","","finest","","firmest","","fittest","","flakiest","","flattest","","freshest","","friendliest","","fullest","","funniest","","further","","furthest","","gentlest","","gloomiest","","grandest","","gravest","","greasiest","","greatest","","greediest","","grossest","","guiltiest","","hairiest","","handiest","","happiest","","hardest","","harshest","","healthiest","","heaviest","","highest","","hippest","","hottest","","humblest","","hungriest","","iciest","","itchiest","","juiciest","","kindest","","largest","","latest","","laziest","","lightest","","likeliest","","littlest","","liveliest","","loneliest","","longest","","loudest","","loveliest","","lowest","","maddest","","meanest","","messiest","","mildest","","moistest","","narrowest","","nastiest","","naughtiest","","nearest","","neatest","","neediest","","newest","","nicest","","noisiest","","oddest","","oiliest","","older","","oldest","","plainest","","politer","","politest","","poorest","","prettiest","","proudest","","purest","","quickest","","quietest","","rarest","","rawest","","richest","","ripest","","riskiest","","roomiest","","roughest","","rudest","","rustiest","","saddest","","safest","","saltiest","","sanest","","scariest","","shallowest","","sharpest","","shiniest","","shortest","","shyest","","silliest","","simplest","","sincerest","","skinniest","","sleepiest","","slimiest","","slimmest","","slowest","","smallest","","smartest","","smelliest","","smokiest","","smoothest","","softest","","soonest","","sorest","","sorriest","","sourest","","spiciest","","steepest","","stingiest","","strangest","","strictest","","strongest","","sunniest","","sweatiest","","sweetest","","tallest","","tannest","","tastiest","","thickest","","thinnest","","thirstiest","","tiniest","","toughest","","truest","","ugliest","","warmest","","weakest","","wealthiest","","weirdest","","wettest","","widest","","wildest","","windiest","","wisest","","worldliest","","worst","","worthiest","","youngest"];
 TrainingData.supermarkets_and_discount_stores = ["aldi","asda","bargainbooze","bargainbuys","bargaincrazy","bimart","booths","bottomdollarfood","budgens","burlington ","buyright","cooltrader","cornerstore","costco","costcutter","cubfoods","deals","dollargeneral","dollartree","drugfair","familybargains","familymart","farmfoods","farmfreshexpress","fedmart","foodmart","gemco","gordmans","grandcentral","happyshopper","hartsstores","homebargains","hypervalue","iceland","jamesway","kaufland","kmart","kwiksave","kwiktrip","magicmart","mammothmart","morrisons","nationalstores","netto","ocado","poundland","poundstretcher","poundworld","premierstores","premiersupermarkets","richway","rodgersstores","rossstores","sainsburys","savealot","saverite","savershealth","seveneleven","shopko","shoppercity","shoprite","shopritehyper","steinmart","tesco","valumart","venturestores","waitrose","walmart","wellworths","whitemart","wincofoods","woolco","woolworths"];
 TrainingData.swedish_forenames = ["adam","adrian","agnes","albin","alex","alexander","alfred","ali","alice","alicia","alma","alva","alvin","amanda","amelia","anna","anton","aron","arvid","astrid","august","axel","benjamin","carl","casper","celine","charlie","colin","cornelia","daniel","dante","david","ebba","ebbe","eddie","edith","edvin","edward","elias","elin","elina","elis","elisa","elise","ella","ellen","ellie","ellinor","elliot","elsa","elton","elvin","elvira","emelie","emil","emilia","emma","emmy","erik","ester","felicia","felix","filip","filippa","frank","freja","gabriel","greta","gustav","hampus","hanna","harry","hedda","henry","hilda","hilma","hjalmar","hugo","ida","ines","ingrid","iris","isabella","isabelle","isak","ivar","jack","jacob","jasmine","joel","john","joline","jonathan","josef","julia","julian","juni","kevin","klara","leah","leia","leo","leon","liam","lilly","linn","linnea","linus","lisa","liv","livia","loke","loui","lova","love","lovis","lovisa","lucas","ludvig","luna","lykke","maja","majken","malte","maria","matilda","matteo","max","maximilian","meja","melissa","melker","melvin","milo","milton","minna","mio","mira","moa","mohamed","molly","my","märta","nathalie","nellie","neo","nicole","nils","noah","noel","nora","nova","novalie","oliver","olivia","olle","oscar","otto","rasmus","ronja","rut","saga","sally","sam","samuel","sara","sebastian","selma","sigge","signe","sigrid","simon","siri","sixten","sofia","stella","stina","svante","svea","tage","thea","theo","theodor","tilda","tilde","tindra","tuva","tyra","valter","vera","victoria","vidar","viggo","viktor","vilgot","ville","vincent","wilhelm","william","wilma","wilmer"];
 TrainingData.swiss_cities = ["aarau","aarberg","aarburg","adliswil","agno","aigle","allschwil","altdorf","altstätten","amriswil","appenzell","arbon","ascona","aubonne","avenches","baar","baden","basel","bellinzona","bern","beromünster","biasca","biel","bienne","binningen","birsfelden","bischofszell","boudry","bremgarten","brig","brugg","buchs","bulle","burgdorf","bülach","carouge","cham","chur","conthey","coppet","cossonay","croglio","cudrefin","cully","davos","delémont","diessenhofen","dietikon","dübendorf","ebikon","eglisau","einsiedeln","elgg","emmen","erlach","frauenfeld","freienbach","fribourg","geneva","gland","glarus","gordola","gossau","grandcour","grandson","greifensee","grenchen","gruyères","grüningen","herisau","hermance","horgen","horw","huttwil","ilanz","ittigen","kaiserstuhl","klingnau","kloten","kreuzlingen","kriens","köniz","küsnacht","küssnacht","lachen","lancy","langenthal","laufen","laufenburg","laupen","lausanne","lenzburg","leuk","lichtensteig","liestal","locarno","losone","lucerne","lugano","lutry","lyss","maienfeld","martigny","meilen","mellingen","mendrisio","meyrin","monthey","montreux","morcote","morges","moudon","moutier","muri","murten","muttenz","münchenstein","münsingen","neuchâtel","neuhausen","neunkirch","nidau","nyon","oftringen","olten","onex","opfikon","orbe","orsières","ostermundigen","payerne","porrentruy","pratteln","prilly","pully","regensberg","regensdorf","reinach","renens","rheinau","rheineck","rheinfelden","richterswil","riehen","rolle","romainmôtier","romont","rorschach","rue","rüti","saillon","sala","sargans","sarnen","schaffhausen","schlieren","schwyz","sembrancher","sempach","sierre","sion","solothurn","spiez2","splügen","spreitenbach","stans","steckborn","steffisburg","stäfa","sursee","thalwil","thun","thusis","thônex","unterseen","uster","uznach","uzwil","valangin","vernier","versoix","vevey","villeneuve","visp","volketswil","waldenburg","walenstadt","wallisellen","werdenberg","wettingen","wetzikon","wiedlisbach","wil","willisau","winterthur","wohlen","worb","wädenswil","zofingen","zollikon","zug","zurich","zurzach","échallens"];
