@@ -97,4 +97,7 @@ Some users have ported and extended the Markov Namegen library to different prog
 * Read the [documentation](https://tw1ddle.github.io/MarkovNameGenerator/).
 
 ## License
-The website and demo code are licensed under CC BY-NC. The [haxelib](https://lib.haxe.org/p/markov-namegen/) itself is provided under the MIT license. The noUiSlider settings sliders are WTFPL. Most of the training data is compiled from sites like Wikipedia and census data sources.
+* The website and demo code are licensed under CC BY-NC.
+* The [haxelib](https://lib.haxe.org/p/markov-namegen/) itself is provided under the MIT license.
+* The noUiSlider settings sliders are WTFPL.
+* Most of the training data is compiled from sites like Wikipedia and census data sources over many years. CC-BY-SA 3.0 as a derivative from Wikipedia content will cover most of the content if you wish to use these for other purposes, but I provide no guarantee.
