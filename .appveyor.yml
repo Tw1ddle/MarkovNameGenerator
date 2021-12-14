@@ -23,7 +23,6 @@ install:
   - export PATH=$PATH:$HAXE_INSTALLDIR/haxe_20211022152000_ab0c054
   - mkdir $HAXELIB_ROOT && haxelib setup $HAXELIB_ROOT
   - haxelib install sure
-  - haxelib install dox # For documentation generation
   - haxelib list
 
 build_script:
@@ -32,12 +31,6 @@ build_script:
   # Build the name generator
   - haxe MarkovNames.hxml
   
-  # Build the documentation
-  - pushd lib/dox
-  - chmod +x generate_docs.sh
-  - ./generate_docs.sh
-  - popd
-
 # Deploy the documentation to the GitHub pages branch
 deploy_script:
   # Important: this goes one level above the original build folder to avoid accidentally trashing the master branch
@@ -63,9 +56,9 @@ deploy_script:
   - git reset --hard "$firstCommitHash"
   
   # Move the newly-generated docs to the gh-pages folder
-  - cd $APPVEYOR_BUILD_FOLDER/lib/dox/generated_docs
-  - (shopt -s dotglob && mv * ../../../../gh-pages)
-  - cd ../../../../gh-pages
+  - cd $APPVEYOR_BUILD_FOLDER/bin
+  - (shopt -s dotglob && mv * ../../gh-pages)
+  - cd ../../gh-pages
 
   # Note that when there is nothing to commit, git commit exits with 1 (but that should never happen here)
   - git add -A
