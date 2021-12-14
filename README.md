@@ -3,9 +3,9 @@
 [![Build Status Badge](https://ci.appveyor.com/api/projects/status/github/Tw1ddle/MarkovNameGenerator)](https://ci.appveyor.com/project/Tw1ddle/MarkovNameGenerator)
 [![License Badge](https://licensebuttons.net/l/by-nc/4.0/80x15.png)](https://github.com/Tw1ddle/MarkovNameGenerator/blob/master/LICENSE)
 
-Markov Namegen is a Markov chain-based procedural name generator written in Haxe. Run the demo site [in your browser](https://www.samcodes.co.uk/project/markov-namegen/).
+Markov Namegen is a Markov chain-based procedural name generator [webpage demo](https://www.samcodes.co.uk/project/markov-namegen/) and [library](https://github.com/Tw1ddle/markov-namegen-lib) written in Haxe.
 
-Demonstrates the [markov-namegen haxelib](https://lib.haxe.org/p/markov-namegen). Read the docs [here](https://tw1ddle.github.io/MarkovNameGenerator/).
+Demonstrates the [markov-namegen](https://github.com/Tw1ddle/markov-namegen-lib) [haxelib](https://lib.haxe.org/p/markov-namegen). Run the demo [in your browser](https://www.samcodes.co.uk/project/markov-namegen/). Read the library docs [here](https://tw1ddle.github.io/markov-namegen-lib/).
 
 ## Features
 * Hundreds of customizable/combinable training data presets.
