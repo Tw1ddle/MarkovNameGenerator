@@ -61,10 +61,9 @@ Then navigate to the [bin](https://github.com/Tw1ddle/MarkovNameGenerator/tree/m
 ## Notes
 * Many of the concepts used for the generator were suggested in [this article](http://www.roguebasin.com/index.php?title=Names_from_a_high_order_Markov_Process_and_a_simplified_Katz_back-off_scheme) by Jeffrey Lund.
 * If you have any questions or suggestions then [get in touch](https://twitter.com/Sam_Twidale) or open an issue.
-* Read the [documentation](https://tw1ddle.github.io/MarkovNameGenerator/).
+* Read the [documentation](https://tw1ddle.github.io/markov-namegen-lib/).
 
 ## License
+* The [haxelib](https://github.com/Tw1ddle/markov-namegen-lib/) code is provided under the MIT license.
 * The website and demo code are licensed under CC BY-NC.
-* The [haxelib](https://lib.haxe.org/p/markov-namegen/) itself is provided under the MIT license.
 * The noUiSlider settings sliders are WTFPL.
-* Most of the training data is compiled from sites like Wikipedia and census data sources over many years. CC-BY-SA 3.0 as a derivative from Wikipedia content will cover most of the content if you wish to use these for other purposes, but I provide no guarantee.
