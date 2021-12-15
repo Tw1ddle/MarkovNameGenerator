@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en-GB" xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width,user-scalable=yes,initial-scale=1,maximum-scale=1">
+		<title>Procedural Name Generator - Markov Process Random Name And Word Generator</title>
+		<meta name="author" content="Sam Twidale">
+		<meta name="description" content="This random name generator procedurally generates original names for animals, babies, characters, towns, or anything that needs a name.">
+		<meta name="keywords" content="random name, name generator, name creator, procedural name generator, generator, procedural, markov, markov chain, names, boy names, girl names, baby names, list, dictionary">
+		<meta name="subject" content="Name Generator">
+		<meta name="robots" content="index, follow">
+		<link rel="canonical" href="https://www.samcodes.co.uk/project/markov-namegen/" />
+		<meta property="og:title" content="Procedural Name Generator">
+		<meta property="og:description" content="Generate original names using Markov chains.">
+		<meta property="og:site_name" content="Samcodes">
+		<meta name="twitter:title" content="Procedural Name Generator">
+		<meta name="twitter:description" content="Generate original names using Markov chains.">
+		<link rel="icon" type="image/x-icon" href="icon/favicon.png">
+		<link rel="apple-touch-icon-precomposed" type="image/x-icon" href="icon/apple-touch-icon-precomposed.png">
+		<!--[if IE]><link rel="shortcut icon" type="image/x-icon" href="icon/favicon.ico"><![endif]-->
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/nouislider.min.css">
+		<link rel="stylesheet" type="text/css" href="css/nouislider.pips.css">
+	</head>
+	
+	<body>
+		<section id="header">
+			<div class="inner">
+				<!-- Icon -->
+				<h1>Procedural <strong>Name Generator</strong></h1>
+				<h2>Generate original names with Markov chains</h2>
+				
+				<a href="https://github.com/Tw1ddle/MarkovNameGenerator" target="_blank">
+					<img class="logo" src="assets/images/markovnamegen_logo.png" alt="procedural name generation, name generator markov-namegen haxelib logo">
+				</a>
+				
+				<p><a href="https://github.com/Tw1ddle/MarkovNameGenerator" target="_blank">Markov Namegen</a> procedurally generates names with a <a href="https://en.wikipedia.org/wiki/Markov_process" target="_blank">Markov process</a>. It's a free and <a href="https://github.com/Tw1ddle/MarkovNameGenerator" target="_blank">open source</a> name generator, written by <a href="https://twitter.com/Sam_Twidale" target="_blank">Sam Twidale</a>.</p>
+				
+				<p>Press the "Generate" button to begin. Press the "Settings" button to show advanced options.</p>
+			</div>
+		</section>
+		
+		<!-- Options and filters -->
+		<section id="accordion">
+			<div>
+				<input type="checkbox" id="showsettingscheckbox">
+				<h2><label id="showsettingslabel" for="showsettingscheckbox">Settings</label></h2>
+				
+				<div class="settings">
+					<div class="stitched">
+						<h3>Name Data Presets</h3>
+					
+						<div id="trainingdataselectioncheckboxes">
+						</div>
+					
+						<select id="trainingdatalist">
+						</select>
+						
+						<input id="trainingdatasearchbox" type="text" value="" list="namedatapresetslist" placeholder="Type to search presets..." />
+						
+						<select id="trainingdatacombinationmodelist">
+						</select>
+						
+						<datalist id="namedatapresetslist"></datalist>
+						
+						<h3>Current Data</h3>
+						<textarea id="trainingdataedit">
+						</textarea>
+					</div>
+					
+					<div id="sliderscontainer" class="sliders stitched">
+						<div class="container">
+							<h3>Length Range</h3>
+							<div id="minmaxlength" class="black"></div>
+						</div>
+						<div class="container">
+							<h3>Order</h3>
+							<div id="order" class="red"></div>
+						</div>
+						
+						<div class="container">
+							<h3>Prior</h3>
+							<div id="prior" class="green"></div>
+						</div>
+						
+						<div class="container">
+							<h3>Backoff</h3>
+							<div id="backoff" class="blue"></div>
+						</div>
+						
+						<div class="container">
+							<h3>Words To Generate</h3>
+							<div id="maxwordstogenerate" class="orange"></div>
+						</div>
+						<div class="container">
+							<h3>Max Processing Time</h3>
+							<div id="maxtime" class="blue"></div>
+						</div>
+					</div>
+					
+					<div class="textboxes stitched">
+						<div class="container"> <h3>Starts With</h3> <input type="text" id="startswith" class="control"> </div>
+						<div class="container"> <h3>Ends With</h3> <input type="text" id="endswith" class="control"> </div>
+						<div class="container"> <h3>Includes</h3> <input type="text" id="includes" class="control"> </div>
+						<div class="container"> <h3>Excludes</h3> <input type="text" id="excludes" class="control"> </div>
+						<div class="container"> <h3>Similar To</h3> <input type="text" id="similar" class="control"> </div>
+						<div class="container"> <h3>Matches Regex</h3> <input type="text" id="regexmatch" class="control"> </div>
+					</div>
+					
+				</div>
+			</div>
+		</section>
+		
+		<a class="button" id="generate">
+			<h2>Generate</h2>
+		</a>
+		<a class="button" id="randomthemeone">
+			<h2>Random (x1)</h2>
+		</a>
+		
+		<a class="button" id="randomthemetwo">
+			<h2>Random (x2)</h2>
+		</a>
+		
+		<br>
+		
+		<div class="container stitched">
+			<h2 id="namestitle">Names</h2>
+			<br>
+		
+			<p id="nonamesfound">Press "Generate" to begin, "Random" for a random theme, and "Settings" to customize.</p>
+			<ul id="currentnames">
+			</ul>
+		</div>
+		
+		<br>
+		
+		<div class="textboxes stitched">
+			<div class="container">
+			    <div>
+					<a class="button" id="shareresultsonly"><h3>Share Results</h3></a>
+					<a class="button" id="shareresultsandsettings"><h3>Share Results And Training Data</h3></a>
+			    </div>
+				<div><textarea id="shareedit"></textarea></div>
+			</div>
+		</div>
+		
+		<br>
+		
+		<div class="container stitched">
+			<h2>How It Works</h2>
+			<p>This page uses  <a href="https://en.wikipedia.org/wiki/Markov_chain" target="_blank">Markov chains</a> to procedurally generate original names. Given a set of words as training data, the name generator calculates the probability of a letter appearing after the sequence of letters chosen so far. There are dozens of training presets, and the corpus can be manually edited through the "Settings" dropdown section above.</p>
+			<p>The generator maintains models that look up to "n" characters back, where "n" is the "Order" option value in the settings section. It starts by checking the highest order model, falling back to lower order models as necessary, using an approach called <a href="https://en.wikipedia.org/wiki/Katz%27s_back-off_model" target="_blank">Katz's back-off model</a>. As you increase the "Order" setting, larger chunks of the training words will appear in the generated output.</p>
+			<p>The Dirichlet "Prior" setting adds a constant probability that any letter may be picked as the next letter. It acts like an additive smoothing factor, making the generated name content a bit more "random". Keep this parameter small, it can be useful to increase this to get more results.</p>
+			<p>The generator generates as many names as possible, then filters and sorts the results according to tweakable criteria in the settings section. The "Length" range slider limits how many characters long the words are. The "Start", "End", "Includes", "Excludes" and "Regex" options are used to filter the generated words.</p>
+			<p>The "Similar To" parameter allows you to sort the generated names by their similarity to the name that you enter. The similarity of the words is determined by the <a href="https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance" target="_blank">Damerau-Levenshtein</a> distance.</p>
+			<p>This generator is suitable for generating all sorts of names. Hundreds of preset training datasets are embedded, and you can provide your own word data through the settings section. Presets include funny names, fantasy names, Scottish names, German names, Irish names, names of towns, animal names, theological names, werewolf names etc. </p>
+			<p>The name generator was written using <a href="https://haxe.org/" target="_blank">Haxe</a>. If you have any suggestions, requests or comments then <a href="https://twitter.com/Sam_Twidale" target="_blank">contact me</a> or open an <a href="https://github.com/Tw1ddle/MarkovNameGenerator" target="_blank">issue</a>.</p>
+		</div>
+		
+		<script src="js/wNumb.min.js"></script>
+		<script src="js/nouislider.min.js"></script>
+		<script src="js/markov.js"></script>
+    </body>
+</html>
