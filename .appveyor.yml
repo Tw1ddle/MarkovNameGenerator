@@ -25,6 +25,8 @@ install:
   - haxelib install sure
   - haxelib list
 
+  - cd $APPVEYOR_BUILD_FOLDER
+
   # Configure CI bot git email/username
   - git config --global user.name "AppVeyor CI Bot"
   - git config --global user.email "appveyor@appveyor.org"
